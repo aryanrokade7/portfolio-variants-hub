@@ -592,11 +592,13 @@
 
   <script>
     const themeBtn = document.getElementById('themeToggle');
-    themeBtn.addEventListener('click', () => {
-      const current = document.body.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.body.setAttribute('data-theme', next);
-    });
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.body.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', next);
+      });
+    }
   </script>
   <script src="switcher.js"></script>
 </body>

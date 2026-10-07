@@ -562,7 +562,9 @@
     // Interactive 3D Canvas Wireframe Cube Simulation
     (function init3DCube() {
       const canvas = document.getElementById('viewport-canvas');
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
+      if (!ctx) return;
       let width, height;
       let angleX = 0.5, angleY = 0.5;
       let isDragging = false, lastX, lastY;

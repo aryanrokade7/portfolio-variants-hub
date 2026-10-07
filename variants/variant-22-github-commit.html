@@ -588,24 +588,26 @@
   <script>
     // Populate authentic contribution heatmap
     const grid = document.getElementById('heatGrid');
-    const colors = ['var(--gh-heat-0)', 'var(--gh-heat-1)', 'var(--gh-heat-2)', 'var(--gh-heat-3)', 'var(--gh-heat-4)'];
+    if (grid) {
+      const colors = ['var(--gh-heat-0)', 'var(--gh-heat-1)', 'var(--gh-heat-2)', 'var(--gh-heat-3)', 'var(--gh-heat-4)'];
 
-    for (let col = 0; col < 52; col++) {
-      const colDiv = document.createElement('div');
-      colDiv.className = 'heat-col';
-      for (let row = 0; row < 7; row++) {
-        const cell = document.createElement('div');
-        cell.className = 'heat-cell';
-        const rand = Math.random();
-        let c = colors[0];
-        if (rand > 0.4) c = colors[1];
-        if (rand > 0.65) c = colors[2];
-        if (rand > 0.85) c = colors[3];
-        if (rand > 0.95) c = colors[4];
-        cell.style.background = c;
-        colDiv.appendChild(cell);
+      for (let col = 0; col < 52; col++) {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'heat-col';
+        for (let row = 0; row < 7; row++) {
+          const cell = document.createElement('div');
+          cell.className = 'heat-cell';
+          const rand = Math.random();
+          let c = colors[0];
+          if (rand > 0.4) c = colors[1];
+          if (rand > 0.65) c = colors[2];
+          if (rand > 0.85) c = colors[3];
+          if (rand > 0.95) c = colors[4];
+          cell.style.background = c;
+          colDiv.appendChild(cell);
+        }
+        grid.appendChild(colDiv);
       }
-      grid.appendChild(colDiv);
     }
   </script>
 

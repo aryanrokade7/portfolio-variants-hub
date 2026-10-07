@@ -54,14 +54,12 @@
     { id: '43', file: 'variant-43-nes-cartridge.html', name: '43. 8-Bit Nintendo NES Adventure' },
     { id: '44', file: 'variant-44-michelin-menu.html', name: '44. Michelin 3-Star Gastronomy Menu' },
     { id: '45', file: 'variant-45-retro-pager.html', name: '45. 1990s Motorola Alpha Pager' },
-    { id: '46', file: 'vintage-typewriter.html', name: '46. 1930s Remington Typewriter' },
+    { id: '46', file: 'variant-46-vintage-typewriter.html', name: '46. 1930s Remington Typewriter' },
     { id: '47', file: 'variant-47-casino-slot-machine.html', name: '47. Vegas Golden Jackpot Slot' },
     { id: '48', file: 'variant-48-illuminated-manuscript.html', name: '48. Medieval Illuminated Manuscript' },
     { id: '49', file: 'variant-49-neon-vending.html', name: '49. Akihabara Neon Vending Machine' },
     { id: '50', file: 'variant-50-modular-synth.html', name: '50. Eurorack Modular Synth System' }
   ];
-  // Correct file 46 name mapping
-  VARIANTS[45].file = 'variant-46-vintage-typewriter.html';
 
   // Check if running inside iframe (e.g., in Variants Hub simulator)
   var inIframe = false;
