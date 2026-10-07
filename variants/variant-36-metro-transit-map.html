@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Metro Transit Map</title>
+  <meta name="description" content="Iconic London Tube / Tokyo Metro stylized transit map portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #14171c;
+      --card-bg: #1e2229;
+      --tube-yellow: #ffcc00;
+      --tube-blue: #0077ff;
+      --tube-green: #00cc66;
+      --tube-red: #ff3344;
+      --tube-purple: #9933ff;
+      --font-transit: 'Cabin', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: #e0e6ed;
+      font-family: var(--font-transit);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    .metro-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Metro Header Bar */
+    .metro-header {
+      background: #0d1014;
+      border: 3px solid #2d3540;
+      border-radius: 8px;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .transit-roundel {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .roundel-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 6px solid var(--tube-red);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .roundel-bar {
+      position: absolute;
+      width: 54px;
+      height: 12px;
+      background: var(--tube-blue);
+      border-radius: 2px;
+    }
+
+    .transit-names h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+    .transit-names p {
+      font-size: 0.8rem;
+      color: #8f9ea8;
+    }
+
+    /* Metro Lines Key Legend */
+    .metro-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #181d24;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .line-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .line-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Main Grid: SVG Map vs Station Arrival Screen */
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
+    }
+    @media (max-width: 960px) {
+      .map-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Vector Metro Transit Map Canvas */
+    .map-canvas-box {
+      background: #0f1216;
+      border: 2px solid #29313d;
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      min-height: 450px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Station Interactive Buttons Placed on Lines */
+    .stations-diagram {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .transit-line-row {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .transit-line-track {
+      position: absolute;
+      left: 0; right: 0;
+      height: 8px;
+      border-radius: 4px;
+      z-index: 1;
+    }
+    .station-nodes {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .station-node {
+      background: #fff;
+      border: 4px solid #111;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .station-node:hover, .station-node.active {
+      transform: scale(1.4);
+      box-shadow: 0 0 15px #fff;
+    }
+    .station-node.interchange {
+      width: 32px;
+      height: 32px;
+      border-width: 5px;
+      background: #ffd700;
+    }
+
+    .node-label {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      text-shadow: 0 2px 4px #000;
+      pointer-events: none;
+    }
+    .node-label.top {
+      top: -24px;
+    }
+
+    /* Right: Next Train Arrival & Station Inspector */
+    .arrival-board {
+      background: var(--card-bg);
+      border: 2px solid #2d3540;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .board-header {
+      background: #000;
+      border: 2px solid #333;
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      color: var(--tube-yellow);
+      display: flex;
+      justify-content: space-between;
+    }
+    .station-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .station-type {
+      font-size: 0.8rem;
+      color: #8da2ba;
+      margin-top: 2px;
+    }
+    .station-desc {
+      font-size: 0.88rem;
+      color: #b5c4d4;
+      line-height: 1.5;
+    }
+
+    .metro-pass-badge {
+      background: #141a22;
+      border: 1px solid #324050;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .transit-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .t-btn {
+      background: var(--tube-blue);
+      color: #fff;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      transition: opacity 0.2s;
+    }
+    .t-btn:hover { opacity: 0.85; }
+    .t-btn.sec {
+      background: #2b3340;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="metro-container">
+    
+    <!-- Top Transit Header -->
+    <header class="metro-header">
+      <div class="transit-roundel">
+        <div class="roundel-icon">
+          <div class="roundel-bar"></div>
+        </div>
+        <div class="transit-names">
+          <h1>MUMBAI METRO // ARYAN ROKADE NETWORK</h1>
+          <p>Full-Stack Lines & Neural Intelligence Express • Class of 2027</p>
+        </div>
+      </div>
+
+      <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--tube-yellow);">
+        ZONE 1: PRODUCTION READY
+      </div>
+    </header>
+
+    <!-- Legend Bar -->
+    <div class="metro-legend">
+      <div class="line-chip">
+        <div class="line-dot" style="background:var(--tube-yellow);"></div>
+        <span>VyaparFlow SaaS Line</span>
+      </div>
+      <div class="line-chip">
+        <div class="line-dot" style="background:var(--tube-red);"></div>
+        <span>CyberSentinel SecOps Line</span>
+      </div>
+      <div class="line-chip">
+        <div class="line-dot" style="background:var(--tube-blue);"></div>
+        <span>Saturn Finance Line</span>
+      </div>
+      <div class="line-chip">
+        <div class="line-dot" style="background:var(--tube-green);"></div>
+        <span>MRI Brain Tumor AI Line</span>
+      </div>
+      <div class="line-chip">
+        <div class="line-dot" style="background:var(--tube-purple);"></div>
+        <span>Octanet Internship Express</span>
+      </div>
+    </div>
+
+    <!-- Map Grid -->
+    <div class="map-grid">
+      
+      <!-- Vector Map -->
+      <div class="map-canvas-box">
+        <div class="stations-diagram">
+          
+          <!-- Line 1: Yellow -->
+          <div class="transit-line-row">
+            <div class="transit-line-track" style="background:var(--tube-yellow);"></div>
+            <div class="station-nodes">
+              <div class="station-node" onclick="viewStation(0)">
+                <span class="node-label top">TypeScript</span>
+              </div>
+              <div class="station-node interchange active" onclick="viewStation(0)">
+                <span class="node-label">VyaparFlow ERP</span>
+              </div>
+              <div class="station-node" onclick="viewStation(0)">
+                <span class="node-label top">PostgreSQL</span>
+              </div>
+              <div class="station-node" onclick="viewStation(0)">
+                <span class="node-label">Prisma ORM</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Line 2: Red -->
+          <div class="transit-line-row">
+            <div class="transit-line-track" style="background:var(--tube-red);"></div>
+            <div class="station-nodes">
+              <div class="station-node" onclick="viewStation(1)">
+                <span class="node-label top">Packet Sniffer</span>
+              </div>
+              <div class="station-node" onclick="viewStation(1)">
+                <span class="node-label">Socket.IO</span>
+              </div>
+              <div class="station-node interchange" onclick="viewStation(1)">
+                <span class="node-label top">CyberSentinel</span>
+              </div>
+              <div class="station-node" onclick="viewStation(1)">
+                <span class="node-label">Snort IDS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Line 3: Blue -->
+          <div class="transit-line-row">
+            <div class="transit-line-track" style="background:var(--tube-blue);"></div>
+            <div class="station-nodes">
+              <div class="station-node" onclick="viewStation(2)">
+                <span class="node-label top">MongoDB</span>
+              </div>
+              <div class="station-node interchange" onclick="viewStation(2)">
+                <span class="node-label">Saturn Finance</span>
+              </div>
+              <div class="station-node" onclick="viewStation(2)">
+                <span class="node-label top">Express API</span>
+              </div>
+              <div class="station-node" onclick="viewStation(2)">
+                <span class="node-label">JWT Security</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Line 4: Green -->
+          <div class="transit-line-row">
+            <div class="transit-line-track" style="background:var(--tube-green);"></div>
+            <div class="station-nodes">
+              <div class="station-node" onclick="viewStation(3)">
+                <span class="node-label top">TensorFlow</span>
+              </div>
+              <div class="station-node" onclick="viewStation(3)">
+                <span class="node-label">Keras VGG16</span>
+              </div>
+              <div class="station-node interchange" onclick="viewStation(3)">
+                <span class="node-label top">MRI Brain AI</span>
+              </div>
+              <div class="station-node" onclick="viewStation(3)">
+                <span class="node-label">Grad-CAM</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Station Arrival Board -->
+      <aside class="arrival-board">
+        <div class="board-header">
+          <span>NEXT ARRIVAL: ON TIME</span>
+          <span>PLATFORM 1</span>
+        </div>
+
+        <div>
+          <div class="station-title" id="stName">VyaparFlow Central Interchange</div>
+          <div class="station-type" id="stType">YELLOW LINE // ENTERPRISE ERP</div>
+        </div>
+
+        <p class="station-desc" id="stDesc">
+          Major business interchange handling automated GST invoicing, atomic PostgreSQL inventory ledgers, and Stripe billing pipelines. Built with Next.js 14 and TypeScript.
+        </p>
+
+        <div class="metro-pass-badge">
+          <b>PASSENGER PASSPORT:</b> Aryan Rokade<br>
+          • B.E. Computer Engineering, VCET Mumbai (2027)<br>
+          • 🏆 <b>2nd Position:</b> Techblitz Hackathon 2025<br>
+          • 💼 <b>Internship:</b> Octanet Services (+35% Velocity)
+        </div>
+
+        <div class="transit-actions">
+          <a href="../Aryan_Rokade_Resume.pdf" download class="t-btn">
+            ⬇ DOWNLOAD METROPASS (RESUME.PDF)
+          </a>
+          <a href="mailto:aryanrokade416@gmail.com" class="t-btn sec">
+            ✉ INITIATE CONTACT (EMAIL)
+          </a>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="t-btn sec">
+            GITHUB STATIONS ↗
+          </a>
+        </div>
+      </aside>
+
+    </div>
+
+  </div>
+
+  <script>
+    const stations = [
+      {
+        name: "VyaparFlow Central Interchange",
+        type: "YELLOW LINE // ENTERPRISE ERP",
+        desc: "Major business interchange handling automated GST invoicing, atomic PostgreSQL inventory ledgers, and Stripe billing pipelines. Built with Next.js 14 and TypeScript."
+      },
+      {
+        name: "CyberSentinel Security Terminal",
+        type: "RED LINE // INTRUSION DETECTION",
+        desc: "Real-time threat monitoring platform. Ingests packet telemetry via Socket.IO, evaluates Snort anomaly signatures, and broadcasts alerts across defensive nodes."
+      },
+      {
+        name: "Saturn Finance Wealth Junction",
+        type: "BLUE LINE // FINTECH CAPITAL",
+        desc: "Personal budgeting and wealth analytics junction. Features categorized expense tracking, monthly limits, and encrypted JWT user credential persistence."
+      },
+      {
+        name: "MRI Brain Tumor Neural Station",
+        type: "GREEN LINE // DEEP LEARNING DIAGNOSTICS",
+        desc: "High-accuracy clinical diagnostic station powered by TensorFlow and Keras VGG16. Delivers 98.2% test accuracy on Kaggle cranial scans with Grad-CAM heatmaps."
+      }
+    ];
+
+    function viewStation(idx) {
+      const s = stations[idx];
+      document.getElementById('stName').innerText = s.name;
+      document.getElementById('stType').innerText = s.type;
+      document.getElementById('stDesc').innerText = s.desc;
+    }
+  </script>
+</body>
+</html>

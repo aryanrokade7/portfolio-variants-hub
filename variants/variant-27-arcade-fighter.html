@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Arcade Fighter Select</title>
+  <meta name="description" content="16-bit Capcom/Neo-Geo arcade fighting game character select screen portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --arcade-bg: #090614;
+      --arcade-gold: #f8b800;
+      --arcade-cyan: #00e0ff;
+      --arcade-red: #ff2a55;
+      --arcade-blue: #0044cc;
+      --arcade-purple: #9000ff;
+      --font-pixel: 'Press Start 2P', cursive;
+      --font-body: 'Chakra Petch', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--arcade-bg);
+      background-image: 
+        radial-gradient(circle at 50% 30%, #201138 0%, #080512 85%),
+        linear-gradient(rgba(0, 224, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 42, 85, 0.05) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px, 24px 24px;
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    /* CRT Scanline effect */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .arcade-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 4px solid #362066;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(144, 0, 255, 0.35), inset 0 0 20px rgba(0,0,0,0.8);
+      padding: 24px;
+      background: rgba(14, 10, 28, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Top Marquee Header */
+    .arcade-marquee {
+      text-align: center;
+      border-bottom: 2px dashed #482c80;
+      padding-bottom: 16px;
+      position: relative;
+    }
+    .marquee-sub {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      color: var(--arcade-cyan);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      animation: blinkText 1.2s infinite;
+    }
+    @keyframes blinkText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .marquee-title {
+      font-family: var(--font-pixel);
+      font-size: 1.8rem;
+      color: var(--arcade-gold);
+      text-shadow: 3px 3px 0 #b36b00, 6px 6px 0 #000;
+      letter-spacing: 1px;
+    }
+
+    .coins-tag {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      color: #00ff88;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    /* Fighter Arena Layout */
+    .arena-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .arena-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Left: Active Fighter Card */
+    .fighter-card {
+      background: #150f29;
+      border: 3px solid var(--arcade-cyan);
+      box-shadow: 0 0 20px rgba(0, 224, 255, 0.25);
+      border-radius: 4px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .fighter-portrait-box {
+      width: 100%;
+      height: 240px;
+      border: 2px solid #573399;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fighter-portrait-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(115%) saturate(120%);
+    }
+    .fighter-badge-overlay {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid var(--arcade-gold);
+      color: var(--arcade-gold);
+      font-family: var(--font-pixel);
+      font-size: 0.55rem;
+      padding: 4px 8px;
+    }
+
+    .fighter-name-banner {
+      background: linear-gradient(90deg, #ff2a55, #9000ff);
+      padding: 6px 12px;
+      font-family: var(--font-pixel);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .fighter-bio {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #d1cae8;
+    }
+
+    /* Fighter Stats Bars */
+    .stats-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-family: var(--font-pixel);
+    }
+    .stat-bar-outer {
+      width: 160px;
+      height: 10px;
+      background: #251642;
+      border: 1px solid #4a2d80;
+      position: relative;
+    }
+    .stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ffaa00, #ff0055);
+    }
+
+    /* Right: Select Grid & Move Lists */
+    .selection-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pane-title {
+      font-family: var(--font-pixel);
+      font-size: 0.8rem;
+      color: var(--arcade-cyan);
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Roster Grid */
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .roster-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .roster-tile {
+      background: #181230;
+      border: 2px solid #3c246b;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+      position: relative;
+      transition: all 0.15s;
+    }
+    .roster-tile:hover {
+      border-color: var(--arcade-gold);
+      transform: translateY(-2px);
+    }
+    .roster-tile.selected {
+      border-color: var(--arcade-cyan);
+      box-shadow: 0 0 15px var(--arcade-cyan);
+      background: #231647;
+    }
+    .roster-tile.selected::after {
+      content: "1P";
+      position: absolute;
+      top: -10px;
+      left: 6px;
+      background: var(--arcade-red);
+      color: #fff;
+      font-family: var(--font-pixel);
+      font-size: 0.6rem;
+      padding: 2px 6px;
+      border: 1px solid #fff;
+    }
+
+    .roster-icon {
+      width: 50px;
+      height: 50px;
+      background: #090614;
+      border: 1px solid #573399;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .roster-name {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      color: #fff;
+    }
+    .roster-role {
+      font-size: 0.72rem;
+      color: #9f8bbd;
+    }
+
+    /* Special Move List / Projects Archive */
+    .moves-box {
+      background: #110c24;
+      border: 2px solid #362066;
+      border-radius: 4px;
+      padding: 16px;
+    }
+    .move-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #231742;
+    }
+    .move-input {
+      font-family: var(--font-pixel);
+      font-size: 0.7rem;
+      color: var(--arcade-gold);
+    }
+    .move-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .move-desc {
+      font-size: 0.78rem;
+      color: #a291c4;
+    }
+
+    /* Arcade Action Footer */
+    .arcade-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .coin-btn {
+      background: linear-gradient(180deg, #ff2a55 0%, #aa002a 100%);
+      border: 2px solid #ff738f;
+      color: #fff;
+      font-family: var(--font-pixel);
+      font-size: 0.75rem;
+      padding: 12px 20px;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(255, 42, 85, 0.4);
+      transition: transform 0.1s;
+    }
+    .coin-btn:active { transform: translateY(2px); }
+    .coin-btn.gold {
+      background: linear-gradient(180deg, #f8b800 0%, #997100 100%);
+      border-color: #ffe680;
+      color: #000;
+      box-shadow: 0 4px 10px rgba(248, 184, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="arcade-wrap">
+    
+    <!-- Arcade Marquee -->
+    <header class="arcade-marquee">
+      <div class="marquee-sub">★ CAPCOM / NEO-GEO ARCADE CABINET // 60 FPS ★</div>
+      <h1 class="marquee-title">SELECT YOUR FIGHTER</h1>
+      <div class="coins-tag">CREDITS: 02 (FREE)</div>
+    </header>
+
+    <!-- Main Arena Grid -->
+    <div class="arena-grid">
+      
+      <!-- Left Fighter Card -->
+      <div class="fighter-card">
+        <div class="fighter-portrait-box">
+          <img src="../aryan-rokade.jpg" alt="Aryan Fighter" id="fighterImg">
+          <div class="fighter-badge-overlay" id="fighterOrigin">ORIGIN: MUMBAI, IN</div>
+        </div>
+
+        <div class="fighter-name-banner" id="fighterTitle">ARYAN ROKADE</div>
+        
+        <p class="fighter-bio" id="fighterBio">
+          The Full-Stack Architect & AI Specialist. Pursuing B.E. in Computer Engineering at VCET Mumbai University (Class of 2027). Awarded 2nd Position in Techblitz Hackathon 2025!
+        </p>
+
+        <!-- Stats Meter -->
+        <div class="stats-block">
+          <div class="stat-row">
+            <span style="color:var(--arcade-gold)">ARCHITECTURE</span>
+            <div class="stat-bar-outer"><div class="stat-bar-fill" id="stat1" style="width: 95%;"></div></div>
+          </div>
+          <div class="stat-row">
+            <span style="color:var(--arcade-cyan)">AI DIAGNOSTICS</span>
+            <div class="stat-bar-outer"><div class="stat-bar-fill" id="stat2" style="width: 92%;"></div></div>
+          </div>
+          <div class="stat-row">
+            <span style="color:#00ff88">EXECUTION SPEED</span>
+            <div class="stat-bar-outer"><div class="stat-bar-fill" id="stat3" style="width: 96%;"></div></div>
+          </div>
+          <div class="stat-row">
+            <span style="color:var(--arcade-red)">CODE DEFENSE</span>
+            <div class="stat-bar-outer"><div class="stat-bar-fill" id="stat4" style="width: 88%;"></div></div>
+          </div>
+        </div>
+
+        <div style="font-size:0.8rem; color:#9c8cb8;">
+          <b>INTERNSHIP XP:</b> Web Dev Intern at Octanet Services (Dec 2024 - Jan 2025). Accelerated app speed by +35%.
+        </div>
+      </div>
+
+      <!-- Right Selection & Special Moves -->
+      <div class="selection-pane">
+        
+        <div class="pane-title">
+          <span>CHARACTER ROSTER (CHOOSE YOUR SYSTEM)</span>
+          <span style="color:var(--arcade-gold);">PRESS [A/D] TO SWITCH</span>
+        </div>
+
+        <!-- 6 Character Tiles -->
+        <div class="roster-grid">
+          
+          <div class="roster-tile selected" onclick="pickFighter(0)" id="slot0">
+            <div class="roster-icon">⚡</div>
+            <div class="roster-name">ARYAN</div>
+            <div class="roster-role">Full-Stack Hero</div>
+          </div>
+
+          <div class="roster-tile" onclick="pickFighter(1)" id="slot1">
+            <div class="roster-icon">🏢</div>
+            <div class="roster-name">VYAPAR</div>
+            <div class="roster-role">ERP Titan</div>
+          </div>
+
+          <div class="roster-tile" onclick="pickFighter(2)" id="slot2">
+            <div class="roster-icon">🛡️</div>
+            <div class="roster-name">SENTINEL</div>
+            <div class="roster-role">SecOps Shield</div>
+          </div>
+
+          <div class="roster-tile" onclick="pickFighter(3)" id="slot3">
+            <div class="roster-icon">💰</div>
+            <div class="roster-name">SATURN</div>
+            <div class="roster-role">Fintech Engine</div>
+          </div>
+
+          <div class="roster-tile" onclick="pickFighter(4)" id="slot4">
+            <div class="roster-icon">🧠</div>
+            <div class="roster-name">CORTEX</div>
+            <div class="roster-role">VGG16 AI Brain</div>
+          </div>
+
+          <div class="roster-tile" onclick="pickFighter(5)" id="slot5">
+            <div class="roster-icon">🏆</div>
+            <div class="roster-name">TECHBLITZ</div>
+            <div class="roster-role">Hackathon 2nd</div>
+          </div>
+
+        </div>
+
+        <!-- Special Moves Command List -->
+        <div class="moves-box">
+          <div class="pane-title" style="margin-bottom: 8px;">
+            <span style="color:var(--arcade-gold)">SPECIAL COMMAND LIST // SKILL COMBO</span>
+            <span>SUPER ART: READY</span>
+          </div>
+
+          <div class="move-row">
+            <div>
+              <div class="move-name">Next.js Server Burst</div>
+              <div class="move-desc">App Router SSR + Prisma database hydration in under 40ms.</div>
+            </div>
+            <span class="move-input">↓ ↘ → + P</span>
+          </div>
+
+          <div class="move-row">
+            <div>
+              <div class="move-name">Snort Anomaly Aegis</div>
+              <div class="move-desc">Real-time Socket.IO packet filter blocking brute-force traffic.</div>
+            </div>
+            <span class="move-input">← ↙ ↓ + K</span>
+          </div>
+
+          <div class="move-row">
+            <div>
+              <div class="move-name">VGG16 Neural Conv Blast</div>
+              <div class="move-desc">Grad-CAM deep learning slice classifier with 98.2% test accuracy.</div>
+            </div>
+            <span class="move-input">→ ↓ ↘ + HP</span>
+          </div>
+
+          <div class="move-row" style="border:none;">
+            <div>
+              <div class="move-name" style="color:var(--arcade-gold)">SUPER COMBO: Techblitz Finish</div>
+              <div class="move-desc">VCET AI&DS Department Hackathon 2nd Place Victorious Strike!</div>
+            </div>
+            <span class="move-input" style="color:#ff2a55;">↓ ↘ → ↓ ↘ → + 3P</span>
+          </div>
+        </div>
+
+        <!-- Action / Coin Drop Buttons -->
+        <div class="arcade-actions">
+          <a href="../Aryan_Rokade_Resume.pdf" download class="coin-btn gold">
+            ★ 1P START (RESUME.PDF)
+          </a>
+          <a href="mailto:aryanrokade416@gmail.com" class="coin-btn">
+            ✉ CHALLENGE IN BATTLE (HIRE)
+          </a>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="coin-btn" style="background:#281848; border-color:#653ba8;">
+            🐙 GITHUB ROSTER
+          </a>
+          <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="coin-btn" style="background:#281848; border-color:#653ba8;">
+            💼 LINKEDIN
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Audio synthesizer for retro 8-bit blip
+    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+    function playBeep(freq = 440) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      } catch(e) {}
+    }
+
+    const rosterData = [
+      {
+        name: "ARYAN ROKADE",
+        origin: "MUMBAI, IN (VCET 2027)",
+        bio: "The Full-Stack Architect & AI Specialist. Pursuing B.E. in Computer Engineering at VCET Mumbai University (Class of 2027). Awarded 2nd Position in Techblitz Hackathon 2025!",
+        stats: [95, 92, 96, 88]
+      },
+      {
+        name: "VYAPARFLOW",
+        origin: "NEXT.JS / POSTGRES",
+        bio: "Full Stack Business Management & ERP Suite. Automates compliant GST invoices, manages atomic inventory ledgers, enforces RBAC, and handles Stripe payments.",
+        stats: [98, 85, 94, 90]
+      },
+      {
+        name: "CYBERSENTINEL",
+        origin: "SOCKET.IO / SNORT",
+        bio: "Network Threat & Intrusion Monitoring platform. Real-time packet telemetry via Socket.IO, signature anomaly flags, automated mitigation triggers, and audit logging.",
+        stats: [90, 89, 95, 99]
+      },
+      {
+        name: "SATURN FINANCE",
+        origin: "MERN STACK / MONGO",
+        bio: "Personal wealth telemetry dashboard. Features categorized expense logging, custom savings targets, recurring payment projections, and JWT encrypted storage.",
+        stats: [91, 80, 90, 85]
+      },
+      {
+        name: "CORTEX AI",
+        origin: "TENSORFLOW / VGG16",
+        bio: "Deep Convolutional Neural Network diagnostic engine achieving 98.2% test accuracy on brain tumor MRI slices with Grad-CAM heatmap visualization.",
+        stats: [86, 99, 88, 92]
+      },
+      {
+        name: "TECHBLITZ 2025",
+        origin: "VCET AI&DS DEPT",
+        bio: "2nd Position Winner at Techblitz Hackathon 2025. Tested under intense time pressure to construct robust AI-driven solutions.",
+        stats: [96, 95, 98, 94]
+      }
+    ];
+
+    function pickFighter(idx) {
+      playBeep(300 + idx * 80);
+      document.querySelectorAll('.roster-tile').forEach((tile, i) => {
+        tile.classList.toggle('selected', i === idx);
+      });
+
+      const f = rosterData[idx];
+      document.getElementById('fighterTitle').innerText = f.name;
+      document.getElementById('fighterOrigin').innerText = `ORIGIN: ${f.origin}`;
+      document.getElementById('fighterBio').innerText = f.bio;
+      document.getElementById('stat1').style.width = f.stats[0] + '%';
+      document.getElementById('stat2').style.width = f.stats[1] + '%';
+      document.getElementById('stat3').style.width = f.stats[2] + '%';
+      document.getElementById('stat4').style.width = f.stats[3] + '%';
+    }
+  </script>
+</body>
+</html>

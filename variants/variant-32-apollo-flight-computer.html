@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — NASA Apollo Guidance Computer DSKY</title>
+  <meta name="description" content="Vintage NASA Apollo Guidance Computer (AGC DSKY) interactive portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dsky-panel: #2b3036;
+      --dsky-border: #444b54;
+      --vfd-green: #33ff88;
+      --vfd-amber: #ffaa00;
+      --vfd-bg: #09120e;
+      --lamp-white: #e0e0e0;
+      --font-dsky: 'VT323', monospace;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 50% 30%, #15181c 0%, #08090b 100%);
+      color: #d1d8e0;
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+
+    .apollo-chassis {
+      max-width: 1050px;
+      width: 100%;
+      background: linear-gradient(145deg, #323942, #21262d);
+      border: 6px solid #4a5461;
+      border-radius: 8px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.1);
+      padding: 28px;
+      position: relative;
+    }
+
+    /* Metal Nameplate */
+    .agc-nameplate {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #3d4652;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    .nasa-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    .nasa-tag {
+      background: #101418;
+      border: 1px solid #485463;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      color: var(--vfd-amber);
+    }
+
+    /* Main DSKY Grid: Indicator Panel + Digital Tubes + Keypad */
+    .dsky-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 860px) {
+      .dsky-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Column 1: Warning Annunciator Lamps */
+    .lamp-bank {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: #14171c;
+      padding: 12px;
+      border: 2px solid #3d4552;
+      align-content: start;
+    }
+    .lamp-unit {
+      background: #1c2129;
+      border: 1px solid #2f3742;
+      color: #657385;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 10px 4px;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    .lamp-unit.lit-white {
+      background: #d8e2ed;
+      color: #0b0f14;
+      box-shadow: 0 0 10px rgba(216, 226, 237, 0.8);
+    }
+    .lamp-unit.lit-amber {
+      background: #ffaa00;
+      color: #000;
+      box-shadow: 0 0 12px rgba(255, 170, 0, 0.9);
+    }
+
+    /* Column 2: Digital Displays & Tactile Keypad */
+    .dsky-core {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Fluorescent Numeric Tube Windows */
+    .vfd-console {
+      background: var(--vfd-bg);
+      border: 4px solid #1c232a;
+      box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-radius: 4px;
+    }
+
+    .tube-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tube-label {
+      font-size: 0.85rem;
+      color: #5d7568;
+      letter-spacing: 2px;
+    }
+    .tube-digits {
+      font-family: var(--font-dsky);
+      font-size: 2.2rem;
+      color: var(--vfd-green);
+      text-shadow: 0 0 12px rgba(51, 255, 136, 0.7);
+      letter-spacing: 4px;
+    }
+    .tube-digits.amber {
+      color: var(--vfd-amber);
+      text-shadow: 0 0 12px rgba(255, 170, 0, 0.7);
+    }
+
+    /* DSKY Tactile Keypad */
+    .dsky-keys {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .dsky-key {
+      background: linear-gradient(180deg, #444c57 0%, #252b33 100%);
+      border: 1px solid #5d6775;
+      border-bottom: 4px solid #13171c;
+      border-radius: 4px;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 12px 6px;
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: all 0.1s;
+    }
+    .dsky-key:active, .dsky-key.pressed {
+      transform: translateY(3px);
+      border-bottom-width: 1px;
+      background: #1b2026;
+      color: var(--vfd-green);
+    }
+
+    /* Telemetry Report Screen (Details) */
+    .telemetry-screen {
+      background: #0f1317;
+      border: 2px solid #2e3745;
+      border-radius: 4px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+    .screen-head {
+      font-size: 0.85rem;
+      color: var(--vfd-amber);
+      letter-spacing: 1px;
+      border-bottom: 1px dashed #2f3847;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+    .screen-body {
+      font-size: 0.9rem;
+      color: #c4d1de;
+      line-height: 1.6;
+    }
+
+    /* Quick Apollo Programs */
+    .quick-verbs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .verb-chip {
+      background: #171c24;
+      border: 1px solid #3c4857;
+      color: var(--vfd-green);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .verb-chip:hover {
+      background: var(--vfd-green);
+      color: #000;
+    }
+
+    .apollo-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      border-top: 1px solid #333d4a;
+      padding-top: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-apollo {
+      background: #252c36;
+      border: 1px solid #4a5769;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .btn-apollo:hover {
+      border-color: var(--vfd-green);
+      color: var(--vfd-green);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="apollo-chassis">
+    
+    <!-- Top Plate -->
+    <header class="agc-nameplate">
+      <div class="nasa-title">NASA // APOLLO GUIDANCE COMPUTER DSKY</div>
+      <div class="nasa-tag">SYSTEM: BLOCK II AGC • 1.024 MHz</div>
+    </header>
+
+    <!-- Main DSKY Grid -->
+    <div class="dsky-layout">
+      
+      <!-- Annunciator Lamps -->
+      <aside class="lamp-bank">
+        <div class="lamp-unit lit-white">UPLINK ACTY</div>
+        <div class="lamp-unit">NO ATT</div>
+        <div class="lamp-unit">STBY</div>
+        <div class="lamp-unit lit-white">KEY REL</div>
+        <div class="lamp-unit">OPR ERR</div>
+        <div class="lamp-unit lit-amber">PRIO DISP</div>
+        <div class="lamp-unit">TEMP</div>
+        <div class="lamp-unit">GIMBAL LOCK</div>
+        <div class="lamp-unit lit-white">PROG</div>
+        <div class="lamp-unit">RESTART</div>
+        <div class="lamp-unit">TRACKER</div>
+        <div class="lamp-unit">ALT</div>
+      </aside>
+
+      <!-- DSKY Vacuum Fluorescent Displays & Keypad -->
+      <main class="dsky-core">
+        
+        <!-- Vacuum Fluorescent Tubes Window -->
+        <div class="vfd-console">
+          <div class="tube-row">
+            <span class="tube-label">PROGRAM</span>
+            <span class="tube-digits amber" id="dispProg">01</span>
+          </div>
+          <div class="tube-row">
+            <span class="tube-label">VERB</span>
+            <span class="tube-digits" id="dispVerb">16</span>
+            <span class="tube-label">NOUN</span>
+            <span class="tube-digits" id="dispNoun">01</span>
+          </div>
+          <div class="tube-row">
+            <span class="tube-label">R1 (TELEMETRY)</span>
+            <span class="tube-digits" id="dispR1">+02027</span>
+          </div>
+          <div class="tube-row">
+            <span class="tube-label">R2 (METRIC)</span>
+            <span class="tube-digits" id="dispR2">+00098.2</span>
+          </div>
+          <div class="tube-row">
+            <span class="tube-label">R3 (STATUS)</span>
+            <span class="tube-digits" id="dispR3">+00035</span>
+          </div>
+        </div>
+
+        <!-- Tactile Keypad -->
+        <div class="dsky-keys">
+          <button class="dsky-key" onclick="pressKey('VERB')">VERB</button>
+          <button class="dsky-key" onclick="pressKey('NOUN')">NOUN</button>
+          <button class="dsky-key" onclick="pressKey('+')">+</button>
+          <button class="dsky-key" onclick="pressKey('-')">-</button>
+          <button class="dsky-key" onclick="pressKey('0')">0</button>
+
+          <button class="dsky-key" onclick="pressKey('7')">7</button>
+          <button class="dsky-key" onclick="pressKey('8')">8</button>
+          <button class="dsky-key" onclick="pressKey('9')">9</button>
+          <button class="dsky-key" onclick="pressKey('CLR')">CLR</button>
+          <button class="dsky-key" onclick="pressKey('PRO')">PRO</button>
+
+          <button class="dsky-key" onclick="pressKey('4')">4</button>
+          <button class="dsky-key" onclick="pressKey('5')">5</button>
+          <button class="dsky-key" onclick="pressKey('6')">6</button>
+          <button class="dsky-key" onclick="pressKey('KEY REL')">KEY</button>
+          <button class="dsky-key" onclick="pressKey('ENTR')">ENTR</button>
+
+          <button class="dsky-key" onclick="pressKey('1')">1</button>
+          <button class="dsky-key" onclick="pressKey('2')">2</button>
+          <button class="dsky-key" onclick="pressKey('3')">3</button>
+          <button class="dsky-key" onclick="pressKey('RSET')">RSET</button>
+          <button class="dsky-key" onclick="loadProgram(1)">RUN</button>
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- Quick Apollo Programs Bar -->
+    <div class="quick-verbs">
+      <span class="verb-chip" onclick="loadProgram(1)">PROG 01: VyaparFlow ERP</span>
+      <span class="verb-chip" onclick="loadProgram(2)">PROG 02: CyberSentinel Threat IDS</span>
+      <span class="verb-chip" onclick="loadProgram(3)">PROG 03: Saturn Finance MERN</span>
+      <span class="verb-chip" onclick="loadProgram(4)">PROG 04: MRI Brain Tumor AI</span>
+      <span class="verb-chip" onclick="loadProgram(5)">PROG 05: Academic & Awards (VCET)</span>
+    </div>
+
+    <!-- Telemetry Readout Screen -->
+    <div class="telemetry-screen">
+      <div class="screen-head" id="screenHead">AGC MISSION READOUT // PROGRAM 01 ACTIVE</div>
+      <div class="screen-body" id="screenBody">
+        <b>MODULE: VyaparFlow Platform</b> — Enterprise SME Management Engine.<br>
+        • Tech: Next.js 14, TypeScript, PostgreSQL, Prisma ORM, Stripe Billing.<br>
+        • Specifications: Automated GST invoice generation, real-time atomic inventory tracking, and role-based access control.
+      </div>
+    </div>
+
+    <!-- Apollo Footer -->
+    <footer class="apollo-footer">
+      <div>
+        <span style="color:var(--vfd-green)">OPERATOR:</span> Aryan Rokade • B.E. Computer Engineering (VCET 2027)
+      </div>
+      <div style="display:flex; gap:10px;">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-apollo">⬇ MISSION RESUME (PDF)</a>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-apollo">✉ COMMS (EMAIL)</a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="btn-apollo">GITHUB ↗</a>
+        <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="btn-apollo">LINKEDIN ↗</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Audio synthesizer for AGC chirp
+    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+    function beep(freq = 800) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch(e) {}
+    }
+
+    const programs = {
+      1: {
+        prog: "01", verb: "16", noun: "01",
+        r1: "+02027", r2: "+00014", r3: "+00000",
+        head: "AGC MISSION READOUT // PROG 01: VYAPARFLOW",
+        body: "<b>VyaparFlow Platform:</b> Enterprise SME Cloud Suite built with Next.js 14, TypeScript, PostgreSQL, Prisma ORM, and Stripe. Provides automated GST invoicing and real-time inventory management."
+      },
+      2: {
+        prog: "02", verb: "16", noun: "02",
+        r1: "+00500", r2: "+00001", r3: "+00008",
+        head: "AGC MISSION READOUT // PROG 02: CYBERSENTINEL SUITE",
+        body: "<b>CyberSentinel Suite:</b> Real-time network threat monitoring engine built with React, Python Flask, Socket.IO, Snort IDS, and Chart.js. Sniffs packet telemetry and streams threat anomaly alerts."
+      },
+      3: {
+        prog: "03", verb: "16", noun: "03",
+        r1: "+01000", r2: "+00256", r3: "+00012",
+        head: "AGC MISSION READOUT // PROG 03: SATURN FINANCE",
+        body: "<b>Saturn Finance:</b> Personal wealth & expense analytics platform built on the MERN Stack (MongoDB, Express, React, Node.js). Features budgeting targets and JWT session encryption."
+      },
+      4: {
+        prog: "04", verb: "16", noun: "04",
+        r1: "+00098", r2: "+00002", r3: "+03000",
+        head: "AGC MISSION READOUT // PROG 04: MRI BRAIN TUMOR AI",
+        body: "<b>MRI Brain Tumor Diagnostic:</b> Deep learning diagnostic engine using TensorFlow, Keras VGG16, and OpenCV. Achieves 98.2% test accuracy on Kaggle cranial scans with Grad-CAM heatmaps."
+      },
+      5: {
+        prog: "05", verb: "37", noun: "00",
+        r1: "+02025", r2: "+00035", r3: "+00002",
+        head: "AGC MISSION READOUT // PROG 05: ACADEMIC & ACHIEVEMENTS",
+        body: "<b>Aryan Rokade:</b> B.E. Computer Engineering at VCET Mumbai University (Class of 2027).<br>• 🏆 <b>2nd Position</b> at Techblitz Hackathon 2025 (AI & Data Science Dept).<br>• 💼 Web Dev Intern at Octanet Services (Dec 2024 - Jan 2025, +35% Page Speed)."
+      }
+    };
+
+    function loadProgram(id) {
+      beep(1000);
+      const p = programs[id];
+      if (!p) return;
+      document.getElementById('dispProg').innerText = p.prog;
+      document.getElementById('dispVerb').innerText = p.verb;
+      document.getElementById('dispNoun').innerText = p.noun;
+      document.getElementById('dispR1').innerText = p.r1;
+      document.getElementById('dispR2').innerText = p.r2;
+      document.getElementById('dispR3').innerText = p.r3;
+      document.getElementById('screenHead').innerText = p.head;
+      document.getElementById('screenBody').innerHTML = p.body;
+    }
+
+    function pressKey(k) {
+      beep(600);
+    }
+  </script>
+</body>
+</html>

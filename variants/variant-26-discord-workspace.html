@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Discord Dev Server</title>
+  <meta name="description" content="Discord / Slack Developer Community Workspace portfolio for Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=gg+sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-darkest: #1e1f22;
+      --bg-sidebar: #2b2d31;
+      --bg-chat: #313338;
+      --bg-card: #2b2d31;
+      --bg-hover: #35373c;
+      --discord-blurple: #5865f2;
+      --discord-green: #23a55a;
+      --discord-amber: #f0b232;
+      --discord-red: #f23f43;
+      --text-normal: #dbdee1;
+      --text-muted: #949ba4;
+      --font-main: 'gg sans', 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-darkest);
+      color: var(--text-normal);
+      font-family: var(--font-main);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Column 1: Server List */
+    .server-bar {
+      width: 72px;
+      background: var(--bg-darkest);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 10px;
+      user-select: none;
+    }
+    .server-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-sidebar);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+      overflow: hidden;
+      font-weight: 700;
+      color: #fff;
+    }
+    .server-icon:hover, .server-icon.active {
+      border-radius: 16px;
+      background: var(--discord-blurple);
+    }
+    .server-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .server-separator {
+      width: 32px;
+      height: 2px;
+      background: #35363c;
+      border-radius: 1px;
+    }
+
+    /* Column 2: Channel Sidebar */
+    .channel-sidebar {
+      width: 240px;
+      background: var(--bg-sidebar);
+      display: flex;
+      flex-direction: column;
+      border-top-left-radius: 8px;
+    }
+    .server-header {
+      height: 48px;
+      border-bottom: 1px solid #1f2023;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .channels-scroll {
+      flex: 1;
+      padding: 12px 8px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .channel-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0 8px;
+      margin-bottom: 4px;
+    }
+    .channel-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .channel-item:hover {
+      background: var(--bg-hover);
+      color: var(--text-normal);
+    }
+    .channel-item.active {
+      background: #35373c;
+      color: #fff;
+    }
+    .channel-item .hash {
+      font-size: 1.1rem;
+      color: #80848e;
+      font-family: var(--font-mono);
+    }
+
+    /* User Profile Footer in Channel Sidebar */
+    .user-footer {
+      height: 52px;
+      background: #232428;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 8px;
+    }
+    .user-mini-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .user-mini-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--discord-green);
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      border: 2px solid #232428;
+    }
+    .user-mini-names {
+      flex: 1;
+      line-height: 1.2;
+    }
+    .user-mini-tag { font-weight: 700; font-size: 0.85rem; color: #fff; }
+    .user-mini-sub { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* Column 3: Main Chat View */
+    .chat-view {
+      flex: 1;
+      background: var(--bg-chat);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      height: 48px;
+      border-bottom: 1px solid #26272b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .chat-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .chat-header-title .desc {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      border-left: 1px solid #4e5058;
+      padding-left: 12px;
+    }
+
+    .messages-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Message Item */
+    .message-group {
+      display: flex;
+      gap: 16px;
+    }
+    .msg-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .msg-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .msg-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .msg-author {
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+    .bot-badge {
+      background: var(--discord-blurple);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    .msg-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .msg-text {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: var(--text-normal);
+    }
+
+    /* Discord Bot Embed Box */
+    .embed-card {
+      background: #2b2d31;
+      border-radius: 4px;
+      border-left: 4px solid var(--discord-blurple);
+      padding: 14px 16px;
+      margin-top: 8px;
+      max-width: 650px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .embed-card.emerald { border-left-color: #10b981; }
+    .embed-card.rose { border-left-color: #f43f5e; }
+    .embed-card.amber { border-left-color: #f59e0b; }
+    .embed-card.cyan { border-left-color: #06b6d4; }
+
+    .embed-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .embed-desc {
+      font-size: 0.88rem;
+      color: #c4c9ce;
+      line-height: 1.45;
+    }
+    .embed-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .field-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .field-val {
+      font-size: 0.85rem;
+      color: #e3e6e8;
+      font-family: var(--font-mono);
+      margin-top: 2px;
+    }
+
+    /* Embed Action Buttons */
+    .embed-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .disc-btn {
+      background: #4e5058;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .disc-btn:hover { background: #6d6f78; }
+    .disc-btn.primary { background: var(--discord-blurple); }
+    .disc-btn.primary:hover { background: #4752c4; }
+
+    /* Reactions Row */
+    .reactions-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .react-pill {
+      background: #2b2d31;
+      border: 1px solid #3b3e45;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .react-pill:hover, .react-pill.active {
+      background: rgba(88, 101, 242, 0.15);
+      border-color: var(--discord-blurple);
+      color: #dbdee1;
+    }
+
+    /* Bottom Chat Input */
+    .chat-input-bar {
+      padding: 0 16px 20px;
+    }
+    .input-wrapper {
+      background: #383a40;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .input-box {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    .input-box::placeholder { color: #80848e; }
+
+    /* Column 4: Online Members Sidebar */
+    .members-sidebar {
+      width: 240px;
+      background: var(--bg-sidebar);
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+    }
+    @media (max-width: 1024px) {
+      .members-sidebar { display: none; }
+    }
+
+    .member-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-left: 8px;
+    }
+    .member-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .member-row:hover { background: var(--bg-hover); }
+    .m-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .m-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .m-info { line-height: 1.2; }
+    .m-name { font-weight: 600; font-size: 0.88rem; color: #fff; }
+    .m-role { font-size: 0.72rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Server Icons Column -->
+  <aside class="server-bar">
+    <div class="server-icon active" title="Aryan Rokade Developer Hub">
+      <img src="../aryan-rokade.jpg" alt="Aryan Server">
+    </div>
+    <div class="server-separator"></div>
+    <div class="server-icon" title="Full Stack">⚡</div>
+    <div class="server-icon" title="AI Engineering">🧠</div>
+    <div class="server-icon" title="Next.js Hub">▲</div>
+    <div class="server-icon" title="Mumbai Univ">🎓</div>
+  </aside>
+
+  <!-- 2. Channels Sidebar -->
+  <nav class="channel-sidebar">
+    <div class="server-header">
+      <span>Aryan Rokade Hub</span>
+      <span style="font-size: 0.8rem;">▼</span>
+    </div>
+
+    <div class="channels-scroll">
+      <div>
+        <div class="channel-category">Welcome & Info</div>
+        <a href="#welcome" class="channel-item active" onclick="switchChannel(this, 'welcome')">
+          <span class="hash">#</span> welcome-and-bio
+        </a>
+        <a href="#resume" class="channel-item" onclick="switchChannel(this, 'resume')">
+          <span class="hash">#</span> resume-and-cv
+        </a>
+      </div>
+
+      <div>
+        <div class="channel-category">Showcase</div>
+        <a href="#projects" class="channel-item" onclick="switchChannel(this, 'projects')">
+          <span class="hash">#</span> featured-projects
+        </a>
+        <a href="#experience" class="channel-item" onclick="switchChannel(this, 'experience')">
+          <span class="hash">#</span> work-experience
+        </a>
+        <a href="#skills" class="channel-item" onclick="switchChannel(this, 'skills')">
+          <span class="hash">#</span> tech-stack
+        </a>
+        <a href="#awards" class="channel-item" onclick="switchChannel(this, 'awards')">
+          <span class="hash">#</span> hackathon-awards
+        </a>
+      </div>
+
+      <div>
+        <div class="channel-category">Direct Connect</div>
+        <a href="#contact" class="channel-item" onclick="switchChannel(this, 'contact')">
+          <span class="hash">#</span> contact-me
+        </a>
+      </div>
+    </div>
+
+    <!-- User Foot -->
+    <div class="user-footer">
+      <div class="user-mini-avatar">
+        <img src="../aryan-rokade.jpg" alt="Aryan Mini">
+        <div class="status-dot"></div>
+      </div>
+      <div class="user-mini-names">
+        <div class="user-mini-tag">aryanrokade</div>
+        <div class="user-mini-sub">Online • Ready to code</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 3. Main Chat View -->
+  <main class="chat-view">
+    
+    <!-- Top Bar -->
+    <header class="chat-header">
+      <div class="chat-header-title">
+        <span style="color:#80848e; font-size:1.3rem;">#</span>
+        <span id="headerChanName">welcome-and-bio</span>
+        <span class="desc">Official portfolio server for Aryan Rokade • Full Stack & AI</span>
+      </div>
+      <div>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="disc-btn primary" style="padding: 5px 12px; font-size: 0.8rem;">
+          ⬇ Download CV.pdf
+        </a>
+      </div>
+    </header>
+
+    <!-- Messages Container -->
+    <div class="messages-container" id="msgScroll">
+
+      <!-- Message 1: Welcome Bio -->
+      <div class="message-group" id="welcome">
+        <div class="msg-avatar"><img src="../aryan-rokade.jpg" alt="Aryan"></div>
+        <div class="msg-content">
+          <div class="msg-header">
+            <span class="msg-author" style="color:#5865f2;">Aryan Rokade</span>
+            <span class="bot-badge">CREATOR</span>
+            <span class="msg-time">Today at 10:42 AM</span>
+          </div>
+          <div class="msg-text">
+            Hey everyone! Welcome to my portfolio server. 👋 I'm a <b>Full Stack Developer & AI Engineer</b> currently pursuing my B.E. in Computer Engineering at Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University (Graduating 2027).
+          </div>
+          <div class="msg-text" style="color:var(--text-muted); font-size:0.9rem;">
+            Feel free to explore our channels on the left or scroll below to inspect my deployed software projects, work experience, and tech stack!
+          </div>
+          <div class="reactions-bar">
+            <div class="react-pill" onclick="toggleReact(this)">👋 <span>18</span></div>
+            <div class="react-pill" onclick="toggleReact(this)">🔥 <span>24</span></div>
+            <div class="react-pill" onclick="toggleReact(this)">🚀 <span>31</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message 2: Featured Projects -->
+      <div class="message-group" id="projects">
+        <div class="msg-avatar"><img src="../aryan-rokade.jpg" alt="Aryan"></div>
+        <div class="msg-content">
+          <div class="msg-header">
+            <span class="msg-author" style="color:#5865f2;">Aryan Rokade</span>
+            <span class="bot-badge">CREATOR</span>
+            <span class="msg-time">Today at 10:45 AM</span>
+          </div>
+          <div class="msg-text">
+            Here are 4 of my core production-grade projects pinned to this channel:
+          </div>
+
+          <!-- Embed 1: VyaparFlow -->
+          <div class="embed-card emerald">
+            <div class="embed-title">
+              <span>VyaparFlow — Full Stack ERP & Billing SaaS</span>
+              <span style="font-size:0.75rem; color:#10b981;">● PRODUCTION</span>
+            </div>
+            <p class="embed-desc">
+              All-in-one SME business management software with automated GST invoices, live inventory tracking, granular role-based access control, and Stripe payment gateway integration.
+            </p>
+            <div class="embed-fields">
+              <div>
+                <div class="field-name">TECH STACK</div>
+                <div class="field-val">Next.js 14, TypeScript, PostgreSQL, Prisma</div>
+              </div>
+              <div>
+                <div class="field-name">KEY FEATURES</div>
+                <div class="field-val">Real-time Stock Ledger, GST Engine, RBAC</div>
+              </div>
+            </div>
+            <div class="embed-buttons">
+              <a href="https://github.com/aryanrokade7" target="_blank" class="disc-btn primary">GitHub Repo ↗</a>
+              <button class="disc-btn" onclick="alert('VyaparFlow: Next.js + PostgreSQL business SaaS.')">Details</button>
+            </div>
+            <div class="reactions-bar">
+              <div class="react-pill" onclick="toggleReact(this)">⭐ <span>19</span></div>
+              <div class="react-pill" onclick="toggleReact(this)">💼 <span>12</span></div>
+            </div>
+          </div>
+
+          <!-- Embed 2: CyberSentinel Suite -->
+          <div class="embed-card rose">
+            <div class="embed-title">
+              <span>CyberSentinel Suite — Network Threat Monitoring</span>
+              <span style="font-size:0.75rem; color:#f43f5e;">● ACTIVE SHIELD</span>
+            </div>
+            <p class="embed-desc">
+              Security Operations Center (SOC) dashboard providing live network traffic analysis, Snort rule anomaly detection, and real-time Socket.IO incident notification streams.
+            </p>
+            <div class="embed-fields">
+              <div>
+                <div class="field-name">TECH STACK</div>
+                <div class="field-val">React, Python Flask, Socket.IO, Snort</div>
+              </div>
+              <div>
+                <div class="field-name">SECURITY CAPABILITIES</div>
+                <div class="field-val">Packet Telemetry, Anomaly Alarms, Charts</div>
+              </div>
+            </div>
+            <div class="embed-buttons">
+              <a href="https://github.com/aryanrokade7" target="_blank" class="disc-btn primary">GitHub Repo ↗</a>
+              <button class="disc-btn" onclick="alert('CyberSentinel: Real-time network threat monitoring suite.')">Details</button>
+            </div>
+            <div class="reactions-bar">
+              <div class="react-pill" onclick="toggleReact(this)">🛡️ <span>27</span></div>
+              <div class="react-pill" onclick="toggleReact(this)">⚡ <span>15</span></div>
+            </div>
+          </div>
+
+          <!-- Embed 3: Saturn Finance -->
+          <div class="embed-card amber">
+            <div class="embed-title">
+              <span>Saturn Finance — Personal Wealth Dashboard</span>
+              <span style="font-size:0.75rem; color:#f59e0b;">● LIVE</span>
+            </div>
+            <p class="embed-desc">
+              Personal finance telemetry engine featuring automated expense categorization, savings milestone progress, monthly budgeting limits, and encrypted data storage.
+            </p>
+            <div class="embed-fields">
+              <div>
+                <div class="field-name">TECH STACK</div>
+                <div class="field-val">MERN Stack, Express, Node.js, MongoDB</div>
+              </div>
+              <div>
+                <div class="field-name">ANALYTICS</div>
+                <div class="field-val">Chart.js Visualizer, JWT Sessions, CSV Export</div>
+              </div>
+            </div>
+            <div class="embed-buttons">
+              <a href="https://github.com/aryanrokade7" target="_blank" class="disc-btn primary">GitHub Repo ↗</a>
+            </div>
+            <div class="reactions-bar">
+              <div class="react-pill" onclick="toggleReact(this)">💰 <span>14</span></div>
+            </div>
+          </div>
+
+          <!-- Embed 4: MRI Brain Tumor AI -->
+          <div class="embed-card cyan">
+            <div class="embed-title">
+              <span>MRI Brain Tumor AI — Deep Learning Diagnostic</span>
+              <span style="font-size:0.75rem; color:#06b6d4;">● 98.2% ACCURACY</span>
+            </div>
+            <p class="embed-desc">
+              Medical imaging diagnosis platform built with VGG16 Convolutional Neural Networks on Kaggle MRI scan datasets. Visualizes neural attention maps using Grad-CAM.
+            </p>
+            <div class="embed-fields">
+              <div>
+                <div class="field-name">TECH STACK</div>
+                <div class="field-val">TensorFlow, Keras VGG16, Flask, OpenCV</div>
+              </div>
+              <div>
+                <div class="field-name">DIAGNOSTIC METRICS</div>
+                <div class="field-val">Glioma, Meningioma, Pituitary Classification</div>
+              </div>
+            </div>
+            <div class="embed-buttons">
+              <a href="https://github.com/aryanrokade7" target="_blank" class="disc-btn primary">GitHub Repo ↗</a>
+            </div>
+            <div class="reactions-bar">
+              <div class="react-pill" onclick="toggleReact(this)">🧠 <span>35</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Message 3: Work Experience & Awards -->
+      <div class="message-group" id="experience">
+        <div class="msg-avatar"><img src="../aryan-rokade.jpg" alt="Aryan"></div>
+        <div class="msg-content">
+          <div class="msg-header">
+            <span class="msg-author" style="color:#5865f2;">Aryan Rokade</span>
+            <span class="bot-badge">CREATOR</span>
+            <span class="msg-time">Today at 10:48 AM</span>
+          </div>
+
+          <div class="embed-card" style="border-left-color:#a855f7;">
+            <div class="embed-title">
+              <span>💼 Internship: Octanet Services Pvt. Ltd.</span>
+              <span style="font-size:0.75rem; color:#a855f7;">DEC 2024 – JAN 2025</span>
+            </div>
+            <p class="embed-desc">
+              Role: <b>Web Development Intern</b><br>
+              • Built performant, responsive web components using modern JavaScript & React.<br>
+              • Optimized client-side render cycles and API data caching, achieving a <b>35% increase in page load speeds</b>.
+            </p>
+          </div>
+
+          <div class="embed-card" style="border-left-color:#eab308; margin-top:8px;" id="awards">
+            <div class="embed-title">
+              <span>🏆 Hackathon Achievement</span>
+              <span style="font-size:0.75rem; color:#eab308;">VCET 2025</span>
+            </div>
+            <p class="embed-desc">
+              Awarded <b>2nd Position</b> at <b>Techblitz Hackathon 2025</b> organized by the Department of Artificial Intelligence & Data Science, VCET Mumbai University.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Message 4: Contact & Socials -->
+      <div class="message-group" id="contact">
+        <div class="msg-avatar"><img src="../aryan-rokade.jpg" alt="Aryan"></div>
+        <div class="msg-content">
+          <div class="msg-header">
+            <span class="msg-author" style="color:#5865f2;">Aryan Rokade</span>
+            <span class="bot-badge">CREATOR</span>
+            <span class="msg-time">Today at 10:50 AM</span>
+          </div>
+          <div class="msg-text">
+            Ready to collaborate or hire? Send a DM or reach out via:
+          </div>
+          <div class="embed-buttons" style="margin-top:6px;">
+            <a href="mailto:aryanrokade416@gmail.com" class="disc-btn primary">✉ aryanrokade416@gmail.com</a>
+            <a href="tel:+918591224192" class="disc-btn">📞 +91 85912 24192</a>
+            <a href="https://github.com/aryanrokade7" target="_blank" class="disc-btn">GitHub ↗</a>
+            <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="disc-btn">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Message Input -->
+    <div class="chat-input-bar">
+      <div class="input-wrapper">
+        <span style="color:#b5bac1; font-size:1.1rem; cursor:pointer;">+</span>
+        <input type="text" class="input-box" id="userInput" placeholder="Message #welcome-and-bio (type 'projects', 'resume', 'hire')..." onkeydown="handleInput(event)">
+        <span style="color:#b5bac1; cursor:pointer;" onclick="sendMessage()">➤</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 4. Online Members Sidebar -->
+  <aside class="members-sidebar">
+    <div class="member-cat">Server Staff — 1</div>
+    <div class="member-row">
+      <div class="m-avatar">
+        <img src="../aryan-rokade.jpg" alt="Aryan">
+        <div class="status-dot"></div>
+      </div>
+      <div class="m-info">
+        <div class="m-name" style="color:#5865f2;">Aryan Rokade</div>
+        <div class="m-role">Full Stack Architect</div>
+      </div>
+    </div>
+
+    <div class="member-cat" style="margin-top:8px;">Bots & Integrations — 2</div>
+    <div class="member-row">
+      <div class="m-avatar">
+        <div style="width:100%; height:100%; border-radius:50%; background:#10b981; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.75rem; font-weight:700;">CI</div>
+        <div class="status-dot"></div>
+      </div>
+      <div class="m-info">
+        <div class="m-name">GitHub Actions Bot</div>
+        <div class="m-role">Build Passing ✓</div>
+      </div>
+    </div>
+    <div class="member-row">
+      <div class="m-avatar">
+        <div style="width:100%; height:100%; border-radius:50%; background:#6366f1; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.75rem; font-weight:700;">AI</div>
+        <div class="status-dot"></div>
+      </div>
+      <div class="m-info">
+        <div class="m-name">VGG16 Model Bot</div>
+        <div class="m-role">Inference Server</div>
+      </div>
+    </div>
+
+    <div class="member-cat" style="margin-top:8px;">Offline — 1</div>
+    <div class="member-row" style="opacity: 0.6;">
+      <div class="m-avatar">
+        <div style="width:100%; height:100%; border-radius:50%; background:#4e5058; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.75rem; font-weight:700;">OC</div>
+      </div>
+      <div class="m-info">
+        <div class="m-name">Octanet Lead</div>
+        <div class="m-role">Internship Mentor</div>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    function toggleReact(el) {
+      el.classList.toggle('active');
+      const span = el.querySelector('span');
+      let val = parseInt(span.innerText);
+      if (el.classList.contains('active')) {
+        span.innerText = val + 1;
+      } else {
+        span.innerText = val - 1;
+      }
+    }
+
+    function switchChannel(el, targetId) {
+      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('headerChanName').innerText = el.innerText.replace('#', '').trim();
+      const targetElem = document.getElementById(targetId);
+      if (targetElem) {
+        targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function handleInput(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const val = input.value.trim();
+      if (!val) return;
+
+      const container = document.getElementById('msgScroll');
+
+      // User Message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message-group';
+      userMsg.innerHTML = `
+        <div class="msg-avatar"><div style="width:100%;height:100%;border-radius:50%;background:#5865f2;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">G</div></div>
+        <div class="msg-content">
+          <div class="msg-header">
+            <span class="msg-author" style="color:#fff;">Guest User</span>
+            <span class="msg-time">Just now</span>
+          </div>
+          <div class="msg-text">${escapeHtml(val)}</div>
+        </div>
+      `;
+      container.appendChild(userMsg);
+      input.value = '';
+
+      // Auto Reply Bot
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message-group';
+        botMsg.innerHTML = `
+          <div class="msg-avatar"><img src="../aryan-rokade.jpg" alt="Aryan"></div>
+          <div class="msg-content">
+            <div class="msg-header">
+              <span class="msg-author" style="color:#5865f2;">AryanBot</span>
+              <span class="bot-badge">BOT</span>
+              <span class="msg-time">Just now</span>
+            </div>
+            <div class="msg-text">
+              Thanks for checking out my work! I am actively looking for Full Stack & AI Engineering opportunities. You can email me directly at <b>aryanrokade416@gmail.com</b> or grab my resume from the top right button!
+            </div>
+          </div>
+        `;
+        container.appendChild(botMsg);
+        container.scrollTop = container.scrollHeight;
+      }, 600);
+
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+</html>

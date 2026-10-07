@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Figma Canvas & Vector Design Editor Developer Portfolio" />
+  <title>Aryan Rokade — FIGMA CANVAS 36</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --fig-bg: #1e1e1e;
+      --fig-canvas: #2c2c2c;
+      --fig-panel: #252525;
+      --fig-border: #383838;
+      --fig-blue: #0d99ff;
+      --fig-blue-hover: #0b85de;
+      --fig-text: #ffffff;
+      --fig-text-muted: #8b8b8b;
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--fig-canvas);
+      color: var(--fig-text);
+      font-family: var(--font-ui);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP FIGMA TOOLBAR */
+    header.fig-toolbar {
+      height: 48px;
+      background: var(--fig-panel);
+      border-bottom: 1px solid var(--fig-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      user-select: none;
+      z-index: 500;
+      flex-shrink: 0;
+    }
+
+    .tool-group-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .figma-icon-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .figma-icon-btn:hover { background: rgba(255, 255, 255, 0.08); }
+
+    .tool-icons {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .tool-btn {
+      background: none;
+      border: none;
+      color: var(--fig-text-muted);
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-btn:hover, .tool-btn.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .doc-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .tool-group-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .zoom-pill {
+      font-size: 0.8rem;
+      color: var(--fig-text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .btn-share {
+      background: var(--fig-blue);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-share:hover { background: var(--fig-blue-hover); }
+
+    /* WORKSPACE: LEFT LAYERS + CENTER CANVAS + RIGHT INSPECTOR */
+    .fig-workspace {
+      display: grid;
+      grid-template-columns: 260px 1fr 280px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* LEFT LAYERS PANEL */
+    aside.layers-panel {
+      background: var(--fig-panel);
+      border-right: 1px solid var(--fig-border);
+      padding: 16px 0;
+      overflow-y: auto;
+      user-select: none;
+    }
+
+    .panel-section-title {
+      font-size: 0.72rem;
+      color: var(--fig-text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0 16px;
+      margin-bottom: 8px;
+    }
+
+    .layer-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      font-size: 0.84rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .layer-row:hover, .layer-row.active {
+      background: var(--fig-blue);
+      color: #fff;
+    }
+
+    /* CENTER INFINITE CANVAS */
+    main.canvas-viewport {
+      background-color: var(--fig-canvas);
+      background-image: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      overflow: auto;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+    }
+
+    /* FIGMA ARTBOARD FRAME */
+    .fig-artboard {
+      width: min(840px, 100%);
+      background: #181818;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      position: relative;
+      border: 2px solid transparent;
+      padding: 36px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .fig-artboard.selected {
+      border-color: var(--fig-blue);
+      box-shadow: 0 0 0 2px var(--fig-blue), 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .artboard-label {
+      position: absolute;
+      top: -26px;
+      left: 0;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--fig-text-muted);
+      font-weight: 600;
+    }
+
+    .fig-artboard.selected .artboard-label {
+      color: var(--fig-blue);
+    }
+
+    /* HERO CONTENT */
+    .artboard-hero {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .hero-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-details h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .hero-details p {
+      font-size: 0.95rem;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    /* PROJECTS CARDS IN ARTBOARD */
+    .projects-canvas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .canvas-card {
+      background: #202020;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      transition: border-color 0.15s;
+    }
+
+    .canvas-card:hover { border-color: var(--fig-blue); }
+
+    .canvas-card-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--fig-blue);
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+    }
+
+    .canvas-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .canvas-card p {
+      font-size: 0.88rem;
+      color: #8b8b8b;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag-pill {
+      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #ccc;
+    }
+
+    .btn-canvas-link {
+      color: var(--fig-blue);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* RIGHT PROPERTIES INSPECTOR */
+    aside.inspector-panel {
+      background: var(--fig-panel);
+      border-left: 1px solid var(--fig-border);
+      padding: 20px 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 0.84rem;
+    }
+
+    .prop-group {
+      border-bottom: 1px solid var(--fig-border);
+      padding-bottom: 16px;
+    }
+
+    .prop-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: var(--fig-text-muted);
+    }
+
+    .prop-val { color: #fff; font-family: var(--font-mono); }
+
+    .export-box {
+      margin-top: auto;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--fig-border);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .btn-export-cv {
+      display: block;
+      width: 100%;
+      background: var(--fig-blue);
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .btn-export-cv:hover { background: var(--fig-blue-hover); }
+
+    @media (max-width: 960px) {
+      .fig-workspace { grid-template-columns: 1fr; }
+      aside.layers-panel, aside.inspector-panel { display: none; }
+      .projects-canvas-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP TOOLBAR -->
+  <header class="fig-toolbar">
+    <div class="tool-group-left">
+      <div class="figma-icon-btn">❖</div>
+      <div class="tool-icons">
+        <button class="tool-btn active" title="Move Tool">↖</button>
+        <button class="tool-btn" title="Frame Tool">#</button>
+        <button class="tool-btn" title="Rectangle Tool">□</button>
+        <button class="tool-btn" title="Pen Tool">✎</button>
+        <button class="tool-btn" title="Text Tool">T</button>
+        <button class="tool-btn" title="Comment Tool">💬</button>
+      </div>
+      <span class="doc-name">Aryan_Rokade_Portfolio.fig</span>
+    </div>
+
+    <div class="tool-group-right">
+      <span class="zoom-pill">100%</span>
+      <a href="../Aryan_Rokade_Resume.pdf" download class="btn-share">Export CV ↓</a>
+    </div>
+  </header>
+
+  <!-- WORKSPACE -->
+  <div class="fig-workspace">
+    
+    <!-- LEFT LAYERS PANEL -->
+    <aside class="layers-panel">
+      <div class="panel-section-title">Layers</div>
+      <div class="layer-row active">❖ Artboard_Master</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Hero_Profile</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Project_VyaparFlow</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Project_CyberSentinel</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Project_SaturnFinance</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Project_MRITumorAI</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Experience_Octanet</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Award_Techblitz2025</div>
+      <div class="layer-row">&nbsp;&nbsp;↳ ❖ Contact_Transmit</div>
+    </aside>
+
+    <!-- CENTER CANVAS VIEWPORT -->
+    <main class="canvas-viewport">
+      
+      <!-- ARTBOARD -->
+      <div class="fig-artboard selected">
+        <div class="artboard-label"># Artboard_Master &bull; W: 1280 &bull; H: 960</div>
+
+        <!-- HERO -->
+        <div class="artboard-hero">
+          <div class="hero-avatar">
+            <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+          </div>
+          <div class="hero-details">
+            <h1>Aryan Rokade</h1>
+            <p>
+              B.E. Computer Engineering @ VCET, Mumbai University (2027). Full-Stack Developer & Machine Learning engineer crafting high-fidelity digital systems.
+            </p>
+          </div>
+        </div>
+
+        <!-- PROJECTS GRID -->
+        <div class="projects-canvas-grid">
+          
+          <div class="canvas-card">
+            <div class="canvas-card-top">
+              <span>COMPONENT // 01</span>
+              <span>B2B ERP</span>
+            </div>
+            <h3>VyaparFlow</h3>
+            <p>Enterprise inventory management, multi-outlet stock reconciliation, automated invoicing, and relational constraints.</p>
+            <div class="tag-row">
+              <span class="tag-pill">Next.js</span>
+              <span class="tag-pill">PostgreSQL</span>
+              <span class="tag-pill">Prisma</span>
+              <span class="tag-pill">TypeScript</span>
+            </div>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-canvas-link">Inspect Codebase &rarr;</a>
+          </div>
+
+          <div class="canvas-card">
+            <div class="canvas-card-top">
+              <span>COMPONENT // 02</span>
+              <span>SECURITY</span>
+            </div>
+            <h3>CyberSentinel Suite</h3>
+            <p>Real-time packet inspection & intrusion detection radar with Flask streaming anomalies via WebSockets.</p>
+            <div class="tag-row">
+              <span class="tag-pill">React</span>
+              <span class="tag-pill">Flask</span>
+              <span class="tag-pill">Python</span>
+              <span class="tag-pill">Socket.IO</span>
+            </div>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-canvas-link">Inspect Codebase &rarr;</a>
+          </div>
+
+          <div class="canvas-card">
+            <div class="canvas-card-top">
+              <span>COMPONENT // 03</span>
+              <span>FINTECH</span>
+            </div>
+            <h3>Saturn Finance</h3>
+            <p>Personal finance tracking suite with recursive budget forecasting, ledger reconciliation, and JWT auth.</p>
+            <div class="tag-row">
+              <span class="tag-pill">MongoDB</span>
+              <span class="tag-pill">Express</span>
+              <span class="tag-pill">React</span>
+              <span class="tag-pill">Node.js</span>
+            </div>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-canvas-link">Inspect Codebase &rarr;</a>
+          </div>
+
+          <div class="canvas-card">
+            <div class="canvas-card-top">
+              <span>COMPONENT // 04</span>
+              <span>NEURAL AI</span>
+            </div>
+            <h3>MRI Brain Tumor Classifier</h3>
+            <p>Deep convolutional neural network for clinical neuroimaging scans fine-tuned on VGG16 architecture.</p>
+            <div class="tag-row">
+              <span class="tag-pill">TensorFlow</span>
+              <span class="tag-pill">Keras VGG16</span>
+              <span class="tag-pill">Python</span>
+              <span class="tag-pill">Streamlit</span>
+            </div>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-canvas-link">Inspect Codebase &rarr;</a>
+          </div>
+
+        </div>
+
+        <!-- EXPERIENCE STRIP -->
+        <div style="background:#202020; border:1px solid #333; border-radius:8px; padding:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+          <div>
+            <div style="color:var(--fig-blue); font-size:0.75rem; font-family:var(--font-mono);">HACKATHON PODIUM</div>
+            <div style="font-weight:700; color:#fff;">2nd Position &bull; Techblitz 2025</div>
+            <div style="font-size:0.82rem; color:#8b8b8b;">Dept of AI & DS, VCET</div>
+          </div>
+          <div>
+            <div style="color:var(--fig-blue); font-size:0.75rem; font-family:var(--font-mono);">WORK EXPERIENCE</div>
+            <div style="font-weight:700; color:#fff;">Web Dev Intern &bull; Octanet Services</div>
+            <div style="font-size:0.82rem; color:#8b8b8b;">Dec 2024 - Jan 2025</div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- RIGHT INSPECTOR PANEL -->
+    <aside class="inspector-panel">
+      <div class="prop-group">
+        <div class="panel-section-title" style="padding:0; margin-bottom:12px;">Properties</div>
+        <div class="prop-row"><span>Position X / Y</span><span class="prop-val">120, 240</span></div>
+        <div class="prop-row"><span>Dimensions</span><span class="prop-val">1280 &times; 960</span></div>
+        <div class="prop-row"><span>Fill</span><span class="prop-val">#181818</span></div>
+        <div class="prop-row"><span>Corner Radius</span><span class="prop-val">8px</span></div>
+      </div>
+
+      <div class="prop-group">
+        <div class="panel-section-title" style="padding:0; margin-bottom:12px;">Contact Transmit</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <a href="mailto:aryanrokade416@gmail.com" style="color:var(--fig-blue); text-decoration:none;">✉️ aryanrokade416@gmail.com</a>
+          <div style="color:#aaa;">📞 +91 85912 24192</div>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" style="color:var(--fig-blue); text-decoration:none;">GitHub Profile ↗</a>
+          <a href="https://www.linkedin.com/in/aryan-rokade/" target="_blank" rel="noopener noreferrer" style="color:var(--fig-blue); text-decoration:none;">LinkedIn Profile ↗</a>
+        </div>
+      </div>
+
+      <div class="export-box">
+        <div style="font-weight:700; color:#fff; margin-bottom:4px;">Export Asset</div>
+        <div style="font-size:0.8rem; color:var(--fig-text-muted);">Format: PDF (Vector)</div>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-export-cv">Export Resume (CV)</a>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

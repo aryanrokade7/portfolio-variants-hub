@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Classic Motherboard BIOS / UEFI Firmware Setup Developer Portfolio" />
+  <title>Aryan Rokade — BIOS UEFI SETUP 32</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bios-blue: #0000aa;
+      --bios-blue-dark: #000088;
+      --bios-grey: #aaaaaa;
+      --bios-white: #ffffff;
+      --bios-yellow: #ffff55;
+      --bios-cyan: #55ffff;
+      --bios-red: #ff5555;
+      --font-mono: 'Share Tech Mono', 'VT323', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #000;
+      color: var(--bios-grey);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .bios-frame {
+      width: min(1040px, 100%);
+      background: var(--bios-blue);
+      border: 4px double var(--bios-grey);
+      box-shadow: 0 0 35px rgba(0, 0, 170, 0.8), inset 0 0 40px rgba(0, 0, 0, 0.4);
+      padding: 16px;
+      position: relative;
+    }
+
+    /* Scanlines */
+    .bios-frame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0px, rgba(0, 0, 0, 0.12) 2px, transparent 2px, transparent 4px);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* BIOS Header */
+    .bios-header {
+      border-bottom: 2px solid var(--bios-grey);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--bios-white);
+      font-size: 0.95rem;
+    }
+
+    .bios-title-main {
+      font-weight: 700;
+      color: var(--bios-yellow);
+    }
+
+    /* Top Nav Tabs */
+    .bios-menu-bar {
+      display: flex;
+      gap: 20px;
+      border-bottom: 2px solid var(--bios-grey);
+      padding: 6px 12px;
+      background: var(--bios-blue-dark);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .bios-tab {
+      color: var(--bios-grey);
+      text-decoration: none;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
+    }
+
+    .bios-tab:hover, .bios-tab.active {
+      background: var(--bios-grey);
+      color: var(--bios-blue);
+    }
+
+    /* Main Dual Screen Setup */
+    .bios-split-view {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 16px;
+      min-height: 480px;
+      margin-bottom: 16px;
+    }
+
+    .bios-main-pane {
+      border: 1px solid var(--bios-grey);
+      padding: 16px;
+      background: rgba(0, 0, 136, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bios-help-pane {
+      border: 1px solid var(--bios-grey);
+      padding: 16px;
+      background: rgba(0, 0, 136, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .help-header {
+      color: var(--bios-yellow);
+      border-bottom: 1px dashed var(--bios-grey);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .help-text {
+      color: var(--bios-white);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* BIOS Rows */
+    .bios-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 8px;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .bios-row:hover, .bios-row.selected {
+      background: var(--bios-white);
+      color: var(--bios-blue);
+    }
+
+    .bios-row:hover .bios-val, .bios-row.selected .bios-val {
+      color: var(--bios-blue);
+    }
+
+    .bios-label {
+      color: inherit;
+    }
+
+    .bios-val {
+      color: var(--bios-cyan);
+      font-weight: 700;
+    }
+
+    .bios-val.yellow {
+      color: var(--bios-yellow);
+    }
+
+    /* Project Spec Card Inside BIOS */
+    .bios-spec-card {
+      border: 1px dashed var(--bios-cyan);
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .spec-title {
+      color: var(--bios-yellow);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .spec-desc {
+      color: var(--bios-white);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .spec-tech {
+      color: var(--bios-cyan);
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+
+    .spec-link {
+      display: inline-block;
+      background: var(--bios-grey);
+      color: var(--bios-blue);
+      padding: 2px 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .spec-link:hover {
+      background: var(--bios-yellow);
+      color: #000;
+    }
+
+    /* BIOS Avatar */
+    .bios-avatar-frame {
+      border: 1px solid var(--bios-grey);
+      padding: 4px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .bios-avatar-frame img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(140%);
+    }
+
+    /* Legend / Bottom Bar */
+    .bios-footer-legend {
+      border-top: 2px solid var(--bios-grey);
+      padding-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--bios-white);
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 8px;
+    }
+
+    .legend-key {
+      color: var(--bios-yellow);
+      font-weight: 700;
+    }
+
+    @media (max-width: 800px) {
+      .bios-split-view { grid-template-columns: 1fr; }
+      .bios-footer-legend { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bios-frame">
+    <!-- BIOS HEADER -->
+    <div class="bios-header">
+      <div>AMIBIOS(C) 2025 ROKADE SYSTEM FIRMWARE v4.16</div>
+      <div class="bios-title-main">VCET UEFI SETUP UTILITY</div>
+    </div>
+
+    <!-- TABS -->
+    <nav class="bios-menu-bar">
+      <button class="bios-tab active" onclick="switchTab('main', this)">[ MAIN ]</button>
+      <button class="bios-tab" onclick="switchTab('projects', this)">[ ADVANCED / PROJECTS ]</button>
+      <button class="bios-tab" onclick="switchTab('hardware', this)">[ CHIPSET / SKILLS ]</button>
+      <button class="bios-tab" onclick="switchTab('boot', this)">[ BOOT / EXPERIENCE ]</button>
+      <button class="bios-tab" onclick="switchTab('exit', this)">[ EXIT & RESUME ]</button>
+    </nav>
+
+    <!-- CONTENT DISPLAY -->
+    <div class="bios-split-view">
+      
+      <!-- LEFT PANE: SYSTEM SPECS -->
+      <div class="bios-main-pane" id="pane-main">
+        <div style="color:var(--bios-yellow); font-weight:700; margin-bottom:6px;">-- SYSTEM SPECIFICATIONS --</div>
+
+        <div class="bios-row selected">
+          <span class="bios-label">System Engineer</span>
+          <span class="bios-val">Aryan Rokade</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">CPU Architecture</span>
+          <span class="bios-val">Computer Engineering (B.E.)</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Board / University</span>
+          <span class="bios-val">VCET, Mumbai University</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Expected Graduation Clock</span>
+          <span class="bios-val yellow">Year 2027</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Hackathon Overclock</span>
+          <span class="bios-val yellow">Techblitz 2025 [2nd PLACE]</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">System Memory</span>
+          <span class="bios-val">32768 MB Full-Stack DDR5</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Production Systems Installed</span>
+          <span class="bios-val">4 Active Cores</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Real-Time Clock (IST)</span>
+          <span class="bios-val" id="biosClock">Loading...</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Primary Geographic Bus</span>
+          <span class="bios-val">Mumbai, Maharashtra, IN</span>
+        </div>
+        <div class="bios-row">
+          <span class="bios-label">Status Flag</span>
+          <span class="bios-val yellow">[READY_FOR_DEPLOYMENT]</span>
+        </div>
+      </div>
+
+      <!-- PANE PROJECTS -->
+      <div class="bios-main-pane" id="pane-projects" style="display: none; overflow-y: auto;">
+        <div style="color:var(--bios-yellow); font-weight:700; margin-bottom:6px;">-- CONFIGURED PROJECT MODULES --</div>
+        
+        <div class="bios-spec-card">
+          <div class="spec-title">[01] VyaparFlow B2B ERP</div>
+          <div class="spec-desc">High-volume inventory reconciliation, multi-store stock, tax invoicing, and relational constraints.</div>
+          <div class="spec-tech">STACK: Next.js, PostgreSQL, Prisma, TypeScript, Tailwind CSS</div>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="spec-link">OPEN GITHUB REPO &gt;</a>
+        </div>
+
+        <div class="bios-spec-card">
+          <div class="spec-title">[02] CyberSentinel Suite</div>
+          <div class="spec-desc">Live intrusion detection radar, packet inspection, and WebSocket attack alerts.</div>
+          <div class="spec-tech">STACK: React, Flask, Python, Socket.IO, Chart.js</div>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="spec-link">OPEN GITHUB REPO &gt;</a>
+        </div>
+
+        <div class="bios-spec-card">
+          <div class="spec-title">[03] Saturn Finance</div>
+          <div class="spec-desc">Full-stack budget tracker, recurring expense projections, and authenticated ledger.</div>
+          <div class="spec-tech">STACK: MongoDB, Express.js, React, Node.js</div>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="spec-link">OPEN GITHUB REPO &gt;</a>
+        </div>
+
+        <div class="bios-spec-card">
+          <div class="spec-title">[04] MRI Brain Tumor Classifier</div>
+          <div class="spec-desc">Deep transfer-learning neuroimaging pathology classifier with VGG16 architecture.</div>
+          <div class="spec-tech">STACK: TensorFlow, Keras VGG16, Python, Streamlit</div>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="spec-link">OPEN GITHUB REPO &gt;</a>
+        </div>
+      </div>
+
+      <!-- PANE HARDWARE SKILLS -->
+      <div class="bios-main-pane" id="pane-hardware" style="display: none;">
+        <div style="color:var(--bios-yellow); font-weight:700; margin-bottom:6px;">-- TECHNICAL CHIPSET INVENTORY --</div>
+        
+        <div class="bios-row"><span class="bios-label">Primary Instruction Sets</span><span class="bios-val">TS, JS (ES6+), Python, C++, SQL</span></div>
+        <div class="bios-row"><span class="bios-label">UI Accelerators</span><span class="bios-val">React.js, Next.js, HTML5, CSS3</span></div>
+        <div class="bios-row"><span class="bios-label">Server Microcode</span><span class="bios-val">Node.js, Express, Flask</span></div>
+        <div class="bios-row"><span class="bios-label">Data Storage Bus</span><span class="bios-val">PostgreSQL, Prisma, MongoDB</span></div>
+        <div class="bios-row"><span class="bios-label">Neural Coprocessor</span><span class="bios-val">TensorFlow, Keras VGG16, OpenCV</span></div>
+        <div class="bios-row"><span class="bios-label">Developer Toolchain</span><span class="bios-val">Git, GitHub, Docker, Linux, Bash</span></div>
+      </div>
+
+      <!-- PANE BOOT (EXPERIENCE & EDU) -->
+      <div class="bios-main-pane" id="pane-boot" style="display: none;">
+        <div style="color:var(--bios-yellow); font-weight:700; margin-bottom:6px;">-- BOOT SEQUENCE & EXPERIENCE --</div>
+
+        <div class="bios-spec-card">
+          <div class="spec-title">BOOT ENTRY 1: Techblitz Hackathon 2025</div>
+          <div class="spec-desc">Rank: 2nd Position Winner &bull; Organizers: Department of AI & DS, VCET. 24h end-to-end full-stack prototype.</div>
+        </div>
+
+        <div class="bios-spec-card">
+          <div class="spec-title">BOOT ENTRY 2: Octanet Services Pvt. Ltd.</div>
+          <div class="spec-desc">Role: Web Development Intern &bull; Dec 2024 - Jan 2025. UI architecture & responsive API integration.</div>
+        </div>
+
+        <div class="bios-spec-card">
+          <div class="spec-title">BOOT ENTRY 3: B.E. Computer Engineering</div>
+          <div class="spec-desc">Institution: VCET (Mumbai University) &bull; 2023 - 2027. Data Structures, DBMS, Distributed Systems, ML.</div>
+        </div>
+      </div>
+
+      <!-- PANE EXIT & RESUME -->
+      <div class="bios-main-pane" id="pane-exit" style="display: none;">
+        <div style="color:var(--bios-yellow); font-weight:700; margin-bottom:6px;">-- EXIT / SAVE & DISPATCH --</div>
+
+        <div class="bios-row selected" onclick="downloadResume();">
+          <span class="bios-label">[SAVE & DOWNLOAD] Aryan_Rokade_Resume.pdf</span>
+          <span class="bios-val yellow">&lt;PRESS ENTER&gt;</span>
+        </div>
+        <div class="bios-row" onclick="window.location.href='mailto:aryanrokade416@gmail.com';">
+          <span class="bios-label">[TRANSMIT] Email: aryanrokade416@gmail.com</span>
+          <span class="bios-val">&lt;ENTER&gt;</span>
+        </div>
+        <div class="bios-row" onclick="window.location.href='tel:+918591224192';">
+          <span class="bios-label">[CALL] Phone: +91 85912 24192</span>
+          <span class="bios-val">&lt;ENTER&gt;</span>
+        </div>
+        <div class="bios-row" onclick="window.open('https://github.com/aryanrokade7', '_blank');">
+          <span class="bios-label">[BUS] GitHub Profile</span>
+          <span class="bios-val">aryanrokade7</span>
+        </div>
+        <div class="bios-row" onclick="window.open('https://www.linkedin.com/in/aryan-rokade/', '_blank');">
+          <span class="bios-label">[BUS] LinkedIn Profile</span>
+          <span class="bios-val">aryan-rokade</span>
+        </div>
+      </div>
+
+      <!-- RIGHT PANE: HELP / ITEM INFO -->
+      <div class="bios-help-pane">
+        <div>
+          <div class="bios-avatar-frame">
+            <img src="../aryan-rokade.jpg" alt="Aryan Rokade BIOS" />
+          </div>
+          <div class="help-header">Item Specific Help</div>
+          <p class="help-text" id="helpDesc">
+            Use the top menu bar or arrow keys to navigate system partitions. Select any item to view detailed hardware parameters or trigger firmware download actions.
+          </p>
+        </div>
+        <div style="border-top: 1px dashed var(--bios-grey); padding-top: 8px; font-size: 0.8rem; color: var(--bios-cyan);">
+          BIOS DATE: 10/07/2026<br />
+          CHIPSET: VCET-COMP-ENG-2027
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER LEGEND -->
+    <div class="bios-footer-legend">
+      <div class="legend-item"><span class="legend-key">&larr;&rarr;</span><span>Select Screen</span></div>
+      <div class="legend-item"><span class="legend-key">&uarr;&darr;</span><span>Select Item</span></div>
+      <div class="legend-item"><span class="legend-key">Enter</span><span>Select / SubMenu</span></div>
+      <div class="legend-item"><span class="legend-key">F1</span><span>General Help</span></div>
+      <div class="legend-item"><span class="legend-key">F10</span><span>Download CV (Resume)</span></div>
+      <div class="legend-item"><span class="legend-key">ESC</span><span>Exit Setup</span></div>
+    </div>
+  </div>
+
+  <script>
+    const tabsList = ['main', 'projects', 'hardware', 'boot', 'exit'];
+    let curIdx = 0;
+
+    function switchTab(tabId, btn) {
+      tabsList.forEach(t => {
+        const el = document.getElementById('pane-' + t);
+        if (el) el.style.display = (t === tabId) ? 'flex' : 'none';
+      });
+      document.querySelectorAll('.bios-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      curIdx = tabsList.indexOf(tabId);
+    }
+
+    function downloadResume() {
+      const a = document.createElement('a');
+      a.href = '../Aryan_Rokade_Resume.pdf';
+      a.download = 'Aryan_Rokade_Resume.pdf';
+      a.click();
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        curIdx = (curIdx + 1) % tabsList.length;
+        const target = tabsList[curIdx];
+        switchTab(target, document.querySelectorAll('.bios-tab')[curIdx]);
+      } else if (e.key === 'ArrowLeft') {
+        curIdx = (curIdx - 1 + tabsList.length) % tabsList.length;
+        const target = tabsList[curIdx];
+        switchTab(target, document.querySelectorAll('.bios-tab')[curIdx]);
+      } else if (e.key === 'F10') {
+        e.preventDefault();
+        downloadResume();
+      }
+    });
+
+    // Clock
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('biosClock').innerText = now.toLocaleTimeString('en-US', { hour12: false });
+    }, 1000);
+  </script>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

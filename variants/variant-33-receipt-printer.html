@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Itemized Engineering Receipt</title>
+  <meta name="description" content="Thermal paper receipt and POS cash register portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Libre+Barcode+39+Text&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1c1d22;
+      --paper: #faf8f5;
+      --paper-shadow: rgba(0,0,0,0.45);
+      --ink: #1e1e1e;
+      --ink-dim: #555;
+      --font-mono: 'Space Mono', monospace;
+      --font-barcode: 'Libre Barcode 39 Text', cursive;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 20%, #2a2c35 0%, #15161a 100%);
+      color: #333;
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 80px;
+    }
+
+    /* Thermal Receipt Paper Roll */
+    .receipt-roll {
+      width: 100%;
+      max-width: 580px;
+      background: var(--paper);
+      box-shadow: 0 25px 60px var(--paper-shadow);
+      position: relative;
+      padding: 36px 32px 50px;
+      border-radius: 2px;
+      animation: printSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes printSlide {
+      0% { transform: translateY(-40px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Jagged Paper Top & Bottom Tears */
+    .receipt-roll::before, .receipt-roll::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      height: 10px;
+      background: radial-gradient(circle, transparent, transparent 50%, var(--bg) 50%, var(--bg) 100%);
+      background-size: 14px 14px;
+    }
+    .receipt-roll::before { top: -10px; }
+    .receipt-roll::after { bottom: -10px; transform: rotate(180deg); }
+
+    /* Store Header */
+    .receipt-head {
+      text-align: center;
+      border-bottom: 2px dashed #999;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .store-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #000;
+    }
+    .store-sub {
+      font-size: 0.8rem;
+      color: var(--ink-dim);
+      margin-top: 4px;
+    }
+
+    /* Meta Details */
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      margin: 4px 0;
+    }
+
+    /* Itemized Table */
+    .items-divider {
+      border-top: 1px dashed #777;
+      border-bottom: 1px dashed #777;
+      padding: 8px 0;
+      margin: 16px 0;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .item-row {
+      padding: 10px 0;
+      border-bottom: 1px dotted #ccc;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .item-row:hover {
+      background: #f0ede6;
+    }
+    .item-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .item-sub {
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+    .item-tags {
+      font-size: 0.7rem;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    /* Total / Tax Calculation */
+    .calc-block {
+      margin-top: 20px;
+      border-top: 2px dashed #777;
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+    .calc-line {
+      display: flex;
+      justify-content: space-between;
+    }
+    .calc-line.total {
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-top: 2px solid #000;
+      padding-top: 8px;
+      margin-top: 4px;
+      color: #000;
+    }
+
+    /* Tip / Gratuity Interactive Picker */
+    .tip-section {
+      margin-top: 16px;
+      background: #eee8df;
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .tip-btns {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .tip-btn {
+      background: #fff;
+      border: 1px solid #aaa;
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .tip-btn.active {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    /* Barcode */
+    .barcode-area {
+      text-align: center;
+      margin-top: 26px;
+    }
+    .barcode-svg {
+      font-family: var(--font-barcode);
+      font-size: 3rem;
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+    .barcode-num {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      color: var(--ink-dim);
+    }
+
+    /* Stamped Paid Badge */
+    .stamp-paid {
+      position: absolute;
+      top: 180px;
+      right: 30px;
+      border: 3px solid #b32400;
+      color: #b32400;
+      padding: 6px 14px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transform: rotate(14deg);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    /* Action Buttons Below */
+    .receipt-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .r-btn {
+      flex: 1;
+      background: #000;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .r-btn:hover { opacity: 0.85; }
+    .r-btn.sec {
+      background: #fff;
+      color: #000;
+      border: 1px solid #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="receipt-roll">
+    
+    <!-- Paid Stamp -->
+    <div class="stamp-paid">HIRED ✓</div>
+
+    <!-- Header -->
+    <header class="receipt-head">
+      <h1 class="store-name">ARYAN ROKADE</h1>
+      <div class="store-sub">FULL STACK & AI ENGINEERING SOLUTIONS</div>
+      <div class="store-sub">MUMBAI, MH • INDIA // CLASS OF 2027</div>
+      <div class="store-sub">VCET MUMBAI UNIVERSITY</div>
+    </header>
+
+    <!-- Meta Details -->
+    <div class="meta-row">
+      <span>ORDER ID: #2027-VCET</span>
+      <span>CASHIER: ARYAN</span>
+    </div>
+    <div class="meta-row">
+      <span>DATE: 07-OCT-2026</span>
+      <span>STATUS: PRODUCTION</span>
+    </div>
+
+    <!-- Items Header -->
+    <div class="items-divider">
+      <span>ITEM DESCRIPTION</span>
+      <span>PRICE</span>
+    </div>
+
+    <!-- Line Item 1 -->
+    <div class="item-row" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoicing.')">
+      <div class="item-main">
+        <span>1x VYAPARFLOW PLATFORM</span>
+        <span>$0.00</span>
+      </div>
+      <div class="item-sub">Enterprise SME Cloud ERP & GST Billing Suite</div>
+      <div class="item-tags">Stack: Next.js 14, TypeScript, PostgreSQL, Prisma, Stripe</div>
+    </div>
+
+    <!-- Line Item 2 -->
+    <div class="item-row" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+      <div class="item-main">
+        <span>1x CYBERSENTINEL SUITE</span>
+        <span>$0.00</span>
+      </div>
+      <div class="item-sub">Real-Time Threat Monitoring & Packet Sniffer</div>
+      <div class="item-tags">Stack: React, Python Flask, Socket.IO, Snort IDS, Chart.js</div>
+    </div>
+
+    <!-- Line Item 3 -->
+    <div class="item-row" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+      <div class="item-main">
+        <span>1x SATURN FINANCE</span>
+        <span>$0.00</span>
+      </div>
+      <div class="item-sub">Personal Capital & Spending Analytics Telemetry</div>
+      <div class="item-tags">Stack: MongoDB, Express, React, Node.js, JWT Auth</div>
+    </div>
+
+    <!-- Line Item 4 -->
+    <div class="item-row" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+      <div class="item-main">
+        <span>1x MRI BRAIN TUMOR AI</span>
+        <span>$0.00</span>
+      </div>
+      <div class="item-sub">Convolutional Neural Diagnostic (98.2% Accuracy)</div>
+      <div class="item-tags">Stack: TensorFlow, Keras VGG16, Flask, OpenCV</div>
+    </div>
+
+    <!-- Experience & Award -->
+    <div class="item-row">
+      <div class="item-main">
+        <span>1x TECHBLITZ HACKATHON</span>
+        <span>2ND PLACE</span>
+      </div>
+      <div class="item-sub">Department of AI & Data Science, VCET 2025</div>
+    </div>
+
+    <div class="item-row">
+      <div class="item-main">
+        <span>1x OCTANET INTERNSHIP</span>
+        <span>+35% SPEED</span>
+      </div>
+      <div class="item-sub">Web Development Intern (Dec 2024 – Jan 2025)</div>
+    </div>
+
+    <!-- Calculations -->
+    <div class="calc-block">
+      <div class="calc-line">
+        <span>SUBTOTAL (4 PROJECTS + AWARDS)</span>
+        <span>$0.00</span>
+      </div>
+      <div class="calc-line">
+        <span>GST / VAT (0%)</span>
+        <span>$0.00</span>
+      </div>
+      <div class="calc-line total">
+        <span>TOTAL DUE</span>
+        <span>$0.00 (OPEN TO WORK)</span>
+      </div>
+    </div>
+
+    <!-- Interactive Gratuity / Tip -->
+    <div class="tip-section">
+      <div style="font-size:0.75rem; color:#444;">SELECT OFFER GRATUITY (INTERVIEW):</div>
+      <div class="tip-btns">
+        <button class="tip-btn active" onclick="setTip(this, 'Full-Time')">Full-Time</button>
+        <button class="tip-btn" onclick="setTip(this, 'Internship')">Internship</button>
+        <button class="tip-btn" onclick="setTip(this, 'Contract')">Contract</button>
+        <button class="tip-btn" onclick="setTip(this, 'Coffee Chat')">Coffee</button>
+      </div>
+    </div>
+
+    <!-- Barcode -->
+    <div class="barcode-area">
+      <div class="barcode-svg">*ARYANROKADE2027*</div>
+      <div class="barcode-num">85912 24192 416 027</div>
+      <div style="font-size:0.75rem; margin-top:8px; color:#555;">THANK YOU FOR VISITING! PLEASE COME AGAIN.</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="receipt-actions">
+      <a href="../Aryan_Rokade_Resume.pdf" download class="r-btn">
+        ⬇ PRINT RECEIPT (RESUME.PDF)
+      </a>
+      <a href="mailto:aryanrokade416@gmail.com" class="r-btn sec">
+        ✉ SEND INQUIRY (EMAIL)
+      </a>
+      <a href="https://github.com/aryanrokade7" target="_blank" class="r-btn sec">
+        GITHUB ↗
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    function setTip(btn, type) {
+      document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

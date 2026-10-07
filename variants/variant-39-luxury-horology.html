@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Haute Horlogerie Complications</title>
+  <meta name="description" content="Swiss luxury skeleton mechanical watchmaker portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dial-bg: #0d0f12;
+      --dial-metal: #1a1e24;
+      --rose-gold: #e5b887;
+      --gold-bright: #ffd19a;
+      --platinum: #b0bec5;
+      --font-serif: 'Cinzel', serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 50% 30%, #171b22 0%, #08090b 100%);
+      color: #e2e8f0;
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px;
+      line-height: 1.5;
+    }
+
+    .horology-wrapper {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Top Watchmaker Header */
+    .watch-maker-head {
+      text-align: center;
+      border-bottom: 1px solid rgba(229, 184, 135, 0.2);
+      padding-bottom: 16px;
+      width: 100%;
+    }
+    .atelier-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: var(--rose-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .atelier-sub {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: var(--platinum);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Circular Skeleton Watch Dial Casing */
+    .watch-case {
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1f252d, #0b0d10);
+      border: 8px solid #2a313d;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.8), 0 0 20px rgba(229, 184, 135, 0.15);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 560px) {
+      .watch-case { width: 340px; height: 340px; }
+    }
+
+    /* Bezel Roman Numerals Ring */
+    .bezel-ring {
+      position: absolute;
+      top: 15px; left: 15px; right: 15px; bottom: 15px;
+      border-radius: 50%;
+      border: 1px dashed rgba(229, 184, 135, 0.4);
+      pointer-events: none;
+    }
+
+    /* Rotating Skeleton Escapement Gears in Center */
+    .skeleton-movement {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 2px dashed rgba(229, 184, 135, 0.3);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .escapement-gear {
+      width: 80px;
+      height: 80px;
+      border: 3px dashed var(--rose-gold);
+      border-radius: 50%;
+      animation: spinGear 8s linear infinite;
+      opacity: 0.5;
+    }
+    @keyframes spinGear { 100% { transform: rotate(360deg); } }
+
+    /* 4 Chronograph Sub-Dials */
+    .subdial {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #111418;
+      border: 2px solid var(--rose-gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      transition: all 0.2s;
+      z-index: 5;
+    }
+    @media (max-width: 560px) {
+      .subdial { width: 85px; height: 85px; }
+    }
+
+    .subdial:hover, .subdial.active {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(229, 184, 135, 0.4);
+      background: #191f26;
+      border-color: #fff;
+    }
+
+    .subdial.top { top: 35px; }
+    .subdial.right { right: 35px; }
+    .subdial.bottom { bottom: 35px; }
+    .subdial.left { left: 35px; }
+
+    .subdial-title {
+      font-family: var(--font-serif);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      letter-spacing: 1px;
+    }
+    .subdial-tag {
+      font-size: 0.62rem;
+      color: var(--platinum);
+      margin-top: 2px;
+    }
+
+    /* Hands (Hour, Minute, Second) */
+    .watch-hand-sec {
+      position: absolute;
+      width: 2px;
+      height: 180px;
+      background: #ff4444;
+      top: 80px;
+      transform-origin: 50% 180px;
+      animation: tickSec 60s steps(60) infinite;
+      z-index: 10;
+      pointer-events: none;
+    }
+    @keyframes tickSec { 100% { transform: rotate(360deg); } }
+
+    /* Horology Technical Dossier Below Dial */
+    .complication-dossier {
+      width: 100%;
+      max-width: 780px;
+      background: rgba(18, 22, 28, 0.8);
+      border: 1px solid rgba(229, 184, 135, 0.3);
+      border-radius: 6px;
+      padding: 24px;
+      text-align: center;
+    }
+    .complication-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--rose-gold);
+      letter-spacing: 2px;
+    }
+    .complication-sub {
+      font-size: 0.8rem;
+      color: var(--platinum);
+      letter-spacing: 1px;
+      margin: 4px 0 12px;
+    }
+    .complication-desc {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      max-width: 650px;
+      margin: 0 auto 16px;
+    }
+
+    /* Actions */
+    .horology-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .h-btn {
+      background: transparent;
+      border: 1px solid var(--rose-gold);
+      color: var(--gold-bright);
+      padding: 10px 22px;
+      font-family: var(--font-serif);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .h-btn:hover {
+      background: var(--rose-gold);
+      color: #000;
+    }
+    .h-btn.gold {
+      background: var(--rose-gold);
+      color: #000;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="horology-wrapper">
+    
+    <!-- Top Header -->
+    <header class="watch-maker-head">
+      <div class="atelier-title">Aryan Rokade Horlogerie</div>
+      <div class="atelier-sub">Grand Complications • Class of 2027 • VCET Mumbai</div>
+    </header>
+
+    <!-- Circular Skeleton Watch Case -->
+    <div class="watch-case">
+      <div class="bezel-ring"></div>
+      
+      <!-- Central Movement Gear -->
+      <div class="skeleton-movement">
+        <div class="escapement-gear"></div>
+      </div>
+
+      <!-- Ticking Red Second Hand -->
+      <div class="watch-hand-sec"></div>
+
+      <!-- 4 Chronograph Sub-Dials -->
+      <!-- 12 O'clock: VyaparFlow -->
+      <div class="subdial top active" onclick="selectComplication(0)">
+        <div class="subdial-title">VYAPAR</div>
+        <div class="subdial-tag">Next.js ERP</div>
+      </div>
+
+      <!-- 3 O'clock: CyberSentinel -->
+      <div class="subdial right" onclick="selectComplication(1)">
+        <div class="subdial-title">SENTINEL</div>
+        <div class="subdial-tag">Threat IDS</div>
+      </div>
+
+      <!-- 6 O'clock: Saturn Finance -->
+      <div class="subdial bottom" onclick="selectComplication(2)">
+        <div class="subdial-title">SATURN</div>
+        <div class="subdial-tag">MERN Wealth</div>
+      </div>
+
+      <!-- 9 O'clock: MRI Tumor AI -->
+      <div class="subdial left" onclick="selectComplication(3)">
+        <div class="subdial-title">NEURAL AI</div>
+        <div class="subdial-tag">98.2% VGG16</div>
+      </div>
+
+    </div>
+
+    <!-- Complication Technical Dossier -->
+    <div class="complication-dossier">
+      <div class="complication-title" id="compTitle">Complication I: VyaparFlow Enterprise Platform</div>
+      <div class="complication-sub" id="compSub">Full Stack SME Management Suite • Next.js 14 & PostgreSQL</div>
+      <p class="complication-desc" id="compDesc">
+        Engineered with atomic database consistency, automated Goods and Services Tax (GST) invoicing pipelines, real-time inventory synchronization, and Stripe payment gateway integrations.
+      </p>
+
+      <div style="font-size:0.8rem; color:var(--platinum); margin-bottom:16px;">
+        ★ <b>Accreditation:</b> B.E. Computer Engineering (VCET 2027) • 2nd Position in Techblitz Hackathon 2025 • Octanet Services Web Dev Intern (+35% Speed).
+      </div>
+
+      <div class="horology-actions">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="h-btn gold">
+          ⬇ Horology Dossier (CV.PDF)
+        </a>
+        <a href="mailto:aryanrokade416@gmail.com" class="h-btn">
+          ✉ Inquire with Master Watchmaker
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="h-btn">
+          GitHub Atelier ↗
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const complications = [
+      {
+        title: "Complication I: VyaparFlow Enterprise Platform",
+        sub: "Full Stack SME Management Suite • Next.js 14 & PostgreSQL",
+        desc: "Engineered with atomic database consistency, automated Goods and Services Tax (GST) invoicing pipelines, real-time inventory synchronization, and Stripe payment gateway integrations."
+      },
+      {
+        title: "Complication II: CyberSentinel Threat Chronograph",
+        sub: "Real-Time Intrusion Monitoring • React & Python Flask",
+        desc: "Security operations platform that ingests network packet traces in real-time. Using Socket.IO websockets and Snort rules, it alerts system administrators to unauthorized intrusions."
+      },
+      {
+        title: "Complication III: Saturn Finance Tourbillon",
+        sub: "Personal Wealth Engine • MERN Stack & JWT Auth",
+        desc: "Personal budgeting and wealth analytics platform featuring automated expense categorization, savings milestone progress, monthly budgeting limits, and encrypted data storage."
+      },
+      {
+        title: "Complication IV: MRI Brain Tumor Neural Perpetual Calendar",
+        sub: "Deep Learning Diagnostic Core • TensorFlow & Keras VGG16",
+        desc: "Convolutional neural network diagnostic engine achieving 98.2% test accuracy on Kaggle MRI brain tumor scans with Grad-CAM activation heatmaps."
+      }
+    ];
+
+    function selectComplication(idx) {
+      document.querySelectorAll('.subdial').forEach((dial, i) => {
+        dial.classList.toggle('active', i === idx);
+      });
+      const c = complications[idx];
+      document.getElementById('compTitle').innerText = c.title;
+      document.getElementById('compSub').innerText = c.sub;
+      document.getElementById('compDesc').innerText = c.desc;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Neo-Brutalist High-Energy Developer Portfolio" />
+  <title>Aryan Rokade ★ NEO-BRUTALISM 03</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #fffde8;
+      --black: #121212;
+      --yellow: #ffde59;
+      --pink: #ff66c4;
+      --purple: #8c52ff;
+      --cyan: #5ce1e6;
+      --lime: #7ed957;
+      --orange: #ff914d;
+      --font-display: 'Archivo Black', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --brutal-shadow: 5px 5px 0px var(--black);
+      --brutal-shadow-lg: 8px 8px 0px var(--black);
+      --brutal-border: 3.5px solid var(--black);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Top Sticky Header */
+    header.brutal-header {
+      position: sticky;
+      top: 14px;
+      z-index: 500;
+      margin-bottom: 40px;
+    }
+
+    .nav-box {
+      background: #fff;
+      border: var(--brutal-border);
+      box-shadow: var(--brutal-shadow);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 12px;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      text-decoration: none;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      background: var(--pink);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 2px solid var(--black);
+      font-size: 0.75rem;
+    }
+
+    nav.links {
+      display: flex;
+      gap: 20px;
+      font-weight: 700;
+    }
+
+    nav.links a {
+      color: var(--black);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    nav.links a:hover {
+      text-decoration: underline;
+      color: var(--purple);
+    }
+
+    .btn-brutal {
+      background: var(--yellow);
+      color: var(--black);
+      border: var(--brutal-border);
+      box-shadow: 4px 4px 0px var(--black);
+      padding: 8px 18px;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .btn-brutal:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--black);
+    }
+
+    .btn-brutal:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0px var(--black);
+    }
+
+    /* Marquee Running Ticker */
+    .marquee-strip {
+      background: var(--black);
+      color: var(--yellow);
+      border-top: var(--brutal-border);
+      border-bottom: var(--brutal-border);
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      margin: 30px 0 50px;
+      transform: rotate(-1.5deg) scale(1.02);
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: marquee 20s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .sticker-tag {
+      display: inline-block;
+      background: var(--cyan);
+      border: var(--brutal-border);
+      box-shadow: 3px 3px 0px var(--black);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+      transform: rotate(-2deg);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 mark {
+      background: var(--yellow);
+      padding: 0 8px;
+      border-radius: 6px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hero p.lead {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 26px;
+      max-width: 580px;
+    }
+
+    .hero-photo-card {
+      background: #fff;
+      border: var(--brutal-border);
+      box-shadow: var(--brutal-shadow-lg);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      transform: rotate(2deg);
+    }
+
+    .hero-photo-card .badge-rot {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      background: var(--pink);
+      color: #fff;
+      border: var(--brutal-border);
+      box-shadow: 3px 3px 0px var(--black);
+      padding: 6px 12px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      border-radius: 8px;
+      transform: rotate(8deg);
+    }
+
+    .photo-wrap {
+      border: var(--brutal-border);
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      margin-bottom: 16px;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      border: var(--brutal-border);
+      box-shadow: var(--brutal-shadow);
+      padding: 6px 20px;
+      border-radius: 12px;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+
+    .project-card {
+      background: #fff;
+      border: var(--brutal-border);
+      box-shadow: var(--brutal-shadow-lg);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 10px 10px 0px var(--black);
+    }
+
+    .card-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .p-tag-pill {
+      background: var(--lime);
+      border: 2px solid var(--black);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    .project-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    .project-card p {
+      font-weight: 500;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .tech-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .tech-pill-row span {
+      background: var(--bg);
+      border: 2px solid var(--black);
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 6px;
+    }
+
+    /* Skills Brutal Blocks */
+    .skills-section {
+      margin-bottom: 60px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: #fff;
+      border: var(--brutal-border);
+      box-shadow: var(--brutal-shadow);
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .skill-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-card p {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* Contact Box */
+    .contact-card {
+      background: var(--orange);
+      border: var(--brutal-border);
+      box-shadow: var(--brutal-shadow-lg);
+      border-radius: 20px;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .contact-card h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      margin-bottom: 14px;
+      color: #fff;
+      text-shadow: 3px 3px 0px var(--black);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .brutal-input {
+      background: #fff;
+      border: var(--brutal-border);
+      box-shadow: 4px 4px 0px var(--black);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    footer.brutal-footer {
+      border-top: var(--brutal-border);
+      background: #fff;
+      padding: 24px 0 100px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .contact-card { grid-template-columns: 1fr; }
+      nav.links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="brutal-header wrap">
+    <div class="nav-box">
+      <a href="#top" class="brand-title">
+        ARYAN ROKADE <span class="brand-badge">DEV ★</span>
+      </a>
+      <nav class="links">
+        <a href="#work">PROJECTS</a>
+        <a href="#skills">TOOLKIT</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+      <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="btn-brutal">
+        RESUME ↓
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div>
+        <div class="sticker-tag">B.E. COMPUTER ENGINEERING '27</div>
+        <h1>
+          BUILDING <mark>HIGH-ENERGY</mark><br />
+          SOFTWARE THAT WORKS.
+        </h1>
+        <p class="lead">
+          Hey, I'm <strong>Aryan Rokade</strong>. A developer from Mumbai crafting full-stack web applications, AI models, and intuitive digital tools with bold personality and rock-solid code.
+        </p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="#work" class="btn-brutal" style="background: var(--lime);">EXPLORE WORK ↓</a>
+          <a href="mailto:aryanrokade416@gmail.com" class="btn-brutal" style="background: var(--pink); color: #fff;">SAY HELLO ↗</a>
+        </div>
+      </div>
+      <div class="hero-photo-card">
+        <span class="badge-rot">TECHBLITZ 2ND 🏆</span>
+        <div class="photo-wrap">
+          <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-weight: 700;">
+          <span>ARYAN ROKADE</span>
+          <span style="background: var(--yellow); padding: 2px 6px; border: 2px solid var(--black); border-radius: 4px;">MUMBAI, IN</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Marquee Ticker -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      ★ NEXT.JS ★ REACT ★ TYPESCRIPT ★ NODE.JS ★ POSTGRESQL ★ PRISMA ★ TENSORFLOW ★ VGG16 ★ CYBERSECURITY ★ PYTHON ★ DOCKER ★ FIGMA ★ TAILWIND CSS ★ NEXT.JS ★ REACT ★ TYPESCRIPT ★ NODE.JS ★ POSTGRESQL ★ PRISMA ★
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- Projects Section -->
+    <section id="work">
+      <div class="section-title">
+        <span>🚀</span> FEATURED PROJECTS
+      </div>
+      <div class="projects-grid">
+        
+        <!-- Project 1: VyaparFlow -->
+        <article class="project-card">
+          <div>
+            <div class="card-top-bar">
+              <span class="p-tag-pill">LOGISTICS SAAS</span>
+              <span style="font-family: var(--font-mono); font-weight: 700;">01</span>
+            </div>
+            <h3>VyaparFlow</h3>
+            <p>
+              Full-stack export-readiness platform for Indian MSMEs with automated compliance scoring, document management, and shipment tracking.
+            </p>
+            <div class="tech-pill-row">
+              <span>Next.js</span>
+              <span>React</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
+              <span>Prisma</span>
+              <span>PostgreSQL</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="btn-brutal" style="background: var(--cyan);">LIVE DEMO ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="btn-brutal">GITHUB</a>
+          </div>
+        </article>
+
+        <!-- Project 2: CyberSentinel Suite -->
+        <article class="project-card">
+          <div>
+            <div class="card-top-bar">
+              <span class="p-tag-pill" style="background: var(--pink); color: #fff;">CYBER DEFENSE</span>
+              <span style="font-family: var(--font-mono); font-weight: 700;">02</span>
+            </div>
+            <h3>CyberSentinel Suite</h3>
+            <p>
+              Interactive threat simulator covering DoS/DDoS, SQL injection, ransomware detection, and live phishing URL analysis with a Chrome Extension.
+            </p>
+            <div class="tech-pill-row">
+              <span>React</span>
+              <span>Socket.IO</span>
+              <span>Flask</span>
+              <span>Python</span>
+              <span>Chrome Extension</span>
+            </div>
+          </div>
+          <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="btn-brutal" style="background: var(--yellow);">VIEW ON GITHUB ↗</a>
+        </article>
+
+        <!-- Project 3: Saturn -->
+        <article class="project-card">
+          <div>
+            <div class="card-top-bar">
+              <span class="p-tag-pill" style="background: var(--purple); color: #fff;">FINTECH APP</span>
+              <span style="font-family: var(--font-mono); font-weight: 700;">03</span>
+            </div>
+            <h3>Saturn Finance</h3>
+            <p>
+              Full-stack personal finance and budget manager with interactive visual analytics, recurring ledgers, and secure JWT authentication.
+            </p>
+            <div class="tech-pill-row">
+              <span>React</span>
+              <span>Redux Toolkit</span>
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>MongoDB</span>
+            </div>
+          </div>
+          <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="btn-brutal" style="background: var(--yellow);">VIEW ON GITHUB ↗</a>
+        </article>
+
+        <!-- Project 4: MRI Brain Tumor -->
+        <article class="project-card">
+          <div>
+            <div class="card-top-bar">
+              <span class="p-tag-pill" style="background: var(--orange); color: #fff;">DEEP LEARNING</span>
+              <span style="font-family: var(--font-mono); font-weight: 700;">04</span>
+            </div>
+            <h3>MRI Brain Tumor CNN</h3>
+            <p>
+              Deep learning classifier web app diagnosing MRI scans into 4 categories with 98.4% accuracy using VGG16 transfer learning and Flask.
+            </p>
+            <div class="tech-pill-row">
+              <span>TensorFlow</span>
+              <span>Keras</span>
+              <span>VGG16</span>
+              <span>Flask</span>
+              <span>Python</span>
+            </div>
+          </div>
+          <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="btn-brutal" style="background: var(--yellow);">VIEW ON GITHUB ↗</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+      <div class="section-title">
+        <span>⚡</span> TOOLKIT & STRENGTHS
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h4>💻 LANGUAGES</h4>
+          <p>Java · Python · TypeScript · JavaScript · C · C++ · SQL</p>
+        </div>
+        <div class="skill-card">
+          <h4>🌐 FULL-STACK</h4>
+          <p>Next.js · React · Node.js · Express · Tailwind CSS · MERN Stack · Socket.IO</p>
+        </div>
+        <div class="skill-card">
+          <h4>🗄️ DATA & CLOUD</h4>
+          <p>PostgreSQL · MongoDB · Prisma ORM · Docker · Git & GitHub · REST APIs</p>
+        </div>
+        <div class="skill-card">
+          <h4>🧠 AI & FOUNDATIONS</h4>
+          <p>TensorFlow · Keras (VGG16) · Data Structures & Algorithms · Figma (UI/UX)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-card">
+      <div>
+        <h2>LET'S MAKE SOMETHING AWESOME!</h2>
+        <p style="font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 24px;">
+          Open for software engineering roles, hackathon collaborations, and tech opportunities.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="mailto:aryanrokade416@gmail.com" class="btn-brutal" style="background: #fff; width: fit-content;">✉ aryanrokade416@gmail.com</a>
+          <a href="tel:8591224192" class="btn-brutal" style="background: #fff; width: fit-content;">📞 +91 85912 24192</a>
+        </div>
+      </div>
+      <form class="contact-form" action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" class="brutal-input" placeholder="Your Name" required />
+        <input type="email" name="email" class="brutal-input" placeholder="Email Address" required />
+        <textarea name="message" rows="4" class="brutal-input" placeholder="Your Message..." required></textarea>
+        <button type="submit" class="btn-brutal" style="background: var(--lime); font-size: 1.1rem; padding: 14px;">
+          SEND MESSAGE ★
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="wrap brutal-footer">
+    <span>© 2026 ARYAN ROKADE ★ ALL RIGHTS RESERVED</span>
+    <div>
+      <a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--black); margin-right: 14px;">GITHUB</a>
+      <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:var(--black);">LINKEDIN</a>
+    </div>
+  </footer>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

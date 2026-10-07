@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - NeXTSTEP OS Steve Jobs 1989 Operating System Developer Portfolio" />
+  <title>Aryan Rokade — NeXTSTEP OS 37</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --next-bg: #4a4a4a;
+      --next-dark: #2c2c2c;
+      --next-light: #aeaeae;
+      --next-lighter: #c8c8c8;
+      --next-border-light: #e0e0e0;
+      --next-border-dark: #1a1a1a;
+      --next-text: #000000;
+      --font-mono: 'Space Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--next-bg);
+      background-image: 
+        radial-gradient(circle, #383838 1px, transparent 1px);
+      background-size: 8px 8px;
+      color: var(--next-text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* DESKTOP WORKSPACE */
+    .desktop-area {
+      display: grid;
+      grid-template-columns: 200px 1fr 100px;
+      gap: 24px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* NEXTSTEP FLOATING MENU (TOP LEFT) */
+    .next-menu-window {
+      background: var(--next-light);
+      border-top: 2px solid var(--next-border-light);
+      border-left: 2px solid var(--next-border-light);
+      border-right: 2px solid var(--next-border-dark);
+      border-bottom: 2px solid var(--next-border-dark);
+      box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4);
+      width: 200px;
+      align-self: start;
+    }
+
+    .next-titlebar {
+      background: var(--next-dark);
+      color: #fff;
+      padding: 4px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: background 0.1s;
+    }
+
+    .menu-item-row:hover {
+      background: var(--next-dark);
+      color: #fff;
+    }
+
+    .menu-sub-arrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    /* CENTRAL NEXTSTEP FILE VIEWER WINDOW */
+    .next-window {
+      background: var(--next-lighter);
+      border-top: 2px solid var(--next-border-light);
+      border-left: 2px solid var(--next-border-light);
+      border-right: 2px solid var(--next-border-dark);
+      border-bottom: 2px solid var(--next-border-dark);
+      box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.5);
+      border-radius: 2px;
+    }
+
+    .window-header {
+      background: var(--next-dark);
+      color: #fff;
+      padding: 6px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mini-close-box {
+      width: 14px;
+      height: 14px;
+      background: var(--next-light);
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+
+    /* FILE VIEWER MILLER COLUMNS */
+    .file-viewer-columns {
+      display: grid;
+      grid-template-columns: 180px 180px 1fr;
+      height: 480px;
+      border-bottom: 2px solid var(--next-border-dark);
+      background: #fff;
+    }
+
+    .miller-col {
+      border-right: 2px solid var(--next-light);
+      overflow-y: auto;
+      background: #f4f4f4;
+    }
+
+    .col-item {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .col-item:hover, .col-item.active {
+      background: var(--next-dark);
+      color: #fff;
+    }
+
+    /* FILE PREVIEW PANE */
+    .file-preview-pane {
+      padding: 24px;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    .file-preview-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #000;
+    }
+
+    .file-preview-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    .file-preview-body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .tech-stack-tag {
+      display: inline-block;
+      background: var(--next-light);
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin: 0 4px 6px 0;
+    }
+
+    .next-btn {
+      display: inline-block;
+      background: var(--next-light);
+      border-top: 2px solid var(--next-border-light);
+      border-left: 2px solid var(--next-border-light);
+      border-right: 2px solid var(--next-border-dark);
+      border-bottom: 2px solid var(--next-border-dark);
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .next-btn:active {
+      border-top: 2px solid var(--next-border-dark);
+      border-left: 2px solid var(--next-border-dark);
+      border-right: 2px solid var(--next-border-light);
+      border-bottom: 2px solid var(--next-border-light);
+    }
+
+    /* NEXTSTEP ICON DOCK (RIGHT SCREEN) */
+    .next-dock {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .dock-tile {
+      width: 72px;
+      height: 72px;
+      background: var(--next-dark);
+      border-top: 2px solid var(--next-border-light);
+      border-left: 2px solid var(--next-border-light);
+      border-right: 2px solid #000;
+      border-bottom: 2px solid #000;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      text-decoration: none;
+      box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.4);
+      transition: transform 0.1s;
+    }
+
+    .dock-tile:active { transform: translateY(2px); }
+
+    .dock-tile-icon { font-size: 1.5rem; margin-bottom: 4px; }
+
+    @media (max-width: 900px) {
+      .desktop-area { grid-template-columns: 1fr; }
+      .next-dock { flex-direction: row; justify-content: center; }
+      .file-viewer-columns { grid-template-columns: 1fr; height: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="desktop-area">
+    
+    <!-- NEXTSTEP MENU WINDOW -->
+    <div class="next-menu-window">
+      <div class="next-titlebar">
+        <span>NeXT</span>
+        <div class="mini-close-box"></div>
+      </div>
+      <div class="menu-item-row" onclick="loadFile('profile')"><span>Info...</span><span class="menu-sub-arrow">&gt;</span></div>
+      <div class="menu-item-row" onclick="loadFile('vyaparflow')"><span>VyaparFlow</span><span class="menu-sub-arrow">&gt;</span></div>
+      <div class="menu-item-row" onclick="loadFile('sentinel')"><span>CyberSentinel</span><span class="menu-sub-arrow">&gt;</span></div>
+      <div class="menu-item-row" onclick="loadFile('saturn')"><span>Saturn Finance</span><span class="menu-sub-arrow">&gt;</span></div>
+      <div class="menu-item-row" onclick="loadFile('mri')"><span>MRI Tumor AI</span><span class="menu-sub-arrow">&gt;</span></div>
+      <div class="menu-item-row" onclick="loadFile('awards')"><span>Techblitz '25</span><span class="menu-sub-arrow">&gt;</span></div>
+      <div class="menu-item-row" onclick="downloadResume()"><span>Download CV</span></div>
+      <div class="menu-item-row" onclick="window.location.href='mailto:aryanrokade416@gmail.com'"><span>Transmit Mail</span></div>
+    </div>
+
+    <!-- MAIN FILE VIEWER -->
+    <div class="next-window">
+      <div class="window-header">
+        <span>File Viewer: /Users/aryan/Projects</span>
+        <div class="mini-close-box"></div>
+      </div>
+
+      <div class="file-viewer-columns">
+        
+        <!-- COLUMN 1: DIRECTORIES -->
+        <div class="miller-col">
+          <div class="col-item active">📁 Projects</div>
+          <div class="col-item" onclick="loadFile('awards')">📁 Experience</div>
+          <div class="col-item" onclick="loadFile('profile')">📁 Credentials</div>
+          <div class="col-item" onclick="downloadResume()">📄 Resume.pdf</div>
+        </div>
+
+        <!-- COLUMN 2: FILES -->
+        <div class="miller-col">
+          <div class="col-item active" onclick="loadFile('vyaparflow')">📄 VyaparFlow.app</div>
+          <div class="col-item" onclick="loadFile('sentinel')">📄 Sentinel.app</div>
+          <div class="col-item" onclick="loadFile('saturn')">📄 Saturn.app</div>
+          <div class="col-item" onclick="loadFile('mri')">📄 MRITumor.app</div>
+        </div>
+
+        <!-- COLUMN 3: PREVIEW & INFO -->
+        <div class="file-preview-pane" id="previewPane">
+          <h2 class="file-preview-title" id="prevTitle">VyaparFlow B2B Engine</h2>
+          <div class="file-preview-meta" id="prevMeta">Version: 2.4 &bull; Type: Enterprise ERP Software &bull; Status: Executable</div>
+          <p class="file-preview-body" id="prevBody">
+            High-throughput enterprise inventory reconciliation and multi-outlet billing engine. Built with relational schema constraints, tax invoice generators, automated reorder triggers, and comprehensive audit logs.
+          </p>
+          <div style="margin-bottom: 20px;" id="prevTags">
+            <span class="tech-stack-tag">Next.js</span>
+            <span class="tech-stack-tag">TypeScript</span>
+            <span class="tech-stack-tag">PostgreSQL</span>
+            <span class="tech-stack-tag">Prisma ORM</span>
+          </div>
+          <div>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="next-btn" id="prevBtn">Launch Source Code</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NEXTSTEP DOCK -->
+    <div class="next-dock">
+      <div class="dock-tile" onclick="loadFile('profile')">
+        <div class="dock-tile-icon">⬛</div>
+        <span>NeXT</span>
+      </div>
+      <a href="../Aryan_Rokade_Resume.pdf" download class="dock-tile">
+        <div class="dock-tile-icon">📄</div>
+        <span>CV.pdf</span>
+      </a>
+      <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="dock-tile">
+        <div class="dock-tile-icon">🐙</div>
+        <span>GitHub</span>
+      </a>
+      <a href="mailto:aryanrokade416@gmail.com" class="dock-tile">
+        <div class="dock-tile-icon">✉️</div>
+        <span>Mail</span>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    const data = {
+      vyaparflow: {
+        title: "VyaparFlow B2B Engine",
+        meta: "Version 2.4 • Type: Enterprise Billing ERP • Status: Executable",
+        body: "Enterprise multi-warehouse inventory reconciliation, automated tax billing engine, and live stock auditing for high-volume merchants.",
+        tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma ORM"],
+        url: "https://github.com/aryanrokade7"
+      },
+      sentinel: {
+        title: "CyberSentinel Suite",
+        meta: "Version 1.8 • Type: Intrusion Radar • Status: Active",
+        body: "Real-time network security radar with live packet inspection. Python Flask backend telemetry broadcasts attack warnings via WebSockets.",
+        tags: ["React", "Flask", "Python", "Socket.IO"],
+        url: "https://github.com/aryanrokade7"
+      },
+      saturn: {
+        title: "Saturn Finance",
+        meta: "Version 3.0 • Type: FinTech Ledger • Status: Executable",
+        body: "Full-stack personal wealth tracking portal. Features multi-asset ledger balances, recursive expense forecasting, and encrypted session security.",
+        tags: ["MongoDB", "Express", "React", "Node.js"],
+        url: "https://github.com/aryanrokade7"
+      },
+      mri: {
+        title: "MRI Brain Tumor Classifier",
+        meta: "Version 1.2 • Type: Deep Neural Network • Accuracy: 98.4%",
+        body: "Computer vision diagnostics powered by fine-tuned VGG16 CNN architecture for rapid and accurate clinical neuroimaging classification.",
+        tags: ["TensorFlow", "Keras VGG16", "Python", "Streamlit"],
+        url: "https://github.com/aryanrokade7"
+      },
+      profile: {
+        title: "Aryan Rokade (NeXT Developer)",
+        meta: "Computer Engineering (B.E.) • VCET Mumbai University (2027)",
+        body: "Software engineer and systems explorer building scalable full-stack web platforms and applied AI models. Dec 2024 - Jan 2025: Web Dev Intern at Octanet Services.",
+        tags: ["TypeScript", "Next.js", "Python", "PostgreSQL", "React"],
+        url: "https://github.com/aryanrokade7"
+      },
+      awards: {
+        title: "Techblitz Hackathon 2025 — 2nd Position",
+        meta: "Department of AI & DS, VCET • 24h Engineering Sprint",
+        body: "Architected full-stack software prototype under intense time constraints. Evaluated on innovation, code hygiene, and real-time execution.",
+        tags: ["Hackathon Winner", "AI & DS Dept", "VCET"],
+        url: "https://github.com/aryanrokade7"
+      }
+    };
+
+    function loadFile(key) {
+      const item = data[key];
+      if (!item) return;
+      document.getElementById('prevTitle').innerText = item.title;
+      document.getElementById('prevMeta').innerText = item.meta;
+      document.getElementById('prevBody').innerText = item.body;
+      document.getElementById('prevTags').innerHTML = item.tags.map(t => `<span class="tech-stack-tag">${t}</span>`).join('');
+      document.getElementById('prevBtn').href = item.url;
+    }
+
+    function downloadResume() {
+      const a = document.createElement('a');
+      a.href = '../Aryan_Rokade_Resume.pdf';
+      a.download = 'Aryan_Rokade_Resume.pdf';
+      a.click();
+    }
+  </script>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

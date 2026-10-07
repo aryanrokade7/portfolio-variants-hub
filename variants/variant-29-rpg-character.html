@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — RPG Character Sheet & Quests</title>
+  <meta name="description" content="Fantasy RPG Character Sheet & Quest Inventory portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=MedievalSharp&family=Marcellus&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --parchment: #f1e4c3;
+      --parchment-dark: #decda2;
+      --parchment-border: #8b6e4e;
+      --gold: #d4af37;
+      --gold-dark: #aa820a;
+      --ink: #2b1f14;
+      --ink-dim: #5c4430;
+      --ruby: #991b1b;
+      --font-title: 'Cinzel', serif;
+      --font-body: 'Marcellus', serif;
+      --font-rune: 'MedievalSharp', cursive;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #120d09;
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.8) 0%, #0d0906 100%);
+      color: var(--ink);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 30px 16px;
+      line-height: 1.5;
+    }
+
+    .sheet-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--parchment);
+      border: 4px solid var(--parchment-border);
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 40px rgba(139, 110, 78, 0.35);
+      padding: 32px;
+      position: relative;
+    }
+
+    /* Ornate Gold Corners */
+    .sheet-wrapper::before, .sheet-wrapper::after {
+      content: "✦";
+      position: absolute;
+      font-size: 1.8rem;
+      color: var(--gold-dark);
+    }
+    .sheet-wrapper::before { top: 8px; left: 12px; }
+    .sheet-wrapper::after { top: 8px; right: 12px; }
+
+    /* Header Banner */
+    .sheet-header {
+      border-bottom: 2px solid var(--parchment-border);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero-identity {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .hero-portrait {
+      width: 90px;
+      height: 90px;
+      border: 3px solid var(--parchment-border);
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+    .hero-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(30%) contrast(110%);
+    }
+
+    .hero-titles h1 {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      color: #1a120b;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+    .hero-class {
+      font-family: var(--font-rune);
+      font-size: 1.15rem;
+      color: var(--ruby);
+      margin-top: 2px;
+    }
+    .hero-sub {
+      font-size: 0.9rem;
+      color: var(--ink-dim);
+    }
+
+    .level-badge {
+      text-align: center;
+      background: var(--parchment-dark);
+      border: 2px solid var(--parchment-border);
+      padding: 10px 18px;
+      border-radius: 6px;
+    }
+    .level-num {
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--ruby);
+      line-height: 1;
+    }
+    .level-lbl {
+      font-family: var(--font-title);
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+    }
+
+    /* Main Sheet Grid */
+    .sheet-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+    }
+    @media (max-width: 860px) {
+      .sheet-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Left: Attributes Block */
+    .attributes-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .box-frame {
+      background: rgba(255, 255, 255, 0.4);
+      border: 2px solid var(--parchment-border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .box-title {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ruby);
+      border-bottom: 1px solid var(--parchment-border);
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(139, 110, 78, 0.3);
+      font-size: 0.95rem;
+    }
+    .stat-mod {
+      font-family: var(--font-title);
+      font-weight: 700;
+      background: var(--parchment-dark);
+      border: 1px solid var(--parchment-border);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Right: Artifacts & Quests */
+    .sheet-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Artifacts / Equipment Slots */
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 600px) {
+      .equipment-grid { grid-template-columns: 1fr; }
+    }
+
+    .artifact-card {
+      background: var(--parchment-dark);
+      border: 2px solid var(--parchment-border);
+      border-radius: 6px;
+      padding: 14px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .artifact-card:hover, .artifact-card.active {
+      border-color: var(--ruby);
+      box-shadow: 0 4px 15px rgba(153, 27, 27, 0.25);
+      transform: translateY(-2px);
+    }
+    .slot-tag {
+      font-family: var(--font-title);
+      font-size: 0.65rem;
+      color: var(--ruby);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .artifact-name {
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      color: #111;
+      font-weight: 700;
+      margin: 2px 0 4px;
+    }
+    .artifact-lore {
+      font-size: 0.82rem;
+      color: var(--ink-dim);
+      line-height: 1.4;
+    }
+    .rune-tag {
+      font-family: var(--font-rune);
+      font-size: 0.8rem;
+      color: var(--ruby);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* Quest Log */
+    .quest-log-box {
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px solid var(--parchment-border);
+      border-radius: 6px;
+      padding: 18px;
+    }
+    .quest-entry {
+      border-bottom: 1px dashed var(--parchment-border);
+      padding: 10px 0;
+    }
+    .quest-title {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+      display: flex;
+      justify-content: space-between;
+    }
+    .quest-status {
+      font-family: var(--font-rune);
+      font-size: 0.85rem;
+      color: #15803d;
+    }
+    .quest-desc {
+      font-size: 0.88rem;
+      color: var(--ink-dim);
+      margin-top: 4px;
+    }
+
+    /* Actions / Raven dispatch */
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .rpg-btn {
+      background: linear-gradient(180deg, #991b1b, #701010);
+      color: #fff;
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: 1px solid #c93b3b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.2s;
+    }
+    .rpg-btn:hover {
+      background: linear-gradient(180deg, #b91c1c, #851212);
+      transform: translateY(-1px);
+    }
+    .rpg-btn.parchment-btn {
+      background: var(--parchment-dark);
+      color: var(--ink);
+      border-color: var(--parchment-border);
+    }
+    .rpg-btn.parchment-btn:hover {
+      background: #cfbe8e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sheet-wrapper">
+    
+    <!-- Hero Header -->
+    <header class="sheet-header">
+      <div class="hero-identity">
+        <div class="hero-portrait">
+          <img src="../aryan-rokade.jpg" alt="Aryan Hero">
+        </div>
+        <div class="hero-titles">
+          <h1>Aryan Rokade</h1>
+          <div class="hero-class">Full-Stack Weaver & AI Archmage</div>
+          <div class="hero-sub">VCET Guild of Engineers (Class of 2027) • Mumbai Realm</div>
+        </div>
+      </div>
+
+      <div class="level-badge">
+        <div class="level-num">21</div>
+        <div class="level-lbl">HERO LEVEL</div>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="sheet-grid">
+      
+      <!-- Attributes & Abilities -->
+      <aside class="attributes-column">
+        
+        <div class="box-frame">
+          <div class="box-title">
+            <span>CORE ATTRIBUTES</span>
+            <span>MODIFIER</span>
+          </div>
+
+          <div class="stat-row">
+            <span>STR (Scalability & DB)</span>
+            <span class="stat-mod">18 (+4)</span>
+          </div>
+          <div class="stat-row">
+            <span>DEX (Frontend & Next.js)</span>
+            <span class="stat-mod">19 (+4)</span>
+          </div>
+          <div class="stat-row">
+            <span>CON (Network & Defense)</span>
+            <span class="stat-mod">17 (+3)</span>
+          </div>
+          <div class="stat-row">
+            <span>INT (Deep Neural Nets)</span>
+            <span class="stat-mod">20 (+5)</span>
+          </div>
+          <div class="stat-row">
+            <span>WIS (Architecture Flow)</span>
+            <span class="stat-mod">18 (+4)</span>
+          </div>
+          <div class="stat-row">
+            <span>CHA (Collaborative Spirit)</span>
+            <span class="stat-mod">16 (+3)</span>
+          </div>
+        </div>
+
+        <!-- Honor Badge -->
+        <div class="box-frame" style="border-color: var(--gold-dark); background: rgba(212, 175, 55, 0.15);">
+          <div class="box-title" style="color: var(--gold-dark);">
+            <span>TOURNAMENT TITLE</span>
+          </div>
+          <p style="font-size:0.85rem; font-family:var(--font-title); font-weight:700; color:#4a3706;">
+            ★ 2nd Position Champion ★
+          </p>
+          <p style="font-size:0.8rem; color:var(--ink-dim); margin-top:4px;">
+            Bestowed at the Techblitz Hackathon 2025 by the Council of Artificial Intelligence & Data Science, VCET.
+          </p>
+        </div>
+
+        <!-- Communal Ravens (Contact) -->
+        <div class="box-frame">
+          <div class="box-title">COMMUNAL RAVENS</div>
+          <div style="font-size:0.82rem; display:flex; flex-direction:column; gap:6px;">
+            <div>✉ <b>Email:</b> aryanrokade416@gmail.com</div>
+            <div>📞 <b>Horn:</b> +91 85912 24192</div>
+            <div>🐙 <b>GitHub:</b> aryanrokade7</div>
+            <div>💼 <b>LinkedIn:</b> in/aryan-rokade</div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Artifacts & Quest Log -->
+      <main class="sheet-content">
+        
+        <!-- Equipped Legendary Artifacts (Projects) -->
+        <div>
+          <div class="box-title" style="font-size:1.15rem; margin-bottom:14px;">
+            <span>EQUIPPED LEGENDARY ARTIFACTS (4)</span>
+            <span style="font-size:0.75rem; color:var(--ink-dim);">CLICK TO INSPECT LORE</span>
+          </div>
+
+          <div class="equipment-grid">
+            
+            <!-- Artifact 1 -->
+            <div class="artifact-card" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+              <span class="slot-tag">MAIN-HAND // SAAS BLADE</span>
+              <div class="artifact-name">VyaparFlow Platform</div>
+              <p class="artifact-lore">
+                Forged from Next.js 14 and atomic PostgreSQL Prisma runes. Automates GST invoicing, monitors stock ledgers, and commands role permissions.
+              </p>
+              <span class="rune-tag">Runes: Next.js • Postgres • Prisma • Stripe</span>
+            </div>
+
+            <!-- Artifact 2 -->
+            <div class="artifact-card" onclick="alert('CyberSentinel: React, Flask, Socket.IO, Snort intrusion detection.')">
+              <span class="slot-tag">OFF-HAND // SENTINEL SHIELD</span>
+              <div class="artifact-name">CyberSentinel Suite</div>
+              <p class="artifact-lore">
+                Impenetrable ward monitoring network packets. Emits Socket.IO telemetry and sniffs rogue intrusion signatures via Snort algorithms.
+              </p>
+              <span class="rune-tag">Runes: React • Python Flask • Socket.IO • Snort</span>
+            </div>
+
+            <!-- Artifact 3 -->
+            <div class="artifact-card" onclick="alert('Saturn Finance: MERN Stack wealth dashboard with JWT security.')">
+              <span class="slot-tag">RELIC // WEALTH AMULET</span>
+              <div class="artifact-name">Saturn Finance Engine</div>
+              <p class="artifact-lore">
+                Ancient wealth tracking talisman. Projects expense categorization, enforces budgetary limits, and encrypts treasure logs with JWT wards.
+              </p>
+              <span class="rune-tag">Runes: MongoDB • Express • React • Node.js</span>
+            </div>
+
+            <!-- Artifact 4 -->
+            <div class="artifact-card" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+              <span class="slot-tag">TOME // NEURAL EYE</span>
+              <div class="artifact-name">MRI Brain Tumor AI</div>
+              <p class="artifact-lore">
+                Convolutional grimoire discerning cranial anomalies with 98.2% accuracy. Illuminates tissue heatmaps via Grad-CAM incantations.
+              </p>
+              <span class="rune-tag">Runes: TensorFlow • Keras VGG16 • OpenCV</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Quest Chronicles -->
+        <div class="quest-log-box">
+          <div class="box-title">
+            <span>QUEST CHRONICLES</span>
+            <span>STATUS</span>
+          </div>
+
+          <div class="quest-entry">
+            <div class="quest-title">
+              <span>The Crucible of Octanet Services</span>
+              <span class="quest-status">COMPLETED ✓</span>
+            </div>
+            <p class="quest-desc">
+              Web Development Intern (Dec 2024 – Jan 2025). Rebuilt core interface modules, consumed REST API conduits, and hastened page speed by +35%.
+            </p>
+          </div>
+
+          <div class="quest-entry">
+            <div class="quest-title">
+              <span>The Trial of Techblitz Hackathon</span>
+              <span class="quest-status">VICTORIOUS (2ND) ✓</span>
+            </div>
+            <p class="quest-desc">
+              Engineered high-velocity artificial intelligence prototypes under grueling tournament conditions at VCET.
+            </p>
+          </div>
+
+          <div class="quest-entry" style="border-bottom:none;">
+            <div class="quest-title">
+              <span>The Search for Full Stack Apprenticeship / Roles</span>
+              <span class="quest-status" style="color:var(--ruby)">ACTIVE QUEST ⚔</span>
+            </div>
+            <p class="quest-desc">
+              Seeking high-impact software engineering roles to architect scalable web distributed platforms and deep learning tools.
+            </p>
+          </div>
+        </div>
+
+        <!-- Action / Dispatch Buttons -->
+        <div class="hero-actions">
+          <a href="../Aryan_Rokade_Resume.pdf" download class="rpg-btn">
+            📜 EQUIP RESUME SCROLL (PDF)
+          </a>
+          <a href="mailto:aryanrokade416@gmail.com" class="rpg-btn parchment-btn">
+            ✉ DISPATCH CARRIER RAVEN
+          </a>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="rpg-btn parchment-btn">
+            🐙 GITHUB HALL ↗
+          </a>
+          <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="rpg-btn parchment-btn">
+            💼 LINKEDIN GUILD ↗
+          </a>
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

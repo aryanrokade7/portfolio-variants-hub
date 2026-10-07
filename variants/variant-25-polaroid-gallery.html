@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Instant Polaroid Gallery</title>
+  <meta name="description" content="Polaroid instant film photo developing gallery portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --board-bg: #1f1b18;
+      --polaroid-paper: #faf8f5;
+      --polaroid-shadow: rgba(0, 0, 0, 0.45);
+      --font-hand: 'Caveat', cursive;
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--board-bg);
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 240, 220, 0.04) 0%, transparent 80%),
+        repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 2px, transparent 2px, transparent 8px);
+      color: #333;
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      padding: 32px 20px 80px;
+    }
+
+    .gallery-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Desk Header */
+    .desk-header {
+      text-align: center;
+      margin-bottom: 36px;
+      position: relative;
+    }
+    .desk-title {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      color: #ede5da;
+      letter-spacing: -0.5px;
+    }
+    .desk-sub {
+      font-family: var(--font-hand);
+      font-size: 1.5rem;
+      color: #dfaa6e;
+      margin-top: 4px;
+    }
+
+    /* Layout Grid */
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 36px 28px;
+      align-items: start;
+    }
+
+    /* Polaroid Card Container */
+    .polaroid {
+      background: var(--polaroid-paper);
+      padding: 14px 14px 28px;
+      border-radius: 2px;
+      box-shadow: 0 14px 28px var(--polaroid-shadow), 0 2px 6px rgba(0,0,0,0.2);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.04) rotate(0deg) !important;
+      z-index: 20;
+      box-shadow: 0 22px 40px rgba(0,0,0,0.65);
+    }
+
+    /* Washi Tape Accent */
+    .washi-tape {
+      position: absolute;
+      top: -12px;
+      left: 35%;
+      width: 90px;
+      height: 24px;
+      background: rgba(220, 200, 170, 0.7);
+      backdrop-filter: blur(2px);
+      border-left: 2px dashed rgba(180, 150, 120, 0.5);
+      border-right: 2px dashed rgba(180, 150, 120, 0.5);
+      transform: rotate(-3deg);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+
+    /* Photo Frame Window */
+    .photo-frame {
+      width: 100%;
+      height: 260px;
+      background: #151515;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Developing Simulation */
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(110%) contrast(105%);
+      transition: filter 1.2s ease;
+    }
+
+    /* Graphic Preview for Projects */
+    .project-art {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      color: #fff;
+      position: relative;
+    }
+    .art-vyapar { background: linear-gradient(135deg, #1e3a8a, #0f172a); }
+    .art-sentinel { background: linear-gradient(135deg, #881337, #18181b); }
+    .art-saturn { background: linear-gradient(135deg, #78350f, #1c1917); }
+    .art-mri { background: linear-gradient(135deg, #064e3b, #022c22); }
+
+    .art-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.2);
+      padding: 3px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+      backdrop-filter: blur(4px);
+    }
+    .art-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+    .art-meta {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    /* Handwritten Caption Below Photo */
+    .caption {
+      font-family: var(--font-hand);
+      font-size: 1.45rem;
+      color: #222;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.2;
+    }
+    .caption-sub {
+      font-size: 1.05rem;
+      color: #666;
+    }
+
+    /* Post-It Sticky Notes */
+    .post-it {
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      border-radius: 2px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .post-it:hover {
+      transform: scale(1.03) !important;
+      z-index: 15;
+    }
+    .pin {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      background: #c82333;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    }
+    .pin::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .yellow-note { background: #fff59d; color: #2e2600; }
+    .pink-note { background: #f8bbd0; color: #3e1024; }
+    .blue-note { background: #bbdefb; color: #0d2744; }
+
+    .note-heading {
+      font-family: var(--font-hand);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+    .note-text {
+      font-family: var(--font-hand);
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .btn-link {
+      display: inline-block;
+      margin-top: 10px;
+      background: #222;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .btn-link:hover { opacity: 0.85; }
+
+    /* Modal Lightbox for Project Details */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(10, 8, 6, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.active { display: flex; }
+
+    .lightbox-card {
+      background: var(--polaroid-paper);
+      max-width: 650px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+      position: relative;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #444;
+    }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: #111;
+      margin-bottom: 6px;
+    }
+    .modal-stack {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .modal-tag {
+      background: #e5dec9;
+      color: #3a3220;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .modal-body {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gallery-wrap">
+    
+    <!-- Desk Top Header -->
+    <header class="desk-header">
+      <h1 class="desk-title">Aryan Rokade</h1>
+      <p class="desk-sub">Visual developer archive & instant snapshots • Mumbai, 2025</p>
+    </header>
+
+    <!-- Polaroid Layout Grid -->
+    <div class="polaroid-grid">
+
+      <!-- Polaroid 1: Aryan Portrait -->
+      <div class="polaroid" style="transform: rotate(-2.5deg);">
+        <div class="washi-tape"></div>
+        <div class="photo-frame">
+          <img src="../aryan-rokade.jpg" alt="Aryan Rokade Portrait">
+        </div>
+        <div class="caption">
+          Aryan Rokade
+          <div class="caption-sub">Full Stack Dev & AI Engineer</div>
+        </div>
+      </div>
+
+      <!-- Post-It Note 1: Academic & Hackathon -->
+      <div class="post-it yellow-note" style="transform: rotate(3deg);">
+        <div class="pin"></div>
+        <div class="note-heading">📌 Academic & Awards</div>
+        <p class="note-text">
+          • B.E. Computer Engineering at VCET Mumbai University (2023 - 2027)<br>
+          • 🏆 <b>2nd Position</b> at Techblitz Hackathon 2025 (AI & Data Science Dept, VCET)
+        </p>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-link">⬇ Download CV.pdf</a>
+      </div>
+
+      <!-- Polaroid 2: VyaparFlow -->
+      <div class="polaroid" style="transform: rotate(2deg);" onclick="openModal('vyapar')">
+        <div class="washi-tape"></div>
+        <div class="photo-frame">
+          <div class="project-art art-vyapar">
+            <span class="art-badge">ERP & Billing SaaS</span>
+            <div>
+              <div class="art-title">VyaparFlow</div>
+              <div class="art-meta">Next.js 14 • PostgreSQL • Prisma</div>
+            </div>
+          </div>
+        </div>
+        <div class="caption">
+          VyaparFlow Platform
+          <div class="caption-sub">Automated GST Invoicing & Inventory</div>
+        </div>
+      </div>
+
+      <!-- Polaroid 3: CyberSentinel Suite -->
+      <div class="polaroid" style="transform: rotate(-1.5deg);" onclick="openModal('sentinel')">
+        <div class="washi-tape"></div>
+        <div class="photo-frame">
+          <div class="project-art art-sentinel">
+            <span class="art-badge">Threat Ops Center</span>
+            <div>
+              <div class="art-title">CyberSentinel Suite</div>
+              <div class="art-meta">React • Python Flask • Snort</div>
+            </div>
+          </div>
+        </div>
+        <div class="caption">
+          CyberSentinel IDS
+          <div class="caption-sub">Real-Time Threat Monitoring & Sockets</div>
+        </div>
+      </div>
+
+      <!-- Post-It Note 2: Experience -->
+      <div class="post-it pink-note" style="transform: rotate(-2deg);">
+        <div class="pin"></div>
+        <div class="note-heading">💼 Work Experience</div>
+        <p class="note-text">
+          <b>Web Development Intern</b><br>
+          Octanet Services Pvt. Ltd.<br>
+          <i>(Dec 2024 – Jan 2025)</i><br>
+          Engineered responsive web modules, consumed REST APIs, and achieved a 35% speed improvement across pages.
+        </p>
+      </div>
+
+      <!-- Polaroid 4: Saturn Finance -->
+      <div class="polaroid" style="transform: rotate(3deg);" onclick="openModal('saturn')">
+        <div class="washi-tape"></div>
+        <div class="photo-frame">
+          <div class="project-art art-saturn">
+            <span class="art-badge">Fintech App</span>
+            <div>
+              <div class="art-title">Saturn Finance</div>
+              <div class="art-meta">MERN Stack • Express • MongoDB</div>
+            </div>
+          </div>
+        </div>
+        <div class="caption">
+          Saturn Finance App
+          <div class="caption-sub">Personal Wealth & Expense Telemetry</div>
+        </div>
+      </div>
+
+      <!-- Polaroid 5: MRI Brain Tumor AI -->
+      <div class="polaroid" style="transform: rotate(-3deg);" onclick="openModal('mri')">
+        <div class="washi-tape"></div>
+        <div class="photo-frame">
+          <div class="project-art art-mri">
+            <span class="art-badge">Deep Neural Net</span>
+            <div>
+              <div class="art-title">MRI Brain Tumor AI</div>
+              <div class="art-meta">TensorFlow • Keras VGG16 • Flask</div>
+            </div>
+          </div>
+        </div>
+        <div class="caption">
+          MRI AI Diagnostics
+          <div class="caption-sub">98.2% Validation Accuracy • Grad-CAM</div>
+        </div>
+      </div>
+
+      <!-- Post-It Note 3: Contact Channels -->
+      <div class="post-it blue-note" style="transform: rotate(1.5deg);">
+        <div class="pin"></div>
+        <div class="note-heading">📫 Say Hello!</div>
+        <p class="note-text">
+          • Email: <a href="mailto:aryanrokade416@gmail.com" style="color:inherit; font-weight:700;">aryanrokade416@gmail.com</a><br>
+          • Phone: +91 85912 24192<br>
+          • GitHub: <a href="https://github.com/aryanrokade7" target="_blank" style="color:inherit; font-weight:700;">aryanrokade7 ↗</a><br>
+          • LinkedIn: <a href="https://linkedin.com/in/aryan-rokade" target="_blank" style="color:inherit; font-weight:700;">aryan-rokade ↗</a>
+        </p>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-link" style="background:#0d2744;">✉ Send Message</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="modalLightbox" onclick="closeModal(event)">
+    <div class="lightbox-card" id="modalCard">
+      <button class="close-btn" onclick="hideModal()">&times;</button>
+      <h2 class="modal-title" id="mTitle">Project Title</h2>
+      <div class="modal-stack" id="mStack"></div>
+      <p class="modal-body" id="mBody">Description</p>
+      <div class="modal-actions">
+        <a href="https://github.com/aryanrokade7" target="_blank" class="btn-link">GitHub Repository ↗</a>
+        <a href="#" class="btn-link" style="background:#4b5563;">Live Simulation</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const projectData = {
+      vyapar: {
+        title: "VyaparFlow — Full Stack ERP & Billing Platform",
+        stack: ["Next.js 14", "TypeScript", "PostgreSQL", "Prisma ORM", "Tailwind CSS", "Stripe API"],
+        body: "VyaparFlow is an enterprise SaaS designed to manage SME business workflows. It automates compliant GST invoice generation, provides an atomic inventory management ledger, enforces granular role-based permissions (Owner, Manager, Staff), and streamlines financial reporting."
+      },
+      sentinel: {
+        title: "CyberSentinel Suite — Network Threat Monitoring",
+        stack: ["React.js", "Python Flask", "Socket.IO", "Snort IDS", "Chart.js"],
+        body: "CyberSentinel Suite is a security operations platform that ingests network packet traces in real-time. Using Socket.IO websockets and Snort rules, it alerts system administrators to port scans, brute-force attacks, and rogue traffic with visual geo-telemetry."
+      },
+      saturn: {
+        title: "Saturn Finance — Wealth & Budget Dashboard",
+        stack: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT Auth", "Chart.js"],
+        body: "Saturn Finance simplifies personal budgeting with automated spending categorization, budget limits, savings milestone tracking, and dynamic visual analytics. Features secure JWT session handling and encrypted credential storage."
+      },
+      mri: {
+        title: "MRI Brain Tumor Detection — Deep Learning Diagnostic",
+        stack: ["TensorFlow", "Keras VGG16", "Python Flask", "OpenCV", "NumPy"],
+        body: "A high-precision medical diagnostic tool trained on over 3,000 Kaggle brain MRI slices. Built with transfer learning on VGG16, it detects glioma, meningioma, and pituitary tumors with 98.2% test accuracy and generates Grad-CAM activation heatmaps."
+      }
+    };
+
+    function openModal(key) {
+      const data = projectData[key];
+      if (!data) return;
+      document.getElementById('mTitle').innerText = data.title;
+      document.getElementById('mBody').innerText = data.body;
+      const stackContainer = document.getElementById('mStack');
+      stackContainer.innerHTML = '';
+      data.stack.forEach(tech => {
+        const span = document.createElement('span');
+        span.className = 'modal-tag';
+        span.innerText = tech;
+        stackContainer.appendChild(span);
+      });
+      document.getElementById('modalLightbox').classList.add('active');
+    }
+
+    function hideModal() {
+      document.getElementById('modalLightbox').classList.remove('active');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'modalLightbox') {
+        hideModal();
+      }
+    }
+  </script>
+</body>
+</html>

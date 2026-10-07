@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Monochromatic Magazine Black and White Portfolio" />
+  <title>Aryan Rokade — MONOCHROME 14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #000000;
+      --text: #ffffff;
+      --text-muted: #888888;
+      --border: #222222;
+      --font-serif: 'Italiana', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(1140px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header.mono-nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .mono-brand {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    nav.links {
+      display: flex;
+      gap: 30px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    nav.links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav.links a:hover { color: #fff; }
+
+    /* Hero */
+    .hero {
+      padding: 100px 0 80px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 6.5vw, 5.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero p.lead {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 580px;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+
+    .mono-portrait-box {
+      border: 1px solid var(--border);
+      padding: 12px;
+      background: #0a0a0a;
+    }
+
+    .mono-portrait-box img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(140%);
+      display: block;
+    }
+
+    /* Section Head */
+    .sec-head {
+      padding: 80px 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .sec-head h2 {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .sec-head span {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* Projects */
+    .project-mono-row {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 60px 1.5fr 1fr;
+      gap: 40px;
+      align-items: baseline;
+      transition: background 0.2s;
+    }
+
+    .project-mono-row:hover { background: #0a0a0a; }
+
+    .p-num {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--text-muted);
+    }
+
+    .project-mono-row h3 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .project-mono-row p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .p-tags span {
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      color: #bbb;
+    }
+
+    .mono-link {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid #fff;
+      padding-bottom: 2px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .mono-link:hover { color: var(--text-muted); border-color: var(--text-muted); }
+
+    /* Skills */
+    .mono-toolkit {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mono-tool-col h4 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .mono-tool-col p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* Contact */
+    .contact-mono {
+      padding: 80px 0 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .mono-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .mono-input:focus { border-color: #fff; }
+
+    footer.mono-footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0 100px;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .project-mono-row { grid-template-columns: 1fr; }
+      .contact-mono { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="mono-nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="mono-brand">Aryan Rokade</a>
+      <nav class="links">
+        <a href="#work">Index</a>
+        <a href="#skills">Toolkit</a>
+        <a href="#contact">Dialogue</a>
+      </nav>
+      <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="mono-link">
+        Resume PDF ↓
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <div class="hero-eyebrow">B.E. Computer Engineering · Class of 2027</div>
+        <h1>Pure Contrast.<br />Singular Vision.</h1>
+        <p class="lead">
+          I am Aryan Rokade. Engineering full-stack digital architectures, neural deep learning engines, and purposeful interfaces from Mumbai, India.
+        </p>
+        <div style="display: flex; gap: 24px;">
+          <a href="#work" class="mono-link" style="font-size: 0.95rem;">Examine Works ↓</a>
+          <a href="mailto:aryanrokade416@gmail.com" class="mono-link" style="font-size: 0.95rem;">Initiate Dialogue ↗</a>
+        </div>
+      </div>
+      <div class="mono-portrait-box">
+        <img src="../aryan-rokade.jpg" alt="Aryan Rokade Portrait" />
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work">
+      <div class="sec-head">
+        <h2>Selected Works</h2>
+        <span>FOLIO 04</span>
+      </div>
+
+      <!-- P1 -->
+      <article class="project-mono-row">
+        <div class="p-num">I</div>
+        <div>
+          <h3>VyaparFlow</h3>
+          <p>Full-stack trade enablement platform for Indian MSMEs with compliance readiness scoring, document verification, shipment pipelines, and multi-role dashboards.</p>
+          <div class="p-tags">
+            <span>Next.js</span><span>React</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="mono-link">Live Exhibition ↗</a><br />
+          <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="mono-link">Source Code ↗</a>
+        </div>
+      </article>
+
+      <!-- P2 -->
+      <article class="project-mono-row">
+        <div class="p-num">II</div>
+        <div>
+          <h3>CyberSentinel Suite</h3>
+          <p>Interactive threat simulator addressing DoS/DDoS mitigation, SQL injection attacks, ransomware heuristical alerts, and real-time phishing URL scoring with a Chrome Extension.</p>
+          <div class="p-tags">
+            <span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="mono-link">Source Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- P3 -->
+      <article class="project-mono-row">
+        <div class="p-num">III</div>
+        <div>
+          <h3>Saturn Finance</h3>
+          <p>Full-stack personal budget tracking architecture with categorized monthly expenses, recurring ledger balances, and JWT auth.</p>
+          <div class="p-tags">
+            <span>React</span><span>Redux</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="mono-link">Source Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- P4 -->
+      <article class="project-mono-row">
+        <div class="p-num">IV</div>
+        <div>
+          <h3>MRI Brain Tumor CNN</h3>
+          <p>Convolutional neural network diagnostic app classifying MRI scans into 4 classes with 98.4% validation accuracy using VGG16.</p>
+          <div class="p-tags">
+            <span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="mono-link">Source Repository ↗</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Toolkit -->
+    <section id="skills" style="padding-top: 60px;">
+      <div class="sec-head">
+        <h2>Competencies</h2>
+        <span>TOOLKIT</span>
+      </div>
+      <div class="mono-toolkit">
+        <div class="mono-tool-col">
+          <h4>Languages</h4>
+          <p>Java · Python · TypeScript · JavaScript · C · C++ · SQL</p>
+        </div>
+        <div class="mono-tool-col">
+          <h4>Full-Stack</h4>
+          <p>Next.js · React · Node.js · Express · Tailwind CSS · MERN</p>
+        </div>
+        <div class="mono-tool-col">
+          <h4>Infrastructure</h4>
+          <p>PostgreSQL · MongoDB · Prisma ORM · Docker · Git</p>
+        </div>
+        <div class="mono-tool-col">
+          <h4>Recognition</h4>
+          <p>2nd Place Techblitz '25 · Web Development Intern Octanet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-mono">
+      <div>
+        <h2 style="font-family: var(--font-serif); font-size: 2.8rem; margin-bottom: 16px; text-transform: uppercase;">
+          Dispatch Inquiry
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 24px;">
+          Available for software engineering roles, hackathons, and creative digital collaborations.
+        </p>
+        <div>
+          <a href="mailto:aryanrokade416@gmail.com" class="mono-link">aryanrokade416@gmail.com</a><br />
+          <a href="tel:8591224192" class="mono-link">+91 85912 24192</a>
+        </div>
+      </div>
+      <form action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" class="mono-input" placeholder="Your Name" required />
+        <input type="email" name="email" class="mono-input" placeholder="Your Email" required />
+        <textarea name="message" rows="3" class="mono-input" placeholder="Inquiry Details" required></textarea>
+        <button type="submit" class="mono-link" style="background:none; cursor:pointer;">Dispatch Message ↗</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="wrap mono-footer">
+    <span>© 2026 Aryan Rokade · Monochromatic Film Aesthetic</span>
+    <div>
+      <a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--text-muted); text-decoration:none; margin-right:16px;">GitHub</a>
+      <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:var(--text-muted); text-decoration:none;">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

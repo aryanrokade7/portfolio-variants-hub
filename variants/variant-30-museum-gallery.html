@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — The Museum of Engineering</title>
+  <meta name="description" content="Contemporary art gallery and exhibition room portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wall: #1c1d1f;
+      --wall-light: #282a2e;
+      --floor: #2e2016;
+      --brass: #c8a365;
+      --brass-bright: #e5c38c;
+      --text-museum: #e3e3e3;
+      --text-dim: #999;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--wall);
+      color: var(--text-museum);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Museum Header & Audio Tour Bar */
+    .gallery-top-bar {
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(18, 19, 20, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .museum-brand {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .museum-brand span {
+      color: var(--brass);
+      font-style: italic;
+    }
+
+    .audio-tour-btn {
+      background: transparent;
+      border: 1px solid var(--brass);
+      color: var(--brass-bright);
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    .audio-tour-btn:hover, .audio-tour-btn.active {
+      background: var(--brass);
+      color: #000;
+    }
+
+    /* Hero Gallery Room */
+    .gallery-room {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 60px 30px 100px;
+    }
+
+    .room-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+    .room-tag {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 12px;
+    }
+    .room-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+    .room-curator {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--text-dim);
+      font-size: 1.2rem;
+      margin-top: 14px;
+    }
+
+    /* Exhibition Wall of Art Pieces */
+    .exhibition-wall {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px 50px;
+      margin-bottom: 80px;
+    }
+    @media (max-width: 860px) {
+      .exhibition-wall { grid-template-columns: 1fr; }
+    }
+
+    .art-exhibit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Overhead Spotlights */
+    .spotlight {
+      width: 140px;
+      height: 30px;
+      background: radial-gradient(ellipse at center, rgba(255, 235, 190, 0.4) 0%, transparent 70%);
+      margin-bottom: -10px;
+      z-index: 2;
+    }
+
+    /* Ornate Museum Frame */
+    .frame-gilded {
+      background: #111;
+      padding: 18px;
+      border: 8px solid #3a3224;
+      outline: 2px solid var(--brass);
+      outline-offset: -5px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(200, 163, 101, 0.15);
+      width: 100%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .frame-gilded:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.9), 0 0 60px rgba(200, 163, 101, 0.3);
+    }
+
+    .canvas-artwork {
+      height: 280px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+    }
+    .art-vyapar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #3b82f6 100%);
+    }
+    .art-sentinel {
+      background: linear-gradient(135deg, #18181b 0%, #7f1d1d 60%, #ef4444 100%);
+    }
+    .art-saturn {
+      background: linear-gradient(135deg, #1c1917 0%, #78350f 60%, #f59e0b 100%);
+    }
+    .art-mri {
+      background: linear-gradient(135deg, #022c22 0%, #065f46 60%, #10b981 100%);
+    }
+
+    .artwork-title {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: #fff;
+      line-height: 1.1;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+    .artwork-medium {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.85);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* Museum Brass Plaque Below Frame */
+    .brass-plaque {
+      background: linear-gradient(145deg, #caa162 0%, #9e7939 100%);
+      border: 1px solid #e0be84;
+      border-radius: 2px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.4);
+      padding: 14px 22px;
+      width: 85%;
+      margin-top: 24px;
+      color: #1a1409;
+      text-align: center;
+      position: relative;
+    }
+    .brass-plaque::before, .brass-plaque::after {
+      content: "•";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4a3818;
+      font-size: 0.9rem;
+    }
+    .brass-plaque::before { left: 10px; }
+    .brass-plaque::after { right: 10px; }
+
+    .plaque-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .plaque-meta {
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 2px 0 6px;
+      color: #3b2c11;
+    }
+    .plaque-desc {
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: #2b200b;
+    }
+
+    /* Museum Stanchion & Velvet Rope Decor */
+    .stanchion-barrier {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0;
+      gap: 16px;
+    }
+    .rope {
+      height: 4px;
+      background: #8b0000;
+      flex: 1;
+      max-width: 400px;
+      border-radius: 2px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    .pole {
+      width: 12px;
+      height: 36px;
+      background: var(--brass);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* Artist Bio & Gallery Wing */
+    .artist-wing {
+      background: rgba(25, 26, 28, 0.7);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 50px;
+    }
+    @media (max-width: 768px) {
+      .artist-wing { grid-template-columns: 1fr; text-align: center; }
+    }
+
+    .artist-portrait-frame {
+      border: 4px solid var(--brass);
+      padding: 6px;
+      background: #111;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    }
+    .artist-portrait-frame img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      filter: contrast(105%);
+    }
+
+    .artist-statement {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .artist-h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: #fff;
+    }
+    .artist-bio {
+      font-size: 0.95rem;
+      color: #b5b5b5;
+      line-height: 1.7;
+    }
+    .honor-note {
+      border-left: 2px solid var(--brass);
+      padding-left: 14px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--brass-bright);
+      font-size: 1.15rem;
+    }
+
+    /* Gallery Gift Shop & Catalog (Resume & Contact) */
+    .catalog-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .museum-link {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .museum-link:hover {
+      border-color: var(--brass);
+      color: var(--brass-bright);
+      background: rgba(200, 163, 101, 0.08);
+    }
+    .museum-link.gold {
+      background: var(--brass);
+      color: #000;
+      border-color: var(--brass);
+      font-weight: 600;
+    }
+    .museum-link.gold:hover {
+      background: var(--brass-bright);
+    }
+
+    /* Audio Tour Modal / Toast */
+    .tour-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111;
+      border: 1px solid var(--brass);
+      padding: 16px 20px;
+      max-width: 360px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      z-index: 1000;
+      display: none;
+    }
+    .tour-box.active { display: block; }
+    .tour-box-head {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--brass);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="gallery-top-bar">
+    <div class="museum-brand">
+      The Gallery <span>of Engineering</span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <button class="audio-tour-btn" id="tourBtn" onclick="toggleTour()">
+        <span>🎧</span> Audio Tour Guide
+      </button>
+      <a href="../Aryan_Rokade_Resume.pdf" download class="museum-link gold" style="padding: 8px 16px; font-size: 0.75rem;">
+        Exhibition Catalog (CV)
+      </a>
+    </div>
+  </header>
+
+  <!-- Gallery Exhibition Room -->
+  <main class="gallery-room">
+    
+    <div class="room-header">
+      <div class="room-tag">Room IV • Contemporary Digital Architectures</div>
+      <h1 class="room-title">Aryan Rokade: The Retrospective</h1>
+      <p class="room-curator">Curated Works in Full-Stack Distributed Systems & Neural Vision (2024–2027)</p>
+    </div>
+
+    <!-- 4 Framed Masterpieces -->
+    <section class="exhibition-wall">
+      
+      <!-- Exhibit 1 -->
+      <div class="art-exhibit">
+        <div class="spotlight"></div>
+        <div class="frame-gilded" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+          <div class="canvas-artwork art-vyapar">
+            <h2 class="artwork-title">VyaparFlow</h2>
+            <div class="artwork-medium">Next.js 14 • PostgreSQL • Prisma • Stripe</div>
+          </div>
+        </div>
+        <div class="brass-plaque">
+          <div class="plaque-title">VyaparFlow Platform (2025)</div>
+          <div class="plaque-meta">Full-Stack Business Management Suite</div>
+          <p class="plaque-desc">
+            Engineered with atomic database consistency, automated GST invoice pipelines, real-time stock balances, and role-based permissions.
+          </p>
+        </div>
+      </div>
+
+      <!-- Exhibit 2 -->
+      <div class="art-exhibit">
+        <div class="spotlight"></div>
+        <div class="frame-gilded" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+          <div class="canvas-artwork art-sentinel">
+            <h2 class="artwork-title">CyberSentinel Suite</h2>
+            <div class="artwork-medium">React • Flask • Socket.IO • Snort IDS</div>
+          </div>
+        </div>
+        <div class="brass-plaque">
+          <div class="plaque-title">CyberSentinel Threat Monitor (2025)</div>
+          <div class="plaque-meta">Real-Time Intrusion Detection System</div>
+          <p class="plaque-desc">
+            A high-velocity network defense console ingesting live packet telemetry, sniffing anomaly patterns, and dispatching instant mitigating alerts.
+          </p>
+        </div>
+      </div>
+
+      <!-- Exhibit 3 -->
+      <div class="art-exhibit">
+        <div class="spotlight"></div>
+        <div class="frame-gilded" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+          <div class="canvas-artwork art-saturn">
+            <h2 class="artwork-title">Saturn Finance</h2>
+            <div class="artwork-medium">MongoDB • Express • React • Node.js</div>
+          </div>
+        </div>
+        <div class="brass-plaque">
+          <div class="plaque-title">Saturn Wealth Engine (2024)</div>
+          <div class="plaque-meta">Personal Capital & Spending Analytics</div>
+          <p class="plaque-desc">
+            Personal budgeting engine featuring automated categorization, recurring forecasts, and encrypted JWT data persistence.
+          </p>
+        </div>
+      </div>
+
+      <!-- Exhibit 4 -->
+      <div class="art-exhibit">
+        <div class="spotlight"></div>
+        <div class="frame-gilded" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16, 98.2% validation accuracy.')">
+          <div class="canvas-artwork art-mri">
+            <h2 class="artwork-title">MRI Brain Tumor AI</h2>
+            <div class="artwork-medium">TensorFlow • Keras VGG16 • OpenCV</div>
+          </div>
+        </div>
+        <div class="brass-plaque">
+          <div class="plaque-title">Neural Tumor Diagnostic (2025)</div>
+          <div class="plaque-meta">Convolutional Neural Network Diagnostic</div>
+          <p class="plaque-desc">
+            Transfer-learned VGG16 architecture achieving 98.2% accuracy on Kaggle MRI datasets with clinician-facing Grad-CAM activation heatmaps.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Stanchion Barrier -->
+    <div class="stanchion-barrier">
+      <div class="pole"></div>
+      <div class="rope"></div>
+      <div class="pole"></div>
+      <div class="rope"></div>
+      <div class="pole"></div>
+    </div>
+
+    <!-- Artist Statement Wing -->
+    <section class="artist-wing">
+      <div class="artist-portrait-frame">
+        <img src="../aryan-rokade.jpg" alt="Aryan Rokade Artist Portrait">
+      </div>
+      <div class="artist-statement">
+        <h2 class="artist-h2">About the Engineer</h2>
+        <p class="artist-bio">
+          Aryan Rokade is a software engineer pursuing his Bachelor of Engineering in Computer Engineering at Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University (Expected 2027).
+          Former Web Development Intern at <b>Octanet Services Pvt. Ltd.</b> (Dec 2024 – Jan 2025), where he rebuilt key interfaces and boosted page load velocity by 35%.
+        </p>
+        <div class="honor-note">
+          "Awarded 2nd Position in Techblitz Hackathon 2025 by the Department of Artificial Intelligence & Data Science, VCET."
+        </div>
+      </div>
+    </section>
+
+    <!-- Museum Catalog & Contact Links -->
+    <footer class="catalog-bar">
+      <a href="mailto:aryanrokade416@gmail.com" class="museum-link gold">
+        ✉ Inquire with Curator (Email)
+      </a>
+      <a href="tel:+918591224192" class="museum-link">
+        📞 +91 85912 24192
+      </a>
+      <a href="https://github.com/aryanrokade7" target="_blank" class="museum-link">
+        GitHub Gallery ↗
+      </a>
+      <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="museum-link">
+        LinkedIn Archive ↗
+      </a>
+    </footer>
+
+  </main>
+
+  <!-- Audio Tour Toast -->
+  <div class="tour-box" id="tourBox">
+    <div class="tour-box-head">
+      <span>AUDIO GUIDE #401</span>
+      <span style="cursor:pointer;" onclick="toggleTour()">&times;</span>
+    </div>
+    <div style="font-size:0.8rem; color:#bbb; line-height:1.5;">
+      "You are observing Aryan Rokade's production gallery. Each piece represents a live engineering system built with modern stacks (Next.js, TensorFlow, Socket.IO). Click any gilded frame to view full technical schematics."
+    </div>
+  </div>
+
+  <script>
+    let tourActive = false;
+    function toggleTour() {
+      tourActive = !tourActive;
+      document.getElementById('tourBtn').classList.toggle('active', tourActive);
+      document.getElementById('tourBox').classList.toggle('active', tourActive);
+    }
+  </script>
+</body>
+</html>

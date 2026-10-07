@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - VS Code IDE Interactive Developer Portfolio" />
+  <title>Aryan Rokade — VS CODE IDE 19</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --vsc-activity: #333333;
+      --vsc-side: #252526;
+      --vsc-editor: #1e1e1e;
+      --vsc-tab-active: #1e1e1e;
+      --vsc-tab-inactive: #2d2d2d;
+      --vsc-status: #007acc;
+      --vsc-blue: #569cd6;
+      --vsc-yellow: #dcdcaa;
+      --vsc-orange: #ce9178;
+      --vsc-green: #6a9955;
+      --vsc-purple: #c586c0;
+      --vsc-text: #d4d4d4;
+      --vsc-line: #858585;
+      --font-code: 'JetBrains Mono', Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #181818;
+      color: var(--vsc-text);
+      font-family: var(--font-code);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 40px;
+    }
+
+    /* Full IDE Container Window */
+    .ide-container {
+      width: min(1200px, calc(100% - 32px));
+      margin: 20px auto;
+      background: var(--vsc-editor);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      border: 1px solid #3c3c3c;
+      display: flex;
+      flex-direction: column;
+      height: 850px;
+    }
+
+    /* Window Header Titlebar */
+    .ide-titlebar {
+      background: #323233;
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #cccccc;
+      border-bottom: 1px solid #252526;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .dot-r { background: #ff5f56; }
+    .dot-y { background: #ffbd2e; }
+    .dot-g { background: #27c93f; }
+
+    /* IDE Layout Body */
+    .ide-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Activity Bar Left */
+    .activity-bar {
+      width: 48px;
+      background: var(--vsc-activity);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 18px;
+      color: #858585;
+      font-size: 18px;
+    }
+
+    .activity-icon.active { color: #fff; }
+
+    /* Sidebar Files */
+    .sidebar-files {
+      width: 220px;
+      background: var(--vsc-side);
+      border-right: 1px solid #1e1e1e;
+      padding: 10px 0;
+      font-size: 13px;
+    }
+
+    .side-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      color: #bbbbbb;
+      font-weight: bold;
+    }
+
+    .file-item {
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cccccc;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .file-item:hover { background: #2a2d2e; }
+    .file-item.active { background: #37373d; color: #fff; }
+
+    /* Editor Main Panel */
+    .editor-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--vsc-editor);
+      overflow: hidden;
+    }
+
+    /* Tabs Bar */
+    .tabs-bar {
+      background: #252526;
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .tab {
+      background: var(--vsc-tab-inactive);
+      padding: 8px 18px;
+      font-size: 12px;
+      color: #969696;
+      border-right: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--vsc-tab-active);
+      color: #ffffff;
+      border-top: 1px solid var(--vsc-blue);
+    }
+
+    /* Code Content Scroll View */
+    .code-view {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 20px;
+    }
+
+    .line-num {
+      width: 30px;
+      color: var(--vsc-line);
+      text-align: right;
+      user-select: none;
+      font-size: 13px;
+    }
+
+    .line-code {
+      flex: 1;
+      white-space: pre-wrap;
+    }
+
+    /* Syntax Highlighting */
+    .kw { color: var(--vsc-blue); }
+    .fn { color: var(--vsc-yellow); }
+    .str { color: var(--vsc-orange); }
+    .com { color: var(--vsc-green); font-style: italic; }
+    .type { color: #4ec9b0; }
+    .prop { color: #9cdcfe; }
+
+    /* Status Bar Bottom */
+    .status-bar {
+      background: var(--vsc-status);
+      padding: 4px 14px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #fff;
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      gap: 14px;
+    }
+
+    .vsc-btn {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #0e639c;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .vsc-btn:hover { background: #1177bb; }
+
+    @media (max-width: 800px) {
+      .sidebar-files { display: none; }
+      .activity-bar { display: none; }
+      .ide-container { height: auto; min-height: 700px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ide-container">
+    <!-- Titlebar -->
+    <div class="ide-titlebar">
+      <div class="window-dots">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+      </div>
+      <div>aryan-rokade — portfolio-workspace — Visual Studio Code</div>
+      <div style="font-size: 10px;">UTF-8 // Node.js v20.x</div>
+    </div>
+
+    <!-- IDE Body -->
+    <div class="ide-body">
+      <!-- Activity Bar -->
+      <div class="activity-bar">
+        <span class="activity-icon active">📄</span>
+        <span class="activity-icon">🔍</span>
+        <span class="activity-icon">🌿</span>
+        <span class="activity-icon">⚙️</span>
+      </div>
+
+      <!-- File Explorer Sidebar -->
+      <div class="sidebar-files">
+        <div class="side-title">EXPLORER: MY PORTFOLIO</div>
+        <div class="file-item active" onclick="switchTab('about')">
+          <span>📜</span> about-me.ts
+        </div>
+        <div class="file-item" onclick="switchTab('projects')">
+          <span>📦</span> projects.json
+        </div>
+        <div class="file-item" onclick="switchTab('skills')">
+          <span>⚡</span> tech-stack.ts
+        </div>
+        <div class="file-item" onclick="switchTab('contact')">
+          <span>✉</span> contact.sh
+        </div>
+        <div style="margin-top: 20px; padding: 0 14px;">
+          <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="vsc-btn" style="width: 100%; text-align: center;">
+            Download CV.pdf ↓
+          </a>
+        </div>
+      </div>
+
+      <!-- Editor Panel -->
+      <div class="editor-panel">
+        <!-- Tabs -->
+        <div class="tabs-bar">
+          <div class="tab active" id="tab-about" onclick="switchTab('about')">about-me.ts ×</div>
+          <div class="tab" id="tab-projects" onclick="switchTab('projects')">projects.json ×</div>
+          <div class="tab" id="tab-skills" onclick="switchTab('skills')">tech-stack.ts ×</div>
+          <div class="tab" id="tab-contact" onclick="switchTab('contact')">contact.sh ×</div>
+        </div>
+
+        <!-- Code Views -->
+        <div class="code-view" id="content-about">
+          <div class="code-line"><span class="line-num">1</span><span class="line-code"><span class="com">/**</span></span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-code"><span class="com"> * @file Aryan Rokade — Portfolio & Bio</span></span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-code"><span class="com"> * @education B.E. Computer Engineering, VCET Mumbai University ('27)</span></span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-code"><span class="com"> * @awards 2nd Position, Techblitz Hackathon 2025</span></span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-code"><span class="com"> */</span></span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-code"><span class="kw">export interface</span> <span class="type">SoftwareEngineer</span> {</span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-code">  name: <span class="str">"Aryan Rokade"</span>;</span></div>
+          <div class="code-line"><span class="line-num">8</span><span class="line-code">  location: <span class="str">"Mumbai, India"</span>;</span></div>
+          <div class="code-line"><span class="line-num">9</span><span class="line-code">  role: <span class="str">"Full-Stack Developer & AI Systems Builder"</span>;</span></div>
+          <div class="code-line"><span class="line-num">10</span><span class="line-code">  internship: <span class="str">"Octanet Services Pvt. Ltd. (Web Dev)"</span>;</span></div>
+          <div class="code-line"><span class="line-num">11</span><span class="line-code">}</span></div>
+          <div class="code-line"><span class="line-num">12</span><span class="line-code"></span></div>
+          <div class="code-line"><span class="line-num">13</span><span class="line-code"><span class="kw">export const</span> <span class="fn">intro</span> = (): <span class="type">string</span> => {</span></div>
+          <div class="code-line"><span class="line-num">14</span><span class="line-code">  <span class="kw">return</span> <span class="str">"I build clear digital experiences with purpose. From Next.js MSME logistics platforms to VGG16 deep learning healthcare classifiers."</span>;</span></div>
+          <div class="code-line"><span class="line-num">15</span><span class="line-code">};</span></div>
+          <div class="code-line"><span class="line-num">16</span><span class="line-code"></span></div>
+          <div class="code-line"><span class="line-num">17</span><span class="line-code"><span class="com">// Photo profile preview:</span></span></div>
+          <div class="code-line"><span class="line-num">18</span><span class="line-code"><div style="margin-top: 10px; display: inline-block; border: 1px solid #3c3c3c; padding: 6px; border-radius: 8px;"><img src="../aryan-rokade.jpg" alt="Aryan Rokade" style="width: 140px; height: 140px; object-fit: cover; border-radius: 6px; display: block;" /></div></span></div>
+        </div>
+
+        <div class="code-view" id="content-projects" style="display: none;">
+          <div class="code-line"><span class="line-num">1</span><span class="line-code">[</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-code">  {</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-code">    <span class="prop">"title"</span>: <span class="str">"VyaparFlow"</span>,</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-code">    <span class="prop">"type"</span>: <span class="str">"MSME Export Logistics Platform"</span>,</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-code">    <span class="prop">"stack"</span>: [<span class="str">"Next.js"</span>, <span class="str">"React"</span>, <span class="str">"TypeScript"</span>, <span class="str">"Tailwind"</span>, <span class="str">"Prisma"</span>, <span class="str">"PostgreSQL"</span>],</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-code">    <span class="prop">"liveDemo"</span>: <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="vsc-btn">https://vyaparflow-smoky.vercel.app/</a>,</span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-code">    <span class="prop">"github"</span>: <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="vsc-btn">github.com/Sidd-commits/VyaparFlow</a></span></div>
+          <div class="code-line"><span class="line-num">8</span><span class="line-code">  },</span></div>
+          <div class="code-line"><span class="line-num">9</span><span class="line-code">  {</span></div>
+          <div class="code-line"><span class="line-num">10</span><span class="line-code">    <span class="prop">"title"</span>: <span class="str">"CyberSentinel Suite"</span>,</span></div>
+          <div class="code-line"><span class="line-num">11</span><span class="line-code">    <span class="prop">"type"</span>: <span class="str">"Cybersecurity Threat Simulation & Detection"</span>,</span></div>
+          <div class="code-line"><span class="line-num">12</span><span class="line-code">    <span class="prop">"stack"</span>: [<span class="str">"React"</span>, <span class="str">"Socket.IO"</span>, <span class="str">"Flask"</span>, <span class="str">"Python"</span>, <span class="str">"Chrome Extension"</span>],</span></div>
+          <div class="code-line"><span class="line-num">13</span><span class="line-code">    <span class="prop">"github"</span>: <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="vsc-btn">github.com/aryanrokade7/CyberSentinel-Suite</a></span></div>
+          <div class="code-line"><span class="line-num">14</span><span class="line-code">  },</span></div>
+          <div class="code-line"><span class="line-num">15</span><span class="line-code">  {</span></div>
+          <div class="code-line"><span class="line-num">16</span><span class="line-code">    <span class="prop">"title"</span>: <span class="str">"Saturn Finance"</span>,</span></div>
+          <div class="code-line"><span class="line-num">17</span><span class="line-code">    <span class="prop">"type"</span>: <span class="str">"Personal Budget & Asset Tracking Engine"</span>,</span></div>
+          <div class="code-line"><span class="line-num">18</span><span class="line-code">    <span class="prop">"stack"</span>: [<span class="str">"React"</span>, <span class="str">"Redux Toolkit"</span>, <span class="str">"Node.js"</span>, <span class="str">"Express"</span>, <span class="str">"MongoDB"</span>],</span></div>
+          <div class="code-line"><span class="line-num">19</span><span class="line-code">    <span class="prop">"github"</span>: <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="vsc-btn">github.com/aryanrokade7/Saturnn</a></span></div>
+          <div class="code-line"><span class="line-num">20</span><span class="line-code">  },</span></div>
+          <div class="code-line"><span class="line-num">21</span><span class="line-code">  {</span></div>
+          <div class="code-line"><span class="line-num">22</span><span class="line-code">    <span class="prop">"title"</span>: <span class="str">"MRI Brain Tumor Detection System"</span>,</span></div>
+          <div class="code-line"><span class="line-num">23</span><span class="line-code">    <span class="prop">"type"</span>: <span class="str">"Convolutional Neural Network Medical AI (98.4% Accuracy)"</span>,</span></div>
+          <div class="code-line"><span class="line-num">24</span><span class="line-code">    <span class="prop">"stack"</span>: [<span class="str">"TensorFlow"</span>, <span class="str">"Keras"</span>, <span class="str">"VGG16"</span>, <span class="str">"Flask"</span>, <span class="str">"Python"</span>],</span></div>
+          <div class="code-line"><span class="line-num">25</span><span class="line-code">    <span class="prop">"github"</span>: <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="vsc-btn">github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System</a></span></div>
+          <div class="code-line"><span class="line-num">26</span><span class="line-code">  }</span></div>
+          <div class="code-line"><span class="line-num">27</span><span class="line-code">]</span></div>
+        </div>
+
+        <div class="code-view" id="content-skills" style="display: none;">
+          <div class="code-line"><span class="line-num">1</span><span class="line-code"><span class="kw">export const</span> <span class="fn">toolkit</span> = {</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-code">  languages: [<span class="str">"Java"</span>, <span class="str">"Python"</span>, <span class="str">"TypeScript"</span>, <span class="str">"JavaScript"</span>, <span class="str">"C"</span>, <span class="str">"C++"</span>, <span class="str">"SQL"</span>],</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-code">  frameworks: [<span class="str">"Next.js"</span>, <span class="str">"React"</span>, <span class="str">"Node.js"</span>, <span class="str">"Express"</span>, <span class="str">"Tailwind CSS"</span>, <span class="str">"MERN"</span>],</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-code">  databases: [<span class="str">"PostgreSQL"</span>, <span class="str">"MongoDB"</span>, <span class="str">"Prisma ORM"</span>],</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-code">  toolsAndOps: [<span class="str">"Docker"</span>, <span class="str">"Git"</span>, <span class="str">"GitHub"</span>, <span class="str">"Figma UI/UX"</span>, <span class="str">"REST APIs"</span>],</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-code">  machineLearning: [<span class="str">"TensorFlow"</span>, <span class="str">"Keras"</span>, <span class="str">"VGG16 Transfer Learning"</span>],</span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-code">};</span></div>
+        </div>
+
+        <div class="code-view" id="content-contact" style="display: none;">
+          <div class="code-line"><span class="line-num">1</span><span class="line-code"><span class="com">#!/bin/bash</span></span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-code"><span class="fn">echo</span> <span class="str">"Connecting to Aryan Rokade..."</span></span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-code"><span class="prop">EMAIL</span>=<span class="str">"aryanrokade416@gmail.com"</span></span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-code"><span class="prop">PHONE</span>=<span class="str">"+91 85912 24192"</span></span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-code"><span class="prop">LINKEDIN</span>=<span class="str">"linkedin.com/in/aryan-rokade-git-aryanrokade7/"</span></span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-code"><span class="prop">GITHUB</span>=<span class="str">"github.com/aryanrokade7"</span></span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-code"></span></div>
+          <div class="code-line"><span class="line-num">8</span><span class="line-code"><span class="com"># Direct Transmission:</span></span></div>
+          <div class="code-line"><span class="line-num">9</span><span class="line-code"><a href="mailto:aryanrokade416@gmail.com" class="vsc-btn">Send Email to Aryan</a> <a href="tel:8591224192" class="vsc-btn">Call +91 85912 24192</a></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span>🌿 main*</span>
+        <span>0 errors, 0 warnings</span>
+      </div>
+      <div class="status-right">
+        <span>Ln 1, Col 1</span>
+        <span>Spaces: 2</span>
+        <span>TypeScript React</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.file-item').forEach(f => f.classList.remove('active'));
+      document.querySelectorAll('.code-view').forEach(c => c.style.display = 'none');
+
+      document.getElementById(`tab-${name}`).classList.add('active');
+      document.getElementById(`content-${name}`).style.display = 'block';
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

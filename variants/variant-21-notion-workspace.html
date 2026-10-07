@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Notion & Obsidian Markdown Workspace Developer Portfolio" />
+  <title>Aryan Rokade — NOTION WORKSPACE 42</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --nt-bg: #191919;
+      --nt-sidebar: #202020;
+      --nt-hover: #2c2c2c;
+      --nt-border: rgba(255, 255, 255, 0.08);
+      --nt-text: #ebebeb;
+      --nt-text-sub: #999999;
+      --nt-callout-bg: #252525;
+      --nt-blue: #2383e2;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--nt-bg);
+      color: var(--nt-text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* LEFT NOTION SIDEBAR */
+    aside.notion-sidebar {
+      width: 260px;
+      background: var(--nt-sidebar);
+      border-right: 1px solid var(--nt-border);
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      user-select: none;
+    }
+
+    .workspace-switcher {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .workspace-switcher:hover { background: var(--nt-hover); }
+
+    .ws-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .ws-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .sidebar-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.88rem;
+    }
+
+    .tree-header {
+      font-size: 0.72rem;
+      color: var(--nt-text-sub);
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 8px 10px 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .tree-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: var(--nt-text);
+      text-decoration: none;
+      transition: background 0.12s;
+    }
+
+    .tree-link:hover, .tree-link.active {
+      background: var(--nt-hover);
+    }
+
+    .tree-link.active { font-weight: 600; color: #fff; }
+
+    .btn-export-pdf {
+      margin-top: auto;
+      background: var(--nt-hover);
+      border: 1px solid var(--nt-border);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-export-pdf:hover { background: #383838; }
+
+    /* MAIN NOTION DOCUMENT */
+    main.notion-doc {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+
+    /* COVER IMAGE BANNER */
+    .doc-cover-banner {
+      height: 180px;
+      background: linear-gradient(135deg, #1e3a8a, #0d9488, #4c1d95);
+      position: relative;
+    }
+
+    .doc-content-container {
+      width: min(840px, calc(100% - 64px));
+      margin: -40px auto 0;
+      position: relative;
+    }
+
+    .doc-icon-badge {
+      width: 78px;
+      height: 78px;
+      background: #252525;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+      border: 2px solid var(--nt-border);
+    }
+
+    .doc-breadcrumbs {
+      font-size: 0.84rem;
+      color: var(--nt-text-sub);
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    /* CALLOUT BLOCK */
+    .notion-callout {
+      background: var(--nt-callout-bg);
+      border: 1px solid var(--nt-border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    .callout-icon { font-size: 1.4rem; }
+
+    .callout-text {
+      font-size: 0.95rem;
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+
+    /* NOTION DATABASE TABLE */
+    .database-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .db-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .notion-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--nt-border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 36px;
+      font-size: 0.88rem;
+    }
+
+    .notion-table th {
+      background: #222;
+      text-align: left;
+      padding: 10px 14px;
+      color: var(--nt-text-sub);
+      font-weight: 600;
+      border-bottom: 1px solid var(--nt-border);
+    }
+
+    .notion-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--nt-border);
+    }
+
+    .notion-table tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+    .pill-status {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .status-done { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+    .status-active { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+
+    /* TOGGLE BLOCKS */
+    details.notion-toggle {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--nt-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    details.notion-toggle summary {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      outline: none;
+    }
+
+    .toggle-body {
+      padding-top: 10px;
+      color: #aaa;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 800px) {
+      aside.notion-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT NOTION SIDEBAR -->
+  <aside class="notion-sidebar">
+    <div class="workspace-switcher">
+      <img src="../aryan-rokade.jpg" alt="Aryan" class="ws-avatar" />
+      <span class="ws-title">Aryan's Workspace</span>
+    </div>
+
+    <nav class="sidebar-tree">
+      <div class="tree-header">Workspace Pages</div>
+      <a href="#about" class="tree-link active"><span>📄</span> About Me</a>
+      <a href="#projects" class="tree-link"><span>📁</span> Projects Database</a>
+      <a href="#experience" class="tree-link"><span>💼</span> Experience & Internships</a>
+      <a href="#education" class="tree-link"><span>🎓</span> Education (VCET)</a>
+      <a href="#contact" class="tree-link"><span>✉️</span> Contact Information</a>
+    </nav>
+
+    <a href="../Aryan_Rokade_Resume.pdf" download class="btn-export-pdf">
+      <span>↓ Export to PDF (CV)</span>
+    </a>
+  </aside>
+
+  <!-- MAIN NOTION DOCUMENT -->
+  <main class="notion-doc">
+    <div class="doc-cover-banner"></div>
+
+    <div class="doc-content-container">
+      <div class="doc-icon-badge">💻</div>
+      <div class="doc-breadcrumbs">Workspace / Engineering Wiki / Aryan Rokade</div>
+      <h1 class="doc-title">Aryan Rokade &bull; Full-Stack & Systems Wiki</h1>
+
+      <!-- CALLOUT -->
+      <div class="notion-callout">
+        <div class="callout-icon">💡</div>
+        <div class="callout-text">
+          <strong>TL;DR Summary:</strong> Computer Engineering student at VCET (Mumbai University, Class of 2027). 2nd position winner at Techblitz Hackathon 2025. Web Development Intern at Octanet Services. Specializing in high-performance web systems and applied deep learning models.
+        </div>
+      </div>
+
+      <!-- PROJECTS DATABASE TABLE -->
+      <section id="projects">
+        <div class="database-header">
+          <div class="db-title">📊 Key Projects Database</div>
+          <span style="font-size: 0.8rem; color: var(--nt-text-sub);">4 Views &bull; Filtered</span>
+        </div>
+
+        <table class="notion-table">
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Status</th>
+              <th>Domain</th>
+              <th>Stack</th>
+              <th>Repository</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>VyaparFlow</strong></td>
+              <td><span class="pill-status status-done">Production</span></td>
+              <td>B2B ERP & Billing</td>
+              <td>Next.js, PostgreSQL, Prisma, TS</td>
+              <td><a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" style="color:var(--nt-blue); text-decoration:none;">View Repo ↗</a></td>
+            </tr>
+            <tr>
+              <td><strong>CyberSentinel Suite</strong></td>
+              <td><span class="pill-status status-active">Active</span></td>
+              <td>Network Security Radar</td>
+              <td>React, Flask, Python, Socket.IO</td>
+              <td><a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" style="color:var(--nt-blue); text-decoration:none;">View Repo ↗</a></td>
+            </tr>
+            <tr>
+              <td><strong>Saturn Finance</strong></td>
+              <td><span class="pill-status status-done">Completed</span></td>
+              <td>Personal Finance Ledger</td>
+              <td>MongoDB, Express, React, Node.js</td>
+              <td><a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" style="color:var(--nt-blue); text-decoration:none;">View Repo ↗</a></td>
+            </tr>
+            <tr>
+              <td><strong>MRI Brain Tumor AI</strong></td>
+              <td><span class="pill-status status-done">98.4% Acc</span></td>
+              <td>Deep Learning Diagnostics</td>
+              <td>TensorFlow, Keras VGG16, Streamlit</td>
+              <td><a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" style="color:var(--nt-blue); text-decoration:none;">View Repo ↗</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ACCORDION / TOGGLE BLOCKS (EXPERIENCE & EDU) -->
+      <section id="experience" style="margin-bottom: 40px;">
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 14px;">📁 Career Milestones & Credentials</h2>
+        
+        <details class="notion-toggle" open>
+          <summary>🏆 Techblitz Hackathon 2025 &bull; 2nd Position Winner</summary>
+          <div class="toggle-body">
+            Organized by the Department of Artificial Intelligence & Data Science, VCET. Developed an end-to-end full-stack software prototype under 24 hours under rigorous evaluation.
+          </div>
+        </details>
+
+        <details class="notion-toggle" open>
+          <summary>💼 Octanet Services Pvt. Ltd. &bull; Web Development Intern</summary>
+          <div class="toggle-body">
+            Dec 2024 — Jan 2025. Engineered client-facing front-end modules, resolved cross-browser compatibility issues, and integrated clean REST APIs with rapid turnaround.
+          </div>
+        </details>
+
+        <details class="notion-toggle" open>
+          <summary>🎓 B.E. Computer Engineering &bull; VCET (Mumbai University)</summary>
+          <div class="toggle-body">
+            2023 — 2027 (Expected). Coursework includes Data Structures, Algorithms, Distributed Databases, Computer Networks, and Machine Learning.
+          </div>
+        </details>
+      </section>
+
+      <!-- CONTACT CALLOUT -->
+      <section id="contact">
+        <div class="notion-callout">
+          <div class="callout-icon">✉️</div>
+          <div class="callout-text">
+            <strong>Get in Touch:</strong> Reach out via email at <a href="mailto:aryanrokade416@gmail.com" style="color:var(--nt-blue);">aryanrokade416@gmail.com</a>, call <span style="color:#fff;">+91 85912 24192</span>, or connect on <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" style="color:var(--nt-blue);">GitHub</a> and <a href="https://www.linkedin.com/in/aryan-rokade/" target="_blank" rel="noopener noreferrer" style="color:var(--nt-blue);">LinkedIn</a>.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

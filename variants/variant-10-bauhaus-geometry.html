@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Bauhaus Geometric Constructivism Developer Portfolio" />
+  <title>Aryan Rokade — BAUHAUS GEOMETRIC 20</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Plus+Jakarta+Sans:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #f5f3e9;
+      --red: #d90429;
+      --blue: #003049;
+      --yellow: #fcbf49;
+      --black: #111111;
+      --font-bauhaus: 'Archivo Black', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* Bauhaus Header */
+    header.bauhaus-nav {
+      border-bottom: 4px solid var(--black);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 500;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bauhaus-logo {
+      font-family: var(--font-bauhaus);
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .geom-shapes {
+      display: flex;
+      gap: 4px;
+    }
+
+    .shape-circle { width: 14px; height: 14px; border-radius: 50%; background: var(--red); }
+    .shape-square { width: 14px; height: 14px; background: var(--blue); }
+    .shape-triangle {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 14px solid var(--yellow);
+    }
+
+    nav.links {
+      display: flex;
+      gap: 24px;
+      font-family: var(--font-bauhaus);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    nav.links a {
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    nav.links a:hover { color: var(--red); }
+
+    .btn-bauhaus {
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-bauhaus);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      text-decoration: none;
+      border: 3px solid var(--black);
+      box-shadow: 4px 4px 0px var(--black);
+      transition: all 0.15s;
+    }
+
+    .btn-bauhaus:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--black);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 70px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+      border-bottom: 4px solid var(--black);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-bauhaus);
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 mark.red { background: var(--red); color: #fff; padding: 0 8px; }
+    .hero h1 mark.yellow { background: var(--yellow); color: var(--black); padding: 0 8px; }
+
+    .hero p.lead {
+      font-size: 1.2rem;
+      font-weight: 500;
+      max-width: 580px;
+      margin-bottom: 36px;
+    }
+
+    .bauhaus-photo-box {
+      border: 4px solid var(--black);
+      background: #fff;
+      box-shadow: 8px 8px 0px var(--black);
+      padding: 16px;
+      position: relative;
+    }
+
+    .bauhaus-photo-box img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      filter: contrast(120%);
+    }
+
+    /* Section Bar */
+    .sec-bar {
+      padding: 60px 0 30px;
+      border-bottom: 4px solid var(--black);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 40px;
+    }
+
+    .sec-bar h2 {
+      font-family: var(--font-bauhaus);
+      font-size: 2.2rem;
+      text-transform: uppercase;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 28px;
+      margin-bottom: 70px;
+    }
+
+    .bauhaus-card {
+      border: 3.5px solid var(--black);
+      background: #fff;
+      box-shadow: 6px 6px 0px var(--black);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .bauhaus-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0px var(--black);
+    }
+
+    .bauhaus-card h3 {
+      font-family: var(--font-bauhaus);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .bauhaus-card p {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+
+    .p-tags span {
+      border: 2px solid var(--black);
+      background: var(--bg);
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 70px;
+    }
+
+    .skill-box {
+      border: 3px solid var(--black);
+      box-shadow: 4px 4px 0px var(--black);
+      background: #fff;
+      padding: 24px;
+    }
+
+    .skill-box h4 {
+      font-family: var(--font-bauhaus);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--blue);
+    }
+
+    .skill-box p {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* Contact */
+    .contact-box {
+      border: 4px solid var(--black);
+      box-shadow: 8px 8px 0px var(--black);
+      background: var(--yellow);
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 90px;
+    }
+
+    .b-input {
+      background: #fff;
+      border: 3px solid var(--black);
+      box-shadow: 3px 3px 0px var(--black);
+      padding: 12px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+      margin-bottom: 14px;
+    }
+
+    footer.bauhaus-footer {
+      border-top: 4px solid var(--black);
+      padding: 24px 0 100px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .contact-box { grid-template-columns: 1fr; }
+      nav.links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="bauhaus-nav wrap">
+    <div class="nav-inner">
+      <a href="#top" class="bauhaus-logo">
+        <div class="geom-shapes">
+          <div class="shape-circle"></div>
+          <div class="shape-square"></div>
+          <div class="shape-triangle"></div>
+        </div>
+        Aryan Rokade
+      </a>
+      <nav class="links">
+        <a href="#work">Form</a>
+        <a href="#skills">Function</a>
+        <a href="#contact">Dialogue</a>
+      </nav>
+      <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="btn-bauhaus">Resume PDF</a>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <div class="hero-eyebrow">FORM FOLLOWS FUNCTION · COMPUTER ENGINEERING '27</div>
+        <h1>
+          STRUCTURED <mark class="red">LOGIC.</mark><br />
+          FUNCTIONAL <mark class="yellow">CODE.</mark>
+        </h1>
+        <p class="lead">
+          I am Aryan Rokade. Engineering full-stack applications, deep learning neural systems, and secure distributed software with Bauhaus geometric purity from Mumbai, India.
+        </p>
+        <div style="display: flex; gap: 16px;">
+          <a href="#work" class="btn-bauhaus" style="background: var(--blue);">View Works ↓</a>
+          <a href="mailto:aryanrokade416@gmail.com" class="btn-bauhaus" style="background: #fff; color: var(--black);">Get in Touch ↗</a>
+        </div>
+      </div>
+      <div class="bauhaus-photo-box">
+        <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work">
+      <div class="sec-bar">
+        <h2>01 // FUNCTIONAL WORKS</h2>
+        <span style="font-family: var(--font-mono); font-weight: 700;">CHRONOLOGICAL</span>
+      </div>
+
+      <div class="projects-grid">
+        <!-- P1 -->
+        <article class="bauhaus-card">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--red); font-weight:700; margin-bottom:8px;">LOGISTICS PLATFORM</div>
+            <h3>VyaparFlow</h3>
+            <p>Export-readiness platform for Indian MSMEs with compliance readiness scoring, document verification, and shipment pipelines.</p>
+            <div class="p-tags">
+              <span>Next.js</span><span>React</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="btn-bauhaus">Live Demo</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="btn-bauhaus" style="background:#fff; color:#000;">Code</a>
+          </div>
+        </article>
+
+        <!-- P2 -->
+        <article class="bauhaus-card">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--blue); font-weight:700; margin-bottom:8px;">CYBERSECURITY</div>
+            <h3>CyberSentinel Suite</h3>
+            <p>Interactive threat simulator addressing DoS/DDoS mitigation, SQL injection attacks, ransomware heuristical alerts, and phishing scoring.</p>
+            <div class="p-tags">
+              <span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span>
+            </div>
+          </div>
+          <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="btn-bauhaus">View Repository</a>
+        </article>
+
+        <!-- P3 -->
+        <article class="bauhaus-card">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--red); font-weight:700; margin-bottom:8px;">FINANCIAL LEDGER</div>
+            <h3>Saturn Finance</h3>
+            <p>Full-stack personal budget tracking architecture with categorized monthly expenses, recurring ledger balances, and JWT auth.</p>
+            <div class="p-tags">
+              <span>React</span><span>Redux</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+            </div>
+          </div>
+          <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="btn-bauhaus">View Repository</a>
+        </article>
+
+        <!-- P4 -->
+        <article class="bauhaus-card">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--blue); font-weight:700; margin-bottom:8px;">DEEP LEARNING</div>
+            <h3>MRI Brain Tumor CNN</h3>
+            <p>Convolutional neural network diagnostic app classifying MRI scans into 4 classes with 98.4% accuracy using VGG16 transfer learning.</p>
+            <div class="p-tags">
+              <span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span>
+            </div>
+          </div>
+          <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="btn-bauhaus">View Repository</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="sec-bar">
+        <h2>02 // TECHNICAL DISCIPLINE</h2>
+        <span style="font-family: var(--font-mono); font-weight: 700;">TOOLKIT</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-box">
+          <h4>LANGUAGES</h4>
+          <p>Java · Python · TypeScript · JavaScript · C · C++ · SQL</p>
+        </div>
+        <div class="skill-box">
+          <h4>FRAMEWORKS</h4>
+          <p>Next.js · React · Node.js · Express · Tailwind CSS · MERN</p>
+        </div>
+        <div class="skill-box">
+          <h4>DATA & OPS</h4>
+          <p>PostgreSQL · MongoDB · Prisma ORM · Docker · Git</p>
+        </div>
+        <div class="skill-box">
+          <h4>RECOGNITION</h4>
+          <p>2nd Place Techblitz '25 · Web Development Intern Octanet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-box">
+      <div>
+        <h2 style="font-family: var(--font-bauhaus); font-size: 2.2rem; margin-bottom: 14px;">COLLABORATE</h2>
+        <p style="font-weight: 600; margin-bottom: 24px;">Available for software engineering roles, hackathons, and creative digital collaborations.</p>
+        <div style="font-family: var(--font-mono); font-weight: 700;">
+          <a href="mailto:aryanrokade416@gmail.com" style="color: var(--black); text-decoration: none;">✉ aryanrokade416@gmail.com</a><br /><br />
+          <a href="tel:8591224192" style="color: var(--black); text-decoration: none;">📞 +91 85912 24192</a>
+        </div>
+      </div>
+      <form action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" class="b-input" placeholder="NAME" required />
+        <input type="email" name="email" class="b-input" placeholder="EMAIL" required />
+        <textarea name="message" rows="3" class="b-input" placeholder="MESSAGE" required></textarea>
+        <button type="submit" class="btn-bauhaus" style="width: 100%; cursor: pointer;">SUBMIT ↗</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="wrap bauhaus-footer">
+    <span>© 2026 ARYAN ROKADE // BAUHAUS CONSTRUCTIVISM</span>
+    <div>
+      <a href="https://github.com/aryanrokade7" target="_blank" style="color: var(--black); margin-right: 14px;">GITHUB</a>
+      <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color: var(--black);">LINKEDIN</a>
+    </div>
+  </footer>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

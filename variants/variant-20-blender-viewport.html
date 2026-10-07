@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Blender 3D Viewport Studio Developer Portfolio" />
+  <title>Aryan Rokade — BLENDER 3D VIEWPORT 41</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bl-bg: #282828;
+      --bl-panel: #303030;
+      --bl-header: #3d3d3d;
+      --bl-border: #202020;
+      --bl-orange: #ea7600;
+      --bl-orange-hover: #ff8500;
+      --bl-blue: #4772b3;
+      --bl-text: #e0e0e0;
+      --bl-text-dim: #999999;
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bl-bg);
+      color: var(--bl-text);
+      font-family: var(--font-ui);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* TOP BLENDER APP MENU */
+    header.bl-top-bar {
+      height: 38px;
+      background: var(--bl-header);
+      border-bottom: 2px solid var(--bl-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      z-index: 500;
+    }
+
+    .bl-menu-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .bl-logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .bl-logo-dot {
+      width: 14px;
+      height: 14px;
+      background: var(--bl-orange);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--bl-orange);
+    }
+
+    .bl-menu-items {
+      display: flex;
+      gap: 12px;
+      color: var(--bl-text-dim);
+    }
+
+    .bl-menu-items span:hover { color: #fff; cursor: pointer; }
+
+    .bl-workspace-tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .bl-tab {
+      background: none;
+      border: none;
+      color: var(--bl-text-dim);
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .bl-tab.active, .bl-tab:hover {
+      background: var(--bl-header);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-bl-render {
+      background: var(--bl-orange);
+      color: #fff;
+      border: none;
+      padding: 4px 14px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-bl-render:hover { background: var(--bl-orange-hover); }
+
+    /* WORKSPACE: TOOLBAR + 3D VIEWPORT + OUTLINER */
+    .bl-workspace-grid {
+      display: grid;
+      grid-template-columns: 46px 1fr 300px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* LEFT VERTICAL TOOL STRIP */
+    aside.bl-toolstrip {
+      background: var(--bl-panel);
+      border-right: 2px solid var(--bl-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      gap: 8px;
+    }
+
+    .tool-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      color: var(--bl-text-dim);
+      cursor: pointer;
+    }
+
+    .tool-icon:hover, .tool-icon.active {
+      background: var(--bl-blue);
+      color: #fff;
+    }
+
+    /* CENTER 3D VIEWPORT */
+    main.bl-viewport {
+      background: #1e1e1e;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 3D PERSPECTIVE GRID CANVAS */
+    #viewport-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+
+    #viewport-canvas:active { cursor: grabbing; }
+
+    /* TOP VIEWPORT OVERLAYS */
+    .viewport-overlay-header {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .view-cam-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 4px 10px;
+      border-radius: 4px;
+      backdrop-filter: blur(8px);
+    }
+
+    .shading-modes {
+      display: flex;
+      gap: 6px;
+      pointer-events: auto;
+    }
+
+    .shade-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #333;
+      border: 1px solid #444;
+      color: #aaa;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .shade-btn.active, .shade-btn:hover {
+      background: var(--bl-orange);
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* FLOATING SCENE OBJECT CARDS IN 3D SPACE */
+    .viewport-floating-info {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .mesh-info-card {
+      background: rgba(36, 36, 36, 0.9);
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 16px 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .mesh-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .mesh-poly-count {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--bl-orange);
+    }
+
+    .mesh-desc {
+      font-size: 0.85rem;
+      color: #ccc;
+      max-width: 520px;
+      line-height: 1.4;
+    }
+
+    .btn-mesh-inspect {
+      background: var(--bl-blue);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .btn-mesh-inspect:hover { background: #5c8bd4; }
+
+    /* RIGHT OUTLINER & PROPERTIES */
+    aside.bl-outliner-panel {
+      background: var(--bl-panel);
+      border-left: 2px solid var(--bl-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .outliner-header {
+      background: var(--bl-header);
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      border-bottom: 1px solid var(--bl-border);
+    }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .tree-item:hover, .tree-item.active {
+      background: #404040;
+      color: #fff;
+    }
+
+    .tree-item.active { border-left: 3px solid var(--bl-orange); }
+
+    .tree-icon { color: var(--bl-orange); font-size: 0.85rem; }
+
+    .props-subpanel {
+      border-top: 2px solid var(--bl-border);
+      padding: 14px;
+      margin-top: auto;
+      background: #282828;
+      font-size: 0.78rem;
+    }
+
+    .prop-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      color: var(--bl-text-dim);
+    }
+
+    .prop-row strong { color: #fff; font-family: var(--font-mono); }
+
+    /* BOTTOM TIMELINE / DOPE SHEET */
+    footer.bl-timeline {
+      height: 38px;
+      background: var(--bl-header);
+      border-top: 2px solid var(--bl-border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 16px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    .playback-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .play-btn {
+      background: none;
+      border: 1px solid #555;
+      color: #ccc;
+      width: 24px;
+      height: 22px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .play-btn:hover { background: #555; color: #fff; }
+
+    @media (max-width: 800px) {
+      .bl-workspace-grid { grid-template-columns: 1fr; }
+      aside.bl-toolstrip, aside.bl-outliner-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP APP BAR -->
+  <header class="bl-top-bar">
+    <div class="bl-menu-left">
+      <div class="bl-logo-badge">
+        <div class="bl-logo-dot"></div>
+        <span>Blender // Aryan.blend</span>
+      </div>
+      <div class="bl-menu-items">
+        <span>File</span>
+        <span>Edit</span>
+        <span>Render</span>
+        <span>Window</span>
+        <span>Help</span>
+      </div>
+      <div class="bl-workspace-tabs">
+        <button class="bl-tab active">Layout</button>
+        <button class="bl-tab">Modeling</button>
+        <button class="bl-tab">Shading</button>
+        <button class="bl-tab">Animation</button>
+      </div>
+    </div>
+
+    <div>
+      <a href="../Aryan_Rokade_Resume.pdf" download class="btn-bl-render">Render CV (PDF) &darr;</a>
+    </div>
+  </header>
+
+  <!-- WORKSPACE GRID -->
+  <div class="bl-workspace-grid">
+    
+    <!-- LEFT TOOLS -->
+    <aside class="bl-toolstrip">
+      <div class="tool-icon active" title="Select Box">↖</div>
+      <div class="tool-icon" title="Cursor">◎</div>
+      <div class="tool-icon" title="Move">✢</div>
+      <div class="tool-icon" title="Rotate">↻</div>
+      <div class="tool-icon" title="Scale">⤢</div>
+      <div class="tool-icon" title="Transform">✦</div>
+      <div class="tool-icon" title="Annotate">✎</div>
+    </aside>
+
+    <!-- 3D VIEWPORT -->
+    <main class="bl-viewport">
+      <div class="viewport-overlay-header">
+        <div class="view-cam-tag">User Perspective [Orbit View] &bull; Metric: Full-Stack</div>
+        <div class="shading-modes">
+          <button class="shade-btn" title="Wireframe">⬡</button>
+          <button class="shade-btn active" title="Solid">●</button>
+          <button class="shade-btn" title="Material Preview">◐</button>
+          <button class="shade-btn" title="Rendered">☀️</button>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE 3D CANVAS -->
+      <canvas id="viewport-canvas"></canvas>
+
+      <!-- ACTIVE MESH INFO CARD -->
+      <div class="viewport-floating-info">
+        <div class="mesh-info-card">
+          <div>
+            <div class="mesh-name" id="meshTitle">Mesh: VyaparFlow_B2B_ERP</div>
+            <div class="mesh-poly-count" id="meshStack">STACK: Next.js / TypeScript / PostgreSQL / Prisma</div>
+            <p class="mesh-desc" id="meshDesc">
+              Enterprise commercial billing and inventory engine with relational constraint validation, multi-warehouse stock allocations, and instant invoice rendering.
+            </p>
+          </div>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-mesh-inspect" id="meshLink">Inspect Geometry Repo &rarr;</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT SCENE OUTLINER -->
+    <aside class="bl-outliner-panel">
+      <div class="outliner-header">Scene Collection</div>
+      
+      <div class="tree-item active" onclick="loadMesh('vyaparflow', this)">
+        <span class="tree-icon">❖</span>
+        <span>VyaparFlow_ERP</span>
+      </div>
+      <div class="tree-item" onclick="loadMesh('cybersentinel', this)">
+        <span class="tree-icon">❖</span>
+        <span>CyberSentinel_Radar</span>
+      </div>
+      <div class="tree-item" onclick="loadMesh('saturn', this)">
+        <span class="tree-icon">❖</span>
+        <span>Saturn_Finance_MERN</span>
+      </div>
+      <div class="tree-item" onclick="loadMesh('mri', this)">
+        <span class="tree-icon">❖</span>
+        <span>MRI_BrainTumor_AI</span>
+      </div>
+      <div class="tree-item" onclick="loadMesh('award', this)">
+        <span class="tree-icon">🏆</span>
+        <span>Techblitz_2025_Podium</span>
+      </div>
+      <div class="tree-item" onclick="loadMesh('intern', this)">
+        <span class="tree-icon">💼</span>
+        <span>Octanet_Services_Intern</span>
+      </div>
+      <div class="tree-item" onclick="loadMesh('edu', this)">
+        <span class="tree-icon">🎓</span>
+        <span>VCET_CompEng_2027</span>
+      </div>
+
+      <div class="props-subpanel">
+        <div style="font-weight:700; color:#fff; margin-bottom:10px;">Transform &bull; Aryan Rokade</div>
+        <div class="prop-row"><span>Location X, Y, Z</span><strong>0.00, 0.00, 0.00</strong></div>
+        <div class="prop-row"><span>Scale Factor</span><strong>1.00 &bull; VCET '27</strong></div>
+        <div class="prop-row"><span>Engine</span><strong>Cycles Full-Stack</strong></div>
+        <div class="prop-row"><span>Contact</span><strong>aryanrokade416@gmail.com</strong></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- BOTTOM TIMELINE -->
+  <footer class="bl-timeline">
+    <div class="playback-controls">
+      <button class="play-btn">◀</button>
+      <button class="play-btn">❚❚</button>
+      <button class="play-btn">▶</button>
+    </div>
+    <div>Current Frame: <strong style="color:var(--bl-orange);">2027</strong> / 3000</div>
+    <div style="color:var(--bl-text-dim);">FPS: 60.00 &bull; Memory: 32.00 GB</div>
+  </footer>
+
+  <script>
+    const meshData = {
+      vyaparflow: {
+        title: "Mesh: VyaparFlow_B2B_ERP",
+        stack: "STACK: Next.js / TypeScript / PostgreSQL / Prisma",
+        desc: "Enterprise commercial billing and multi-warehouse inventory engine with relational constraint validation, automated low-stock reorder triggers, and invoice generators.",
+        url: "https://github.com/aryanrokade7"
+      },
+      cybersentinel: {
+        title: "Mesh: CyberSentinel_Suite",
+        stack: "STACK: React / Flask / Python / Socket.IO",
+        desc: "Real-time network security radar. Evaluates live telemetry using Python Flask background workers and streams threat warning vectors via low-latency WebSockets.",
+        url: "https://github.com/aryanrokade7"
+      },
+      saturn: {
+        title: "Mesh: Saturn_Finance",
+        stack: "STACK: MongoDB / Express.js / React / Node.js",
+        desc: "Full-stack personal finance and wealth tracker. Features multi-account ledger balancing, monthly budget targets, and recurring expense forecasting.",
+        url: "https://github.com/aryanrokade7"
+      },
+      mri: {
+        title: "Mesh: MRI_BrainTumor_AI",
+        stack: "STACK: TensorFlow / Keras VGG16 / OpenCV",
+        desc: "Clinical-grade computer vision pipeline fine-tuned on neuroimaging scans with VGG16 transfer learning for instantaneous pathology identification.",
+        url: "https://github.com/aryanrokade7"
+      },
+      award: {
+        title: "Award: Techblitz_Hackathon_2025",
+        stack: "HONOR: 2nd Position Winner &bull; VCET AI&DS Dept",
+        desc: "Engineered scalable end-to-end full-stack software prototype in a high-intensity 24-hour sprint evaluated by faculty and industry judges.",
+        url: "https://github.com/aryanrokade7"
+      },
+      intern: {
+        title: "Experience: Octanet_Services_Intern",
+        stack: "ROLE: Web Development Intern &bull; Dec 2024 - Jan 2025",
+        desc: "Engineered responsive client-side UI modules, integrated clean REST APIs, and resolved critical browser rendering bottlenecks.",
+        url: "https://github.com/aryanrokade7"
+      },
+      edu: {
+        title: "Education: VCET_Mumbai_University",
+        stack: "DEGREE: B.E. Computer Engineering (2023 - 2027)",
+        desc: "Undergraduate curriculum covering Data Structures, Algorithms, Distributed Databases, Machine Learning, and Operating Systems.",
+        url: "https://github.com/aryanrokade7"
+      }
+    };
+
+    function loadMesh(key, el) {
+      const d = meshData[key];
+      if (!d) return;
+      document.getElementById('meshTitle').innerText = d.title;
+      document.getElementById('meshStack').innerHTML = d.stack;
+      document.getElementById('meshDesc').innerText = d.desc;
+      document.getElementById('meshLink').href = d.url;
+
+      document.querySelectorAll('.tree-item').forEach(i => i.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    // Interactive 3D Canvas Wireframe Cube Simulation
+    (function init3DCube() {
+      const canvas = document.getElementById('viewport-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let angleX = 0.5, angleY = 0.5;
+      let isDragging = false, lastX, lastY;
+
+      function resize() {
+        width = canvas.width = canvas.parentElement.clientWidth;
+        height = canvas.height = canvas.parentElement.clientHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      });
+      window.addEventListener('mouseup', () => isDragging = false);
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        angleY += (e.clientX - lastX) * 0.008;
+        angleX += (e.clientY - lastY) * 0.008;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      });
+
+      const vertices = [
+        [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+        [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
+      ];
+      const edges = [
+        [0,1], [1,2], [2,3], [3,0],
+        [4,5], [5,6], [6,7], [7,4],
+        [0,4], [1,5], [2,6], [3,7]
+      ];
+
+      function project(x, y, z) {
+        // Rotate around Y
+        const cosY = Math.cos(angleY), sinY = Math.sin(angleY);
+        let x1 = x * cosY - z * sinY;
+        let z1 = z * cosY + x * sinY;
+        // Rotate around X
+        const cosX = Math.cos(angleX), sinX = Math.sin(angleX);
+        let y2 = y * cosX - z1 * sinX;
+        let z2 = z1 * cosX + y * sinX;
+
+        const distance = 4;
+        const scale = 220 / (distance + z2);
+        return [width / 2 + x1 * scale, height / 2 + y2 * scale];
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Grid floor
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.lineWidth = 1;
+        const gridSize = 10;
+        for (let i = -gridSize; i <= gridSize; i += 2) {
+          const p1 = project(i, 1.2, -gridSize);
+          const p2 = project(i, 1.2, gridSize);
+          ctx.beginPath();
+          ctx.moveTo(p1[0], p1[1]);
+          ctx.lineTo(p2[0], p2[1]);
+          ctx.stroke();
+        }
+
+        // Cube Edges
+        ctx.strokeStyle = '#ea7600';
+        ctx.lineWidth = 2.5;
+        for (let e of edges) {
+          const v1 = vertices[e[0]];
+          const v2 = vertices[e[1]];
+          const p1 = project(v1[0], v1[1], v1[2]);
+          const p2 = project(v2[0], v2[1], v2[2]);
+          ctx.beginPath();
+          ctx.moveTo(p1[0], p1[1]);
+          ctx.lineTo(p2[0], p2[1]);
+          ctx.stroke();
+        }
+
+        if (!isDragging) {
+          angleY += 0.004;
+        }
+        requestAnimationFrame(render);
+      }
+      render();
+    })();
+  </script>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

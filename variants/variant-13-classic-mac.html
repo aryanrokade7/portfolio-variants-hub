@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Classic Macintosh 1984 System 7 Developer Portfolio" />
+  <title>Aryan Rokade — CLASSIC MACINTOSH 27</title>
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --mac-bg: #808080;
+      --mac-window: #ffffff;
+      --mac-gray: #dddddd;
+      --mac-dark: #222222;
+      --font-mac: "Geneva", "Chicago", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #888888;
+      background-image: 
+        radial-gradient(#555 15%, transparent 16%),
+        radial-gradient(#555 15%, transparent 16%);
+      background-size: 4px 4px;
+      background-position: 0 0, 2px 2px;
+      color: #000;
+      font-family: var(--font-mac);
+      font-size: 13px;
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 70px;
+    }
+
+    /* Classic Mac Menu Bar */
+    .mac-menubar {
+      background: #fff;
+      border-bottom: 1px solid #000;
+      padding: 3px 16px;
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .mac-apple-logo { font-size: 14px; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 24px auto;
+    }
+
+    /* Classic Mac Window */
+    .mac-window {
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 4px;
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .mac-titlebar {
+      height: 22px;
+      border-bottom: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6px;
+      background: repeating-linear-gradient(180deg, #fff, #fff 1px, #000 1px, #000 2px);
+    }
+
+    .mac-close-box {
+      width: 12px;
+      height: 12px;
+      border: 1px solid #000;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .mac-title-text {
+      background: #fff;
+      padding: 0 8px;
+      font-weight: bold;
+      font-size: 12px;
+      color: #000;
+    }
+
+    .mac-body {
+      padding: 20px;
+    }
+
+    .mac-hero-split {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .mac-photo-frame {
+      border: 2px solid #000;
+      padding: 6px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .mac-photo-frame img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+      filter: grayscale(100%) contrast(140%);
+    }
+
+    /* Projects Grid */
+    .mac-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .mac-p-card {
+      border: 1px solid #000;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fafafa;
+    }
+
+    .mac-p-card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .mac-btn {
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 6px;
+      padding: 4px 14px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    .mac-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+
+    @media (max-width: 800px) {
+      .mac-hero-split { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Classic Mac Menu Bar -->
+  <div class="mac-menubar">
+    <span class="mac-apple-logo"></span>
+    <span>File</span>
+    <span>Edit</span>
+    <span>View</span>
+    <span>Special</span>
+    <span>Aryan Rokade</span>
+  </div>
+
+  <div class="wrap">
+    
+    <!-- Window 1: Profile -->
+    <div class="mac-window">
+      <div class="mac-titlebar">
+        <div class="mac-close-box"></div>
+        <div class="mac-title-text">Aryan Rokade — Finder Profile</div>
+        <div class="mac-close-box"></div>
+      </div>
+      <div class="mac-body">
+        <div class="mac-hero-split">
+          <div>
+            <h1 style="font-size: 24px; margin-bottom: 6px;">Aryan Rokade</h1>
+            <p style="font-weight: bold; margin-bottom: 12px;">Computer Engineering · VCET Mumbai University ('27)</p>
+            <p style="margin-bottom: 18px; color: #333;">
+              Building purposeful digital experiences with elegant structural logic. Winner of 2nd Place at Techblitz Hackathon 2025 and Web Development Intern at Octanet Services.
+            </p>
+            <div style="display: flex; gap: 10px;">
+              <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="mac-btn">Download Resume.pdf</a>
+              <a href="mailto:aryanrokade416@gmail.com" class="mac-btn">Send Message ↗</a>
+            </div>
+          </div>
+          <div class="mac-photo-frame">
+            <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+            <div style="font-size: 11px; margin-top: 6px;">Aryan_Rokade_Mac_1984.pic</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 2: Applications & Projects -->
+    <div class="mac-window" id="work">
+      <div class="mac-titlebar">
+        <div class="mac-close-box"></div>
+        <div class="mac-title-text">Disk: Projects (4 items, 1.4MB available)</div>
+        <div class="mac-close-box"></div>
+      </div>
+      <div class="mac-body">
+        <div class="mac-projects-grid">
+          
+          <div class="mac-p-card">
+            <div>
+              <h3>VyaparFlow</h3>
+              <p>Export-readiness platform for Indian MSMEs with compliance readiness scoring, document verification, and shipment pipelines.</p>
+              <div style="font-size: 11px; color: #555; margin-bottom: 12px;">Next.js · React · TypeScript · Prisma · PostgreSQL</div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="mac-btn">Open App</a>
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="mac-btn">GitHub</a>
+            </div>
+          </div>
+
+          <div class="mac-p-card">
+            <div>
+              <h3>CyberSentinel Suite</h3>
+              <p>Interactive threat simulator addressing DoS/DDoS mitigation, SQL injection attacks, ransomware heuristical alerts, and phishing scoring.</p>
+              <div style="font-size: 11px; color: #555; margin-bottom: 12px;">React · Socket.IO · Flask · Python</div>
+            </div>
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="mac-btn">Open App</a>
+          </div>
+
+          <div class="mac-p-card">
+            <div>
+              <h3>Saturn Finance</h3>
+              <p>Full-stack personal budget tracking architecture with categorized monthly expenses, recurring ledger balances, and JWT auth.</p>
+              <div style="font-size: 11px; color: #555; margin-bottom: 12px;">React · Redux · Node.js · Express · MongoDB</div>
+            </div>
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="mac-btn">Open App</a>
+          </div>
+
+          <div class="mac-p-card">
+            <div>
+              <h3>MRI Brain Tumor CNN</h3>
+              <p>Convolutional neural network diagnostic app classifying MRI scans into 4 classes with 98.4% accuracy using VGG16.</p>
+              <div style="font-size: 11px; color: #555; margin-bottom: 12px;">TensorFlow · Keras · VGG16 · Flask · Python</div>
+            </div>
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="mac-btn">Open App</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 3: Contact & Desk Accessories -->
+    <div class="mac-window">
+      <div class="mac-titlebar">
+        <div class="mac-close-box"></div>
+        <div class="mac-title-text">Desk Accessory: Quick Mail</div>
+        <div class="mac-close-box"></div>
+      </div>
+      <div class="mac-body">
+        <form action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain" style="max-width: 500px; display: flex; flex-direction: column; gap: 8px;">
+          <div>
+            <label style="display:block; margin-bottom: 2px;">Name:</label>
+            <input type="text" name="name" style="width: 100%; border: 1px solid #000; padding: 4px;" required />
+          </div>
+          <div>
+            <label style="display:block; margin-bottom: 2px;">Email:</label>
+            <input type="email" name="email" style="width: 100%; border: 1px solid #000; padding: 4px;" required />
+          </div>
+          <div>
+            <label style="display:block; margin-bottom: 2px;">Note:</label>
+            <textarea name="message" rows="3" style="width: 100%; border: 1px solid #000; padding: 4px;" required></textarea>
+          </div>
+          <button type="submit" class="mac-btn" style="width: 100px;">Send</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

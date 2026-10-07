@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Swiss International Typographic Style Portfolio" />
+  <title>Aryan Rokade — SWISS STYLE 07</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --black: #0a0a0a;
+      --red: #e63946;
+      --gray-light: #f4f4f4;
+      --gray-mid: #e0e0e0;
+      --gray-text: #555555;
+      --font-swiss: 'Inter Tight', -apple-system, Helvetica, Arial, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--font-swiss);
+      min-height: 100vh;
+      line-height: 1.45;
+      overflow-x: hidden;
+      border-top: 8px solid var(--red);
+    }
+
+    .wrap {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* Swiss Grid System Header */
+    header.swiss-header {
+      border-bottom: 2px solid var(--black);
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+    }
+
+    .swiss-nav-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      align-items: baseline;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    .swiss-brand {
+      font-family: var(--font-swiss);
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .swiss-brand span {
+      color: var(--red);
+    }
+
+    .swiss-nav-grid a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.15s;
+    }
+
+    .swiss-nav-grid a:hover {
+      color: var(--red);
+    }
+
+    /* Swiss Hero Grid */
+    .hero-swiss {
+      border-bottom: 2px solid var(--black);
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+    }
+
+    .hero-col-left {
+      padding: 80px 40px 80px 0;
+      border-right: 2px solid var(--black);
+    }
+
+    .swiss-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-col-left h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .hero-col-left p.lead {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-text);
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+
+    .hero-col-right {
+      padding: 60px 0 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .swiss-photo-container {
+      border: 2px solid var(--black);
+      background: var(--gray-light);
+      position: relative;
+    }
+
+    .swiss-photo-container img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(120%);
+      display: block;
+    }
+
+    .swiss-spec-list {
+      margin-top: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .swiss-spec-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray-mid);
+      padding: 8px 0;
+    }
+
+    /* Section Bar */
+    .swiss-sec-bar {
+      padding: 30px 0;
+      border-bottom: 2px solid var(--black);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .swiss-sec-bar h2 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+
+    .swiss-sec-bar span {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    /* Projects Swiss Table / Grid */
+    .swiss-projects-list {
+      border-bottom: 2px solid var(--black);
+    }
+
+    .swiss-project-item {
+      display: grid;
+      grid-template-columns: 80px 1.5fr 1.2fr 180px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--black);
+      align-items: baseline;
+      transition: background 0.15s;
+    }
+
+    .swiss-project-item:last-child {
+      border-bottom: none;
+    }
+
+    .swiss-project-item:hover {
+      background: var(--gray-light);
+    }
+
+    .item-index {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .item-title h3 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .item-title span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--gray-text);
+    }
+
+    .item-desc {
+      font-size: 0.95rem;
+      color: var(--gray-text);
+      font-weight: 500;
+      padding-right: 20px;
+    }
+
+    .item-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .swiss-btn {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swiss-btn:hover {
+      color: var(--red);
+      text-decoration: underline;
+    }
+
+    /* Swiss Toolkit Matrix */
+    .swiss-matrix {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 2px solid var(--black);
+    }
+
+    .matrix-col {
+      padding: 40px 24px;
+      border-right: 1px solid var(--black);
+    }
+
+    .matrix-col:first-child {
+      padding-left: 0;
+    }
+
+    .matrix-col:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .matrix-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .matrix-col p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    /* Swiss Contact Grid */
+    .swiss-contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 60px 0 100px;
+      border-bottom: 2px solid var(--black);
+    }
+
+    .swiss-contact-left {
+      padding-right: 40px;
+      border-right: 2px solid var(--black);
+    }
+
+    .swiss-contact-right {
+      padding-left: 40px;
+    }
+
+    .swiss-input {
+      width: 100%;
+      border: 2px solid var(--black);
+      padding: 14px;
+      font-family: var(--font-swiss);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    .swiss-input:focus {
+      border-color: var(--red);
+    }
+
+    .btn-swiss-submit {
+      background: var(--black);
+      color: #fff;
+      border: none;
+      padding: 16px 32px;
+      font-family: var(--font-swiss);
+      font-weight: 900;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.15s;
+    }
+
+    .btn-swiss-submit:hover {
+      background: var(--red);
+    }
+
+    footer.swiss-footer {
+      padding: 30px 0 100px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 900px) {
+      .hero-swiss { grid-template-columns: 1fr; }
+      .hero-col-left { border-right: none; padding-right: 0; }
+      .hero-col-right { padding-left: 0; }
+      .swiss-project-item { grid-template-columns: 1fr; gap: 14px; }
+      .swiss-matrix { grid-template-columns: 1fr 1fr; }
+      .matrix-col { border-bottom: 1px solid var(--black); }
+      .swiss-contact { grid-template-columns: 1fr; }
+      .swiss-contact-left { border-right: none; padding-right: 0; margin-bottom: 40px; }
+      .swiss-contact-right { padding-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="swiss-header">
+    <div class="wrap swiss-nav-grid">
+      <a href="#top" class="swiss-brand">
+        ARYAN ROKADE <span>/ 2026</span>
+      </a>
+      <a href="#work">[01] WORKS</a>
+      <a href="#matrix">[02] MATRIX</a>
+      <a href="#contact">[03] CONTACT</a>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- Hero -->
+    <section class="hero-swiss">
+      <div class="hero-col-left">
+        <div class="swiss-badge">COMPUTER ENGINEERING · MUMBAI UNIVERSITY</div>
+        <h1>
+          RIGOROUS CODE.<br />
+          FUNCTIONAL<br />
+          SYSTEMS.
+        </h1>
+        <p class="lead">
+          I am Aryan Rokade. Engineering full-stack applications, neural architectures, and robust digital systems with clean structural logic.
+        </p>
+        <div style="display: flex; gap: 20px;">
+          <a href="#work" class="swiss-btn" style="background: var(--black); color: #fff; padding: 12px 24px; text-decoration: none;">INDEX OF WORKS ↓</a>
+          <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="swiss-btn" style="border: 2px solid var(--black); padding: 10px 20px; text-decoration: none;">RESUME PDF ↗</a>
+        </div>
+      </div>
+      <div class="hero-col-right">
+        <div class="swiss-photo-container">
+          <img src="../aryan-rokade.jpg" alt="Aryan Rokade Portrait" />
+        </div>
+        <div class="swiss-spec-list">
+          <div class="swiss-spec-row">
+            <span>DISCIPLINE</span>
+            <strong>SOFTWARE ENGINEERING</strong>
+          </div>
+          <div class="swiss-spec-row">
+            <span>DEGREE</span>
+            <strong>B.E. COMPUTER ENGINEERING '27</strong>
+          </div>
+          <div class="swiss-spec-row">
+            <span>HONOR</span>
+            <strong>2ND PLACE TECHBLITZ '25</strong>
+          </div>
+          <div class="swiss-spec-row">
+            <span>INTERNSHIP</span>
+            <strong>OCTANET SERVICES PVT. LTD.</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Table -->
+    <section id="work">
+      <div class="swiss-sec-bar">
+        <h2>[01] SELECTED WORKS</h2>
+        <span>CHRONOLOGICAL INDEX</span>
+      </div>
+
+      <div class="swiss-projects-list">
+        
+        <!-- Project 1 -->
+        <article class="swiss-project-item">
+          <div class="item-index">01</div>
+          <div class="item-title">
+            <h3>VyaparFlow</h3>
+            <span>MSME EXPORT READINESS PLATFORM</span>
+          </div>
+          <div class="item-desc">
+            Full-stack compliance scoring, document pipeline verification, shipment tracking, and multi-role dashboards built with Next.js, Prisma, and PostgreSQL.
+          </div>
+          <div class="item-links">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="swiss-btn">LIVE DEMO ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="swiss-btn">SOURCE REPO ↗</a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="swiss-project-item">
+          <div class="item-index">02</div>
+          <div class="item-title">
+            <h3>CyberSentinel Suite</h3>
+            <span>CYBERSECURITY SIMULATION SUITE</span>
+          </div>
+          <div class="item-desc">
+            DoS/DDoS threat mitigation, SQL injection testing, ransomware heuristics, and phishing classifier engine with a Chrome Extension hook.
+          </div>
+          <div class="item-links">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="swiss-btn">SOURCE REPO ↗</a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="swiss-project-item">
+          <div class="item-index">03</div>
+          <div class="item-title">
+            <h3>Saturn</h3>
+            <span>FULL-STACK WEALTH & BUDGET ENGINE</span>
+          </div>
+          <div class="item-desc">
+            Personal financial tracking with analytical breakdowns, recurring ledgers, visual charting, and JWT authentication powered by the MERN stack.
+          </div>
+          <div class="item-links">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="swiss-btn">SOURCE REPO ↗</a>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="swiss-project-item">
+          <div class="item-index">04</div>
+          <div class="item-title">
+            <h3>MRI Brain Tumor CNN</h3>
+            <span>DEEP LEARNING HEALTHCARE DIAGNOSIS</span>
+          </div>
+          <div class="item-desc">
+            Clinical decision support classifying MRI scans into 4 classes with 98.4% validation accuracy using VGG16 transfer learning and Flask.
+          </div>
+          <div class="item-links">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="swiss-btn">SOURCE REPO ↗</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Matrix / Toolkit -->
+    <section id="matrix">
+      <div class="swiss-sec-bar">
+        <h2>[02] TECHNICAL MATRIX</h2>
+        <span>CORE CAPABILITIES</span>
+      </div>
+      <div class="swiss-matrix">
+        <div class="matrix-col">
+          <h4>LANGUAGES</h4>
+          <p>Java<br />Python<br />TypeScript<br />JavaScript<br />C / C++<br />SQL</p>
+        </div>
+        <div class="matrix-col">
+          <h4>FRAMEWORKS</h4>
+          <p>Next.js<br />React<br />Node.js<br />Express<br />Tailwind CSS<br />Socket.IO</p>
+        </div>
+        <div class="matrix-col">
+          <h4>DATABASES & OPS</h4>
+          <p>PostgreSQL<br />MongoDB<br />Prisma ORM<br />Docker<br />Git & GitHub</p>
+        </div>
+        <div class="matrix-col">
+          <h4>AI & DESIGN</h4>
+          <p>TensorFlow<br />Keras (VGG16)<br />Data Structures<br />Figma UI/UX<br />Cybersecurity</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Grid -->
+    <section id="contact" class="swiss-contact">
+      <div class="swiss-contact-left">
+        <h2 style="font-size: 3rem; font-weight: 900; line-height: 1; text-transform: uppercase; margin-bottom: 20px;">
+          DISPATCH INQUIRY
+        </h2>
+        <p style="color: var(--gray-text); font-weight: 600; font-size: 1.15rem; margin-bottom: 30px;">
+          Available for software engineering opportunities, internships, and technical collaborations.
+        </p>
+        <div style="font-family: var(--font-mono); font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px;">
+          <a href="mailto:aryanrokade416@gmail.com" class="swiss-btn">✉ aryanrokade416@gmail.com</a>
+          <a href="tel:8591224192" class="swiss-btn">📞 +91 85912 24192</a>
+        </div>
+      </div>
+      <div class="swiss-contact-right">
+        <form action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain">
+          <input type="text" name="name" class="swiss-input" placeholder="FULL NAME" required />
+          <input type="email" name="email" class="swiss-input" placeholder="EMAIL ADDRESS" required />
+          <textarea name="message" rows="4" class="swiss-input" placeholder="INQUIRY MESSAGE" required></textarea>
+          <button type="submit" class="btn-swiss-submit">SUBMIT TRANSMISSION →</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap swiss-footer">
+    <span>© 2026 ARYAN ROKADE // SWISS INTERNATIONAL STYLE</span>
+    <div>
+      <a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--black); margin-right:16px;">GITHUB</a>
+      <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:var(--black);">LINKEDIN</a>
+    </div>
+  </footer>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

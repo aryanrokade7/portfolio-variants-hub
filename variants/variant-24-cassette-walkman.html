@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Retro Cassette Walkman</title>
+  <meta name="description" content="Vintage Sony Walkman cassette tape player interactive portfolio for Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Permanent+Marker&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --walkman-body: #1c232c;
+      --walkman-accent: #2c3a4a;
+      --walkman-metal: #a8b2bc;
+      --amber-lcd: #ffb703;
+      --retro-orange: #fb8500;
+      --tape-body: #232220;
+      --tape-label: #f4ecd8;
+      --font-display: 'Share Tech Mono', monospace;
+      --font-marker: 'Permanent Marker', cursive;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #202731 0%, #0d1117 100%);
+      color: #e0e6ed;
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+
+    .walkman-container {
+      width: 100%;
+      max-width: 980px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Hardware Chassis */
+    .walkman-chassis {
+      background: linear-gradient(145deg, #2a3442, #182029);
+      border-radius: 20px;
+      border: 4px solid #3d4a5c;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.15);
+      padding: 28px;
+      position: relative;
+    }
+
+    /* Metal brand header */
+    .chassis-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #2f3b4b;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 4px;
+      color: #d1dbe5;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo .model {
+      font-size: 0.75rem;
+      color: var(--retro-orange);
+      background: #11171f;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #3a4a5e;
+    }
+
+    .lcd-display {
+      background: #080c10;
+      border: 2px solid #2e3e50;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-family: var(--font-display);
+      color: var(--amber-lcd);
+      font-size: 0.95rem;
+      text-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .meter-dots {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+      height: 14px;
+    }
+    .meter-bar {
+      width: 4px;
+      height: 100%;
+      background: #332600;
+      border-radius: 1px;
+    }
+    .meter-bar.active {
+      background: var(--amber-lcd);
+      box-shadow: 0 0 6px var(--amber-lcd);
+      animation: pulseMeter 0.4s infinite alternate;
+    }
+    .meter-bar:nth-child(2).active { animation-delay: 0.1s; }
+    .meter-bar:nth-child(3).active { animation-delay: 0.2s; }
+    .meter-bar:nth-child(4).active { animation-delay: 0.15s; }
+    .meter-bar:nth-child(5).active { animation-delay: 0.25s; }
+
+    @keyframes pulseMeter {
+      0% { height: 25%; }
+      100% { height: 100%; }
+    }
+
+    /* Cassette Viewport Deck */
+    .tape-deck-window {
+      background: #0b0f14;
+      border: 4px solid #2b3949;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: inset 0 10px 25px rgba(0,0,0,0.8);
+      position: relative;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    /* Cassette Tape Structure */
+    .cassette-body {
+      background: linear-gradient(180deg, #1f1e1c 0%, #141312 100%);
+      border: 2px solid #3a3834;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cassette-label {
+      background: var(--tape-label);
+      color: #2b261f;
+      border-radius: 6px;
+      padding: 12px 16px;
+      border: 1px solid #d4c5a9;
+      position: relative;
+    }
+    .tape-title {
+      font-family: var(--font-marker);
+      font-size: 1.25rem;
+      color: #b22222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tape-sub {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #554e42;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* Spools & Center Window */
+    .tape-spool-area {
+      background: #0a0a09;
+      border-radius: 20px;
+      margin-top: 10px;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border: 1px solid #4a473f;
+    }
+
+    .spool {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #2b2926;
+      border: 4px solid #ffffff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px #000;
+    }
+    .spool::before, .spool::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+    .spool::before { top: 4px; }
+    .spool::after { bottom: 4px; }
+    
+    .spool.spinning {
+      animation: spinTape 1.6s linear infinite;
+    }
+    .spool.fast {
+      animation: spinTape 0.4s linear infinite;
+    }
+
+    @keyframes spinTape {
+      100% { transform: rotate(360deg); }
+    }
+
+    .tape-tape-view {
+      flex: 1;
+      height: 24px;
+      background: #2b1f14;
+      margin: 0 16px;
+      border-radius: 4px;
+      border: 1px solid #3d2d1e;
+      position: relative;
+      overflow: hidden;
+    }
+    .tape-tape-view::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(0,0,0,0.3) 10px, rgba(0,0,0,0.3) 20px);
+    }
+
+    /* Walkman Mechanical Controls */
+    .controls-deck {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .mech-btn {
+      background: linear-gradient(180deg, #3f4e61 0%, #202936 100%);
+      color: #e3ebf5;
+      border: 1px solid #576980;
+      border-bottom: 4px solid #141b24;
+      border-radius: 6px;
+      padding: 10px 22px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: all 0.1s;
+    }
+    .mech-btn:hover {
+      background: linear-gradient(180deg, #4d5f75 0%, #273342 100%);
+    }
+    .mech-btn:active, .mech-btn.pressed {
+      transform: translateY(3px);
+      border-bottom-width: 1px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      background: #1c2530;
+      color: var(--amber-lcd);
+    }
+    .mech-btn.play.pressed {
+      color: #00ff88;
+      border-color: #00ff88;
+    }
+
+    /* Tracklist / Liner Notes Foldout */
+    .jcard-foldout {
+      background: #131922;
+      border: 2px solid #2a3747;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .jcard-title {
+      font-family: var(--font-marker);
+      font-size: 1.5rem;
+      color: var(--retro-orange);
+      margin-bottom: 4px;
+    }
+    .jcard-sub {
+      color: #8da2ba;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    /* Tracks List */
+    .tracklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .track-row {
+      background: #1a222e;
+      border: 1px solid #2d3c4e;
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .track-row:hover {
+      border-color: var(--retro-orange);
+      background: #202b3a;
+    }
+    .track-row.active {
+      border-color: var(--amber-lcd);
+      background: #253346;
+      box-shadow: 0 0 15px rgba(255, 183, 3, 0.15);
+    }
+
+    .t-num {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--amber-lcd);
+      width: 40px;
+      font-weight: 700;
+    }
+    .t-info {
+      flex: 1;
+      padding: 0 12px;
+    }
+    .t-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .t-desc {
+      font-size: 0.8rem;
+      color: #9ab0c7;
+      margin-top: 2px;
+    }
+    .t-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .t-tag {
+      font-size: 0.7rem;
+      background: #11171f;
+      color: #7995b3;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #283647;
+    }
+    .t-dur {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: #7b8e9f;
+    }
+
+    /* Liner Details Area */
+    .liner-details {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed #304154;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .liner-details { grid-template-columns: 1fr; }
+    }
+
+    .bio-panel {
+      font-size: 0.88rem;
+      color: #b3c5d8;
+      line-height: 1.6;
+    }
+    .award-card {
+      background: #182230;
+      border-left: 4px solid var(--amber-lcd);
+      padding: 10px 14px;
+      margin-top: 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.82rem;
+    }
+
+    .contact-dock {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .c-btn {
+      background: #1e2938;
+      border: 1px solid #36485e;
+      color: #e0e9f5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .c-btn:hover {
+      border-color: var(--amber-lcd);
+      color: var(--amber-lcd);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="walkman-container">
+    
+    <!-- Walkman Chassis -->
+    <div class="walkman-chassis">
+      
+      <!-- Top Brand Header -->
+      <div class="chassis-header">
+        <div class="brand-logo">
+          SONY <span>WALKMAN</span>
+          <span class="model">WM-ROKADE</span>
+        </div>
+        <div class="lcd-display">
+          <span id="lcdTrack">TRK 01: VYAPARFLOW</span>
+          <span id="lcdTime">00:00</span>
+          <div class="meter-dots" id="meterDots">
+            <div class="meter-bar active"></div>
+            <div class="meter-bar active"></div>
+            <div class="meter-bar active"></div>
+            <div class="meter-bar active"></div>
+            <div class="meter-bar active"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cassette Deck Window -->
+      <div class="tape-deck-window">
+        <div class="cassette-body">
+          <div class="cassette-label">
+            <div class="tape-title">
+              <span>ARYAN ROKADE</span>
+              <span style="font-family: var(--font-display); font-size: 0.9rem; color: #111;">SIDE A</span>
+            </div>
+            <div class="tape-sub">FULL STACK DEVELOPER & AI ENGINEER • MUMBAI</div>
+
+            <!-- Tape Spools -->
+            <div class="tape-spool-area">
+              <div class="spool spinning" id="spoolLeft"></div>
+              <div class="tape-tape-view"></div>
+              <div class="spool spinning" id="spoolRight"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mechanical Buttons Deck -->
+      <div class="controls-deck">
+        <button class="mech-btn play pressed" id="btnPlay" onclick="handlePlay()">
+          ▶ PLAY
+        </button>
+        <button class="mech-btn" id="btnPause" onclick="handlePause()">
+          ❚❚ PAUSE
+        </button>
+        <button class="mech-btn" id="btnRewind" onclick="handleRewind()">
+          ◄◄ REW
+        </button>
+        <button class="mech-btn" id="btnFfwd" onclick="handleFfwd()">
+          ►► FF
+        </button>
+        <button class="mech-btn" id="btnEject" onclick="handleEject()">
+          ⏏ EJECT (INFO)
+        </button>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="mech-btn" style="text-decoration:none;">
+          ⬇ RESUME.PDF
+        </a>
+      </div>
+
+      <!-- Foldout J-Card / Liner Notes -->
+      <div class="jcard-foldout">
+        <div class="jcard-title">LINER NOTES // FEATURED TRACKS</div>
+        <div class="jcard-sub">Select any track to play and inspect engineering architecture</div>
+
+        <div class="tracklist">
+          
+          <!-- Track 1 -->
+          <div class="track-row active" onclick="selectTrack(0)" id="trk0">
+            <div class="t-num">01</div>
+            <div class="t-info">
+              <div class="t-name">VyaparFlow — ERP SaaS Platform</div>
+              <div class="t-desc">Multi-tenant business suite with automated GST billing, real-time inventory ledger, and Stripe payments.</div>
+              <div class="t-tags">
+                <span class="t-tag">Next.js 14</span>
+                <span class="t-tag">TypeScript</span>
+                <span class="t-tag">PostgreSQL</span>
+                <span class="t-tag">Prisma ORM</span>
+                <span class="t-tag">Tailwind CSS</span>
+              </div>
+            </div>
+            <div class="t-dur">04:20</div>
+          </div>
+
+          <!-- Track 2 -->
+          <div class="track-row" onclick="selectTrack(1)" id="trk1">
+            <div class="t-num">02</div>
+            <div class="t-info">
+              <div class="t-name">CyberSentinel Suite — Threat Intelligence</div>
+              <div class="t-desc">Live security operations center monitoring network telemetry, Snort intrusion detection, and Socket.IO anomaly streaming.</div>
+              <div class="t-tags">
+                <span class="t-tag">React</span>
+                <span class="t-tag">Python Flask</span>
+                <span class="t-tag">Socket.IO</span>
+                <span class="t-tag">Snort</span>
+                <span class="t-tag">Chart.js</span>
+              </div>
+            </div>
+            <div class="t-dur">03:45</div>
+          </div>
+
+          <!-- Track 3 -->
+          <div class="track-row" onclick="selectTrack(2)" id="trk2">
+            <div class="t-num">03</div>
+            <div class="t-info">
+              <div class="t-name">Saturn Finance — Wealth Tracker</div>
+              <div class="t-desc">Modern personal budgeting and financial telemetry engine with multi-account syncing, JWT authentication, and spending analytics.</div>
+              <div class="t-tags">
+                <span class="t-tag">MongoDB</span>
+                <span class="t-tag">Express.js</span>
+                <span class="t-tag">React.js</span>
+                <span class="t-tag">Node.js</span>
+              </div>
+            </div>
+            <div class="t-dur">05:12</div>
+          </div>
+
+          <!-- Track 4 -->
+          <div class="track-row" onclick="selectTrack(3)" id="trk3">
+            <div class="t-num">04</div>
+            <div class="t-info">
+              <div class="t-name">MRI Brain Tumor AI — Deep Learning Diagnostic</div>
+              <div class="t-desc">Convolutional Neural Network diagnosing cranial MRI scans with 98.2% test accuracy and Grad-CAM medical visualizers.</div>
+              <div class="t-tags">
+                <span class="t-tag">TensorFlow</span>
+                <span class="t-tag">Keras VGG16</span>
+                <span class="t-tag">Flask</span>
+                <span class="t-tag">OpenCV</span>
+              </div>
+            </div>
+            <div class="t-dur">04:55</div>
+          </div>
+
+        </div>
+
+        <!-- Liner Details: Bio & Contacts -->
+        <div class="liner-details">
+          <div class="bio-panel">
+            <h4 style="color:#fff; margin-bottom: 6px;">ARTIST STATEMENT & CREDENTIALS</h4>
+            <p>
+              Hi, I'm Aryan Rokade. B.E. Computer Engineering student at Vidyavardhini's College of Engineering & Technology (VCET), Mumbai University (Graduating 2027).
+              Former Web Development Intern at <b>Octanet Services Pvt. Ltd.</b> (Dec 2024 – Jan 2025), where I engineered responsive web apps and cut page load times by 35%.
+            </p>
+            <div class="award-card">
+              🏆 <b>2nd Position</b> in Techblitz Hackathon 2025 (AI & Data Science Dept, VCET)
+            </div>
+          </div>
+
+          <div class="contact-dock">
+            <h4 style="color:#fff; margin-bottom: 4px;">CONTACT CASSETTE</h4>
+            <a href="mailto:aryanrokade416@gmail.com" class="c-btn">
+              <span>✉ EMAIL</span>
+              <span style="font-size:0.75rem; color:#8ba0b8;">aryanrokade416@gmail.com</span>
+            </a>
+            <a href="tel:+918591224192" class="c-btn">
+              <span>📞 PHONE</span>
+              <span style="font-size:0.75rem; color:#8ba0b8;">+91 85912 24192</span>
+            </a>
+            <a href="https://github.com/aryanrokade7" target="_blank" class="c-btn">
+              <span>🐙 GITHUB</span>
+              <span style="font-size:0.75rem; color:#8ba0b8;">aryanrokade7 ↗</span>
+            </a>
+            <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="c-btn">
+              <span>💼 LINKEDIN</span>
+              <span style="font-size:0.75rem; color:#8ba0b8;">aryan-rokade ↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Audio synthesis for retro clicks
+    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+    function playClick() {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch(e) {}
+    }
+
+    const tracks = [
+      { id: "01", name: "VYAPARFLOW", dur: "04:20" },
+      { id: "02", name: "CYBERSENTINEL", dur: "03:45" },
+      { id: "03", name: "SATURN FINANCE", dur: "05:12" },
+      { id: "04", name: "MRI BRAIN AI", dur: "04:55" }
+    ];
+
+    let currentTrackIdx = 0;
+    let isPlaying = true;
+    let timerSeconds = 0;
+    let timerInterval = null;
+
+    const spoolL = document.getElementById('spoolLeft');
+    const spoolR = document.getElementById('spoolRight');
+    const btnPlay = document.getElementById('btnPlay');
+    const btnPause = document.getElementById('btnPause');
+    const lcdTrack = document.getElementById('lcdTrack');
+    const lcdTime = document.getElementById('lcdTime');
+    const meterDots = document.getElementById('meterDots');
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+        const secs = String(timerSeconds % 60).padStart(2, '0');
+        lcdTime.innerText = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+    }
+
+    function handlePlay() {
+      playClick();
+      isPlaying = true;
+      spoolL.className = "spool spinning";
+      spoolR.className = "spool spinning";
+      btnPlay.classList.add('pressed');
+      btnPause.classList.remove('pressed');
+      meterDots.querySelectorAll('.meter-bar').forEach(b => b.classList.add('active'));
+      startTimer();
+    }
+
+    function handlePause() {
+      playClick();
+      isPlaying = false;
+      spoolL.className = "spool";
+      spoolR.className = "spool";
+      btnPlay.classList.remove('pressed');
+      btnPause.classList.add('pressed');
+      meterDots.querySelectorAll('.meter-bar').forEach(b => b.classList.remove('active'));
+      stopTimer();
+    }
+
+    function handleRewind() {
+      playClick();
+      spoolL.className = "spool fast";
+      spoolR.className = "spool fast";
+      timerSeconds = Math.max(0, timerSeconds - 15);
+      setTimeout(() => {
+        if (isPlaying) handlePlay(); else handlePause();
+      }, 400);
+    }
+
+    function handleFfwd() {
+      playClick();
+      spoolL.className = "spool fast";
+      spoolR.className = "spool fast";
+      timerSeconds += 15;
+      setTimeout(() => {
+        if (isPlaying) handlePlay(); else handlePause();
+      }, 400);
+    }
+
+    function handleEject() {
+      playClick();
+      alert("CASSETTE EJECT: Aryan Rokade Portfolio Tape. B.E. Comp Eng (VCET 2027) • Techblitz Hackathon 2nd Place.");
+    }
+
+    function selectTrack(idx) {
+      playClick();
+      currentTrackIdx = idx;
+      document.querySelectorAll('.track-row').forEach((row, i) => {
+        row.classList.toggle('active', i === idx);
+      });
+      lcdTrack.innerText = `TRK ${tracks[idx].id}: ${tracks[idx].name}`;
+      timerSeconds = 0;
+      handlePlay();
+    }
+
+    // Start with play mode
+    startTimer();
+  </script>
+</body>
+</html>

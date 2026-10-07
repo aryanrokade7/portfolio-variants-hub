@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Curated Portfolio Showcase Hub & Interactive Simulator" />
+  <title>Aryan Rokade — Portfolio Showcase Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fbfbfd;
+      --surface: rgba(255, 255, 255, 0.85);
+      --card-bg: #ffffff;
+      --card-hover: #f5f5f7;
+      --card-border: rgba(0, 0, 0, 0.08);
+      --card-border-hover: rgba(0, 0, 0, 0.16);
+      --text: #1d1d1f;
+      --text-sub: #6e6e73;
+      --text-tertiary: #86868b;
+      --blue: #0071e3;
+      --blue-hover: #0077ed;
+      --blue-subtle: rgba(0, 113, 227, 0.08);
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg: #000000;
+      --surface: rgba(22, 22, 24, 0.85);
+      --card-bg: #161618;
+      --card-hover: #222226;
+      --card-border: rgba(255, 255, 255, 0.1);
+      --card-border-hover: rgba(255, 255, 255, 0.22);
+      --text: #f5f5f7;
+      --text-sub: #a1a1a6;
+      --text-tertiary: #86868b;
+      --blue: #2997ff;
+      --blue-hover: #3ca2ff;
+      --blue-subtle: rgba(41, 151, 255, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      line-height: 1.47;
+      letter-spacing: -0.022em;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+    }
+
+    .wrap {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* TOP APPLE NAV BAR */
+    header.apple-header {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: var(--surface);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .header-inner {
+      height: 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-pill {
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      background: var(--blue-subtle);
+      color: var(--blue);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle-btn:hover {
+      color: var(--text);
+      border-color: var(--text-sub);
+      background: rgba(128, 128, 128, 0.08);
+    }
+
+    .btn-apple-cv {
+      background: var(--blue);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-apple-cv:hover {
+      background: var(--blue-hover);
+      transform: scale(1.02);
+    }
+
+    /* HERO INTRO */
+    .hero-section {
+      text-align: center;
+      padding: 44px 0 24px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.12;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      color: var(--text-sub);
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto 24px;
+      line-height: 1.5;
+    }
+
+    /* CONTROLS BAR: SEARCH + CHIPS */
+    .controls-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .search-box {
+      position: relative;
+      width: min(340px, 100%);
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      padding: 8px 16px 8px 36px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-subtle);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .chip-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .chip-btn:hover {
+      color: var(--text);
+      border-color: var(--text-sub);
+    }
+
+    .chip-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+      font-weight: 600;
+    }
+
+    /* COMPACT HIGH-DENSITY VARIANT TILES GRID */
+    .variant-tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .variant-tile {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      height: 44px;
+    }
+
+    .variant-tile:hover {
+      background: var(--card-hover);
+      border-color: var(--card-border-hover);
+      transform: translateY(-1px);
+    }
+
+    .variant-tile.active {
+      border-color: var(--blue);
+      background: var(--blue-subtle);
+      box-shadow: 0 0 0 1px var(--blue);
+    }
+
+    .tile-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .tile-badge {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      background: rgba(128, 128, 128, 0.12);
+      padding: 2px 6px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    .variant-tile.active .tile-badge {
+      color: var(--blue);
+      background: rgba(0, 113, 227, 0.18);
+    }
+
+    .tile-name {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tile-ext-link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .tile-ext-link:hover {
+      color: var(--blue);
+    }
+
+    /* LIVE PREVIEW SIMULATOR (CUPERTINO CLEAN) */
+    .simulator-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .simulator-container {
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .sim-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px 14px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .sim-info-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sim-nav-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      transition: all 0.15s;
+    }
+
+    .sim-nav-btn:hover {
+      color: var(--text);
+      border-color: var(--text-sub);
+    }
+
+    .sim-active-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .sim-tools-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .device-segmented {
+      display: flex;
+      background: rgba(128, 128, 128, 0.1);
+      padding: 2px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+
+    .seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .seg-btn.active {
+      background: var(--card-bg);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-fullscreen-toggle {
+      background: var(--blue-subtle);
+      border: 1px solid var(--blue);
+      color: var(--blue);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-fullscreen-toggle:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .sim-iframe-viewport {
+      width: 100%;
+      height: 700px;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 14px auto 0;
+      border: 1px solid var(--card-border);
+      transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .sim-iframe-viewport iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* FULLSCREEN THEATER MODE OVERLAY */
+    .fullscreen-theater-mode {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 99999 !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #000 !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fullscreen-theater-mode .sim-toolbar {
+      background: rgba(20, 20, 22, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 20px;
+      margin: 0;
+      border-radius: 0;
+      color: #fff;
+    }
+
+    .fullscreen-theater-mode .sim-active-title { color: #fff; }
+    .fullscreen-theater-mode .sim-nav-btn { border-color: rgba(255, 255, 255, 0.2); color: #ccc; }
+    .fullscreen-theater-mode .sim-nav-btn:hover { color: #fff; border-color: #fff; }
+    .fullscreen-theater-mode .device-segmented { border-color: rgba(255, 255, 255, 0.2); }
+    .fullscreen-theater-mode .seg-btn { color: #aaa; }
+    .fullscreen-theater-mode .seg-btn.active { background: #333; color: #fff; }
+
+    .fullscreen-theater-mode .sim-iframe-viewport {
+      flex: 1;
+      height: calc(100vh - 54px) !important;
+      margin: 0 auto;
+      border-radius: 0;
+      border: none;
+    }
+
+    /* FOOTER DISPATCH */
+    footer.hub-footer {
+      border-top: 1px solid var(--card-border);
+      padding-top: 36px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    .footer-cmd-box {
+      display: inline-block;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--blue);
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .controls-strip { flex-direction: column; align-items: stretch; }
+      .search-box { width: 100%; }
+      .sim-iframe-viewport { height: 480px; }
+      .variant-tiles-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .variant-tiles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP APPLE HEADER -->
+  <header class="apple-header">
+    <div class="wrap header-inner">
+      <a href="#simContainer" class="brand-mark">
+        <span>Aryan Rokade</span>
+        <span class="brand-pill">39 Curated Portfolios</span>
+      </a>
+
+      <div class="header-actions">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+          ☀️
+        </button>
+        <a href="Aryan_Rokade_Resume.pdf" download class="btn-apple-cv">Download CV</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    
+    <!-- HERO INTRO -->
+    <section class="hero-section">
+      <div class="hero-eyebrow">Portfolio Architecture Showcase</div>
+      <h1 class="hero-title">Select Your Primary Experience</h1>
+      <p class="hero-subtitle">
+        39 production portfolio designs for Aryan Rokade. Click any compact tile to immediately preview in the simulator.
+      </p>
+    </section>
+
+    <!-- LIVE PREVIEW SIMULATOR FRAME -->
+    <section class="simulator-container" id="simContainer">
+      <div class="sim-toolbar">
+        <div class="sim-info-group">
+          <button class="sim-nav-btn" onclick="cycleVariant(-1)" title="Previous Variant (or press [)">◀</button>
+          <button class="sim-nav-btn" onclick="cycleVariant(1)" title="Next Variant (or press ])">▶</button>
+          <span class="sim-active-title" id="simCurrentTitle">Variant 02: Cupertino Clean</span>
+        </div>
+
+        <div class="sim-tools-group">
+          <div class="device-segmented">
+            <button class="seg-btn active" onclick="setDevice('100%', this)">🖥 Desktop</button>
+            <button class="seg-btn" onclick="setDevice('768px', this)">📱 Tablet</button>
+            <button class="seg-btn" onclick="setDevice('390px', this)">📱 Mobile</button>
+          </div>
+          <button class="btn-fullscreen-toggle" onclick="toggleFullscreenTheater()" id="fullscreenBtn" title="Toggle Fullscreen Theater Mode">
+            <span>⛶ Fullscreen</span>
+          </button>
+          <a id="simExternalLink" href="variants/variant-02-apple-minimal.html" target="_blank" class="sim-nav-btn" style="width:auto; padding:0 8px;" title="Open in New Tab">
+            ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="sim-iframe-viewport" id="simViewport">
+        <iframe id="simIframe" src="variants/variant-02-apple-minimal.html" title="Portfolio Live Simulator"></iframe>
+      </div>
+    </section>
+
+    <!-- SEARCH & CATEGORY CONTROLS -->
+    <div class="controls-strip">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Quick search by name, #number, or keyword..." oninput="filterVariants()" />
+      </div>
+
+      <div class="filter-chips">
+        <button class="chip-btn active" onclick="setFilter('all', this)">All (39)</button>
+        <button class="chip-btn" onclick="setFilter('clean', this)">Clean & Minimal (8)</button>
+        <button class="chip-btn" onclick="setFilter('os', this)">OS & Retro (8)</button>
+        <button class="chip-btn" onclick="setFilter('creative', this)">Creative & Interactive (16)</button>
+        <button class="chip-btn" onclick="setFilter('code', this)">Terminal & Code (7)</button>
+      </div>
+    </div>
+
+    <!-- HIGH-DENSITY COMPACT VARIANT TILES GRID -->
+    <div class="variant-tiles-grid" id="tilesGrid">
+      
+      <!-- 01 -->
+      <div class="variant-tile" data-cat="creative" data-id="01" data-url="variants/variant-01-neo-brutalism.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#01</span>
+          <span class="tile-name">Bold Neo-Brutalism</span>
+        </div>
+        <a href="variants/variant-01-neo-brutalism.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 02 (Default Active) -->
+      <div class="variant-tile active" data-cat="clean" data-id="02" data-url="variants/variant-02-apple-minimal.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#02</span>
+          <span class="tile-name">Cupertino Clean</span>
+        </div>
+        <a href="variants/variant-02-apple-minimal.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 03 -->
+      <div class="variant-tile" data-cat="clean" data-id="03" data-url="variants/variant-03-editorial-luxury.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#03</span>
+          <span class="tile-name">Editorial Luxury</span>
+        </div>
+        <a href="variants/variant-03-editorial-luxury.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 04 -->
+      <div class="variant-tile" data-cat="clean" data-id="04" data-url="variants/variant-04-swiss-grid.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#04</span>
+          <span class="tile-name">Swiss 12-Col Grid</span>
+        </div>
+        <a href="variants/variant-04-swiss-grid.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 05 -->
+      <div class="variant-tile" data-cat="os" data-id="05" data-url="variants/variant-05-windows-95.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#05</span>
+          <span class="tile-name">Windows 95 Desktop</span>
+        </div>
+        <a href="variants/variant-05-windows-95.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 06 -->
+      <div class="variant-tile" data-cat="clean" data-id="06" data-url="variants/variant-06-zen-minimal.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#06</span>
+          <span class="tile-name">Japanese Zen</span>
+        </div>
+        <a href="variants/variant-06-zen-minimal.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 07 -->
+      <div class="variant-tile" data-cat="clean" data-id="07" data-url="variants/variant-07-monochrome-mag.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#07</span>
+          <span class="tile-name">Monochrome Mag</span>
+        </div>
+        <a href="variants/variant-07-monochrome-mag.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 08 -->
+      <div class="variant-tile" data-cat="clean" data-id="08" data-url="variants/variant-08-nordic-pastel.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#08</span>
+          <span class="tile-name">Nordic Pastel</span>
+        </div>
+        <a href="variants/variant-08-nordic-pastel.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 09 -->
+      <div class="variant-tile" data-cat="code" data-id="09" data-url="variants/variant-09-code-editor.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#09</span>
+          <span class="tile-name">IDE Code Studio</span>
+        </div>
+        <a href="variants/variant-09-code-editor.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 10 -->
+      <div class="variant-tile" data-cat="creative" data-id="10" data-url="variants/variant-10-bauhaus-geometry.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#10</span>
+          <span class="tile-name">Bauhaus Geometry</span>
+        </div>
+        <a href="variants/variant-10-bauhaus-geometry.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 11 -->
+      <div class="variant-tile" data-cat="creative" data-id="11" data-url="variants/variant-11-craft-scrapbook.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#11</span>
+          <span class="tile-name">Craft Pinboard</span>
+        </div>
+        <a href="variants/variant-11-craft-scrapbook.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 12 -->
+      <div class="variant-tile" data-cat="creative" data-id="12" data-url="variants/variant-12-kinetic-poster.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#12</span>
+          <span class="tile-name">Kinetic Typo Poster</span>
+        </div>
+        <a href="variants/variant-12-kinetic-poster.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 13 -->
+      <div class="variant-tile" data-cat="os" data-id="13" data-url="variants/variant-13-classic-mac.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#13</span>
+          <span class="tile-name">Classic Mac 1984</span>
+        </div>
+        <a href="variants/variant-13-classic-mac.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 14 -->
+      <div class="variant-tile" data-cat="clean" data-id="14" data-url="variants/variant-14-coffee-espresso.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#14</span>
+          <span class="tile-name">Espresso Roast</span>
+        </div>
+        <a href="variants/variant-14-coffee-espresso.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 15 -->
+      <div class="variant-tile" data-cat="os" data-id="15" data-url="variants/variant-15-gameboy-pocket.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#15</span>
+          <span class="tile-name">Game Boy Pocket</span>
+        </div>
+        <a href="variants/variant-15-gameboy-pocket.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 16 -->
+      <div class="variant-tile" data-cat="code" data-id="16" data-url="variants/variant-16-bios-firmware.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#16</span>
+          <span class="tile-name">BIOS / UEFI Setup</span>
+        </div>
+        <a href="variants/variant-16-bios-firmware.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 17 -->
+      <div class="variant-tile" data-cat="creative" data-id="17" data-url="variants/variant-17-audio-daw.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#17</span>
+          <span class="tile-name">Spotify & DAW Studio</span>
+        </div>
+        <a href="variants/variant-17-audio-daw.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 18 -->
+      <div class="variant-tile" data-cat="creative" data-id="18" data-url="variants/variant-18-figma-editor.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#18</span>
+          <span class="tile-name">Figma Canvas Editor</span>
+        </div>
+        <a href="variants/variant-18-figma-editor.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 19 -->
+      <div class="variant-tile" data-cat="os" data-id="19" data-url="variants/variant-19-nextstep-os.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#19</span>
+          <span class="tile-name">Steve Jobs NeXTSTEP</span>
+        </div>
+        <a href="variants/variant-19-nextstep-os.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 20 -->
+      <div class="variant-tile" data-cat="creative" data-id="20" data-url="variants/variant-20-blender-viewport.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#20</span>
+          <span class="tile-name">Blender 3D Viewport</span>
+        </div>
+        <a href="variants/variant-20-blender-viewport.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 21 -->
+      <div class="variant-tile" data-cat="clean" data-id="21" data-url="variants/variant-21-notion-workspace.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#21</span>
+          <span class="tile-name">Notion & Obsidian Doc</span>
+        </div>
+        <a href="variants/variant-21-notion-workspace.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 22 -->
+      <div class="variant-tile" data-cat="code" data-id="22" data-url="variants/variant-22-github-commit.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#22</span>
+          <span class="tile-name">GitHub Git Profile</span>
+        </div>
+        <a href="variants/variant-22-github-commit.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 23 -->
+      <div class="variant-tile" data-cat="code" data-id="23" data-url="variants/variant-23-kali-cyberdeck.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#23</span>
+          <span class="tile-name">Kali Cyberdeck Terminal</span>
+        </div>
+        <a href="variants/variant-23-kali-cyberdeck.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 24 -->
+      <div class="variant-tile" data-cat="os" data-id="24" data-url="variants/variant-24-cassette-walkman.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#24</span>
+          <span class="tile-name">Retro Sony Walkman</span>
+        </div>
+        <a href="variants/variant-24-cassette-walkman.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 25 -->
+      <div class="variant-tile" data-cat="creative" data-id="25" data-url="variants/variant-25-polaroid-gallery.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#25</span>
+          <span class="tile-name">Polaroid Instant Gallery</span>
+        </div>
+        <a href="variants/variant-25-polaroid-gallery.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 26 -->
+      <div class="variant-tile" data-cat="creative" data-id="26" data-url="variants/variant-26-discord-workspace.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#26</span>
+          <span class="tile-name">Discord Dev Server</span>
+        </div>
+        <a href="variants/variant-26-discord-workspace.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 27 -->
+      <div class="variant-tile" data-cat="os" data-id="27" data-url="variants/variant-27-arcade-fighter.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#27</span>
+          <span class="tile-name">16-Bit Arcade Fighter</span>
+        </div>
+        <a href="variants/variant-27-arcade-fighter.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 28 -->
+      <div class="variant-tile" data-cat="creative" data-id="28" data-url="variants/variant-28-daily-newspaper.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#28</span>
+          <span class="tile-name">Broadsheet Newspaper</span>
+        </div>
+        <a href="variants/variant-28-daily-newspaper.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 29 -->
+      <div class="variant-tile" data-cat="creative" data-id="29" data-url="variants/variant-29-rpg-character.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#29</span>
+          <span class="tile-name">Fantasy RPG Character</span>
+        </div>
+        <a href="variants/variant-29-rpg-character.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 30 -->
+      <div class="variant-tile" data-cat="clean" data-id="30" data-url="variants/variant-30-museum-gallery.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#30</span>
+          <span class="tile-name">Museum Art Gallery</span>
+        </div>
+        <a href="variants/variant-30-museum-gallery.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 31 -->
+      <div class="variant-tile" data-cat="creative" data-id="31" data-url="variants/variant-31-cyberpunk-ripperdoc.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#31</span>
+          <span class="tile-name">Cyberpunk 2077 HUD</span>
+        </div>
+        <a href="variants/variant-31-cyberpunk-ripperdoc.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 32 -->
+      <div class="variant-tile" data-cat="os" data-id="32" data-url="variants/variant-32-apollo-flight-computer.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#32</span>
+          <span class="tile-name">NASA Apollo DSKY</span>
+        </div>
+        <a href="variants/variant-32-apollo-flight-computer.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 33 -->
+      <div class="variant-tile" data-cat="creative" data-id="33" data-url="variants/variant-33-receipt-printer.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#33</span>
+          <span class="tile-name">Thermal POS Receipt</span>
+        </div>
+        <a href="variants/variant-33-receipt-printer.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 34 -->
+      <div class="variant-tile" data-cat="creative" data-id="34" data-url="variants/variant-34-architectural-blueprint.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#34</span>
+          <span class="tile-name">Blueprint CAD Schema</span>
+        </div>
+        <a href="variants/variant-34-architectural-blueprint.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 35 -->
+      <div class="variant-tile" data-cat="os" data-id="35" data-url="variants/variant-35-winamp-player.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#35</span>
+          <span class="tile-name">Winamp 2.91 Audio</span>
+        </div>
+        <a href="variants/variant-35-winamp-player.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 36 -->
+      <div class="variant-tile" data-cat="creative" data-id="36" data-url="variants/variant-36-metro-transit-map.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#36</span>
+          <span class="tile-name">Metro Subway Map</span>
+        </div>
+        <a href="variants/variant-36-metro-transit-map.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 37 -->
+      <div class="variant-tile" data-cat="creative" data-id="37" data-url="variants/variant-37-comic-book.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#37</span>
+          <span class="tile-name">Vintage Pop-Art Comic</span>
+        </div>
+        <a href="variants/variant-37-comic-book.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 38 -->
+      <div class="variant-tile" data-cat="code" data-id="38" data-url="variants/variant-38-game-engine-inspector.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#38</span>
+          <span class="tile-name">3D Game Engine Studio</span>
+        </div>
+        <a href="variants/variant-38-game-engine-inspector.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 39 -->
+      <div class="variant-tile" data-cat="clean" data-id="39" data-url="variants/variant-39-luxury-horology.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#39</span>
+          <span class="tile-name">Haute Horlogerie Watch</span>
+        </div>
+        <a href="variants/variant-39-luxury-horology.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+    </div>
+
+    <!-- FOOTER INSTRUCTION -->
+    <footer class="hub-footer">
+      <div>Set any portfolio as your primary <code>index.html</code> with one command:</div>
+      <div class="footer-cmd-box" id="cmdSuggestion">
+        powershell -ExecutionPolicy Bypass -File .\set-main-portfolio.ps1 -VariantNumber 2
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // THEME CONTROLLER (Apple Cupertino Dark / Light)
+    function initTheme() {
+      const saved = localStorage.getItem('apple-hub-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      updateThemeIcon(saved);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('apple-hub-theme', next);
+      updateThemeIcon(next);
+    }
+
+    function updateThemeIcon(theme) {
+      document.getElementById('themeToggleBtn').innerText = theme === 'dark' ? '☀️' : '🌙';
+    }
+    initTheme();
+
+    // VARIANT SELECTION & SIMULATOR
+    let currentTileIndex = 1; // Default to #02 (Cupertino Clean)
+
+    function getAllTiles() {
+      return Array.from(document.querySelectorAll('.variant-tile')).filter(t => t.style.display !== 'none');
+    }
+
+    function selectVariant(tileEl) {
+      document.querySelectorAll('.variant-tile').forEach(t => t.classList.remove('active'));
+      tileEl.classList.add('active');
+
+      const url = tileEl.getAttribute('data-url');
+      const id = tileEl.getAttribute('data-id');
+      const name = tileEl.querySelector('.tile-name').innerText;
+
+      const iframe = document.getElementById('simIframe');
+      iframe.src = url;
+
+      document.getElementById('simCurrentTitle').innerText = `Variant ${id}: ${name}`;
+      document.getElementById('simExternalLink').href = url;
+      document.getElementById('cmdSuggestion').innerText = `powershell -ExecutionPolicy Bypass -File .\\set-main-portfolio.ps1 -VariantNumber ${parseInt(id, 10)}`;
+
+      // Update current index
+      const visible = getAllTiles();
+      currentTileIndex = visible.indexOf(tileEl);
+    }
+
+    // Suppress floating bar in simulation iframe on load
+    const simIframe = document.getElementById('simIframe');
+    function hideFloatingBarInIframe() {
+      try {
+        const doc = simIframe.contentDocument || simIframe.contentWindow.document;
+        if (!doc) return;
+        const bar = doc.getElementById('variant-switcher-bar');
+        if (bar) bar.style.display = 'none';
+        const style = doc.createElement('style');
+        style.textContent = '#variant-switcher-bar { display: none !important; }';
+        doc.head.appendChild(style);
+      } catch (e) {}
+    }
+    simIframe.addEventListener('load', hideFloatingBarInIframe);
+
+    function cycleVariant(dir) {
+      const visible = getAllTiles();
+      if (!visible.length) return;
+      currentTileIndex = (currentTileIndex + dir + visible.length) % visible.length;
+      selectVariant(visible[currentTileIndex]);
+    }
+
+    function setDevice(width, btn) {
+      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('simViewport').style.maxWidth = width;
+    }
+
+    // FULLSCREEN THEATER MODE (Seamless, Glitch-Free)
+    let isTheater = false;
+
+    function toggleFullscreenTheater() {
+      isTheater = !isTheater;
+      const container = document.getElementById('simContainer');
+      const btn = document.getElementById('fullscreenBtn');
+
+      if (isTheater) {
+        container.classList.add('fullscreen-theater-mode');
+        btn.innerHTML = '<span>✕ Exit (Esc)</span>';
+        document.body.style.overflow = 'hidden';
+      } else {
+        container.classList.remove('fullscreen-theater-mode');
+        btn.innerHTML = '<span>⛶ Fullscreen</span>';
+        document.body.style.overflow = '';
+      }
+    }
+
+    // FILTER & SEARCH
+    function setFilter(cat, btn) {
+      document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('searchInput').value = '';
+
+      const tiles = document.querySelectorAll('.variant-tile');
+      tiles.forEach(tile => {
+        const itemCat = tile.getAttribute('data-cat');
+        tile.style.display = (cat === 'all' || itemCat === cat) ? 'flex' : 'none';
+      });
+    }
+
+    function filterVariants() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const tiles = document.querySelectorAll('.variant-tile');
+
+      tiles.forEach(tile => {
+        const text = tile.innerText.toLowerCase();
+        tile.style.display = (q === '' || text.includes(q)) ? 'flex' : 'none';
+      });
+    }
+
+    // KEYBOARD SHORTCUTS
+    window.addEventListener('keydown', (e) => {
+      if (['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) return;
+      if (e.key === 'Escape' && isTheater) {
+        toggleFullscreenTheater();
+      } else if (e.key === '[' || e.key === 'ArrowLeft') {
+        cycleVariant(-1);
+      } else if (e.key === ']' || e.key === 'ArrowRight') {
+        cycleVariant(1);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — The Origin Issue #1 Comic</title>
+  <meta name="description" content="Vintage pop-art comic book graphic novel portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --comic-yellow: #ffee00;
+      --comic-red: #ff1133;
+      --comic-blue: #0077ff;
+      --comic-cyan: #00e5ff;
+      --comic-bg: #fff8e7;
+      --font-comic: 'Bangers', cursive;
+      --font-body: 'Comic Neue', cursive, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--comic-yellow);
+      background-image: 
+        radial-gradient(#ff0044 15%, transparent 16%),
+        radial-gradient(#ff0044 15%, transparent 16%);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      color: #000;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 30px 16px;
+      line-height: 1.4;
+    }
+
+    .comic-page {
+      max-width: 1150px;
+      margin: 0 auto;
+      background: #fff;
+      border: 6px solid #000;
+      box-shadow: 12px 12px 0 #000;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* Top Comic Header Banner */
+    .comic-top-banner {
+      border: 4px solid #000;
+      background: var(--comic-red);
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 #000;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .comic-issue {
+      font-family: var(--font-comic);
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      background: #000;
+      color: var(--comic-yellow);
+      padding: 4px 12px;
+      transform: rotate(-2deg);
+    }
+    .comic-masthead {
+      font-family: var(--font-comic);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: 2px;
+      text-shadow: 3px 3px 0 #000;
+      line-height: 1;
+    }
+    .comic-price {
+      font-family: var(--font-comic);
+      font-size: 1.4rem;
+      color: var(--comic-yellow);
+    }
+
+    /* 6-Panel Comic Grid */
+    .comic-panels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .comic-panels-grid { grid-template-columns: 1fr; }
+    }
+
+    .comic-panel {
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      background: var(--comic-bg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .comic-panel:hover {
+      transform: translateY(-4px) rotate(-1deg);
+      box-shadow: 10px 10px 0 #000;
+    }
+
+    /* Action Burst Badge */
+    .action-burst {
+      position: absolute;
+      top: -14px;
+      right: -10px;
+      background: var(--comic-red);
+      color: #fff;
+      font-family: var(--font-comic);
+      font-size: 1.1rem;
+      padding: 4px 12px;
+      border: 3px solid #000;
+      transform: rotate(12deg);
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .panel-art-box {
+      height: 170px;
+      border: 3px solid #000;
+      margin-bottom: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .panel-art-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(120%) saturate(130%);
+    }
+
+    /* Speech Bubble */
+    .speech-bubble {
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      border-width: 10px 10px 0 0;
+      border-style: solid;
+      border-color: #000 transparent transparent transparent;
+    }
+
+    .panel-title {
+      font-family: var(--font-comic);
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+    .panel-narrative {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .comic-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .c-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: #000;
+      color: #fff;
+      padding: 2px 6px;
+    }
+
+    /* Bottom Action Bar */
+    .comic-actions-bar {
+      margin-top: 24px;
+      border: 4px solid #000;
+      background: var(--comic-cyan);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 4px 4px 0 #000;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-comic {
+      background: var(--comic-yellow);
+      border: 3px solid #000;
+      color: #000;
+      font-family: var(--font-comic);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      padding: 8px 18px;
+      text-decoration: none;
+      box-shadow: 3px 3px 0 #000;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+    .btn-comic:hover {
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0 #000;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="comic-page">
+    
+    <!-- Top Comic Banner -->
+    <header class="comic-top-banner">
+      <div class="comic-issue">ISSUE #01 SPECIAL</div>
+      <h1 class="comic-masthead">THE TALES OF ARYAN ROKADE!</h1>
+      <div class="comic-price">25¢ COLLECTOR EDITION</div>
+    </header>
+
+    <!-- 6 Panels -->
+    <div class="comic-panels-grid">
+      
+      <!-- Panel 1: Origin -->
+      <div class="comic-panel">
+        <div class="action-burst">ORIGIN!</div>
+        <div class="panel-art-box">
+          <img src="../aryan-rokade.jpg" alt="Aryan Hero">
+        </div>
+        <div class="speech-bubble">
+          "I will forge full-stack architectures and deep learning models to solve real problems!"
+        </div>
+        <div class="panel-title">THE CODE ALCHEMIST</div>
+        <p class="panel-narrative">
+          Pursuing B.E. Computer Engineering at VCET Mumbai University (Class of 2027). A relentless builder of high-performance web systems.
+        </p>
+      </div>
+
+      <!-- Panel 2: VyaparFlow -->
+      <div class="comic-panel" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+        <div class="action-burst">KAPOW!</div>
+        <div class="panel-art-box" style="background:#1e3a8a; color:#fff; padding:16px; font-family:var(--font-comic); font-size:1.8rem; text-align:center;">
+          VYAPARFLOW CLOUD ERP!
+        </div>
+        <div class="speech-bubble">
+          "Manual billing stands NO CHANCE against atomic Postgres transactions!"
+        </div>
+        <div class="panel-title">VYAPARFLOW SAAS</div>
+        <p class="panel-narrative">
+          Automates GST invoices, synchronizes live stock ledgers, and commands role permissions with Next.js 14 & Prisma ORM.
+        </p>
+        <div class="comic-tags">
+          <span class="c-tag">Next.js 14</span>
+          <span class="c-tag">Postgres</span>
+          <span class="c-tag">Prisma</span>
+        </div>
+      </div>
+
+      <!-- Panel 3: CyberSentinel -->
+      <div class="comic-panel" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+        <div class="action-burst" style="background:var(--comic-blue);">SHIELD!</div>
+        <div class="panel-art-box" style="background:#881337; color:#fff; padding:16px; font-family:var(--font-comic); font-size:1.8rem; text-align:center;">
+          CYBERSENTINEL SUITE!
+        </div>
+        <div class="speech-bubble">
+          "Alert! Rogue packet detected! Activating Snort IDS intrusion barrier!"
+        </div>
+        <div class="panel-title">CYBERSENTINEL IDS</div>
+        <p class="panel-narrative">
+          Real-time network security console with Socket.IO packet telemetry and instant threat alarms.
+        </p>
+        <div class="comic-tags">
+          <span class="c-tag">Socket.IO</span>
+          <span class="c-tag">Snort</span>
+          <span class="c-tag">Flask</span>
+        </div>
+      </div>
+
+      <!-- Panel 4: Saturn Finance -->
+      <div class="comic-panel" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+        <div class="action-burst">WHAM!</div>
+        <div class="panel-art-box" style="background:#78350f; color:#fff; padding:16px; font-family:var(--font-comic); font-size:1.8rem; text-align:center;">
+          SATURN FINANCE!
+        </div>
+        <div class="speech-bubble">
+          "Your personal wealth ledger is secured by JWT encryption!"
+        </div>
+        <div class="panel-title">SATURN CAPITAL</div>
+        <p class="panel-narrative">
+          MERN Stack budgeting dashboard with automated expense categorization and visual chart telemetry.
+        </p>
+        <div class="comic-tags">
+          <span class="c-tag">MERN</span>
+          <span class="c-tag">MongoDB</span>
+          <span class="c-tag">JWT</span>
+        </div>
+      </div>
+
+      <!-- Panel 5: MRI Tumor AI -->
+      <div class="comic-panel" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+        <div class="action-burst">98.2%!</div>
+        <div class="panel-art-box" style="background:#064e3b; color:#fff; padding:16px; font-family:var(--font-comic); font-size:1.8rem; text-align:center;">
+          MRI NEURAL DIAGNOSTIC!
+        </div>
+        <div class="speech-bubble">
+          "Target locked: 98.2% validation accuracy on Kaggle cranial scans!"
+        </div>
+        <div class="panel-title">MRI BRAIN TUMOR AI</div>
+        <p class="panel-narrative">
+          VGG16 transfer learning neural network with Grad-CAM heatmap visualization for medical scans.
+        </p>
+        <div class="comic-tags">
+          <span class="c-tag">TensorFlow</span>
+          <span class="c-tag">VGG16</span>
+          <span class="c-tag">Flask</span>
+        </div>
+      </div>
+
+      <!-- Panel 6: Victory / Hackathon -->
+      <div class="comic-panel">
+        <div class="action-burst" style="background:#ffcc00; color:#000;">TROPHY!</div>
+        <div class="panel-art-box" style="background:#4a148c; color:#fff; padding:16px; font-family:var(--font-comic); font-size:1.8rem; text-align:center;">
+          TECHBLITZ 2025!
+        </div>
+        <div class="speech-bubble">
+          "2nd Position Victory at Techblitz Hackathon (AI&DS Dept, VCET)!"
+        </div>
+        <div class="panel-title">HONORS & XP</div>
+        <p class="panel-narrative">
+          Web Dev Intern at Octanet Services (+35% page speed). Tested under battle conditions!
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Action Bar -->
+    <footer class="comic-actions-bar">
+      <div style="font-family:var(--font-comic); font-size:1.3rem;">
+        TO BE CONTINUED... ON YOUR ENGINEERING TEAM!
+      </div>
+      <div style="display:flex; gap:10px;">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-comic">
+          ⬇ GET COMIC DOSSIER (PDF)
+        </a>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-comic" style="background:var(--comic-red); color:#fff;">
+          ✉ SEND SIGNAL (EMAIL)
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="btn-comic">
+          GITHUB ↗
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

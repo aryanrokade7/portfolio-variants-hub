@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Windows 95 Retro Desktop OS Portfolio" />
+  <title>Aryan Rokade — WINDOWS 95 OS 11</title>
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --win-teal: #008080;
+      --win-gray: #c0c0c0;
+      --win-light: #ffffff;
+      --win-dark: #808080;
+      --win-black: #000000;
+      --win-blue: #000080;
+      --font-win: "MS Sans Serif", Tahoma, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--win-teal);
+      color: var(--win-black);
+      font-family: var(--font-win);
+      font-size: 13px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+      user-select: none;
+    }
+
+    /* 3D Bevel Helpers */
+    .bevel-out {
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      background: var(--win-gray);
+    }
+
+    .bevel-in {
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      background: #fff;
+    }
+
+    .wrap {
+      width: min(1140px, calc(100% - 32px));
+      margin: 20px auto;
+    }
+
+    /* Desktop Window */
+    .win-window {
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .win-titlebar {
+      background: var(--win-blue);
+      color: #fff;
+      padding: 4px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+    }
+
+    .win-controls {
+      display: flex;
+      gap: 3px;
+    }
+
+    .win-ctrl-btn {
+      width: 16px;
+      height: 14px;
+      background: var(--win-gray);
+      border-top: 1px solid var(--win-light);
+      border-left: 1px solid var(--win-light);
+      border-right: 1px solid var(--win-dark);
+      border-bottom: 1px solid var(--win-dark);
+      color: #000;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .win-menubar {
+      display: flex;
+      gap: 16px;
+      padding: 4px 8px;
+      border-bottom: 1px solid var(--win-dark);
+      background: var(--win-gray);
+      font-size: 12px;
+    }
+
+    .win-menubar span:first-letter {
+      text-decoration: underline;
+    }
+
+    .win-content {
+      padding: 18px;
+    }
+
+    /* Hero Inside Win95 */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-photo-box {
+      text-align: center;
+    }
+
+    .hero-photo-box img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+
+    /* Projects Win Explorer */
+    .win-grid-projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .p-box {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .p-box h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--win-blue);
+    }
+
+    .p-box p {
+      font-size: 12px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .p-tags span {
+      background: #eef2f5;
+      border: 1px solid #999;
+      padding: 1px 6px;
+      font-size: 11px;
+    }
+
+    .win-btn {
+      padding: 4px 14px;
+      background: var(--win-gray);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .win-btn:active {
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+    }
+
+    /* Taskbar */
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 34px;
+      background: var(--win-gray);
+      border-top: 2px solid var(--win-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 4px;
+      z-index: 9999;
+    }
+
+    .start-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .start-flag {
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(135deg, #ff0000 25%, #00ff00 25%, #00ff00 50%, #0000ff 50%, #0000ff 75%, #ffff00 75%);
+    }
+
+    .tray {
+      padding: 2px 8px;
+      font-size: 11px;
+      margin-right: 4px;
+    }
+
+    @media (max-width: 800px) {
+      .hero-split { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    
+    <!-- Window 1: Profile & Bio -->
+    <div class="win-window bevel-out">
+      <div class="win-titlebar">
+        <span>📁 Aryan_Rokade_Profile.exe</span>
+        <div class="win-controls">
+          <div class="win-ctrl-btn">_</div>
+          <div class="win-ctrl-btn">□</div>
+          <div class="win-ctrl-btn">✕</div>
+        </div>
+      </div>
+      <div class="win-menubar">
+        <span><u>F</u>ile</span>
+        <span><u>E</u>dit</span>
+        <span><u>V</u>iew</span>
+        <span><u>H</u>elp</span>
+      </div>
+      <div class="win-content">
+        <div class="hero-split">
+          <div>
+            <h1 style="font-size: 24px; margin-bottom: 8px;">Aryan Rokade</h1>
+            <p style="font-size: 13px; font-weight: bold; color: var(--win-blue); margin-bottom: 12px;">
+              Computer Engineering Student · Mumbai University (VCET '27)
+            </p>
+            <div class="bevel-in" style="padding: 12px; margin-bottom: 16px; font-size: 13px; line-height: 1.5;">
+              Welcome to my portfolio! I build full-stack web applications, deep learning neural models, and secure distributed architectures. Won 2nd place at the Techblitz Hackathon 2025 and completed an internship at Octanet Services.
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="win-btn">Download Resume.pdf</a>
+              <a href="mailto:aryanrokade416@gmail.com" class="win-btn">Contact Me</a>
+            </div>
+          </div>
+          <div class="hero-photo-box">
+            <div class="bevel-in" style="display: inline-block; padding: 6px;">
+              <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+            </div>
+            <div style="font-size: 11px; margin-top: 4px; color: #555;">Aryan_Rokade_Photo.bmp (1024x1024)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 2: Projects Explorer -->
+    <div class="win-window bevel-out" id="work">
+      <div class="win-titlebar">
+        <span>📂 C:\Aryan\Projects\Selected_Works</span>
+        <div class="win-controls">
+          <div class="win-ctrl-btn">_</div>
+          <div class="win-ctrl-btn">□</div>
+          <div class="win-ctrl-btn">✕</div>
+        </div>
+      </div>
+      <div class="win-content">
+        <div class="win-grid-projects">
+          
+          <!-- P1 -->
+          <div class="p-box bevel-out">
+            <div>
+              <h3>01_VyaparFlow.html</h3>
+              <p>Export-readiness platform for Indian MSMEs with compliance readiness scoring, document management, and shipment tracking.</p>
+              <div class="p-tags">
+                <span>Next.js</span><span>React</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="win-btn">Run Demo</a>
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="win-btn">GitHub</a>
+            </div>
+          </div>
+
+          <!-- P2 -->
+          <div class="p-box bevel-out">
+            <div>
+              <h3>02_CyberSentinel.exe</h3>
+              <p>Threat simulation engine covering DoS/DDoS, SQL injection, ransomware heuristics, and phishing classifier with Chrome extension.</p>
+              <div class="p-tags">
+                <span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span>
+              </div>
+            </div>
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="win-btn">View Repository</a>
+          </div>
+
+          <!-- P3 -->
+          <div class="p-box bevel-out">
+            <div>
+              <h3>03_Saturn_Finance.xls</h3>
+              <p>Personal finance tracking engine with monthly analytics, categorized expenses, visual charts, and JWT secure auth.</p>
+              <div class="p-tags">
+                <span>React</span><span>Redux</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+              </div>
+            </div>
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="win-btn">View Repository</a>
+          </div>
+
+          <!-- P4 -->
+          <div class="p-box bevel-out">
+            <div>
+              <h3>04_MRI_Brain_Tumor.model</h3>
+              <p>Deep learning CNN diagnosing MRI scans into 4 classes with 98.4% validation accuracy using VGG16 and Flask.</p>
+              <div class="p-tags">
+                <span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span>
+              </div>
+            </div>
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="win-btn">View Repository</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 3: Contact & System Specs -->
+    <div class="win-window bevel-out">
+      <div class="win-titlebar">
+        <span>✉ Send_Transmission.exe</span>
+        <div class="win-controls">
+          <div class="win-ctrl-btn">_</div>
+          <div class="win-ctrl-btn">□</div>
+          <div class="win-ctrl-btn">✕</div>
+        </div>
+      </div>
+      <div class="win-content">
+        <form action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain" style="display: flex; flex-direction: column; gap: 10px; max-width: 500px;">
+          <div>
+            <label style="display:block; margin-bottom: 2px;">Your Name:</label>
+            <input type="text" name="name" class="bevel-in" style="width: 100%; padding: 4px;" required />
+          </div>
+          <div>
+            <label style="display:block; margin-bottom: 2px;">Your Email:</label>
+            <input type="email" name="email" class="bevel-in" style="width: 100%; padding: 4px;" required />
+          </div>
+          <div>
+            <label style="display:block; margin-bottom: 2px;">Message:</label>
+            <textarea name="message" rows="3" class="bevel-in" style="width: 100%; padding: 4px;" required></textarea>
+          </div>
+          <button type="submit" class="win-btn" style="width: 120px;">Send Mail</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Windows 95 Taskbar -->
+  <div class="taskbar">
+    <div class="start-btn bevel-out">
+      <div class="start-flag"></div>
+      <span>Start</span>
+    </div>
+    <div style="display: flex; gap: 4px; flex: 1; margin-left: 8px;">
+      <div class="bevel-in" style="padding: 2px 8px; font-weight: bold; background: #e0e0e0;">
+        Aryan_Rokade_Profile.exe
+      </div>
+    </div>
+    <div class="tray bevel-in" id="winTrayClock">
+      12:00 PM
+    </div>
+  </div>
+
+  <script>
+    function updateTray() {
+      const d = new Date();
+      document.getElementById('winTrayClock').innerText = d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+    setInterval(updateTray, 1000);
+    updateTray();
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

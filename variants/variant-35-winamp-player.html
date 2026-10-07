@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Classic Winamp Player v2.91</title>
+  <meta name="description" content="Classic 90s Winamp audio player portfolio with spectrum analyzer and playlist editor for Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wa-metal: #232a32;
+      --wa-metal-dark: #141a20;
+      --wa-border: #3d4a58;
+      --wa-green: #00ff00;
+      --wa-orange: #ffaa00;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 50% 30%, #1e242c 0%, #0d1014 100%);
+      color: #cfd8dc;
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px;
+      line-height: 1.4;
+    }
+
+    .winamp-stack {
+      width: 100%;
+      max-width: 620px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Main Player Window */
+    .wa-window {
+      background: linear-gradient(180deg, #2c3642 0%, #1b222a 100%);
+      border: 3px solid #435263;
+      border-radius: 4px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.2);
+      padding: 14px;
+    }
+
+    .wa-titlebar {
+      background: linear-gradient(90deg, #0a335c, #001f3f);
+      color: #fff;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      border-radius: 2px;
+    }
+
+    /* Display Screen (LCD + Spectrum) */
+    .wa-display-row {
+      background: #000;
+      border: 2px solid #232b36;
+      padding: 10px;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    /* Spectrum Analyzer */
+    .spectrum-box {
+      width: 120px;
+      height: 48px;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      background: #050a06;
+      padding: 3px;
+    }
+    .spec-bar {
+      flex: 1;
+      height: 20%;
+      background: var(--wa-green);
+      transition: height 0.1s ease;
+    }
+
+    /* Marquee LCD Title */
+    .lcd-text-area {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .marquee-line {
+      color: var(--wa-green);
+      font-size: 0.95rem;
+      white-space: nowrap;
+      text-shadow: 0 0 6px rgba(0,255,0,0.6);
+      animation: marqueeScroll 12s linear infinite;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .kbps-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--wa-orange);
+    }
+
+    /* Controls Deck */
+    .wa-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-group { display: flex; gap: 4px; }
+    .wa-btn {
+      background: linear-gradient(180deg, #445366 0%, #202933 100%);
+      border: 1px solid #5a6d85;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    .wa-btn:active, .wa-btn.active {
+      background: #141b22;
+      color: var(--wa-green);
+      transform: translateY(1px);
+    }
+
+    /* Playlist Window */
+    .wa-playlist {
+      background: #000;
+      border: 2px solid #232b36;
+      padding: 10px;
+      height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .playlist-item {
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      color: #a0b2c6;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 2px;
+    }
+    .playlist-item:hover {
+      background: #1a2634;
+      color: #fff;
+    }
+    .playlist-item.active {
+      background: #0a335c;
+      color: var(--wa-green);
+      font-weight: 700;
+    }
+
+    /* Track Detail Inspector Box */
+    .track-details-box {
+      background: #151b22;
+      border: 1px solid #323d4a;
+      padding: 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    .track-h3 {
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .track-desc {
+      color: #9fb3c8;
+      line-height: 1.4;
+      margin: 6px 0;
+    }
+    .track-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tag-wa {
+      font-size: 0.7rem;
+      background: #202b38;
+      border: 1px solid #394b5e;
+      padding: 2px 6px;
+      color: var(--wa-orange);
+    }
+
+    /* Actions */
+    .wa-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .act-btn {
+      flex: 1;
+      background: #253342;
+      border: 1px solid #4a617a;
+      color: #fff;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .act-btn:hover {
+      background: var(--wa-green);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="winamp-stack">
+    
+    <!-- Main Winamp Window -->
+    <div class="wa-window">
+      <div class="wa-titlebar">
+        <span>WINAMP - ARYAN ROKADE // IT REALLY WHIPS THE LLAMA'S CODE!</span>
+        <span>_ ⛶ X</span>
+      </div>
+
+      <!-- LCD Display + Spectrum -->
+      <div class="wa-display-row">
+        <div class="spectrum-box" id="spectrumBox">
+          <div class="spec-bar" style="height: 60%;"></div>
+          <div class="spec-bar" style="height: 85%;"></div>
+          <div class="spec-bar" style="height: 40%;"></div>
+          <div class="spec-bar" style="height: 95%;"></div>
+          <div class="spec-bar" style="height: 70%;"></div>
+          <div class="spec-bar" style="height: 50%;"></div>
+          <div class="spec-bar" style="height: 80%;"></div>
+          <div class="spec-bar" style="height: 65%;"></div>
+        </div>
+
+        <div class="lcd-text-area">
+          <div class="marquee-line" id="marqueeText">1. ARYAN ROKADE - VYAPARFLOW ENTERPRISE ERP (NEXT.JS / POSTGRES) ***</div>
+          <div class="kbps-line">
+            <span>320 KBPS</span>
+            <span>44.1 KHZ</span>
+            <span>STEREO</span>
+            <span id="timeCounter">00:42</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Deck -->
+      <div class="wa-controls">
+        <div class="btn-group">
+          <button class="wa-btn" onclick="prevTrack()">◄◄</button>
+          <button class="wa-btn active" onclick="playTrack()">▶</button>
+          <button class="wa-btn" onclick="pauseTrack()">❚❚</button>
+          <button class="wa-btn" onclick="stopTrack()">■</button>
+          <button class="wa-btn" onclick="nextTrack()">►►</button>
+          <button class="wa-btn" onclick="ejectTrack()">⏏</button>
+        </div>
+
+        <div style="font-size: 0.75rem; color: #8fa1b4;">
+          VCET MUMBAI '27 // TECHBLITZ 2ND
+        </div>
+      </div>
+    </div>
+
+    <!-- Playlist Window -->
+    <div class="wa-window">
+      <div class="wa-titlebar">
+        <span>WINAMP PLAYLIST EDITOR (CLICK TRACK TO PLAY)</span>
+        <span>+ - SEL MISC</span>
+      </div>
+
+      <div class="wa-playlist" id="playlist">
+        <div class="playlist-item active" onclick="selectTrack(0)">
+          <span>1. VyaparFlow Platform — Next.js 14 Business ERP</span>
+          <span>04:20</span>
+        </div>
+        <div class="playlist-item" onclick="selectTrack(1)">
+          <span>2. CyberSentinel Suite — Real-Time Threat IDS</span>
+          <span>03:45</span>
+        </div>
+        <div class="playlist-item" onclick="selectTrack(2)">
+          <span>3. Saturn Finance — MERN Capital Analytics</span>
+          <span>05:12</span>
+        </div>
+        <div class="playlist-item" onclick="selectTrack(3)">
+          <span>4. MRI Brain Tumor AI — VGG16 Deep Diagnostics</span>
+          <span>04:55</span>
+        </div>
+        <div class="playlist-item" onclick="selectTrack(4)">
+          <span>5. Octanet Services — Web Dev Internship (+35% Speed)</span>
+          <span>03:00</span>
+        </div>
+        <div class="playlist-item" onclick="selectTrack(5)">
+          <span>6. Techblitz Hackathon — 2nd Position Trophy</span>
+          <span>02:50</span>
+        </div>
+      </div>
+
+      <!-- Inspector Detail Card -->
+      <div class="track-details-box" style="margin-top: 10px;">
+        <div class="track-h3" id="trackTitle">VyaparFlow — Full Stack ERP & Billing Platform</div>
+        <p class="track-desc" id="trackDesc">
+          All-in-one SME business management software with automated GST invoices, live atomic inventory tracking, granular role-based access control, and Stripe payment gateway.
+        </p>
+        <div class="track-tags" id="trackTags">
+          <span class="tag-wa">Next.js 14</span>
+          <span class="tag-wa">TypeScript</span>
+          <span class="tag-wa">PostgreSQL</span>
+          <span class="tag-wa">Prisma ORM</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="wa-actions">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="act-btn">⬇ DOWNLOAD CV (PDF)</a>
+        <a href="mailto:aryanrokade416@gmail.com" class="act-btn">✉ EMAIL ARYAN</a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="act-btn">GITHUB ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const tracks = [
+      {
+        marquee: "1. ARYAN ROKADE - VYAPARFLOW ENTERPRISE ERP (NEXT.JS / POSTGRES) ***",
+        title: "VyaparFlow — Full Stack ERP & Billing Platform",
+        desc: "All-in-one SME business management software with automated GST invoices, live atomic inventory tracking, granular role-based access control, and Stripe payment gateway.",
+        tags: ["Next.js 14", "TypeScript", "PostgreSQL", "Prisma ORM", "Stripe"]
+      },
+      {
+        marquee: "2. ARYAN ROKADE - CYBERSENTINEL SUITE (SOCKET.IO / SNORT IDS) ***",
+        title: "CyberSentinel Suite — Network Threat Monitoring",
+        desc: "Security Operations Center dashboard providing live network traffic analysis, Snort rule anomaly detection, and real-time Socket.IO incident notification streams.",
+        tags: ["React", "Python Flask", "Socket.IO", "Snort IDS", "Chart.js"]
+      },
+      {
+        marquee: "3. ARYAN ROKADE - SATURN FINANCE WEALTH TRACKER (MERN STACK) ***",
+        title: "Saturn Finance — Wealth & Budget Dashboard",
+        desc: "Personal finance telemetry engine featuring automated expense categorization, savings milestone progress, monthly budgeting limits, and encrypted JWT data storage.",
+        tags: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT"]
+      },
+      {
+        marquee: "4. ARYAN ROKADE - MRI BRAIN TUMOR AI (TENSORFLOW / VGG16) ***",
+        title: "MRI Brain Tumor Detection — Deep Learning Diagnostic",
+        desc: "Convolutional neural network diagnostic engine achieving 98.2% test accuracy on Kaggle MRI brain tumor scans with Grad-CAM activation heatmaps.",
+        tags: ["TensorFlow", "Keras VGG16", "Flask", "OpenCV", "Python"]
+      },
+      {
+        marquee: "5. ARYAN ROKADE - OCTANET SERVICES INTERNSHIP (+35% SPEED) ***",
+        title: "Web Development Intern — Octanet Services Pvt. Ltd.",
+        desc: "Dec 2024 – Jan 2025. Engineered performant frontends, consumed REST APIs, and reduced page load times by 35%.",
+        tags: ["Internship", "React", "REST APIs", "Performance"]
+      },
+      {
+        marquee: "6. ARYAN ROKADE - TECHBLITZ HACKATHON 2025 (2ND POSITION) ***",
+        title: "Techblitz Hackathon 2025 — 2nd Position Winner",
+        desc: "Awarded 2nd Position at Techblitz Hackathon 2025 organized by Department of AI & Data Science, VCET Mumbai University.",
+        tags: ["Hackathon", "VCET", "AI & Data Science", "2nd Place"]
+      }
+    ];
+
+    let currentIdx = 0;
+    let isPlaying = true;
+
+    function selectTrack(idx) {
+      currentIdx = idx;
+      updateUI();
+    }
+
+    function updateUI() {
+      const t = tracks[currentIdx];
+      document.getElementById('marqueeText').innerText = t.marquee;
+      document.getElementById('trackTitle').innerText = t.title;
+      document.getElementById('trackDesc').innerText = t.desc;
+
+      const tagBox = document.getElementById('trackTags');
+      tagBox.innerHTML = '';
+      t.tags.forEach(tag => {
+        const s = document.createElement('span');
+        s.className = 'tag-wa';
+        s.innerText = tag;
+        tagBox.appendChild(s);
+      });
+
+      const items = document.querySelectorAll('.playlist-item');
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === currentIdx);
+      });
+    }
+
+    function nextTrack() {
+      currentIdx = (currentIdx + 1) % tracks.length;
+      updateUI();
+    }
+    function prevTrack() {
+      currentIdx = (currentIdx - 1 + tracks.length) % tracks.length;
+      updateUI();
+    }
+    function playTrack() { isPlaying = true; }
+    function pauseTrack() { isPlaying = false; }
+    function stopTrack() { isPlaying = false; }
+    function ejectTrack() { alert("EJECT: Aryan Rokade Portfolio Disc. VCET Mumbai 2027."); }
+
+    // Animate equalizer
+    setInterval(() => {
+      if (!isPlaying) return;
+      document.querySelectorAll('.spec-bar').forEach(bar => {
+        const h = Math.floor(Math.random() * 80) + 15;
+        bar.style.height = h + '%';
+      });
+    }, 150);
+  </script>
+</body>
+</html>

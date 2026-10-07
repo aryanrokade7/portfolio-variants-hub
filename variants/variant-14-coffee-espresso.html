@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Warm Artisan Coffee & Espresso Portfolio" />
+  <title>Aryan Rokade — ESPRESSO CRAFT 29</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg-dark: #120c09;
+      --bg-surface: #1a120e;
+      --card-bg: rgba(33, 23, 18, 0.82);
+      --card-border: rgba(212, 151, 85, 0.22);
+      --espresso: #2e1e17;
+      --crema: #ebd7cb;
+      --crema-dim: #b89f8f;
+      --roast-gold: #d49755;
+      --warm-amber: #e5ab6b;
+      --milk-foam: #fdfaf6;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--crema);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.65;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(ellipse at 80% 0%, rgba(212, 151, 85, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 40%, rgba(140, 75, 30, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(212, 151, 85, 0.08) 0%, transparent 70%);
+      background-attachment: fixed;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* STEAM ANIMATION ACCENT */
+    .steam-container {
+      position: absolute;
+      top: -20px;
+      right: 30px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* TOP BAR */
+    header.cafe-header {
+      position: sticky;
+      top: 16px;
+      z-index: 500;
+      margin-bottom: 48px;
+    }
+
+    .nav-bar {
+      background: rgba(26, 18, 14, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--milk-foam);
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .roast-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      background: rgba(212, 151, 85, 0.15);
+      color: var(--warm-amber);
+      border: 1px solid rgba(212, 151, 85, 0.35);
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    nav.nav-links {
+      display: flex;
+      gap: 26px;
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    nav.nav-links a {
+      color: var(--crema-dim);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    nav.nav-links a:hover {
+      color: var(--warm-amber);
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--roast-gold), #b67634);
+      color: #120c09;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 9px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(212, 151, 85, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(212, 151, 85, 0.45);
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+      padding: 40px 0 80px;
+      position: relative;
+    }
+
+    .hero-lead-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--warm-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-lead-label::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background: var(--roast-gold);
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+      line-height: 1.08;
+      font-weight: 700;
+      color: var(--milk-foam);
+      margin-bottom: 22px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--warm-amber);
+      font-weight: 400;
+    }
+
+    .hero-desc {
+      font-size: 1.08rem;
+      color: var(--crema-dim);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 580px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: rgba(46, 30, 23, 0.6);
+      color: var(--crema);
+      border: 1px solid var(--card-border);
+      padding: 10px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212, 151, 85, 0.15);
+      border-color: var(--roast-gold);
+      color: var(--milk-foam);
+    }
+
+    /* HERO PROFILE FRAME */
+    .hero-photo-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-card {
+      position: relative;
+      width: 320px;
+      padding: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+      filter: saturate(0.9) sepia(0.15);
+    }
+
+    .photo-badge {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(18, 12, 9, 0.7);
+      border-radius: 14px;
+      border: 1px solid rgba(212, 151, 85, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 10px #34d399;
+    }
+
+    /* HIGHLIGHT STATS */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 80px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--roast-gold);
+    }
+
+    .metric-num {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--warm-amber);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--crema-dim);
+      font-weight: 500;
+    }
+
+    /* SECTION TITLES */
+    .section-head {
+      margin-bottom: 38px;
+      position: relative;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--roast-gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      color: var(--milk-foam);
+    }
+
+    /* PROJECTS GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 90px;
+    }
+
+    .cafe-project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cafe-project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--roast-gold), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .cafe-project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--roast-gold);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .cafe-project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .project-code {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--roast-gold);
+    }
+
+    .project-name {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      color: var(--milk-foam);
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 0.94rem;
+      color: var(--crema-dim);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .stack-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .stack-pill {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      background: rgba(46, 30, 23, 0.8);
+      color: var(--warm-amber);
+      border: 1px solid rgba(212, 151, 85, 0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .link-craft {
+      font-size: 0.85rem;
+      color: var(--crema);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .link-craft:hover {
+      color: var(--warm-amber);
+    }
+
+    /* EXPERIENCE & EDUCATION SPLIT */
+    .dual-journey {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 90px;
+    }
+
+    .journey-column {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 34px;
+    }
+
+    .journey-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--milk-foam);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .journey-item {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 26px;
+      border-left: 2px solid rgba(212, 151, 85, 0.3);
+    }
+
+    .journey-item::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--roast-gold);
+    }
+
+    .item-year {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--roast-gold);
+      margin-bottom: 4px;
+    }
+
+    .item-role {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--milk-foam);
+    }
+
+    .item-place {
+      font-size: 0.9rem;
+      color: var(--crema-dim);
+      margin-bottom: 8px;
+    }
+
+    .item-desc {
+      font-size: 0.88rem;
+      color: var(--crema-dim);
+    }
+
+    /* SKILLS ROAST GRID */
+    .skills-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 40px;
+      margin-bottom: 90px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .skill-block h4 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--warm-amber);
+      margin-bottom: 14px;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-list li {
+      font-size: 0.9rem;
+      color: var(--crema);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-list li::before {
+      content: '☕';
+      font-size: 0.75rem;
+    }
+
+    /* FOOTER & CONTACT */
+    footer.cafe-footer {
+      border-top: 1px solid rgba(212, 151, 85, 0.2);
+      padding: 60px 0 40px;
+      margin-top: 40px;
+    }
+
+    .contact-card {
+      background: linear-gradient(145deg, rgba(38, 25, 19, 0.9), rgba(24, 16, 12, 0.9));
+      border: 1px solid var(--roast-gold);
+      border-radius: 28px;
+      padding: 48px;
+      text-align: center;
+      margin-bottom: 50px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-card h3 {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      color: var(--milk-foam);
+      margin-bottom: 12px;
+    }
+
+    .contact-card p {
+      color: var(--crema-dim);
+      max-width: 540px;
+      margin: 0 auto 28px;
+    }
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contact-pill {
+      background: rgba(18, 12, 9, 0.6);
+      border: 1px solid rgba(212, 151, 85, 0.3);
+      padding: 10px 22px;
+      border-radius: 999px;
+      color: var(--crema);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .contact-pill:hover {
+      background: var(--roast-gold);
+      color: #120c09;
+    }
+
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--crema-dim);
+    }
+
+    @media (max-width: 900px) {
+      .hero-section { grid-template-columns: 1fr; text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-lead-label { justify-content: center; }
+      .metrics-row { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .dual-journey { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      nav.nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: 1fr; }
+      .footer-bar { flex-direction: column; gap: 14px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <!-- NAVIGATION BAR -->
+    <header class="cafe-header">
+      <div class="nav-bar">
+        <a href="#hero" class="brand-mark">
+          <span>☕</span> Aryan Rokade
+          <span class="roast-badge">Artisan Roast 29</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#projects">Blends & Works</a>
+          <a href="#journey">Journey</a>
+          <a href="#skills">Roast Profile</a>
+          <a href="#contact">Pour a Coffee</a>
+        </nav>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="cta-button">Download CV</a>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main>
+      <section id="hero" class="hero-section">
+        <div>
+          <div class="hero-lead-label">Engineered with Precision & Taste</div>
+          <h1 class="hero-title">
+            Crafting rich digital brews with <em>code, coffee & craft.</em>
+          </h1>
+          <p class="hero-desc">
+            Hello, I'm Aryan Rokade — a Computer Engineering undergraduate & Full-Stack Developer based in Mumbai. Like a masterfully pulled espresso, I construct robust, high-performance web applications and intelligent data architectures.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="cta-button">Explore Projects</a>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-secondary">GitHub Profile</a>
+            <a href="https://www.linkedin.com/in/aryan-rokade/" target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="hero-photo-wrap">
+          <div class="photo-card">
+            <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+            <div class="photo-badge">
+              <span style="display:flex; align-items:center; gap:8px;">
+                <span class="status-dot"></span> Available for Hiring
+              </span>
+              <span style="color:var(--roast-gold); font-family:var(--font-mono);">Mumbai, IN</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- METRICS -->
+      <section class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-num">2nd</div>
+          <div class="metric-label">Techblitz Hackathon '25 Podium</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">4+</div>
+          <div class="metric-label">Production & AI Systems Built</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">2027</div>
+          <div class="metric-label">B.E. Computer Engineering VCET</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">100%</div>
+          <div class="metric-label">Meticulous Detail & Clean Architecture</div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="section-head">
+          <div class="section-tag">Signature Blends</div>
+          <h2 class="section-title">Selected Works & Systems</h2>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="cafe-project-card">
+            <div>
+              <div class="project-header">
+                <span class="project-code">ROAST // 01</span>
+                <span class="roast-badge">ERP & B2B</span>
+              </div>
+              <h3 class="project-name">VyaparFlow</h3>
+              <p class="project-desc">
+                Enterprise billing and multi-warehouse inventory management engine. Engineered with relational schemas, invoice generators, audit logging, and automated reorder alerts for high-throughput commerce.
+              </p>
+              <div class="stack-tags">
+                <span class="stack-pill">Next.js</span>
+                <span class="stack-pill">TypeScript</span>
+                <span class="stack-pill">PostgreSQL</span>
+                <span class="stack-pill">Prisma ORM</span>
+                <span class="stack-pill">Tailwind CSS</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="link-craft">View Repository &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="cafe-project-card">
+            <div>
+              <div class="project-header">
+                <span class="project-code">ROAST // 02</span>
+                <span class="roast-badge">Cybersecurity</span>
+              </div>
+              <h3 class="project-name">CyberSentinel Suite</h3>
+              <p class="project-desc">
+                Real-time packet inspection and intrusion detection dashboard. Monitors live network anomalies, analyzes telemetry via Flask endpoints, and broadcasts threat alerts with low-latency WebSockets.
+              </p>
+              <div class="stack-tags">
+                <span class="stack-pill">React</span>
+                <span class="stack-pill">Flask</span>
+                <span class="stack-pill">Python</span>
+                <span class="stack-pill">Socket.IO</span>
+                <span class="stack-pill">Chart.js</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="link-craft">View Repository &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="cafe-project-card">
+            <div>
+              <div class="project-header">
+                <span class="project-code">ROAST // 03</span>
+                <span class="roast-badge">FinTech</span>
+              </div>
+              <h3 class="project-name">Saturn Finance</h3>
+              <p class="project-desc">
+                Full-stack personal finance and budget analyzer. Features multi-account ledger balancing, monthly budget targets, recurrent expense forecasting, and automated spending breakdown charts.
+              </p>
+              <div class="stack-tags">
+                <span class="stack-pill">MongoDB</span>
+                <span class="stack-pill">Express.js</span>
+                <span class="stack-pill">React</span>
+                <span class="stack-pill">Node.js</span>
+                <span class="stack-pill">JWT</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="link-craft">View Repository &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="cafe-project-card">
+            <div>
+              <div class="project-header">
+                <span class="project-code">ROAST // 04</span>
+                <span class="roast-badge">Deep Learning</span>
+              </div>
+              <h3 class="project-name">MRI Brain Tumor Detection</h3>
+              <p class="project-desc">
+                Clinical-grade computer vision pipeline fine-tuned on neuroimaging scans. Uses transfer learning on VGG16 architecture to classify tumor presence with high diagnostic accuracy and instant inferencing.
+              </p>
+              <div class="stack-tags">
+                <span class="stack-pill">TensorFlow</span>
+                <span class="stack-pill">Keras VGG16</span>
+                <span class="stack-pill">Python</span>
+                <span class="stack-pill">Streamlit</span>
+                <span class="stack-pill">OpenCV</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="link-craft">View Repository &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- JOURNEY & EDUCATION -->
+      <section id="journey" class="dual-journey">
+        <div class="journey-column">
+          <h3 class="journey-title"><span>⏳</span> Experience & Internships</h3>
+          <div class="journey-item">
+            <div class="item-year">DEC 2024 — JAN 2025</div>
+            <div class="item-role">Web Development Intern</div>
+            <div class="item-place">Octanet Services Pvt. Ltd.</div>
+            <p class="item-desc">
+              Developed production-grade front-end modules, resolved cross-browser compatibility issues, and integrated clean REST APIs with rapid turnaround.
+            </p>
+          </div>
+          <div class="journey-item">
+            <div class="item-year">2025 HACKATHON WINNER</div>
+            <div class="item-role">2nd Position — Techblitz 2025</div>
+            <div class="item-place">AI & DS Dept, VCET</div>
+            <p class="item-desc">
+              Conceptualized and built an end-to-end tech solution in 24 hours under rigorous judging criteria, securing 2nd place overall.
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-column">
+          <h3 class="journey-title"><span>🎓</span> Education & Background</h3>
+          <div class="journey-item">
+            <div class="item-year">2023 — 2027 (EXPECTED)</div>
+            <div class="item-role">B.E. Computer Engineering</div>
+            <div class="item-place">Vidyavardhini's College of Engineering and Technology (VCET)</div>
+            <p class="item-desc">
+              Affiliated with Mumbai University. Core studies in Data Structures, Algorithms, Distributed Systems, DBMS, Machine Learning, and Software Engineering.
+            </p>
+          </div>
+          <div class="journey-item">
+            <div class="item-year">FOUNDATIONS</div>
+            <div class="item-role">Full-Stack & Systems Craft</div>
+            <div class="item-place">Self-Directed & Open Source</div>
+            <p class="item-desc">
+              Active exploration of scalable distributed backends, developer toolchains, AI integration, and robust interface interactions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS PROFILE -->
+      <section id="skills" class="skills-section">
+        <div class="section-head">
+          <div class="section-tag">Tasting Notes</div>
+          <h3 class="section-title">Technical Flavor Profile</h3>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-block">
+            <h4>Languages</h4>
+            <ul class="skill-list">
+              <li>JavaScript (ES6+)</li>
+              <li>TypeScript</li>
+              <li>Python</li>
+              <li>C / C++</li>
+              <li>SQL</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h4>Frontend</h4>
+            <ul class="skill-list">
+              <li>React.js & Next.js</li>
+              <li>HTML5 / CSS3</li>
+              <li>Tailwind CSS</li>
+              <li>State Management</li>
+              <li>Responsive UX</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h4>Backend & DB</h4>
+            <ul class="skill-list">
+              <li>Node.js & Express</li>
+              <li>Flask (Python)</li>
+              <li>PostgreSQL & Prisma</li>
+              <li>MongoDB & Mongoose</li>
+              <li>REST & WebSockets</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h4>AI & Tooling</h4>
+            <ul class="skill-list">
+              <li>TensorFlow & Keras</li>
+              <li>Git & GitHub</li>
+              <li>Docker Basics</li>
+              <li>Linux / Bash</li>
+              <li>Postman & Testing</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT CTA -->
+      <section id="contact" class="contact-card">
+        <h3>Let's Share a Coffee & Build Together</h3>
+        <p>
+          Whether you're looking for an agile software engineer, an intern for challenging engineering problems, or simply want to talk tech — my inbox is always warm.
+        </p>
+        <div class="contact-details">
+          <a href="mailto:aryanrokade416@gmail.com" class="contact-pill">✉️ aryanrokade416@gmail.com</a>
+          <a href="tel:+918591224192" class="contact-pill">📞 +91 85912 24192</a>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="contact-pill">GitHub: aryanrokade7</a>
+          <a href="https://www.linkedin.com/in/aryan-rokade/" target="_blank" rel="noopener noreferrer" class="contact-pill">LinkedIn: aryan-rokade</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="cafe-footer">
+      <div class="footer-bar">
+        <div>&copy; 2025 Aryan Rokade. Hand-roasted with care and passion.</div>
+        <div>Mumbai, India &bull; Computer Engineering VCET</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

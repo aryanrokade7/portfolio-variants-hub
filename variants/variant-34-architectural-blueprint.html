@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Engineering Blueprint CAD</title>
+  <meta name="description" content="Architectural CAD blueprint technical drafting portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Architects+Daughter&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bp-blue: #09203a;
+      --bp-grid: rgba(94, 182, 255, 0.12);
+      --bp-line: #8eccff;
+      --bp-line-bright: #d9efff;
+      --bp-accent: #ffe066;
+      --font-mono: 'Share Tech Mono', monospace;
+      --font-hand: 'Architects Daughter', cursive;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bp-blue);
+      background-image: 
+        linear-gradient(var(--bp-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px),
+        linear-gradient(rgba(94, 182, 255, 0.04) 5px, transparent 5px),
+        linear-gradient(90deg, rgba(94, 182, 255, 0.04) 5px, transparent 5px);
+      background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+      color: var(--bp-line);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.45;
+    }
+
+    .blueprint-frame {
+      max-width: 1350px;
+      margin: 0 auto;
+      border: 3px solid var(--bp-line);
+      outline: 1px solid var(--bp-line);
+      outline-offset: 4px;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* Top Technical Header */
+    .bp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--bp-line);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .bp-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--bp-line-bright);
+      letter-spacing: 2px;
+    }
+    .bp-scale {
+      font-size: 0.8rem;
+      color: var(--bp-accent);
+      letter-spacing: 1px;
+    }
+
+    /* Schematics Layout */
+    .schematics-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    @media (max-width: 992px) {
+      .schematics-grid { grid-template-columns: 1fr; }
+    }
+
+    /* System Drafting Blocks */
+    .system-drawings {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 650px) {
+      .system-drawings { grid-template-columns: 1fr; }
+    }
+
+    .draft-block {
+      border: 1px solid var(--bp-line);
+      background: rgba(8, 26, 48, 0.6);
+      padding: 16px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .draft-block:hover {
+      background: rgba(14, 42, 77, 0.8);
+      border-color: var(--bp-line-bright);
+    }
+    .draft-num {
+      font-size: 0.7rem;
+      color: var(--bp-accent);
+      letter-spacing: 1px;
+    }
+    .draft-name {
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 700;
+      margin: 4px 0 6px;
+    }
+    .draft-spec {
+      font-size: 0.82rem;
+      color: var(--bp-line);
+      line-height: 1.4;
+    }
+    .draft-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .bp-tag {
+      font-size: 0.68rem;
+      border: 1px dashed var(--bp-line);
+      padding: 1px 6px;
+      color: var(--bp-line-bright);
+    }
+
+    /* Dimensions line */
+    .dim-line {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: var(--bp-accent);
+      font-size: 0.72rem;
+    }
+    .dim-line::before, .dim-line::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--bp-accent);
+    }
+    .dim-line span { padding: 0 8px; }
+
+    /* Right Column: Spec Notes & Approvals */
+    .spec-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .notes-box {
+      border: 1px solid var(--bp-line);
+      padding: 16px;
+      background: rgba(7, 22, 40, 0.7);
+    }
+    .notes-h3 {
+      font-size: 0.95rem;
+      color: var(--bp-line-bright);
+      margin-bottom: 8px;
+      border-bottom: 1px dashed var(--bp-line);
+      padding-bottom: 4px;
+    }
+    .notes-body {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #b5daf8;
+    }
+
+    /* Handwritten Architect Annotations */
+    .hand-annotation {
+      font-family: var(--font-hand);
+      color: var(--bp-accent);
+      font-size: 1.15rem;
+      margin: 10px 0;
+      line-height: 1.3;
+    }
+
+    /* Architect Title Block (Corner Box) */
+    .title-block {
+      border: 2px solid var(--bp-line-bright);
+      background: #051426;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      margin-top: 24px;
+    }
+    @media (max-width: 600px) {
+      .title-block { grid-template-columns: 1fr; }
+    }
+
+    .tb-main {
+      padding: 14px 18px;
+      border-right: 2px solid var(--bp-line-bright);
+    }
+    .tb-side {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .tb-h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .tb-sub {
+      font-size: 0.8rem;
+      color: var(--bp-line);
+      margin-top: 2px;
+    }
+
+    .approval-stamp {
+      border: 2px solid #55ff99;
+      color: #55ff99;
+      padding: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transform: rotate(-3deg);
+    }
+
+    /* Footer Buttons */
+    .bp-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .bp-btn {
+      background: rgba(142, 204, 255, 0.1);
+      border: 1px solid var(--bp-line);
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .bp-btn:hover {
+      background: var(--bp-line);
+      color: #000;
+    }
+    .bp-btn.bright {
+      background: var(--bp-line);
+      color: #000;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blueprint-frame">
+    
+    <!-- Top Header -->
+    <header class="bp-top">
+      <div class="bp-title">ENGINEERING SCHEMATIC // ARYAN ROKADE</div>
+      <div class="bp-scale">SCALE: 1:1 • SHEET 01 OF 01 • PROJECTION: FULL-STACK / AI</div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="schematics-grid">
+      
+      <!-- System Drawings (4 Projects) -->
+      <div class="system-drawings">
+        
+        <!-- Elevation 1 -->
+        <div class="draft-block" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+          <div class="draft-num">FIG 1.0 // ENTERPRISE ERP</div>
+          <div class="draft-name">VyaparFlow Platform</div>
+          <div class="dim-line"><span>250 TPS CONCURRENCY</span></div>
+          <p class="draft-spec">
+            Architectural SME management suite with automated GST invoice generation, atomic PostgreSQL inventory ledgers, and Stripe billing pipelines.
+          </p>
+          <div class="draft-tags">
+            <span class="bp-tag">Next.js 14</span>
+            <span class="bp-tag">TypeScript</span>
+            <span class="bp-tag">Postgres</span>
+            <span class="bp-tag">Prisma</span>
+          </div>
+        </div>
+
+        <!-- Elevation 2 -->
+        <div class="draft-block" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+          <div class="draft-num">FIG 2.0 // THREAT IDS SUITE</div>
+          <div class="draft-name">CyberSentinel Suite</div>
+          <div class="dim-line"><span>100 MBIT/S PACKET RATE</span></div>
+          <p class="draft-spec">
+            Network threat detection and live telemetry monitor ingesting packet streams via Socket.IO, evaluating Snort intrusion signatures in real time.
+          </p>
+          <div class="draft-tags">
+            <span class="bp-tag">React</span>
+            <span class="bp-tag">Python Flask</span>
+            <span class="bp-tag">Socket.IO</span>
+            <span class="bp-tag">Snort</span>
+          </div>
+        </div>
+
+        <!-- Elevation 3 -->
+        <div class="draft-block" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+          <div class="draft-num">FIG 3.0 // CAPITAL LEDGER</div>
+          <div class="draft-name">Saturn Finance</div>
+          <div class="dim-line"><span>AES-256 JWT ENCRYPTION</span></div>
+          <p class="draft-spec">
+            Personal wealth analytics engine with automated expense categorization, savings milestone targets, and visual financial reports.
+          </p>
+          <div class="draft-tags">
+            <span class="bp-tag">MongoDB</span>
+            <span class="bp-tag">Express</span>
+            <span class="bp-tag">React</span>
+            <span class="bp-tag">Node.js</span>
+          </div>
+        </div>
+
+        <!-- Elevation 4 -->
+        <div class="draft-block" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+          <div class="draft-num">FIG 4.0 // NEURAL VISION CORE</div>
+          <div class="draft-name">MRI Brain Tumor AI</div>
+          <div class="dim-line"><span>98.2% VALIDATION ACCURACY</span></div>
+          <p class="draft-spec">
+            Convolutional neural network diagnostic engine trained on Kaggle MRI scan datasets using VGG16 transfer learning and Grad-CAM visual heatmaps.
+          </p>
+          <div class="draft-tags">
+            <span class="bp-tag">TensorFlow</span>
+            <span class="bp-tag">Keras VGG16</span>
+            <span class="bp-tag">Flask</span>
+            <span class="bp-tag">OpenCV</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Spec Notes -->
+      <aside class="spec-column">
+        
+        <div class="notes-box">
+          <div class="notes-h3">GENERAL NOTES & CREDENTIALS</div>
+          <div class="notes-body">
+            1. Scholar: B.E. Computer Engineering, Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University (2023–2027).<br>
+            2. Professional Intern: Web Development Intern at Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025). Optimized rendering cycles by +35%.<br>
+            3. All systems engineered according to strict typing, clean architecture, and decoupled APIs.
+          </div>
+          <div class="hand-annotation">
+            * Note: Handled 2nd Position in Techblitz Hackathon 2025 under high tournament constraints!
+          </div>
+        </div>
+
+        <div class="notes-box">
+          <div class="notes-h3">CONNECTIVITY CONDUITS</div>
+          <div class="notes-body">
+            • Email: aryanrokade416@gmail.com<br>
+            • Phone: +91 85912 24192<br>
+            • GitHub: github.com/aryanrokade7<br>
+            • LinkedIn: linkedin.com/in/aryan-rokade
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Architect Title Block -->
+    <div class="title-block">
+      <div class="tb-main">
+        <div class="tb-h1">ARYAN ROKADE ARCHITECTURAL PORTFOLIO</div>
+        <div class="tb-sub">DISCIPLINE: FULL STACK DEVELOPMENT & ARTIFICIAL INTELLIGENCE</div>
+        <div class="tb-sub">ACCREDITATION: VCET MUMBAI UNIVERSITY • B.E. COMPUTER ENGINEERING (2027)</div>
+      </div>
+      <div class="tb-side">
+        <div class="approval-stamp">
+          VERIFIED & APPROVED<br>TECHBLITZ 2025 (2ND)
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <footer class="bp-actions">
+      <a href="../Aryan_Rokade_Resume.pdf" download class="bp-btn bright">
+        ⬇ DOWNLOAD SCHEMATICS (CV.PDF)
+      </a>
+      <a href="mailto:aryanrokade416@gmail.com" class="bp-btn">
+        ✉ TRANSMIT SPECIFICATION (EMAIL)
+      </a>
+      <a href="https://github.com/aryanrokade7" target="_blank" class="bp-btn">
+        GITHUB REPOSITORY ↗
+      </a>
+      <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="bp-btn">
+        LINKEDIN PROFILE ↗
+      </a>
+    </footer>
+
+  </div>
+
+</body>
+</html>

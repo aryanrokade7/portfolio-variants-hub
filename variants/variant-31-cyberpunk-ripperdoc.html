@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Cyberware Ripperdoc Clinic</title>
+  <meta name="description" content="Cyberpunk 2077 Ripperdoc Cyberware install screen portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cb-yellow: #fcee0a;
+      --cb-cyan: #00f0ff;
+      --cb-red: #ff003c;
+      --cb-dark: #0a0b0e;
+      --cb-card: rgba(18, 20, 26, 0.9);
+      --cb-border: #1f232b;
+      --font-display: 'Orbitron', monospace;
+      --font-tech: 'Rajdhani', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cb-dark);
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(252, 238, 10, 0.08) 0%, transparent 70%),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 1px, transparent 1px, transparent 3px);
+      color: #e5e9f0;
+      font-family: var(--font-tech);
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.4;
+    }
+
+    .ripper-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      border: 2px solid var(--cb-yellow);
+      background: rgba(10, 11, 14, 0.95);
+      box-shadow: 0 0 35px rgba(252, 238, 10, 0.2);
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+      position: relative;
+    }
+
+    /* Top HUD Header */
+    .hud-header {
+      background: #11141a;
+      border-bottom: 2px solid var(--cb-yellow);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .hud-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--cb-yellow);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hud-logo span {
+      background: var(--cb-red);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+    }
+
+    .telemetry-stats {
+      display: flex;
+      gap: 20px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+    }
+    .t-stat { color: #8892b0; }
+    .t-stat b { color: var(--cb-cyan); }
+
+    /* Main Grid: Body Layout vs Cyberware Details */
+    .ripper-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      padding: 24px;
+    }
+    @media (max-width: 992px) {
+      .ripper-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Left: Cyberware Matrix */
+    .matrix-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--cb-cyan);
+      letter-spacing: 1.5px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1f2633;
+      padding-bottom: 6px;
+    }
+
+    .slots-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .slots-grid { grid-template-columns: 1fr; }
+    }
+
+    .cyber-slot {
+      background: #11141c;
+      border: 1px solid #232a38;
+      border-left: 4px solid var(--cb-cyan);
+      padding: 16px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .cyber-slot:hover, .cyber-slot.active {
+      border-color: var(--cb-yellow);
+      border-left-color: var(--cb-yellow);
+      background: #171b26;
+      box-shadow: 0 0 15px rgba(252, 238, 10, 0.2);
+    }
+    .slot-type {
+      font-size: 0.75rem;
+      color: var(--cb-cyan);
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .slot-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 700;
+      margin: 4px 0;
+    }
+    .slot-rarity {
+      font-size: 0.75rem;
+      color: #ffaa00;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .slot-desc {
+      font-size: 0.85rem;
+      color: #9aa5b8;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* Right: Selected Cyberware Detail Dossier */
+    .dossier-panel {
+      background: #0f1218;
+      border: 1px solid var(--cb-yellow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    }
+
+    .dossier-header {
+      border-bottom: 2px solid #212938;
+      padding-bottom: 12px;
+    }
+    .dossier-rarity {
+      background: rgba(252, 238, 10, 0.15);
+      border: 1px solid var(--cb-yellow);
+      color: var(--cb-yellow);
+      padding: 2px 8px;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .dossier-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .dossier-type {
+      color: var(--cb-cyan);
+      font-size: 0.85rem;
+    }
+
+    .stat-modifier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    .mod-item {
+      background: #141821;
+      padding: 8px 12px;
+      border-left: 3px solid var(--cb-cyan);
+      display: flex;
+      justify-content: space-between;
+    }
+    .mod-val { color: var(--cb-yellow); font-weight: 700; font-family: var(--font-display); }
+
+    /* Operator Profile Block */
+    .operator-profile-box {
+      background: #131720;
+      border: 1px solid #283142;
+      padding: 16px;
+      margin-top: 14px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .op-avatar {
+      width: 70px;
+      height: 70px;
+      border: 2px solid var(--cb-cyan);
+      flex-shrink: 0;
+    }
+    .op-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .op-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    .op-info p {
+      font-size: 0.85rem;
+      color: #8f9db3;
+    }
+
+    /* Action Buttons */
+    .ripper-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .cb-btn {
+      background: var(--cb-yellow);
+      color: #000;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 900;
+      padding: 10px 18px;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s;
+    }
+    .cb-btn:hover {
+      background: #fff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+    .cb-btn.cyan {
+      background: var(--cb-cyan);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ripper-container">
+    
+    <!-- HUD Header -->
+    <header class="hud-header">
+      <div class="hud-logo">
+        NIGHT CITY // RIPPERDOC <span>VIKTOR CLINIC</span>
+      </div>
+      <div class="telemetry-stats">
+        <div class="t-stat">OPERATOR: <b>ARYAN ROKADE</b></div>
+        <div class="t-stat">STREET CRED: <b>50 (MAX)</b></div>
+        <div class="t-stat">CREDITS: <b>E$ 250,000</b></div>
+        <div class="t-stat">STATUS: <b>CHROMED OUT</b></div>
+      </div>
+    </header>
+
+    <!-- Main Ripperdoc Grid -->
+    <div class="ripper-grid">
+      
+      <!-- Left Cyberware Slots -->
+      <div class="matrix-section">
+        <div class="section-title">
+          <span>INSTALLED CYBERWARE (CLICK TO INSPECT SPECS)</span>
+          <span style="color:var(--cb-yellow)">CAPACITY: 4/4</span>
+        </div>
+
+        <div class="slots-grid">
+          
+          <!-- Slot 1: Frontal Cortex -->
+          <div class="cyber-slot active" onclick="inspectCyber(0)" id="cSlot0">
+            <div class="slot-type">FRONTAL CORTEX // AI NEURAL CO-PROCESSOR</div>
+            <div class="slot-name">MRI Brain Tumor AI</div>
+            <div class="slot-rarity">ICONIC CYBERWARE ★★★</div>
+            <p class="slot-desc">
+              TensorFlow & Keras VGG16 cranial neural model diagnosing tissue slices with 98.2% test accuracy.
+            </p>
+          </div>
+
+          <!-- Slot 2: Operating System -->
+          <div class="cyber-slot" onclick="inspectCyber(1)" id="cSlot1">
+            <div class="slot-type">OPERATING SYSTEM // ENTERPRISE CYBERDECK</div>
+            <div class="slot-name">VyaparFlow Platform</div>
+            <div class="slot-rarity">LEGENDARY CYBERDECK ★★</div>
+            <p class="slot-desc">
+              Next.js 14 + PostgreSQL business management architecture with automated GST billing and inventory control.
+            </p>
+          </div>
+
+          <!-- Slot 3: Nervous System -->
+          <div class="cyber-slot" onclick="inspectCyber(2)" id="cSlot2">
+            <div class="slot-type">NERVOUS SYSTEM // INTRUSION ICE-WALL</div>
+            <div class="slot-name">CyberSentinel Suite</div>
+            <div class="slot-rarity">LEGENDARY ICE BREAKER ★★</div>
+            <p class="slot-desc">
+              React + Python Flask real-time packet monitor streaming Socket.IO telemetry and triggering Snort alarms.
+            </p>
+          </div>
+
+          <!-- Slot 4: Circulatory System -->
+          <div class="cyber-slot" onclick="inspectCyber(3)" id="cSlot3">
+            <div class="slot-type">CIRCULATORY // WEALTH BIOMONITOR</div>
+            <div class="slot-name">Saturn Finance</div>
+            <div class="slot-rarity">EPIC BIOMONITOR ★</div>
+            <p class="slot-desc">
+              MERN Stack capital tracker with automated expense categorization and encrypted JWT persistence.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Operator Dossier & Hackathon Record -->
+        <div class="operator-profile-box">
+          <div class="op-avatar">
+            <img src="../aryan-rokade.jpg" alt="Aryan Cyber Avatar">
+          </div>
+          <div class="op-info">
+            <h3>ARYAN ROKADE // LVL.21 TECH RUNNER</h3>
+            <p>
+              B.E. Computer Engineering, VCET Mumbai University (Class of 2027).<br>
+              ★ <b>2nd Position Champion:</b> Techblitz Hackathon 2025 (AI&DS Dept, VCET).<br>
+              💼 <b>Internship:</b> Web Dev Intern at Octanet Services (+35% Page Velocity).
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Cyberware Inspector Dossier -->
+      <aside class="dossier-panel">
+        <div class="dossier-header">
+          <span class="dossier-rarity" id="dossierRarity">ICONIC // LEVEL 5++</span>
+          <h2 class="dossier-title" id="dossierTitle">MRI Brain Tumor AI</h2>
+          <div class="dossier-type" id="dossierType">Frontal Cortex Neural Module</div>
+        </div>
+
+        <p style="font-size: 0.9rem; color:#b0bac9; line-height: 1.5;" id="dossierDesc">
+          Deep learning diagnostic model trained with transfer learning on VGG16. Capable of classifying multi-class cranial tumors (Glioma, Meningioma, Pituitary) with 98.2% validation accuracy. Emits clinician Grad-CAM activation heatmaps.
+        </p>
+
+        <div class="stat-modifier-list" id="dossierStats">
+          <div class="mod-item">
+            <span>DIAGNOSTIC ACCURACY</span>
+            <span class="mod-val">+98.2%</span>
+          </div>
+          <div class="mod-item">
+            <span>NEURAL FRAMEWORK</span>
+            <span class="mod-val">TENSORFLOW</span>
+          </div>
+          <div class="mod-item">
+            <span>LATENCY OVERHEAD</span>
+            <span class="mod-val">-40MS</span>
+          </div>
+        </div>
+
+        <div class="ripper-actions">
+          <a href="../Aryan_Rokade_Resume.pdf" download class="cb-btn">
+            ⬇ EXTRACT RESUME CHIP
+          </a>
+          <a href="mailto:aryanrokade416@gmail.com" class="cb-btn cyan">
+            ✉ DIRECT COMMS (HIRE)
+          </a>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="cb-btn" style="background:#202838; color:#fff;">
+            GITHUB GIGS ↗
+          </a>
+          <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="cb-btn" style="background:#202838; color:#fff;">
+            LINKEDIN ↗
+          </a>
+        </div>
+      </aside>
+
+    </div>
+
+  </div>
+
+  <script>
+    const cyberData = [
+      {
+        title: "MRI Brain Tumor AI",
+        type: "Frontal Cortex Neural Module",
+        rarity: "ICONIC // LEVEL 5++",
+        desc: "Deep learning diagnostic model trained with transfer learning on VGG16. Capable of classifying multi-class cranial tumors (Glioma, Meningioma, Pituitary) with 98.2% validation accuracy. Emits clinician Grad-CAM activation heatmaps.",
+        stats: [
+          { name: "DIAGNOSTIC ACCURACY", val: "+98.2%" },
+          { name: "NEURAL FRAMEWORK", val: "TENSORFLOW" },
+          { name: "LATENCY OVERHEAD", val: "-40MS" }
+        ]
+      },
+      {
+        title: "VyaparFlow Platform",
+        type: "Operating System Cyberdeck",
+        rarity: "LEGENDARY // LEVEL 5",
+        desc: "Next.js 14 enterprise SaaS managing complete business pipelines. Features atomic PostgreSQL Prisma transactions, real-time stock balance tracking, compliant GST invoicing, and Stripe payment processing.",
+        stats: [
+          { name: "DATABASE CONCURRENCY", val: "+10,000 OPS" },
+          { name: "FRAMEWORK", val: "NEXT.JS 14" },
+          { name: "GST BILLING AUTOMATION", val: "ACTIVE" }
+        ]
+      },
+      {
+        title: "CyberSentinel Suite",
+        type: "Nervous System Intrusion ICE",
+        rarity: "LEGENDARY // LEVEL 5",
+        desc: "High-velocity threat detection console. Evaluates live network packet streams via Socket.IO, detects signature anomalies using Snort rule definitions, and provides instant mitigation triggers.",
+        stats: [
+          { name: "PACKET INSPECTION", val: "REAL-TIME" },
+          { name: "INTRUSION SYSTEM", val: "SNORT IDS" },
+          { name: "THREAT MITIGATION", val: "AUTOMATED" }
+        ]
+      },
+      {
+        title: "Saturn Finance",
+        type: "Circulatory Wealth Biomonitor",
+        rarity: "EPIC // LEVEL 4",
+        desc: "Personal capital intelligence dashboard. Aggregates monthly expenses, enforces customized budget targets, and secures user session tokens with JWT cryptographic encryption.",
+        stats: [
+          { name: "STACK", val: "MERN STACK" },
+          { name: "DATA ENCRYPTION", val: "AES-256 / JWT" },
+          { name: "VISUAL ANALYTICS", val: "CHART.JS" }
+        ]
+      }
+    ];
+
+    function inspectCyber(idx) {
+      document.querySelectorAll('.cyber-slot').forEach((slot, i) => {
+        slot.classList.toggle('active', i === idx);
+      });
+
+      const c = cyberData[idx];
+      document.getElementById('dossierTitle').innerText = c.title;
+      document.getElementById('dossierType').innerText = c.type;
+      document.getElementById('dossierRarity').innerText = c.rarity;
+      document.getElementById('dossierDesc').innerText = c.desc;
+
+      const statsContainer = document.getElementById('dossierStats');
+      statsContainer.innerHTML = '';
+      c.stats.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'mod-item';
+        div.innerHTML = `<span>${s.name}</span><span class="mod-val">${s.val}</span>`;
+        statsContainer.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>

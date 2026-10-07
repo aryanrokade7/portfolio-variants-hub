@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Japanese Minimalist Zen Wabi-Sabi Portfolio" />
+  <title>Aryan Rokade — ZEN MINIMAL 12</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --washi: #f5f0ea;
+      --sumi: #1a1816;
+      --sumi-muted: #6e6761;
+      --bamboo: #4a6353;
+      --vermilion: #b83a2b;
+      --border: #e2dad0;
+      --font-serif: 'Shippori Mincho', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--washi);
+      color: var(--sumi);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(1080px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* Hanko Stamp */
+    .hanko-seal {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--vermilion);
+      color: var(--vermilion);
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      letter-spacing: -0.05em;
+    }
+
+    header.zen-nav {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(245, 240, 234, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .zen-brand {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--sumi);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    nav.links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    nav.links a {
+      color: var(--sumi-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav.links a:hover { color: var(--sumi); }
+
+    /* Hero */
+    .hero {
+      padding: 90px 0 70px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .zen-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--bamboo);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero p.lead {
+      color: var(--sumi-muted);
+      font-size: 1.1rem;
+      line-height: 1.9;
+      margin-bottom: 36px;
+      max-width: 540px;
+    }
+
+    .zen-portrait-box {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .zen-portrait-box img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      filter: grayscale(80%);
+      transition: filter 0.4s;
+    }
+
+    .zen-portrait-box:hover img {
+      filter: grayscale(0%);
+    }
+
+    /* Section Head */
+    .sec-head {
+      padding: 70px 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .sec-head h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+
+    .sec-head span {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--sumi-muted);
+    }
+
+    /* Projects */
+    .project-zen-row {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 60px 1.5fr 1fr;
+      gap: 30px;
+      align-items: baseline;
+    }
+
+    .p-idx {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--vermilion);
+    }
+
+    .project-zen-row h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .project-zen-row p {
+      color: var(--sumi-muted);
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+    }
+
+    .zen-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .zen-tag-row span {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+    }
+
+    .zen-link {
+      color: var(--sumi);
+      text-decoration: none;
+      border-bottom: 1px solid var(--sumi);
+      padding-bottom: 2px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .zen-link:hover { color: var(--vermilion); border-color: var(--vermilion); }
+
+    /* Toolkit */
+    .zen-toolkit {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .zen-tool-item h4 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: var(--bamboo);
+      margin-bottom: 10px;
+    }
+
+    .zen-tool-item p {
+      color: var(--sumi-muted);
+      font-size: 0.92rem;
+      line-height: 1.8;
+    }
+
+    /* Contact */
+    .zen-contact {
+      padding: 70px 0 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .zen-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      width: 100%;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--sumi);
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    .zen-input:focus { border-color: var(--sumi); }
+
+    footer.zen-footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0 100px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--sumi-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .project-zen-row { grid-template-columns: 1fr; }
+      .zen-contact { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="zen-nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="zen-brand">
+        <span class="hanko-seal">印</span> Aryan Rokade
+      </a>
+      <nav class="links">
+        <a href="#work">Projects</a>
+        <a href="#skills">Disciplines</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="../Aryan_Rokade_Resume.pdf" target="_blank" download class="zen-link">
+        Resume PDF ↓
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <div class="zen-eyebrow">B.E. COMPUTER ENGINEERING · MUMBAI UNIVERSITY</div>
+        <h1>
+          Tranquil Simplicity.<br />
+          Purposeful Engineering.
+        </h1>
+        <p class="lead">
+          I am Aryan Rokade. Cultivating clean code, scalable web systems, and deep learning architectures with mindful precision from Mumbai, India.
+        </p>
+        <div style="display: flex; gap: 24px;">
+          <a href="#work" class="zen-link" style="font-size: 0.95rem;">Explore Projects ↓</a>
+          <a href="mailto:aryanrokade416@gmail.com" class="zen-link" style="font-size: 0.95rem;">Initiate Dialogue ↗</a>
+        </div>
+      </div>
+      <div class="zen-portrait-box">
+        <img src="../aryan-rokade.jpg" alt="Aryan Rokade" />
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--sumi-muted); margin-top: 8px; display: flex; justify-content: space-between;">
+          <span>Aryan Rokade</span>
+          <span>VCET '27</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work">
+      <div class="sec-head">
+        <h2>Works of Craft</h2>
+        <span>FOLIO 04</span>
+      </div>
+
+      <!-- P1 -->
+      <article class="project-zen-row">
+        <div class="p-idx">一</div>
+        <div>
+          <h3>VyaparFlow</h3>
+          <p>Full-stack trade enablement platform for Indian MSMEs with compliance readiness scoring, document verification, shipment pipelines, and multi-role dashboards.</p>
+          <div class="zen-tag-row">
+            <span>Next.js</span><span>React</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="zen-link">Live Exhibition ↗</a><br />
+          <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" class="zen-link">Source Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- P2 -->
+      <article class="project-zen-row">
+        <div class="p-idx">二</div>
+        <div>
+          <h3>CyberSentinel Suite</h3>
+          <p>Interactive threat simulator addressing DoS/DDoS mitigation, SQL injection attacks, ransomware heuristical alerts, and real-time phishing URL scoring with a Chrome Extension.</p>
+          <div class="zen-tag-row">
+            <span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="zen-link">Source Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- P3 -->
+      <article class="project-zen-row">
+        <div class="p-idx">三</div>
+        <div>
+          <h3>Saturn</h3>
+          <p>Full-stack personal budget tracking architecture with categorized monthly expenses, recurring ledger balances, and JWT auth.</p>
+          <div class="zen-tag-row">
+            <span>React</span><span>Redux</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="zen-link">Source Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- P4 -->
+      <article class="project-zen-row">
+        <div class="p-idx">四</div>
+        <div>
+          <h3>MRI Brain Tumor CNN</h3>
+          <p>Convolutional neural network diagnostic app classifying MRI scans into Glioma, Meningioma, Pituitary, or No Tumor with 98.4% validation accuracy using VGG16.</p>
+          <div class="zen-tag-row">
+            <span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="zen-link">Source Repository ↗</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" style="padding-top: 60px;">
+      <div class="sec-head">
+        <h2>Disciplines & Knowledge</h2>
+        <span>TOOLKIT</span>
+      </div>
+      <div class="zen-toolkit">
+        <div class="zen-tool-item">
+          <h4>Languages</h4>
+          <p>Java · Python · TypeScript · JavaScript · C · C++ · SQL</p>
+        </div>
+        <div class="zen-tool-item">
+          <h4>Full-Stack</h4>
+          <p>Next.js · React · Node.js · Express · Tailwind CSS · MERN</p>
+        </div>
+        <div class="zen-tool-item">
+          <h4>Infrastructure</h4>
+          <p>PostgreSQL · MongoDB · Prisma ORM · Docker · Git</p>
+        </div>
+        <div class="zen-tool-item">
+          <h4>Recognition</h4>
+          <p>2nd Place Techblitz '25 · Web Development Intern Octanet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="zen-contact">
+      <div>
+        <h2 style="font-family: var(--font-serif); font-size: 2.4rem; margin-bottom: 16px;">Initiate Dialogue</h2>
+        <p style="color: var(--sumi-muted); margin-bottom: 24px;">
+          Available for software engineering roles, hackathons, and creative digital collaborations.
+        </p>
+        <div style="font-family: var(--font-mono); font-size: 0.9rem;">
+          <a href="mailto:aryanrokade416@gmail.com" class="zen-link">aryanrokade416@gmail.com</a><br />
+          <a href="tel:8591224192" class="zen-link">+91 85912 24192</a>
+        </div>
+      </div>
+      <form action="mailto:aryanrokade416@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" class="zen-input" placeholder="Name" required />
+        <input type="email" name="email" class="zen-input" placeholder="Email" required />
+        <textarea name="message" rows="3" class="zen-input" placeholder="Message" required></textarea>
+        <button type="submit" class="zen-link" style="background:none; cursor:pointer;">Dispatch Message ↗</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="wrap zen-footer">
+    <span>© 2026 Aryan Rokade · Wabi-Sabi Aesthetics</span>
+    <div>
+      <a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--sumi-muted); text-decoration:none; margin-right:16px;">GitHub</a>
+      <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:var(--sumi-muted); text-decoration:none;">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

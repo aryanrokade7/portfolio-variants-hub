@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Unity / Unreal Engine Inspector</title>
+  <meta name="description" content="Modern 3D Game Engine Editor (Unity/Unreal) portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --unity-bg: #1e1e1e;
+      --unity-panel: #282828;
+      --unity-header: #202020;
+      --unity-border: #383838;
+      --unity-accent: #007acc;
+      --unity-text: #cccccc;
+      --unity-green: #4ec9b0;
+      --unity-yellow: #dcdcaa;
+      --unity-blue: #9cdcfe;
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--unity-bg);
+      color: var(--unity-text);
+      font-family: var(--font-ui);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    /* Top Engine Toolbar */
+    .engine-toolbar {
+      background: var(--unity-header);
+      border-bottom: 1px solid var(--unity-border);
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      user-select: none;
+    }
+    .transport-bar {
+      display: flex;
+      gap: 4px;
+    }
+    .t-btn {
+      background: #333;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+    .t-btn.play { background: #1b5e20; border-color: #2e7d32; }
+
+    /* Engine Workspace Columns */
+    .engine-workspace {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 240px 1fr 340px;
+      overflow: hidden;
+    }
+    @media (max-width: 900px) {
+      .engine-workspace { grid-template-columns: 1fr; }
+    }
+
+    /* Column 1: Hierarchy Tree */
+    .hierarchy-pane {
+      background: var(--unity-panel);
+      border-right: 1px solid var(--unity-border);
+      display: flex;
+      flex-direction: column;
+    }
+    .pane-header {
+      background: #222;
+      padding: 6px 10px;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--unity-border);
+      display: flex;
+      justify-content: space-between;
+    }
+    .tree-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+    .tree-item {
+      padding: 4px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .tree-item:hover { background: #333; }
+    .tree-item.selected {
+      background: var(--unity-accent);
+      color: #fff;
+    }
+
+    /* Column 2: 3D Scene View & Console */
+    .center-pane {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--unity-border);
+    }
+    .scene-viewport {
+      flex: 1;
+      background: radial-gradient(circle at 50% 50%, #252830 0%, #111317 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 3D Wireframe Mesh Graphic */
+    .wireframe-cube {
+      width: 140px;
+      height: 140px;
+      border: 2px solid var(--unity-accent);
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateMesh 10s linear infinite;
+      box-shadow: 0 0 25px rgba(0, 122, 204, 0.4);
+    }
+    .wireframe-cube::before, .wireframe-cube::after {
+      content: "";
+      position: absolute;
+      top: -15px; left: -15px; right: -15px; bottom: -15px;
+      border: 1px dashed rgba(255,255,255,0.3);
+    }
+    @keyframes rotateMesh {
+      0% { transform: rotateX(25deg) rotateY(0deg); }
+      100% { transform: rotateX(25deg) rotateY(360deg); }
+    }
+
+    .gizmo-axes {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 60px;
+      height: 60px;
+      border: 1px solid #444;
+      background: rgba(0,0,0,0.5);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    /* Console Tabs */
+    .console-pane {
+      height: 140px;
+      background: #181818;
+      border-top: 1px solid var(--unity-border);
+      display: flex;
+      flex-direction: column;
+    }
+    .console-log-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .log-line {
+      display: flex;
+      gap: 8px;
+      padding: 2px 0;
+      color: #aaa;
+    }
+    .log-line.info { color: #4ec9b0; }
+
+    /* Column 3: Inspector Properties Panel */
+    .inspector-pane {
+      background: var(--unity-panel);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .component-box {
+      border-bottom: 1px solid var(--unity-border);
+      padding: 12px;
+    }
+    .comp-title {
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .prop-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+    .prop-label { color: #888; }
+    .prop-val {
+      background: #1e1e1e;
+      border: 1px solid #383838;
+      padding: 3px 6px;
+      border-radius: 2px;
+      color: #ddd;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .engine-btn {
+      background: var(--unity-accent);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      display: block;
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Engine Toolbar -->
+  <header class="engine-toolbar">
+    <div style="font-weight:700; color:#fff;">
+      UNITY 2024.3 // ARYAN ROKADE DEVELOPER SUITE
+    </div>
+    <div class="transport-bar">
+      <button class="t-btn play">▶ PLAY</button>
+      <button class="t-btn">❚❚ PAUSE</button>
+      <button class="t-btn">⏭ STEP</button>
+    </div>
+    <div>
+      <a href="../Aryan_Rokade_Resume.pdf" download class="t-btn" style="text-decoration:none; background:#007acc; border-color:#007acc;">
+        ⬇ BUILD RESUME (PDF)
+      </a>
+    </div>
+  </header>
+
+  <!-- Workspace Grid -->
+  <div class="engine-workspace">
+    
+    <!-- 1. Hierarchy Tree -->
+    <aside class="hierarchy-pane">
+      <div class="pane-header">
+        <span>HIERARCHY</span>
+        <span>+ CREATE</span>
+      </div>
+      <div class="tree-list">
+        <div class="tree-item selected" onclick="selectObject(0)">
+          <span>▼ 🎮</span> AryanRokade_Player
+        </div>
+        <div class="tree-item" onclick="selectObject(1)" style="padding-left: 24px;">
+          <span>📦</span> VyaparFlow_ERP
+        </div>
+        <div class="tree-item" onclick="selectObject(2)" style="padding-left: 24px;">
+          <span>🛡️</span> CyberSentinel_Shield
+        </div>
+        <div class="tree-item" onclick="selectObject(3)" style="padding-left: 24px;">
+          <span>💰</span> SaturnFinance_Ledger
+        </div>
+        <div class="tree-item" onclick="selectObject(4)" style="padding-left: 24px;">
+          <span>🧠</span> MRITumorAI_Vision
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. Scene Viewport + Console -->
+    <main class="center-pane">
+      <div class="scene-viewport">
+        <div class="gizmo-axes">GIZMO X/Y/Z</div>
+        <div class="wireframe-cube"></div>
+      </div>
+
+      <!-- Console Window -->
+      <div class="console-pane">
+        <div class="pane-header">CONSOLE // BUILD LOGS</div>
+        <div class="console-log-list">
+          <div class="log-line info">[Log] Engine Initialized: VCET Mumbai University (Comp Eng 2027).</div>
+          <div class="log-line info">[Log] Hackathon Achievement: 2nd Position in Techblitz 2025.</div>
+          <div class="log-line">[Log] Octanet Services Internship: Page speed accelerated by +35%.</div>
+          <div class="log-line info">[Log] VyaparFlow Next.js server actions mounted successfully.</div>
+          <div class="log-line info">[Log] VGG16 model weights validated: 98.2% test accuracy.</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 3. Inspector Properties -->
+    <aside class="inspector-pane">
+      <div class="pane-header">INSPECTOR</div>
+
+      <!-- Component 1: Transform -->
+      <div class="component-box">
+        <div class="comp-title">Transform</div>
+        <div class="prop-row">
+          <span class="prop-label">Position</span>
+          <span class="prop-val">X: 0.0 Y: 1.8 Z: 0.0</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Rotation</span>
+          <span class="prop-val">X: 0.0 Y: 0.0 Z: 0.0</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Scale</span>
+          <span class="prop-val">X: 1.0 Y: 1.0 Z: 1.0</span>
+        </div>
+      </div>
+
+      <!-- Component 2: Script Inspector -->
+      <div class="component-box">
+        <div class="comp-title" id="compName">Script: PlayerController.cs</div>
+        
+        <div class="prop-row">
+          <span class="prop-label">Engineer</span>
+          <span class="prop-val" id="pEng">Aryan Rokade</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">University</span>
+          <span class="prop-val" id="pUni">VCET Mumbai (2027)</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Tech Stack</span>
+          <span class="prop-val" id="pStack">Next.js, Python, Postgres</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Status</span>
+          <span class="prop-val" id="pStatus" style="color:#4ec9b0;">Production Ready</span>
+        </div>
+
+        <div style="margin-top: 10px; font-size: 11px; color:#aaa; line-height: 1.4;" id="pDesc">
+          Full Stack Developer & AI Engineer building high-concurrency cloud systems and medical deep learning computer vision diagnostics.
+        </div>
+
+        <a href="mailto:aryanrokade416@gmail.com" class="engine-btn">
+          ✉ DISPATCH MESSAGE (EMAIL)
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="engine-btn" style="background:#333;">
+          GITHUB SOURCE ↗
+        </a>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    const gameObjects = [
+      {
+        name: "Script: PlayerController.cs",
+        eng: "Aryan Rokade",
+        uni: "VCET Mumbai (2027)",
+        stack: "Next.js, Python, Postgres",
+        status: "Production Ready",
+        desc: "Full Stack Developer & AI Engineer building high-concurrency cloud systems and medical deep learning diagnostics."
+      },
+      {
+        name: "Script: VyaparFlowERP.cs",
+        eng: "Enterprise SaaS",
+        uni: "Next.js 14",
+        stack: "TypeScript, PostgreSQL, Prisma",
+        status: "Active Ledger",
+        desc: "Automated GST invoicing, atomic inventory synchronization, and Stripe billing pipelines."
+      },
+      {
+        name: "Script: CyberSentinelIDS.cs",
+        eng: "SecOps Platform",
+        uni: "React + Flask",
+        stack: "Socket.IO, Snort IDS, Chart.js",
+        status: "Active Monitoring",
+        desc: "Live network threat analysis, intrusion alerts, and real-time telemetry streaming."
+      },
+      {
+        name: "Script: SaturnFinance.cs",
+        eng: "Personal Wealth",
+        uni: "MERN Stack",
+        stack: "MongoDB, Express, React, Node",
+        status: "Secured JWT",
+        desc: "Wealth tracking, expense categorization, and budgeting targets with encrypted JWT storage."
+      },
+      {
+        name: "Script: MRITumorAI.cs",
+        eng: "Deep Learning Diagnostic",
+        uni: "TensorFlow VGG16",
+        stack: "Keras, OpenCV, Flask",
+        status: "98.2% Accuracy",
+        desc: "Convolutional neural network detecting brain tumors on Kaggle MRI datasets with Grad-CAM heatmaps."
+      }
+    ];
+
+    function selectObject(idx) {
+      document.querySelectorAll('.tree-item').forEach((item, i) => {
+        item.classList.toggle('selected', i === idx);
+      });
+
+      const o = gameObjects[idx];
+      document.getElementById('compName').innerText = o.name;
+      document.getElementById('pEng').innerText = o.eng;
+      document.getElementById('pUni').innerText = o.uni;
+      document.getElementById('pStack').innerText = o.stack;
+      document.getElementById('pStatus').innerText = o.status;
+      document.getElementById('pDesc').innerText = o.desc;
+    }
+  </script>
+</body>
+</html>

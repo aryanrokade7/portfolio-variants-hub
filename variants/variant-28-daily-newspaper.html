@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Developer — Aryan Rokade Broadsheet</title>
+  <meta name="description" content="Vintage 1920s printed broadsheet newspaper portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f5eedc;
+      --paper-darker: #e9dec5;
+      --ink: #1a1612;
+      --ink-dim: #453e36;
+      --rule: #2a241e;
+      --font-headline: 'Playfair Display', Georgia, serif;
+      --font-masthead: 'Cinzel', serif;
+      --font-body: 'Newsreader', Georgia, serif;
+      --font-typewriter: 'Special Elite', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #24201c;
+      background-image: radial-gradient(circle, #332d26 0%, #151311 100%);
+      color: var(--ink);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 30px 16px;
+      line-height: 1.45;
+    }
+
+    .broadsheet {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--paper);
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      padding: 36px 42px;
+      border: 1px solid #c9bea6;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .broadsheet { padding: 20px 16px; }
+    }
+
+    /* Top Masthead */
+    .masthead-meta {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--rule);
+      padding-bottom: 4px;
+      font-family: var(--font-typewriter);
+      font-size: 0.8rem;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .masthead-title {
+      font-family: var(--font-masthead);
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 2px;
+      margin: 10px 0 6px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .masthead-subbar {
+      border-top: 3px double var(--rule);
+      border-bottom: 3px double var(--rule);
+      padding: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    /* Main Banner Headline */
+    .banner-headline {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .banner-h1 {
+      font-family: var(--font-headline);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+    .banner-deck {
+      font-family: var(--font-body);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--ink-dim);
+      margin-top: 8px;
+    }
+
+    /* 3-Column Newspaper Grid */
+    .newspaper-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1.6fr;
+      gap: 24px;
+      border-top: 2px solid var(--rule);
+      padding-top: 20px;
+    }
+    @media (max-width: 992px) {
+      .newspaper-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Column rules */
+    .col-divider {
+      border-right: 1px solid #bfb39b;
+      padding-right: 20px;
+    }
+    @media (max-width: 992px) {
+      .col-divider { border-right: none; padding-right: 0; border-bottom: 1px solid #bfb39b; padding-bottom: 20px; }
+    }
+
+    /* Lead Story & Portrait */
+    .lead-story {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .halftone-frame {
+      border: 1px solid var(--rule);
+      padding: 6px;
+      background: #ede3cc;
+      text-align: center;
+    }
+    .halftone-frame img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(140%) brightness(95%);
+    }
+    .photo-caption {
+      font-family: var(--font-typewriter);
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      margin-top: 6px;
+    }
+
+    .story-title {
+      font-family: var(--font-headline);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .byline {
+      font-family: var(--font-typewriter);
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      margin: 4px 0 10px;
+      border-bottom: 1px dotted #bfb39b;
+      padding-bottom: 4px;
+    }
+
+    .story-body {
+      font-size: 1.05rem;
+      text-align: justify;
+      hyphens: auto;
+      color: #2b251f;
+    }
+    .dropcap {
+      float: left;
+      font-family: var(--font-headline);
+      font-size: 3.4rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 8px;
+      font-weight: 900;
+    }
+
+    /* Project Dispatches */
+    .dispatch-card {
+      border-top: 1px solid var(--rule);
+      padding-top: 14px;
+      margin-top: 16px;
+    }
+    .dispatch-title {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tech-badges {
+      font-family: var(--font-typewriter);
+      font-size: 0.72rem;
+      background: #e7dac1;
+      padding: 3px 6px;
+      display: inline-block;
+      margin-bottom: 6px;
+      border: 1px solid #cbbe9f;
+    }
+    .paper-link {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--ink);
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* Classifieds & Telegraph Section */
+    .classifieds-box {
+      background: var(--paper-darker);
+      border: 2px solid var(--rule);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .classified-head {
+      font-family: var(--font-masthead);
+      font-size: 1.2rem;
+      text-align: center;
+      border-bottom: 2px solid var(--rule);
+      padding-bottom: 6px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .classified-item {
+      font-size: 0.9rem;
+      border-bottom: 1px dashed #ad9f81;
+      padding-bottom: 8px;
+    }
+    .classified-item b {
+      font-family: var(--font-headline);
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .stamp-badge {
+      border: 3px double #8a1f1f;
+      color: #8a1f1f;
+      font-family: var(--font-typewriter);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px;
+      transform: rotate(-2deg);
+      margin: 10px 0;
+      text-transform: uppercase;
+    }
+
+    .btn-press {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-typewriter);
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      margin-top: 8px;
+      border: 1px solid var(--ink);
+      transition: background 0.2s;
+    }
+    .btn-press:hover {
+      background: #453e36;
+    }
+  </style>
+</head>
+<body>
+
+  <article class="broadsheet">
+    
+    <!-- Top Masthead Meta -->
+    <div class="masthead-meta">
+      <span>VOL. XXV • NO. 104</span>
+      <span>MUMBAI EDITION // GLOBAL DISTRIBUTION</span>
+      <span>PRICE: TWO CENTS</span>
+    </div>
+
+    <!-- Ornate Masthead -->
+    <header>
+      <h1 class="masthead-title">The Daily Developer</h1>
+      <div class="masthead-subbar">
+        <span>"Accurate Code, Distributed Systems & Deep Learning Telemetry"</span>
+        <span>ACADEMIC CLASS OF 2027</span>
+      </div>
+    </header>
+
+    <!-- Main Front-Page Banner Headline -->
+    <section class="banner-headline">
+      <h2 class="banner-h1">ENGINEER UNVEILS PRODUCTION ARCHITECTURES</h2>
+      <p class="banner-deck">Aryan Rokade of VCET Mumbai University Delivers Full-Stack SaaS Platforms & Deep Learning Diagnostics</p>
+    </section>
+
+    <!-- 3-Column Layout -->
+    <div class="newspaper-grid">
+      
+      <!-- COLUMN 1: Lead Story & Portrait -->
+      <div class="col-divider lead-story">
+        
+        <div class="halftone-frame">
+          <img src="../aryan-rokade.jpg" alt="Aryan Rokade Halftone">
+          <div class="photo-caption">Fig 1. Aryan Rokade, B.E. Computer Engineering Scholar & AI Architect.</div>
+        </div>
+
+        <h3 class="story-title">Next.js & Deep Learning: A Scholar's Journey</h3>
+        <div class="byline">BY SPECIAL CORRESPONDENT IN MUMBAI</div>
+
+        <p class="story-body">
+          <span class="dropcap">A</span>RYAN ROKADE, currently pursuing his Bachelor of Engineering in Computer Engineering at Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University, continues to build software engineered for high concurrency and operational robustness. 
+        </p>
+        <p class="story-body" style="margin-top: 10px;">
+          With a balanced mastery of client-side performance, backend APIs, and computer vision neural networks, Rokade demonstrates the rare ability to bridge user experience with mathematical rigor. During his tenure as Web Development Intern at <b>Octanet Services Pvt. Ltd.</b>, he re-engineered critical components to deliver a 35% reduction in latency.
+        </p>
+
+        <!-- Hackathon Notice -->
+        <div class="stamp-badge">
+          ★ OFFICIAL DISPATCH: 2nd Position in Techblitz Hackathon 2025 (VCET AI&DS) ★
+        </div>
+
+        <!-- Project 1 Dispatch -->
+        <div class="dispatch-card">
+          <h4 class="dispatch-title">VyaparFlow: Business Management Cloud Engine</h4>
+          <span class="tech-badges">Next.js 14 • PostgreSQL • Prisma • Stripe</span>
+          <p class="story-body">
+            An all-in-one SME suite automating compliant Goods and Services Tax (GST) invoicing, real-time stock balance tracking, and role-based permissions. Engineered on an atomic PostgreSQL database.
+          </p>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="paper-link">Inspect Source Code On GitHub ↗</a>
+        </div>
+
+      </div>
+
+      <!-- COLUMN 2: Dispatches & Scientific Wire -->
+      <div class="col-divider">
+        
+        <div class="dispatch-card" style="border-top: none; padding-top: 0; margin-top: 0;">
+          <h4 class="dispatch-title">CyberSentinel Suite: Threat Monitoring Ops</h4>
+          <span class="tech-badges">React • Python Flask • Socket.IO • Snort</span>
+          <p class="story-body">
+            A real-time network defense console continuously ingesting telemetry packets. Utilizing Snort detection signatures and bi-directional WebSockets, the system flags unauthorized intrusion attempts within milliseconds.
+          </p>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="paper-link">Read Technical Whitepaper ↗</a>
+        </div>
+
+        <div class="dispatch-card">
+          <h4 class="dispatch-title">MRI Brain Tumor AI: Convolutional Network</h4>
+          <span class="tech-badges">TensorFlow • Keras VGG16 • OpenCV</span>
+          <p class="story-body">
+            Trained across thousands of high-resolution cranial scans, this neural diagnostic network achieves an impressive <b>98.2% validation accuracy</b> across glioma and meningioma conditions, visually confirmed via Grad-CAM activation heatmaps.
+          </p>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="paper-link">Review Clinical Metrics ↗</a>
+        </div>
+
+        <div class="dispatch-card">
+          <h4 class="dispatch-title">Saturn Finance: Wealth Telemetry</h4>
+          <span class="tech-badges">MongoDB • Express • React • Node.js</span>
+          <p class="story-body">
+            Personal budget accounting platform engineered with JWT security, interactive visual charts, and encrypted data storage for high net-worth asset tracking.
+          </p>
+          <a href="https://github.com/aryanrokade7" target="_blank" class="paper-link">View Platform Architecture ↗</a>
+        </div>
+
+      </div>
+
+      <!-- COLUMN 3: Classifieds, Career & Telegraph -->
+      <div>
+        
+        <div class="classifieds-box">
+          <div class="classified-head">CLASSIFIED ADVERTISEMENTS</div>
+
+          <div class="classified-item">
+            <b>SITUATION WANTED: SOFTWARE ENGINEER</b>
+            Young engineer of exceptional talent seeks software engineering, full stack, or AI development positions. Expert in TypeScript, Next.js, Python, and SQL. Available immediately.
+          </div>
+
+          <div class="classified-item">
+            <b>ACADEMIC CREDENTIALS</b>
+            Bachelor of Engineering in Computer Engineering, VCET (Mumbai University), Class of 2027. Honored with 2nd Prize in Techblitz Hackathon 2025.
+          </div>
+
+          <div class="classified-item">
+            <b>PRIOR APPOINTMENT</b>
+            Web Development Intern at Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025). Rebuilt core UI components and accelerated page speeds by +35%.
+          </div>
+
+          <div class="classified-item">
+            <b>TELEGRAPH & CORRESPONDENCE</b>
+            Dispatches may be addressed via electrical wire to:<br>
+            • <b>Email:</b> aryanrokade416@gmail.com<br>
+            • <b>Telephone:</b> +91 85912 24192<br>
+            • <b>GitHub:</b> github.com/aryanrokade7<br>
+            • <b>LinkedIn:</b> linkedin.com/in/aryan-rokade
+          </div>
+
+          <div>
+            <a href="../Aryan_Rokade_Resume.pdf" download class="btn-press">
+              ⬇ PRINT RESUME DOSSIER (PDF)
+            </a>
+            <a href="mailto:aryanrokade416@gmail.com" class="btn-press" style="background:#54493e; margin-top:6px;">
+              ✉ TRANSMIT TELEGRAPH MESSAGE
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </article>
+
+</body>
+</html>
