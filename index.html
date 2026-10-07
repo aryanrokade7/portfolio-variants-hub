@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Aryan Rokade - Curated Portfolio Showcase Hub & Interactive Simulator" />
-  <title>Aryan Rokade — Portfolio Showcase Hub</title>
+  <title>Aryan Rokade — Portfolio Showcase Hub (50 Variants)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -539,7 +539,7 @@
     <div class="wrap header-inner">
       <a href="#simContainer" class="brand-mark">
         <span>Aryan Rokade</span>
-        <span class="brand-pill">39 Curated Portfolios</span>
+        <span class="brand-pill">50 Curated Portfolios</span>
       </a>
 
       <div class="header-actions">
@@ -558,7 +558,7 @@
       <div class="hero-eyebrow">Portfolio Architecture Showcase</div>
       <h1 class="hero-title">Select Your Primary Experience</h1>
       <p class="hero-subtitle">
-        39 production portfolio designs for Aryan Rokade. Click any compact tile to immediately preview in the simulator.
+        50 production portfolio designs for Aryan Rokade. Click any compact tile to immediately preview in the simulator.
       </p>
     </section>
 
@@ -568,7 +568,7 @@
         <div class="sim-info-group">
           <button class="sim-nav-btn" onclick="cycleVariant(-1)" title="Previous Variant (or press [)">◀</button>
           <button class="sim-nav-btn" onclick="cycleVariant(1)" title="Next Variant (or press ])">▶</button>
-          <span class="sim-active-title" id="simCurrentTitle">Variant 02: Cupertino Clean</span>
+          <span class="sim-active-title" id="simCurrentTitle">Variant 01: Bold Neo-Brutalism</span>
         </div>
 
         <div class="sim-tools-group">
@@ -580,14 +580,14 @@
           <button class="btn-fullscreen-toggle" onclick="toggleFullscreenTheater()" id="fullscreenBtn" title="Toggle Fullscreen Theater Mode">
             <span>⛶ Fullscreen</span>
           </button>
-          <a id="simExternalLink" href="variants/variant-02-apple-minimal.html" target="_blank" class="sim-nav-btn" style="width:auto; padding:0 8px;" title="Open in New Tab">
+          <a id="simExternalLink" href="variants/variant-01-neo-brutalism.html" target="_blank" class="sim-nav-btn" style="width:auto; padding:0 8px;" title="Open in New Tab">
             ↗
           </a>
         </div>
       </div>
 
       <div class="sim-iframe-viewport" id="simViewport">
-        <iframe id="simIframe" src="variants/variant-02-apple-minimal.html" title="Portfolio Live Simulator"></iframe>
+        <iframe id="simIframe" src="variants/variant-01-neo-brutalism.html" title="Portfolio Live Simulator"></iframe>
       </div>
     </section>
 
@@ -599,19 +599,19 @@
       </div>
 
       <div class="filter-chips">
-        <button class="chip-btn active" onclick="setFilter('all', this)">All (39)</button>
-        <button class="chip-btn" onclick="setFilter('clean', this)">Clean & Minimal (8)</button>
-        <button class="chip-btn" onclick="setFilter('os', this)">OS & Retro (8)</button>
-        <button class="chip-btn" onclick="setFilter('creative', this)">Creative & Interactive (16)</button>
-        <button class="chip-btn" onclick="setFilter('code', this)">Terminal & Code (7)</button>
+        <button class="chip-btn active" onclick="setFilter('all', this)">All (50)</button>
+        <button class="chip-btn" onclick="setFilter('clean', this)">Clean &amp; Minimal (11)</button>
+        <button class="chip-btn" onclick="setFilter('os', this)">OS &amp; Retro (9)</button>
+        <button class="chip-btn" onclick="setFilter('creative', this)">Creative &amp; Interactive (25)</button>
+        <button class="chip-btn" onclick="setFilter('code', this)">Terminal &amp; Code (5)</button>
       </div>
     </div>
 
     <!-- HIGH-DENSITY COMPACT VARIANT TILES GRID -->
     <div class="variant-tiles-grid" id="tilesGrid">
       
-      <!-- 01 -->
-      <div class="variant-tile" data-cat="creative" data-id="01" data-url="variants/variant-01-neo-brutalism.html" onclick="selectVariant(this)">
+      <!-- 01 (Default Active) -->
+      <div class="variant-tile active" data-cat="creative" data-id="01" data-url="variants/variant-01-neo-brutalism.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#01</span>
           <span class="tile-name">Bold Neo-Brutalism</span>
@@ -619,8 +619,8 @@
         <a href="variants/variant-01-neo-brutalism.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
-      <!-- 02 (Default Active) -->
-      <div class="variant-tile active" data-cat="clean" data-id="02" data-url="variants/variant-02-apple-minimal.html" onclick="selectVariant(this)">
+      <!-- 02 -->
+      <div class="variant-tile" data-cat="clean" data-id="02" data-url="variants/variant-02-apple-minimal.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#02</span>
           <span class="tile-name">Cupertino Clean</span>
@@ -749,7 +749,7 @@
       <div class="variant-tile" data-cat="code" data-id="16" data-url="variants/variant-16-bios-firmware.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#16</span>
-          <span class="tile-name">BIOS / UEFI Setup</span>
+          <span class="tile-name">BIOS Setup Utility</span>
         </div>
         <a href="variants/variant-16-bios-firmware.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
@@ -758,7 +758,7 @@
       <div class="variant-tile" data-cat="creative" data-id="17" data-url="variants/variant-17-audio-daw.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#17</span>
-          <span class="tile-name">Spotify & DAW Studio</span>
+          <span class="tile-name">Ableton DAW Studio</span>
         </div>
         <a href="variants/variant-17-audio-daw.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
@@ -767,7 +767,7 @@
       <div class="variant-tile" data-cat="creative" data-id="18" data-url="variants/variant-18-figma-editor.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#18</span>
-          <span class="tile-name">Figma Canvas Editor</span>
+          <span class="tile-name">Figma Vector Canvas</span>
         </div>
         <a href="variants/variant-18-figma-editor.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
@@ -776,7 +776,7 @@
       <div class="variant-tile" data-cat="os" data-id="19" data-url="variants/variant-19-nextstep-os.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#19</span>
-          <span class="tile-name">Steve Jobs NeXTSTEP</span>
+          <span class="tile-name">NeXTSTEP 3.3 OS</span>
         </div>
         <a href="variants/variant-19-nextstep-os.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
@@ -794,7 +794,7 @@
       <div class="variant-tile" data-cat="clean" data-id="21" data-url="variants/variant-21-notion-workspace.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#21</span>
-          <span class="tile-name">Notion & Obsidian Doc</span>
+          <span class="tile-name">Notion Workspace</span>
         </div>
         <a href="variants/variant-21-notion-workspace.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
@@ -803,173 +803,276 @@
       <div class="variant-tile" data-cat="code" data-id="22" data-url="variants/variant-22-github-commit.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#22</span>
-          <span class="tile-name">GitHub Git Profile</span>
+          <span class="tile-name">GitHub Activity</span>
         </div>
         <a href="variants/variant-22-github-commit.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 23 -->
-      <div class="variant-tile" data-cat="code" data-id="23" data-url="variants/variant-23-kali-cyberdeck.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="23" data-url="variants/variant-23-cassette-walkman.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#23</span>
-          <span class="tile-name">Kali Cyberdeck Terminal</span>
+          <span class="tile-name">Sony Walkman Cassette</span>
         </div>
-        <a href="variants/variant-23-kali-cyberdeck.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-23-cassette-walkman.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 24 -->
-      <div class="variant-tile" data-cat="os" data-id="24" data-url="variants/variant-24-cassette-walkman.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="24" data-url="variants/variant-24-polaroid-gallery.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#24</span>
-          <span class="tile-name">Retro Sony Walkman</span>
+          <span class="tile-name">Polaroid Photo Gallery</span>
         </div>
-        <a href="variants/variant-24-cassette-walkman.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-24-polaroid-gallery.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 25 -->
-      <div class="variant-tile" data-cat="creative" data-id="25" data-url="variants/variant-25-polaroid-gallery.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="code" data-id="25" data-url="variants/variant-25-discord-workspace.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#25</span>
-          <span class="tile-name">Polaroid Instant Gallery</span>
+          <span class="tile-name">Discord Dev Server</span>
         </div>
-        <a href="variants/variant-25-polaroid-gallery.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-25-discord-workspace.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 26 -->
-      <div class="variant-tile" data-cat="creative" data-id="26" data-url="variants/variant-26-discord-workspace.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="26" data-url="variants/variant-26-arcade-fighter.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#26</span>
-          <span class="tile-name">Discord Dev Server</span>
+          <span class="tile-name">16-Bit Arcade Fighter</span>
         </div>
-        <a href="variants/variant-26-discord-workspace.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-26-arcade-fighter.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 27 -->
-      <div class="variant-tile" data-cat="os" data-id="27" data-url="variants/variant-27-arcade-fighter.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="27" data-url="variants/variant-27-daily-newspaper.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#27</span>
-          <span class="tile-name">16-Bit Arcade Fighter</span>
+          <span class="tile-name">Broadsheet Newspaper</span>
         </div>
-        <a href="variants/variant-27-arcade-fighter.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-27-daily-newspaper.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 28 -->
-      <div class="variant-tile" data-cat="creative" data-id="28" data-url="variants/variant-28-daily-newspaper.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="28" data-url="variants/variant-28-rpg-character.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#28</span>
-          <span class="tile-name">Broadsheet Newspaper</span>
+          <span class="tile-name">Fantasy RPG Quest</span>
         </div>
-        <a href="variants/variant-28-daily-newspaper.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-28-rpg-character.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 29 -->
-      <div class="variant-tile" data-cat="creative" data-id="29" data-url="variants/variant-29-rpg-character.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="29" data-url="variants/variant-29-receipt-printer.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#29</span>
-          <span class="tile-name">Fantasy RPG Character</span>
+          <span class="tile-name">Thermal POS Receipt</span>
         </div>
-        <a href="variants/variant-29-rpg-character.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-29-receipt-printer.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 30 -->
-      <div class="variant-tile" data-cat="clean" data-id="30" data-url="variants/variant-30-museum-gallery.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="os" data-id="30" data-url="variants/variant-30-winamp-player.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#30</span>
-          <span class="tile-name">Museum Art Gallery</span>
+          <span class="tile-name">Winamp 2.91 Player</span>
         </div>
-        <a href="variants/variant-30-museum-gallery.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-30-winamp-player.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 31 -->
-      <div class="variant-tile" data-cat="creative" data-id="31" data-url="variants/variant-31-cyberpunk-ripperdoc.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="31" data-url="variants/variant-31-metro-transit-map.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#31</span>
-          <span class="tile-name">Cyberpunk 2077 HUD</span>
+          <span class="tile-name">Metro Transit Map</span>
         </div>
-        <a href="variants/variant-31-cyberpunk-ripperdoc.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-31-metro-transit-map.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 32 -->
-      <div class="variant-tile" data-cat="os" data-id="32" data-url="variants/variant-32-apollo-flight-computer.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="32" data-url="variants/variant-32-comic-book.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#32</span>
-          <span class="tile-name">NASA Apollo DSKY</span>
+          <span class="tile-name">Graphic Novel Comic</span>
         </div>
-        <a href="variants/variant-32-apollo-flight-computer.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-32-comic-book.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 33 -->
-      <div class="variant-tile" data-cat="creative" data-id="33" data-url="variants/variant-33-receipt-printer.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="code" data-id="33" data-url="variants/variant-33-game-engine-inspector.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#33</span>
-          <span class="tile-name">Thermal POS Receipt</span>
+          <span class="tile-name">Unreal Engine Inspector</span>
         </div>
-        <a href="variants/variant-33-receipt-printer.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-33-game-engine-inspector.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 34 -->
-      <div class="variant-tile" data-cat="creative" data-id="34" data-url="variants/variant-34-architectural-blueprint.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="clean" data-id="34" data-url="variants/variant-34-luxury-horology.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#34</span>
-          <span class="tile-name">Blueprint CAD Schema</span>
+          <span class="tile-name">Haute Horlogerie Watch</span>
         </div>
-        <a href="variants/variant-34-architectural-blueprint.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-34-luxury-horology.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 35 -->
-      <div class="variant-tile" data-cat="os" data-id="35" data-url="variants/variant-35-winamp-player.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="35" data-url="variants/variant-35-hud-hologram.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#35</span>
-          <span class="tile-name">Winamp 2.91 Audio</span>
+          <span class="tile-name">Arc Reactor Hologram</span>
         </div>
-        <a href="variants/variant-35-winamp-player.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-35-hud-hologram.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 36 -->
-      <div class="variant-tile" data-cat="creative" data-id="36" data-url="variants/variant-36-metro-transit-map.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="36" data-url="variants/variant-36-darkroom-photo.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#36</span>
-          <span class="tile-name">Metro Subway Map</span>
+          <span class="tile-name">Darkroom Photo Lab</span>
         </div>
-        <a href="variants/variant-36-metro-transit-map.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-36-darkroom-photo.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 37 -->
-      <div class="variant-tile" data-cat="creative" data-id="37" data-url="variants/variant-37-comic-book.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="creative" data-id="37" data-url="variants/variant-37-telegram-dispatch.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#37</span>
-          <span class="tile-name">Vintage Pop-Art Comic</span>
+          <span class="tile-name">Western Union Telegram</span>
         </div>
-        <a href="variants/variant-37-comic-book.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-37-telegram-dispatch.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 38 -->
-      <div class="variant-tile" data-cat="code" data-id="38" data-url="variants/variant-38-game-engine-inspector.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="os" data-id="38" data-url="variants/variant-38-starship-cockpit.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#38</span>
-          <span class="tile-name">3D Game Engine Studio</span>
+          <span class="tile-name">Starship Flight Deck</span>
         </div>
-        <a href="variants/variant-38-game-engine-inspector.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-38-starship-cockpit.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
       <!-- 39 -->
-      <div class="variant-tile" data-cat="clean" data-id="39" data-url="variants/variant-39-luxury-horology.html" onclick="selectVariant(this)">
+      <div class="variant-tile" data-cat="os" data-id="39" data-url="variants/variant-39-rotary-switchboard.html" onclick="selectVariant(this)">
         <div class="tile-left">
           <span class="tile-badge">#39</span>
-          <span class="tile-name">Haute Horlogerie Watch</span>
+          <span class="tile-name">Rotary Switchboard</span>
         </div>
-        <a href="variants/variant-39-luxury-horology.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+        <a href="variants/variant-39-rotary-switchboard.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 40 -->
+      <div class="variant-tile" data-cat="creative" data-id="40" data-url="variants/variant-40-airport-fids.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#40</span>
+          <span class="tile-name">Split-Flap Flight Board</span>
+        </div>
+        <a href="variants/variant-40-airport-fids.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 41 -->
+      <div class="variant-tile" data-cat="creative" data-id="41" data-url="variants/variant-41-vinyl-turntable.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#41</span>
+          <span class="tile-name">Vinyl Record Turntable</span>
+        </div>
+        <a href="variants/variant-41-vinyl-turntable.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 42 -->
+      <div class="variant-tile" data-cat="clean" data-id="42" data-url="variants/variant-42-passport-dossier.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#42</span>
+          <span class="tile-name">Diplomatic Passport</span>
+        </div>
+        <a href="variants/variant-42-passport-dossier.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 43 -->
+      <div class="variant-tile" data-cat="os" data-id="43" data-url="variants/variant-43-nes-cartridge.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#43</span>
+          <span class="tile-name">8-Bit NES Adventure</span>
+        </div>
+        <a href="variants/variant-43-nes-cartridge.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 44 -->
+      <div class="variant-tile" data-cat="clean" data-id="44" data-url="variants/variant-44-michelin-menu.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#44</span>
+          <span class="tile-name">Michelin 3-Star Menu</span>
+        </div>
+        <a href="variants/variant-44-michelin-menu.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 45 -->
+      <div class="variant-tile" data-cat="os" data-id="45" data-url="variants/variant-45-retro-pager.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#45</span>
+          <span class="tile-name">Motorola Alpha Pager</span>
+        </div>
+        <a href="variants/variant-45-retro-pager.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 46 -->
+      <div class="variant-tile" data-cat="creative" data-id="46" data-url="variants/variant-46-vintage-typewriter.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#46</span>
+          <span class="tile-name">1930s Remington Typewriter</span>
+        </div>
+        <a href="variants/variant-46-vintage-typewriter.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 47 -->
+      <div class="variant-tile" data-cat="creative" data-id="47" data-url="variants/variant-47-casino-slot-machine.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#47</span>
+          <span class="tile-name">Vegas Golden Jackpot Slot</span>
+        </div>
+        <a href="variants/variant-47-casino-slot-machine.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 48 -->
+      <div class="variant-tile" data-cat="creative" data-id="48" data-url="variants/variant-48-illuminated-manuscript.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#48</span>
+          <span class="tile-name">Illuminated Manuscript</span>
+        </div>
+        <a href="variants/variant-48-illuminated-manuscript.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 49 -->
+      <div class="variant-tile" data-cat="creative" data-id="49" data-url="variants/variant-49-neon-vending.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#49</span>
+          <span class="tile-name">Neon Vending Machine</span>
+        </div>
+        <a href="variants/variant-49-neon-vending.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
+      </div>
+
+      <!-- 50 -->
+      <div class="variant-tile" data-cat="creative" data-id="50" data-url="variants/variant-50-modular-synth.html" onclick="selectVariant(this)">
+        <div class="tile-left">
+          <span class="tile-badge">#50</span>
+          <span class="tile-name">Eurorack Modular Synth</span>
+        </div>
+        <a href="variants/variant-50-modular-synth.html" target="_blank" class="tile-ext-link" onclick="event.stopPropagation()">↗</a>
       </div>
 
     </div>
 
-    <!-- FOOTER INSTRUCTION -->
+    <!-- FOOTER WITH QUICK APPLY CLI HINT -->
     <footer class="hub-footer">
-      <div>Set any portfolio as your primary <code>index.html</code> with one command:</div>
+      <div>Aryan Rokade &bull; Full-Stack &amp; AI Systems Engineer</div>
+      <div style="margin-top: 6px; font-size: 0.8rem; color: var(--text-tertiary);">
+        To make any variant your primary website root, execute:
+      </div>
       <div class="footer-cmd-box" id="cmdSuggestion">
-        powershell -ExecutionPolicy Bypass -File .\set-main-portfolio.ps1 -VariantNumber 2
+        powershell -ExecutionPolicy Bypass -File .\set-main-portfolio.ps1 -VariantNumber 1
       </div>
     </footer>
+
   </main>
 
   <script>
@@ -994,7 +1097,7 @@
     initTheme();
 
     // VARIANT SELECTION & SIMULATOR
-    let currentTileIndex = 1; // Default to #02 (Cupertino Clean)
+    let currentTileIndex = 0; // Default to #01 (Bold Neo-Brutalism)
 
     function getAllTiles() {
       return Array.from(document.querySelectorAll('.variant-tile')).filter(t => t.style.display !== 'none');

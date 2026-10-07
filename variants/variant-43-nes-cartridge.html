@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — 8-Bit NES Cartridge Adventure</title>
+  <meta name="description" content="Retro 8-Bit Nintendo NES Cartridge and CRT gaming portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nes-gray: #cfcfcf;
+      --nes-dark-gray: #555555;
+      --nes-black: #0c0c0c;
+      --nes-red: #d82800;
+      --nes-yellow: #f8b800;
+      --nes-blue: #0078f8;
+      --nes-green: #00a800;
+      --font-pixel: 'Press Start 2P', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; image-rendering: pixelated; }
+
+    body {
+      background: #11141c;
+      background-image: radial-gradient(circle at 50% 30%, #1e2638 0%, #080a0f 100%);
+      color: #fff;
+      font-family: var(--font-pixel);
+      min-height: 100vh;
+      padding: 30px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nes-station {
+      width: 100%;
+      max-width: 900px;
+      background: #1a1e28;
+      border: 8px solid #2a3344;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.9);
+      position: relative;
+    }
+
+    /* CRT Monitor Frame */
+    .crt-monitor {
+      background: #000;
+      border: 12px solid #333a4a;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+      padding: 24px;
+    }
+
+    /* Scanlines */
+    .crt-monitor::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .crt-screen-content {
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Score Header */
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 4px dashed var(--nes-yellow);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      font-size: 0.75rem;
+      line-height: 1.6;
+    }
+    .hud-score { color: var(--nes-yellow); }
+    .hud-lives { color: var(--nes-red); }
+    .hud-world { color: var(--nes-green); }
+
+    /* Title screen banner */
+    .game-banner {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .game-banner h1 {
+      font-size: 1.4rem;
+      color: #fff;
+      text-shadow: 4px 4px 0 #d82800;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .game-sub {
+      font-size: 0.65rem;
+      color: var(--nes-yellow);
+      letter-spacing: 1px;
+    }
+
+    /* Screen Selector Tabs */
+    .nes-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .nes-tab-btn {
+      background: #000;
+      color: #fff;
+      border: 3px solid #555;
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .nes-tab-btn:hover, .nes-tab-btn.active {
+      background: var(--nes-red);
+      border-color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* Panel Views */
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Stats Grid */
+    .stats-screen {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: #080d1a;
+      border: 3px solid #283759;
+      padding: 20px;
+    }
+    @media (max-width: 600px) {
+      .stats-screen { grid-template-columns: 1fr; }
+    }
+
+    .pixel-avatar {
+      width: 120px;
+      height: 130px;
+      object-fit: cover;
+      border: 4px solid var(--nes-yellow);
+      margin: 0 auto;
+      display: block;
+      filter: contrast(130%);
+    }
+
+    .stat-list {
+      font-size: 0.7rem;
+      line-height: 2;
+      color: #cfd8dc;
+    }
+    .stat-list strong { color: var(--nes-yellow); }
+
+    /* Project Cards NES style */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 700px) {
+      .project-grid { grid-template-columns: 1fr; }
+    }
+
+    .quest-card {
+      background: #0a0e17;
+      border: 3px solid #1f3050;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .quest-card:hover {
+      border-color: var(--nes-yellow);
+    }
+    .quest-header {
+      font-size: 0.75rem;
+      color: var(--nes-yellow);
+      margin-bottom: 8px;
+    }
+    .quest-desc {
+      font-size: 0.6rem;
+      color: #9bb0c9;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .quest-tech {
+      font-size: 0.55rem;
+      color: var(--nes-green);
+    }
+
+    /* Controller Deck at bottom */
+    .nes-controller {
+      margin-top: 24px;
+      background: #cfcfcf;
+      border: 6px solid #888;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #111;
+    }
+    .d-pad-box {
+      font-size: 0.6rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .middle-buttons {
+      display: flex;
+      gap: 16px;
+    }
+    .pill-btn {
+      background: #555;
+      color: #fff;
+      font-family: var(--font-pixel);
+      font-size: 0.55rem;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #222;
+    }
+    .pill-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #222;
+    }
+    .ab-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .round-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--nes-red);
+      color: #fff;
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #801000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .round-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #801000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nes-station">
+    <div class="crt-monitor">
+      <div class="crt-screen-content">
+        <!-- HUD Header -->
+        <div class="hud-header">
+          <div class="hud-score">SCORE: 087200</div>
+          <div class="hud-world">STAGE: VCET-2027</div>
+          <div class="hud-lives">HP: 100% [AI/FS]</div>
+        </div>
+
+        <!-- Banner -->
+        <div class="game-banner">
+          <h1>ARYAN ROKADE</h1>
+          <div class="game-sub">FULL-STACK &amp; AI HERO // MUMBAI</div>
+        </div>
+
+        <!-- Mode Select -->
+        <div class="nes-tabs">
+          <button class="nes-tab-btn active" onclick="switchNesTab('profile', this)">[1] STATS</button>
+          <button class="nes-tab-btn" onclick="switchNesTab('quests', this)">[2] QUESTS</button>
+          <button class="nes-tab-btn" onclick="switchNesTab('badges', this)">[3] TROPHIES</button>
+          <button class="nes-tab-btn" onclick="switchNesTab('contact', this)">[4] MULTIPLAYER</button>
+        </div>
+
+        <!-- Panel 1: Stats -->
+        <div id="panel-profile" class="tab-panel active">
+          <div class="stats-screen">
+            <img src="../aryan-rokade.jpg" alt="Aryan" class="pixel-avatar" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'">
+            <div class="stat-list">
+              <div><strong>CLASS:</strong> Full Stack &amp; AI Engineer</div>
+              <div><strong>COLLEGE:</strong> VCET Mumbai (2023-2027)</div>
+              <div><strong>CGPA:</strong> 8.7+ / 10.0</div>
+              <div><strong>PRIMARY:</strong> React, Next.js, Node, Python</div>
+              <div><strong>SECONDARY:</strong> PyTorch, Scapy, Docker, SQL</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Quests (Projects) -->
+        <div id="panel-quests" class="tab-panel">
+          <div class="project-grid">
+            <div class="quest-card">
+              <div class="quest-header">⚔️ QUEST 1: VYAPARFLOW</div>
+              <div class="quest-desc">Full-scale inventory and GST invoicing platform for small businesses with Razorpay billing.</div>
+              <div class="quest-tech">&gt; NEXT.JS, NODE, POSTGRESQL</div>
+            </div>
+            <div class="quest-card">
+              <div class="quest-header">🛡️ QUEST 2: CYBERSENTINEL</div>
+              <div class="quest-desc">Real-time packet sniffer and DDoS attack monitor with live telemetry WebSocket feed.</div>
+              <div class="quest-tech">&gt; PYTHON, SCAPY, FASTAPI</div>
+            </div>
+            <div class="quest-card">
+              <div class="quest-header">💎 QUEST 3: SATURN FINANCE</div>
+              <div class="quest-desc">Crypto asset dashboard tracking wallet balances, live token prices, and gas fees.</div>
+              <div class="quest-tech">&gt; REACT, ETHERS.JS, COINGECKO</div>
+            </div>
+            <div class="quest-card">
+              <div class="quest-header">🧠 QUEST 4: MRI TUMOR AI</div>
+              <div class="quest-desc">Deep learning medical diagnostic network segmenting brain MRI scans with high precision.</div>
+              <div class="quest-tech">&gt; PYTORCH, U-NET, FASTAPI</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Trophies -->
+        <div id="panel-badges" class="tab-panel">
+          <div class="quest-card" style="margin-bottom: 14px;">
+            <div class="quest-header" style="color: var(--nes-yellow);">🏆 TECHBLITZ NATIONAL HACKATHON 2ND PLACE</div>
+            <div class="quest-desc">Engineered an emergency healthcare response dispatcher system under a strict 24-hour sprint.</div>
+          </div>
+          <div class="quest-card">
+            <div class="quest-header" style="color: var(--nes-green);">💼 OCTANET SERVICES PVT LTD INTERNSHIP</div>
+            <div class="quest-desc">Web Development Intern: Built responsive client web components and connected REST services.</div>
+          </div>
+        </div>
+
+        <!-- Panel 4: Contact -->
+        <div id="panel-contact" class="tab-panel">
+          <div class="stats-screen" style="text-align: center; display: block;">
+            <div style="font-size: 0.75rem; margin-bottom: 16px; color: var(--nes-yellow);">CONNECT WITH ARYAN</div>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <a href="../Aryan_Rokade_Resume.pdf" download style="color: #fff; background: var(--nes-red); padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[DOWNLOAD RESUME]</a>
+              <a href="https://github.com/aryanrokade7" target="_blank" style="color: #fff; background: #222; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[GITHUB]</a>
+              <a href="https://linkedin.com/in/aryan-rokade" target="_blank" style="color: #fff; background: #0078f8; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[LINKEDIN]</a>
+              <a href="mailto:aryanrokade07@gmail.com" style="color: #fff; background: #00a800; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[EMAIL]</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NES Controller Physical Console Interface -->
+    <div class="nes-controller">
+      <div class="d-pad-box">◀ NES CONTROLLER ▶</div>
+      <div class="middle-buttons">
+        <button class="pill-btn" onclick="playChiptune(440); cycleTabs(-1);">SELECT</button>
+        <button class="pill-btn" onclick="playChiptune(880); cycleTabs(1);">START</button>
+      </div>
+      <div class="ab-buttons">
+        <button class="round-btn" onclick="playChiptune(587);">B</button>
+        <button class="round-btn" onclick="playChiptune(880);">A</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tabs = ['profile', 'quests', 'badges', 'contact'];
+    let curIndex = 0;
+
+    function playChiptune(freq) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.16);
+      } catch (e) {}
+    }
+
+    function switchNesTab(id, btn) {
+      playChiptune(520);
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nes-tab-btn').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById('panel-' + id);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+      curIndex = tabs.indexOf(id);
+    }
+
+    function cycleTabs(delta) {
+      curIndex = (curIndex + delta + tabs.length) % tabs.length;
+      const targetId = tabs[curIndex];
+      const btn = document.querySelectorAll('.nes-tab-btn')[curIndex];
+      switchNesTab(targetId, btn);
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

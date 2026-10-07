@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Vinyl Turntable High-Fidelity</title>
+  <meta name="description" content="Audiophile 33 RPM Vinyl Record Turntable portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --turntable-wood: #221a14;
+      --wood-dark: #120d0a;
+      --vinyl-black: #0d0d0d;
+      --brass: #d4af37;
+      --font-display: 'Cinzel', serif;
+      --font-main: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f0b08;
+      background-image: radial-gradient(circle at 50% 20%, #2b1f16 0%, #0a0705 100%);
+      color: #ede2d3;
+      font-family: var(--font-main);
+      min-height: 100vh;
+      padding: 30px 16px;
+      line-height: 1.5;
+    }
+
+    .turntable-chassis {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #2b2018, #18120d);
+      border: 6px solid #4a382a;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+      position: relative;
+    }
+
+    /* Top Brand */
+    .deck-top-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #3d2d21;
+      padding-bottom: 16px;
+      margin-bottom: 30px;
+    }
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--brass);
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+    .brand-sub {
+      font-size: 0.8rem;
+      color: #9c8570;
+      letter-spacing: 1px;
+    }
+
+    /* Main Deck Layout */
+    .deck-layout {
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .deck-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Spinning Vinyl Record */
+    .platter-bed {
+      width: 400px;
+      height: 400px;
+      background: #111;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+      border: 6px solid #2b2520;
+    }
+    @media (max-width: 480px) {
+      .platter-bed { width: 300px; height: 300px; }
+    }
+
+    .vinyl-grooves {
+      width: 94%;
+      height: 94%;
+      border-radius: 50%;
+      background: repeating-radial-gradient(circle, #141414 0px, #0a0a0a 2px, #181818 3px);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spinVinyl 4s linear infinite;
+    }
+    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+
+    .center-label {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #c73838 0%, #8a1717 100%);
+      border: 3px solid #ffcc00;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-display);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .spindle-hole {
+      width: 14px;
+      height: 14px;
+      background: #silver;
+      border-radius: 50%;
+      border: 2px solid #333;
+      margin-top: 4px;
+    }
+
+    /* Tonearm Stylus Graphic */
+    .tonearm {
+      position: absolute;
+      top: 30px;
+      right: 10px;
+      width: 8px;
+      height: 220px;
+      background: linear-gradient(90deg, #d4af37, #aa851e);
+      border-radius: 4px;
+      transform-origin: 50% 0;
+      transform: rotate(25deg);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+    }
+
+    /* Right Sleeve & Tracklist */
+    .sleeve-dossier {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .album-h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: #fff;
+    }
+    .album-artist {
+      font-size: 0.9rem;
+      color: var(--brass);
+      font-weight: 600;
+    }
+
+    .track-row {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid #3a2b1f;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .track-row:hover, .track-row.active {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--brass);
+    }
+    .t-title { font-weight: 700; font-size: 0.95rem; color: #fff; }
+    .t-sub { font-size: 0.78rem; color: #9c8a77; margin-top: 2px; }
+
+    /* Deck Controls Footer */
+    .deck-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid #3d2d21;
+      padding-top: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .btn-deck {
+      background: var(--brass);
+      color: #000;
+      padding: 10px 20px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-deck:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <div class="turntable-chassis">
+    
+    <!-- Top Brand Header -->
+    <header class="deck-top-head">
+      <div>
+        <div class="brand-logo">ARYAN ROKADE AUDIOPHILE HIFI</div>
+        <div class="brand-sub">ANALOG MASTERING // 33⅓ RPM STEREO // MUMBAI</div>
+      </div>
+      <div style="font-size:0.85rem; color:var(--brass);">
+        SPEED: 33 RPM • NEEDLE DOWN
+      </div>
+    </header>
+
+    <!-- Main Deck Layout -->
+    <div class="deck-layout">
+      
+      <!-- Platter with spinning vinyl -->
+      <div class="platter-bed">
+        <div class="vinyl-grooves">
+          <div class="center-label">
+            <span style="font-size:0.65rem; font-weight:700;">SIDE A</span>
+            <span style="font-size:0.8rem; font-weight:700; margin:2px 0;">ARYAN</span>
+            <span style="font-size:0.55rem;">VCET 2027</span>
+            <div class="spindle-hole"></div>
+          </div>
+        </div>
+        <div class="tonearm"></div>
+      </div>
+
+      <!-- Sleeve & Tracks -->
+      <div class="sleeve-dossier">
+        <div>
+          <h2 class="album-h2">THE PRODUCTION ALBUM</h2>
+          <div class="album-artist">Aryan Rokade • Full Stack Developer & AI Engineer</div>
+        </div>
+
+        <p style="font-size:0.85rem; color:#b5a28f; line-height:1.5;">
+          B.E. Computer Engineering at VCET Mumbai University (Class of 2027). Awarded 2nd Position at Techblitz Hackathon 2025. Web Dev Intern at Octanet Services (+35% Page Velocity).
+        </p>
+
+        <!-- 4 Tracks -->
+        <div class="track-row active" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+          <div>
+            <div class="t-title">01. VyaparFlow Platform</div>
+            <div class="t-sub">Next.js 14 • PostgreSQL • Prisma • Stripe SaaS</div>
+          </div>
+          <span style="color:var(--brass); font-weight:700;">04:20</span>
+        </div>
+
+        <div class="track-row" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+          <div>
+            <div class="t-title">02. CyberSentinel Suite</div>
+            <div class="t-sub">React • Python Flask • Socket.IO • Snort IDS</div>
+          </div>
+          <span style="color:var(--brass); font-weight:700;">03:45</span>
+        </div>
+
+        <div class="track-row" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+          <div>
+            <div class="t-title">03. Saturn Finance</div>
+            <div class="t-sub">MongoDB • Express • React • Node.js • JWT</div>
+          </div>
+          <span style="color:var(--brass); font-weight:700;">05:12</span>
+        </div>
+
+        <div class="track-row" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+          <div>
+            <div class="t-title">04. MRI Brain Tumor AI</div>
+            <div class="t-sub">TensorFlow • Keras VGG16 • OpenCV (98.2% Acc)</div>
+          </div>
+          <span style="color:var(--brass); font-weight:700;">04:55</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="deck-footer">
+      <div style="font-size:0.85rem; color:#9c8570;">
+        MASTERED AT VCET MUMBAI • ALL TRACKS READY FOR RECRUITERS
+      </div>
+      <div style="display:flex; gap:10px;">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-deck">
+          ⬇ LINER NOTES (CV.PDF)
+        </a>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-deck" style="background:#fff;">
+          ✉ INQUIRE (EMAIL)
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
