@@ -7335,29 +7335,59 @@
     }
 
     function generateReplicatedPortfolioHtml(rawHtml, v, profile) {
+      if (!rawHtml) return '';
       let customized = rawHtml;
+
+      // 0. Dynamic DOM-Level Project Card Synchronization (Add, Remove & Update Cards)
+      // Must execute before regex string replacements so archetype cards, titles, descriptions,
+      // and tech tags are reliably located and customized in the DOM.
+      if (Array.isArray(profile.projects) && profile.projects.length > 0) {
+        customized = syncPortfolioProjects(customized, profile.projects);
+      }
 
       // 1. Identity & Bio Replacements
       if (profile.name) {
-        customized = customized.split('Aryan Rokade').join(profile.name);
-        customized = customized.split('ARYAN ROKADE').join(profile.name.toUpperCase());
-        const firstName = profile.name.trim().split(' ')[0] || profile.name;
+        const trimmedName = profile.name.trim();
+        const upperName = trimmedName.toUpperCase();
+        const parts = trimmedName.split(/\s+/);
+        const firstName = parts[0] || trimmedName;
+        const lastName = parts.length > 1 ? parts[parts.length - 1] : firstName;
+        const firstChar = trimmedName.charAt(0);
+        const firstCharUpper = firstChar.toUpperCase();
+        const restUpper = upperName.slice(1);
+        const restTitle = trimmedName.slice(1);
+
+        // Dropcap replacement (Vintage Broadsheet #27, Substack #50, etc.)
+        customized = customized.replace(
+          /<span\s+class=["']dropcap["']>A<\/span>\s*RYAN\s+ROKADE/gi,
+          `<span class="dropcap">${firstCharUpper}</span>${restUpper}`
+        );
+        customized = customized.replace(
+          /<span\s+class=["']dropcap["']>A<\/span>\s*ryan\s+rokade/gi,
+          `<span class="dropcap">${firstChar}</span>${restTitle}`
+        );
+
+        // Full names
+        customized = customized.split('Aryan Rokade').join(trimmedName);
+        customized = customized.split('ARYAN ROKADE').join(upperName);
+        customized = customized.split('aryan rokade').join(trimmedName.toLowerCase());
+
+        // Monogram / Initials (e.g. ">AR<" or brand logo)
+        const initials = (firstName.charAt(0) + (lastName !== firstName ? lastName.charAt(0) : '')).toUpperCase();
+        customized = customized.replace(/>AR<span/g, `>${initials}<span`);
+        customized = customized.replace(/>AR<\/span>/g, `>${initials}</span>`);
+
+        // Standalone First name & Last name (word boundaries prevent substring collisions)
         customized = customized.replace(/\bAryan\b/g, firstName);
+        customized = customized.replace(/\bARYAN\b/g, firstName.toUpperCase());
+        customized = customized.replace(/\bRokade\b/g, lastName);
+        customized = customized.replace(/\bROKADE\b/g, lastName.toUpperCase());
       }
 
-      // 2. Role / Headline Replacements (Ordered from most specific to least specific)
+      // 2. Role / Headline Replacements (Single-pass regex prevents duplicate titles)
       if (profile.role) {
-        customized = customized.split('Full Stack Developer & AI Engineer').join(profile.role);
-        customized = customized.split('Full Stack Developer &amp; AI Engineer').join(profile.role);
-        customized = customized.split('Full Stack Developer & AI Specialist').join(profile.role);
-        customized = customized.split('Full Stack Developer and AI Engineer').join(profile.role);
-        customized = customized.split('Full-Stack Architect & AI Specialist').join(profile.role);
-        customized = customized.split('Full Stack Developer').join(profile.role);
-        customized = customized.split('Computer Engineering student').join(profile.role);
-        customized = customized.split('Computer Engineering Student').join(profile.role);
-        customized = customized.split('Computer Engineering undergraduate').join(profile.role);
-        customized = customized.split('Computer Engineering Undergraduate').join(profile.role);
-        customized = customized.split('AI Engineer').join(profile.role);
+        const roleRegex = /\b(Full[\s-]Stack (?:Architect|Developer) (?:&|&amp;|and) AI (?:Engineer|Specialist)|Full Stack Developer & AI Engineer|Full Stack Developer &amp; AI Engineer|Full Stack Developer and AI Engineer|Full Stack Developer & AI Specialist|Full-Stack Architect & AI Specialist|Full Stack Developer|Computer Engineering (?:Student|student|Undergraduate|undergraduate)|AI Engineer)\b/g;
+        customized = customized.replace(roleRegex, profile.role);
       }
 
       // 3. Sub-Headline / Punchline
@@ -7453,7 +7483,7 @@
         customized = customized.split('Next.js, Node.js, Express, PostgreSQL, Prisma, Tailwind CSS, Razorpay').join(skillsStr);
       }
 
-      // 8. Featured Projects String Replacements (Multi-Case)
+      // 8. Featured Projects String Replacements (Multi-Case fallback for narrative/intro sections)
       const p0 = (Array.isArray(profile.projects) && profile.projects[0]) || {};
       const p1 = (Array.isArray(profile.projects) && profile.projects[1]) || {};
       const p2 = (Array.isArray(profile.projects) && profile.projects[2]) || {};
@@ -7562,6 +7592,7 @@
       // 9. Contact & Socials
       if (profile.email) {
         customized = customized.split('aryanrokade416@gmail.com').join(profile.email);
+        customized = customized.split('aryanrokade07@gmail.com').join(profile.email);
       }
       if (profile.phone) {
         customized = customized.split('+91 85912 24192').join(profile.phone);
@@ -7584,12 +7615,21 @@
       }
       if (profile.linkedin) {
         customized = customized.split('https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/').join(profile.linkedin);
+        customized = customized.split('https://linkedin.com/in/aryan-rokade').join(profile.linkedin);
+        customized = customized.split('https://www.linkedin.com/in/aryan-rokade').join(profile.linkedin);
+        const liSlug = profile.linkedin.replace(/^https?:\/\/(?:www\.)?linkedin\.com\/in\//i, '').replace(/\/$/, '');
+        if (liSlug) {
+          customized = customized.split('linkedin.com/in/aryan-rokade-git-aryanrokade7').join('linkedin.com/in/' + liSlug);
+          customized = customized.split('linkedin.com/in/aryan-rokade').join('linkedin.com/in/' + liSlug);
+          customized = customized.split('in/aryan-rokade').join('in/' + liSlug);
+        }
       }
       if (profile.twitter) {
         customized = customized.split('https://twitter.com/').join(profile.twitter);
         customized = customized.split('https://x.com/').join(profile.twitter);
       }
       if (profile.resume) {
+        customized = customized.split('../Aryan_Rokade_Resume.pdf').join(profile.resume);
         customized = customized.split('Aryan_Rokade_Resume.pdf').join(profile.resume);
       }
       if (profile.primaryBtn) {
@@ -7627,11 +7667,6 @@
         });
       }
 
-      // 14. Dynamic DOM-Level Project Card Synchronization (Add, Remove & Update Cards)
-      if (Array.isArray(profile.projects) && profile.projects.length > 0) {
-        customized = syncPortfolioProjects(customized, profile.projects);
-      }
-
       return customized;
     }
 
@@ -7647,23 +7682,27 @@
         const doc = parser.parseFromString(html, 'text/html');
 
         const slotConfigs = [
-          { id: 0, regex: /vyaparflow|vyapar\s*flow|vyapar/i },
-          { id: 1, regex: /cybersentinel\s*suite|cybersentinel|cyber\s*sentinel/i },
-          { id: 2, regex: /saturn\s*finance|saturnn|saturn/i },
-          { id: 3, regex: /mri\s*brain\s*tumor|brain\s*tumor|diagnostic\s*u-net|mri/i }
+          { id: 0, regex: /vyaparflow|vyapar\s*flow|vyapar/i, userProj: userProjects[0] },
+          { id: 1, regex: /cybersentinel\s*suite|cybersentinel|cyber\s*sentinel/i, userProj: userProjects[1] },
+          { id: 2, regex: /saturn\s*finance|saturnn|saturn/i, userProj: userProjects[2] },
+          { id: 3, regex: /mri\s*brain\s*tumor|brain\s*tumor|diagnostic\s*u-net|mri/i, userProj: userProjects[3] }
         ];
 
-        function findTitleEl(pattern) {
+        function findTitleEl(slot) {
           const candidates = doc.querySelectorAll('h1, h2, h3, h4, h5, a, span, p, div, b, strong');
           let best = null;
           let bestLen = Infinity;
           for (let i = 0; i < candidates.length; i++) {
             const el = candidates[i];
             const txt = (el.textContent || '').trim();
-            if (txt.length < 120 && pattern.test(txt)) {
-              if (txt.length < bestLen) {
-                best = el;
-                bestLen = txt.length;
+            if (txt.length > 0 && txt.length < 120) {
+              const matchesOrig = slot.regex.test(txt);
+              const matchesUser = slot.userProj && slot.userProj.name && txt.toLowerCase().includes(slot.userProj.name.toLowerCase());
+              if (matchesOrig || matchesUser) {
+                if (txt.length < bestLen) {
+                  best = el;
+                  bestLen = txt.length;
+                }
               }
             }
           }
@@ -7692,17 +7731,26 @@
 
         const foundCards = [];
         slotConfigs.forEach(slot => {
-          const titleEl = findTitleEl(slot.regex);
+          const titleEl = findTitleEl(slot);
           const cardEl = findCard(titleEl);
           foundCards.push({ id: slot.id, titleEl, cardEl });
         });
 
+        // Determine best container (parent with the most project cards)
         let cardContainer = null;
+        let maxCardSiblings = 0;
         for (let i = 0; i < foundCards.length; i++) {
           if (foundCards[i].cardEl && foundCards[i].cardEl.parentElement) {
-            cardContainer = foundCards[i].cardEl.parentElement;
-            break;
+            const p = foundCards[i].cardEl.parentElement;
+            const count = p.querySelectorAll('.dispatch-card, [class*="card"], [class*="item"], [class*="project"], article, li').length;
+            if (count > maxCardSiblings) {
+              cardContainer = p;
+              maxCardSiblings = count;
+            }
           }
+        }
+        if (!cardContainer && foundCards[0] && foundCards[0].cardEl) {
+          cardContainer = foundCards[0].cardEl.parentElement;
         }
 
         // Process slots 0 to 3
@@ -7755,7 +7803,7 @@
             links.forEach(a => {
               const href = (a.getAttribute('href') || '').toLowerCase();
               const txt = (a.textContent || '').toLowerCase();
-              if (proj.repo && (href.includes('github') || txt.includes('git') || txt.includes('code') || txt.includes('repo'))) {
+              if (proj.repo && (href.includes('github') || txt.includes('git') || txt.includes('code') || txt.includes('repo') || txt.includes('source') || txt.includes('inspect') || txt.includes('whitepaper') || txt.includes('metrics') || txt.includes('architecture'))) {
                 a.setAttribute('href', proj.repo);
                 a.setAttribute('target', '_blank');
               } else if (proj.demo && (href.includes('vercel') || href.includes('live') || href.includes('demo') || txt.includes('demo') || txt.includes('live') || txt.includes('visit') || txt.includes('view') || txt.includes('play'))) {
@@ -7769,7 +7817,7 @@
           }
         }
 
-        // If user added projects beyond slot 3 (extra projects 4, 5, 6...)
+        // Extra projects beyond slot 3 (extra projects 4, 5, 6...)
         if (userProjects.length > 4 && cardContainer) {
           const refCard = (foundCards[3] && foundCards[3].cardEl) ||
                           (foundCards[0] && foundCards[0].cardEl) ||
@@ -7789,7 +7837,7 @@
                 if (desc) desc.textContent = extraP.desc;
               }
               if (extraP.tech) {
-                const techBox = clone.querySelector('[class*="tech"], [class*="tag"], [class*="pill"], [class*="stack"]');
+                const techBox = clone.querySelector('[class*="tech"], [class*="tag"], [class*="pill"], [class*="stack"], [class*="badge"]');
                 if (techBox) {
                   const pills = techBox.querySelectorAll('span, li, code');
                   const tokens = extraP.tech.split(/[,·|•]/).map(t => t.trim()).filter(Boolean);
@@ -7806,14 +7854,15 @@
                   }
                 }
               }
+
               const links = clone.querySelectorAll('a');
               links.forEach(a => {
                 const href = (a.getAttribute('href') || '').toLowerCase();
                 const txt = (a.textContent || '').toLowerCase();
-                if (extraP.repo && (href.includes('github') || txt.includes('git') || txt.includes('code'))) {
+                if (extraP.repo && (href.includes('github') || txt.includes('git') || txt.includes('code') || txt.includes('repo') || txt.includes('source') || txt.includes('inspect') || txt.includes('whitepaper') || txt.includes('metrics') || txt.includes('architecture'))) {
                   a.setAttribute('href', extraP.repo);
                   a.setAttribute('target', '_blank');
-                } else if (extraP.demo && (href.includes('vercel') || href.includes('live') || href.includes('demo') || txt.includes('demo') || txt.includes('live'))) {
+                } else if (extraP.demo && (href.includes('vercel') || href.includes('live') || href.includes('demo') || txt.includes('demo') || txt.includes('live') || txt.includes('visit') || txt.includes('view') || txt.includes('play'))) {
                   a.setAttribute('href', extraP.demo);
                   a.setAttribute('target', '_blank');
                 }

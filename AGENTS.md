@@ -339,9 +339,15 @@ The Hub features an elaborate, production-grade 4-tab **Style Replicator & Custo
      - `⚡ Auto-Fill Sample Data` button for instant preview population across all 9 sections.
      - `💾 Save` and `↺ Clear` controls.
    - **Dynamic DOM Project Synchronization (`syncPortfolioProjects`):**
-     - Performs structural DOM card management: if the user removes projects, unused project cards are deleted from the DOM rather than remaining as leftover templates; if the user adds >4 projects, reference archetype cards are cloned, populated, and appended to the grid container.
+     - Performs structural DOM card management before regex string replacements: if the user removes projects, unused project cards are deleted from the DOM rather than remaining as leftover templates; if the user adds >4 projects, reference archetype cards are cloned, populated, and appended to the grid container.
+     - Dual-mode card search matches both original archetype names (`VyaparFlow`, `CyberSentinel`, `Saturn Finance`, `MRI Brain Tumor`) and customized project titles, reliably identifying card nodes across multi-column broadsheets and grids.
+     - Updates project title, full description paragraph, tech badges, and source/demo links (including research papers, technical whitepapers, and clinical metrics links).
      - Multi-case string replacements support uppercase hardware/console archetypes (`VYAPARFLOW`, `CYBERSENTINEL`, `SATURN FINANCE`, `MRI BRAIN TUMOR`).
-     - Cleans avatar URLs (resolving `../aryan-rokade.jpg` prepend bugs and stripping retry error handlers) to guarantee instant headshot rendering across all templates.
+     - Cleans avatar and resume URLs (resolving `../aryan-rokade.jpg` and `../Aryan_Rokade_Resume.pdf` prepend bugs) to guarantee valid relative and absolute URL resolution across all templates.
+     - Single-pass role regex replaces multi-word titles (`Full Stack Developer & AI Engineer`, etc.) in a single forward pass, preventing duplicate tokens (`Staff Systems Architect & Staff Systems Architect & AI Engineer`).
+     - Vintage Broadsheet & Editorial Dropcap Replacement: Regex detects `<span class="dropcap">A</span>RYAN ROKADE` and title-case variants, cleanly injecting the user's first initial into the stylized dropcap container and the remainder of the name into the lead story text.
+     - Standalone Surname Replacement: Word boundary regex (`\bRokade\b`, `\bROKADE\b`) replaces stand-alone surnames with the user's last name across narrative paragraphs and legal field values.
+     - Omnichannel LinkedIn Replacement: Handles full URLs (`https://linkedin.com/...`), slug paths (`linkedin.com/in/...`), and shortened badges (`in/...`).
    - **🚀 Test Live in Simulator:** Employs HTML5 `iframe.srcdoc` with dynamic `<base href="...">` injection for zero-CORS instant local simulation across both `http://` and `file:///` protocols, with active `↺ Reset` restore.
    - **⤓ Export My Portfolio (.html):** Triggers client-side browser download of the customized, single-file HTML file with all personal credentials substituted and external switcher toolbars cleanly removed.
    - **📋 Copy Custom HTML:** Copies the customized source code directly to the clipboard.
