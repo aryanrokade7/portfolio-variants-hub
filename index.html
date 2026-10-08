@@ -7453,7 +7453,7 @@
         customized = customized.split('Next.js, Node.js, Express, PostgreSQL, Prisma, Tailwind CSS, Razorpay').join(skillsStr);
       }
 
-      // 8. Featured Projects Replacements
+      // 8. Featured Projects String Replacements (Multi-Case)
       const p0 = (Array.isArray(profile.projects) && profile.projects[0]) || {};
       const p1 = (Array.isArray(profile.projects) && profile.projects[1]) || {};
       const p2 = (Array.isArray(profile.projects) && profile.projects[2]) || {};
@@ -7462,7 +7462,12 @@
       const proj1Name = p0.name || profile.proj1Name;
       const proj1Tech = p0.tech || profile.proj1Tech;
       const proj1Desc = p0.desc || profile.proj1Desc;
-      if (proj1Name) customized = customized.split('VyaparFlow').join(proj1Name);
+      if (proj1Name) {
+        customized = customized.split('VyaparFlow').join(proj1Name);
+        customized = customized.split('VYAPARFLOW').join(proj1Name.toUpperCase());
+        customized = customized.split('VYAPAR FLOW').join(proj1Name.toUpperCase());
+        customized = customized.split('Vyapar Flow').join(proj1Name);
+      }
       if (proj1Tech) {
         customized = customized.split('Next.js · Node.js · PostgreSQL · Prisma · Tailwind CSS').join(proj1Tech);
         customized = customized.split('Next.js, PostgreSQL, Prisma, Razorpay').join(proj1Tech);
@@ -7476,12 +7481,23 @@
       }
       if (p0.repo) {
         customized = customized.split('https://github.com/aryanrokade7/vyaparflow').join(p0.repo);
+        customized = customized.split('https://github.com/Sidd-commits/VyaparFlow').join(p0.repo);
+      }
+      if (p0.demo) {
+        customized = customized.split('https://vyaparflow-smoky.vercel.app/').join(p0.demo);
       }
 
       const proj2Name = p1.name || profile.proj2Name;
       const proj2Tech = p1.tech || profile.proj2Tech;
       const proj2Desc = p1.desc || profile.proj2Desc;
-      if (proj2Name) customized = customized.split('CyberSentinel').join(proj2Name);
+      if (proj2Name) {
+        customized = customized.split('CyberSentinel Suite').join(proj2Name);
+        customized = customized.split('CyberSentinel').join(proj2Name);
+        customized = customized.split('CYBERSENTINEL SUITE').join(proj2Name.toUpperCase());
+        customized = customized.split('CYBERSENTINEL').join(proj2Name.toUpperCase());
+        customized = customized.split('CYBER SENTINEL').join(proj2Name.toUpperCase());
+        customized = customized.split('Cyber Sentinel').join(proj2Name);
+      }
       if (proj2Tech) {
         customized = customized.split('Python · Scapy · FastAPI · WebSockets · Next.js').join(proj2Tech);
         customized = customized.split('Python, FastAPI, Scapy, WebSockets').join(proj2Tech);
@@ -7493,12 +7509,19 @@
       }
       if (p1.repo) {
         customized = customized.split('https://github.com/aryanrokade7/cybersentinel').join(p1.repo);
+        customized = customized.split('https://github.com/aryanrokade7/CyberSentinel-Suite').join(p1.repo);
       }
 
       const proj3Name = p2.name || profile.proj3Name;
       const proj3Tech = p2.tech || profile.proj3Tech;
       const proj3Desc = p2.desc || profile.proj3Desc;
-      if (proj3Name) customized = customized.split('Saturn Finance').join(proj3Name);
+      if (proj3Name) {
+        customized = customized.split('Saturn Finance').join(proj3Name);
+        customized = customized.split('SATURN FINANCE').join(proj3Name.toUpperCase());
+        customized = customized.split('Saturnn').join(proj3Name);
+        customized = customized.split('Saturn').join(proj3Name);
+        customized = customized.split('SATURN').join(proj3Name.toUpperCase());
+      }
       if (proj3Tech) {
         customized = customized.split('React · TypeScript · Ethers.js · Tailwind CSS · CoinGecko').join(proj3Tech);
         customized = customized.split('React, TypeScript, Ethers.js, CoinGecko').join(proj3Tech);
@@ -7508,13 +7531,21 @@
         customized = customized.split('Decentralized Crypto Portfolio &amp; Gas Analytics').join(proj3Desc);
         customized = customized.split('Multi-wallet net worth tracking, live Ethereum gas fee heatmaps, ERC-20 token metrics.').join(proj3Desc);
       }
+      if (p2.repo) {
+        customized = customized.split('https://github.com/aryanrokade7/Saturnn').join(p2.repo);
+      }
 
       const proj4Name = p3.name;
       const proj4Tech = p3.tech;
       const proj4Desc = p3.desc;
       if (proj4Name) {
+        customized = customized.split('MRI Brain Tumor Detection System').join(proj4Name);
         customized = customized.split('MRI Brain Tumor Detection').join(proj4Name);
+        customized = customized.split('MRI Brain Tumor CNN').join(proj4Name);
+        customized = customized.split('MRI Brain Tumor').join(proj4Name);
         customized = customized.split('Brain Tumor Detection').join(proj4Name);
+        customized = customized.split('MRI BRAIN TUMOR').join(proj4Name.toUpperCase());
+        customized = customized.split('BRAIN TUMOR').join(proj4Name.toUpperCase());
       }
       if (proj4Tech) {
         customized = customized.split('PyTorch · TensorFlow / Keras · OpenCV · FastAPI').join(proj4Tech);
@@ -7523,6 +7554,9 @@
       if (proj4Desc) {
         customized = customized.split('Deep Learning Diagnostic U-Net').join(proj4Desc);
         customized = customized.split('95%+ validation accuracy, MRI image tumor segmentation mask generation, medical diagnostic inference.').join(proj4Desc);
+      }
+      if (p3.repo) {
+        customized = customized.split('https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System').join(p3.repo);
       }
 
       // 9. Contact & Socials
@@ -7565,10 +7599,14 @@
         customized = customized.split('Browse Projects').join(profile.primaryBtn);
       }
 
-      // 10. Avatar / Headshot Image
-      if (profile.avatar) {
-        customized = customized.split('aryan-rokade.jpg').join(profile.avatar);
-        customized = customized.replace(/onerror="[^"]*aryan-rokade\.jpg[^"]*"/gi, '');
+      // 10. Avatar / Headshot Image (Clean replacement preserving valid relative/absolute URLs)
+      if (profile.avatar && profile.avatar.trim()) {
+        const avatarUrl = profile.avatar.trim();
+        // Remove error retry handlers that force reset back to aryan-rokade.jpg
+        customized = customized.replace(/\s*onerror=["'][^"']*["']/gi, '');
+        // Replace both relative paths cleanly (prevents ../https:// bug)
+        customized = customized.split('../aryan-rokade.jpg').join(avatarUrl);
+        customized = customized.split('aryan-rokade.jpg').join(avatarUrl);
       }
 
       // 11. Document Title
@@ -7589,7 +7627,208 @@
         });
       }
 
+      // 14. Dynamic DOM-Level Project Card Synchronization (Add, Remove & Update Cards)
+      if (Array.isArray(profile.projects) && profile.projects.length > 0) {
+        customized = syncPortfolioProjects(customized, profile.projects);
+      }
+
       return customized;
+    }
+
+    // Synchronizes the HTML DOM project cards with the user's customized project array.
+    // Handles adding extra cards, removing deleted cards, and updating titles, descriptions, tech stacks, and links.
+    function syncPortfolioProjects(html, userProjects) {
+      if (typeof DOMParser === 'undefined' || !Array.isArray(userProjects) || userProjects.length === 0) {
+        return html;
+      }
+
+      try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        const slotConfigs = [
+          { id: 0, regex: /vyaparflow|vyapar\s*flow|vyapar/i },
+          { id: 1, regex: /cybersentinel\s*suite|cybersentinel|cyber\s*sentinel/i },
+          { id: 2, regex: /saturn\s*finance|saturnn|saturn/i },
+          { id: 3, regex: /mri\s*brain\s*tumor|brain\s*tumor|diagnostic\s*u-net|mri/i }
+        ];
+
+        function findTitleEl(pattern) {
+          const candidates = doc.querySelectorAll('h1, h2, h3, h4, h5, a, span, p, div, b, strong');
+          let best = null;
+          let bestLen = Infinity;
+          for (let i = 0; i < candidates.length; i++) {
+            const el = candidates[i];
+            const txt = (el.textContent || '').trim();
+            if (txt.length < 120 && pattern.test(txt)) {
+              if (txt.length < bestLen) {
+                best = el;
+                bestLen = txt.length;
+              }
+            }
+          }
+          return best;
+        }
+
+        function findCard(titleEl) {
+          if (!titleEl) return null;
+          let cur = titleEl;
+          while (cur && cur.parentElement && cur.parentElement !== doc.body && cur.parentElement !== doc.documentElement) {
+            const p = cur.parentElement;
+            const pTag = p.tagName.toLowerCase();
+            const pCls = (p.getAttribute('class') || '').toLowerCase();
+            if (pCls.includes('grid') || pCls.includes('list') || pCls.includes('projects') || pCls.includes('wrap') || pTag === 'section' || pTag === 'main') {
+              return cur;
+            }
+            const curTag = cur.tagName.toLowerCase();
+            const curCls = (cur.getAttribute('class') || '').toLowerCase();
+            if (curTag === 'article' || curTag === 'li' || curCls.includes('card') || curCls.includes('item') || curCls.includes('box') || curCls.includes('row')) {
+              if (p.children.length >= 2) return cur;
+            }
+            cur = p;
+          }
+          return cur;
+        }
+
+        const foundCards = [];
+        slotConfigs.forEach(slot => {
+          const titleEl = findTitleEl(slot.regex);
+          const cardEl = findCard(titleEl);
+          foundCards.push({ id: slot.id, titleEl, cardEl });
+        });
+
+        let cardContainer = null;
+        for (let i = 0; i < foundCards.length; i++) {
+          if (foundCards[i].cardEl && foundCards[i].cardEl.parentElement) {
+            cardContainer = foundCards[i].cardEl.parentElement;
+            break;
+          }
+        }
+
+        // Process slots 0 to 3
+        for (let i = 0; i < 4; i++) {
+          const slot = foundCards[i];
+          if (!slot.cardEl) continue;
+
+          if (i < userProjects.length) {
+            const proj = userProjects[i];
+
+            // 1. Title
+            if (slot.titleEl && proj.name) {
+              const origText = slot.titleEl.textContent || '';
+              const isUpper = origText === origText.toUpperCase() && /[A-Z]/.test(origText);
+              const formattedName = isUpper ? proj.name.toUpperCase() : proj.name;
+              const prefixMatch = origText.match(/^(\d+[\.\s\-\:]+|[🚀★•\d]+\s*)/);
+              slot.titleEl.textContent = prefixMatch ? (prefixMatch[1] + formattedName) : formattedName;
+            }
+
+            // 2. Description
+            if (proj.desc) {
+              const descEl = slot.cardEl.querySelector('p, [class*="desc"], [class*="summary"], [class*="detail"]');
+              if (descEl) {
+                descEl.textContent = proj.desc;
+              }
+            }
+
+            // 3. Tech Stack
+            if (proj.tech) {
+              const techBox = slot.cardEl.querySelector('[class*="tech"], [class*="tag"], [class*="pill"], [class*="stack"], [class*="badge"]');
+              if (techBox) {
+                const pills = techBox.querySelectorAll('span, li, code, a');
+                const tokens = proj.tech.split(/[,·|•]/).map(t => t.trim()).filter(Boolean);
+                if (pills.length > 0 && tokens.length > 0) {
+                  const samplePill = pills[0].cloneNode(false);
+                  techBox.innerHTML = '';
+                  tokens.forEach(tok => {
+                    const p = samplePill.cloneNode(false);
+                    p.textContent = tok;
+                    techBox.appendChild(p);
+                  });
+                } else {
+                  techBox.textContent = proj.tech;
+                }
+              }
+            }
+
+            // 4. Links
+            const links = slot.cardEl.querySelectorAll('a');
+            links.forEach(a => {
+              const href = (a.getAttribute('href') || '').toLowerCase();
+              const txt = (a.textContent || '').toLowerCase();
+              if (proj.repo && (href.includes('github') || txt.includes('git') || txt.includes('code') || txt.includes('repo'))) {
+                a.setAttribute('href', proj.repo);
+                a.setAttribute('target', '_blank');
+              } else if (proj.demo && (href.includes('vercel') || href.includes('live') || href.includes('demo') || txt.includes('demo') || txt.includes('live') || txt.includes('visit') || txt.includes('view') || txt.includes('play'))) {
+                a.setAttribute('href', proj.demo);
+                a.setAttribute('target', '_blank');
+              }
+            });
+          } else {
+            // Unused slot -> REMOVE CARD
+            slot.cardEl.remove();
+          }
+        }
+
+        // If user added projects beyond slot 3 (extra projects 4, 5, 6...)
+        if (userProjects.length > 4 && cardContainer) {
+          const refCard = (foundCards[3] && foundCards[3].cardEl) ||
+                          (foundCards[0] && foundCards[0].cardEl) ||
+                          cardContainer.firstElementChild;
+          if (refCard) {
+            for (let j = 4; j < userProjects.length; j++) {
+              const extraP = userProjects[j];
+              const clone = refCard.cloneNode(true);
+
+              const title = clone.querySelector('h1, h2, h3, h4, h5, a, span, p');
+              if (title && extraP.name) {
+                const num = (j + 1) < 10 ? ('0' + (j + 1)) : String(j + 1);
+                title.textContent = `${num}. ${extraP.name}`;
+              }
+              if (extraP.desc) {
+                const desc = clone.querySelector('p, [class*="desc"], [class*="summary"]');
+                if (desc) desc.textContent = extraP.desc;
+              }
+              if (extraP.tech) {
+                const techBox = clone.querySelector('[class*="tech"], [class*="tag"], [class*="pill"], [class*="stack"]');
+                if (techBox) {
+                  const pills = techBox.querySelectorAll('span, li, code');
+                  const tokens = extraP.tech.split(/[,·|•]/).map(t => t.trim()).filter(Boolean);
+                  if (pills.length > 0 && tokens.length > 0) {
+                    const sample = pills[0].cloneNode(false);
+                    techBox.innerHTML = '';
+                    tokens.forEach(tok => {
+                      const p = sample.cloneNode(false);
+                      p.textContent = tok;
+                      techBox.appendChild(p);
+                    });
+                  } else {
+                    techBox.textContent = extraP.tech;
+                  }
+                }
+              }
+              const links = clone.querySelectorAll('a');
+              links.forEach(a => {
+                const href = (a.getAttribute('href') || '').toLowerCase();
+                const txt = (a.textContent || '').toLowerCase();
+                if (extraP.repo && (href.includes('github') || txt.includes('git') || txt.includes('code'))) {
+                  a.setAttribute('href', extraP.repo);
+                  a.setAttribute('target', '_blank');
+                } else if (extraP.demo && (href.includes('vercel') || href.includes('live') || href.includes('demo') || txt.includes('demo') || txt.includes('live'))) {
+                  a.setAttribute('href', extraP.demo);
+                  a.setAttribute('target', '_blank');
+                }
+              });
+
+              cardContainer.appendChild(clone);
+            }
+          }
+        }
+
+        return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+      } catch (err) {
+        console.warn('DOM card sync skipped:', err);
+        return html;
+      }
     }
 
     async function simulateReplicatedPortfolio() {
@@ -7601,17 +7840,29 @@
         const rawHtml = await getVariantSourceHtml(currentModalVariant.file);
         let customHtml = generateReplicatedPortfolioHtml(rawHtml, currentModalVariant, profile);
 
-        // Inject base href so relative assets load cleanly in iframe Blob URL
-        const baseHref = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '') + '/variants/';
+        // Inject base href so relative assets load cleanly in both file:// and http:// environments
+        let baseHref = '';
+        if (window.location.protocol === 'file:') {
+          baseHref = window.location.href.split('?')[0].split('#')[0].replace(/\/[^/]*$/, '') + '/variants/';
+        } else {
+          baseHref = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '') + '/variants/';
+        }
+
         if (!customHtml.includes('<base ')) {
           customHtml = customHtml.replace('<head>', `<head>\n  <base href="${baseHref}">`);
         }
 
-        const blob = new Blob([customHtml], { type: 'text/html' });
-        const blobUrl = URL.createObjectURL(blob);
-
         const iframe = document.getElementById('simIframe');
-        iframe.src = blobUrl;
+        
+        // Use srcdoc for instant, zero-CORS rendering with parent-inherited base origin
+        if ('srcdoc' in iframe) {
+          iframe.removeAttribute('src');
+          iframe.srcdoc = customHtml;
+        } else {
+          const blob = new Blob([customHtml], { type: 'text/html' });
+          const blobUrl = URL.createObjectURL(blob);
+          iframe.src = blobUrl;
+        }
 
         currentOriginalVariantFile = currentModalVariant.file;
         isCustomSimulation = true;
@@ -7632,6 +7883,7 @@
 
     function resetSimToOriginal() {
       const iframe = document.getElementById('simIframe');
+      iframe.removeAttribute('srcdoc');
       iframe.src = 'variants/' + currentOriginalVariantFile;
       const resetBtn = document.getElementById('btnSimReset');
       if (resetBtn) resetBtn.style.display = 'none';

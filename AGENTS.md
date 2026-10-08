@@ -338,7 +338,11 @@ The Hub features an elaborate, production-grade 4-tab **Style Replicator & Custo
      - `localStorage` caching under `'pf_user_profile'` with auto-save debouncing (`onProfileInputChange()`).
      - `⚡ Auto-Fill Sample Data` button for instant preview population across all 9 sections.
      - `💾 Save` and `↺ Clear` controls.
-   - **🚀 Test Live in Simulator:** Generates a dynamic HTML document in-memory using `Blob` and `URL.createObjectURL()`, injects a `<base href="...">` tag for seamless asset loading, loads directly into `#simIframe`, and brings the multi-device simulator into view with an active reset button (`↺ Reset`).
+   - **Dynamic DOM Project Synchronization (`syncPortfolioProjects`):**
+     - Performs structural DOM card management: if the user removes projects, unused project cards are deleted from the DOM rather than remaining as leftover templates; if the user adds >4 projects, reference archetype cards are cloned, populated, and appended to the grid container.
+     - Multi-case string replacements support uppercase hardware/console archetypes (`VYAPARFLOW`, `CYBERSENTINEL`, `SATURN FINANCE`, `MRI BRAIN TUMOR`).
+     - Cleans avatar URLs (resolving `../aryan-rokade.jpg` prepend bugs and stripping retry error handlers) to guarantee instant headshot rendering across all templates.
+   - **🚀 Test Live in Simulator:** Employs HTML5 `iframe.srcdoc` with dynamic `<base href="...">` injection for zero-CORS instant local simulation across both `http://` and `file:///` protocols, with active `↺ Reset` restore.
    - **⤓ Export My Portfolio (.html):** Triggers client-side browser download of the customized, single-file HTML file with all personal credentials substituted and external switcher toolbars cleanly removed.
    - **📋 Copy Custom HTML:** Copies the customized source code directly to the clipboard.
 2. **🤖 AI Style Prompt Tab:**
