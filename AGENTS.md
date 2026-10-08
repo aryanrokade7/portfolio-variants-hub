@@ -309,31 +309,40 @@ Every card in `index.html` showcases a genuine, high-resolution starting snapsho
 
 ### 5.5. Style Replicator & Personalization Studio
 The Hub features an elaborate, production-grade 4-tab **Style Replicator & Customizer Studio** modal (`#templateModal`) allowing any engineer or creator to adopt and heavily personalize any of the 84 aesthetic archetypes for their personal portfolio:
-1. **🎨 Replicate With My Info Tab (Expanded 6-Section Architecture):**
+1. **🎨 Replicate With My Info Tab (Expanded 9-Section Dynamic Multi-Item Architecture):**
    - **Section 1: Personal Identity & Bio:**
      - Full Name, Professional Role / Headline, Sub-Headline / Punchline, Availability / Status Pill, Multi-line About Me / Bio (`<textarea>`), and Custom Avatar / Headshot URL.
-   - **Section 2: Experience, Education & Achievements:**
-     - Current / Past Company, Job Title / Role, College / University, Degree / Major, Academic / Work Duration, and Top Hackathon / Competition Honor.
-   - **Section 3: Skills & Technologies:**
-     - Core Tech Stack (comma-separated tokens), and Technical Focus / Specialties.
-   - **Section 4: Featured Projects Showcase (3 Dedicated Blocks):**
-     - Project 1 (Primary): Name, Tech Stack, and Overview / Tagline.
-     - Project 2 (Secondary): Name, Tech Stack, and Overview / Tagline.
-     - Project 3 (Tertiary): Name and Overview / Tagline.
-   - **Section 5: Contact, Socials & Action Buttons:**
+   - **Section 2: Work Experience & Internships (Dynamic Multi-Item Container `#repExperienceList`):**
+     - Supports adding unlimited work experiences via `+ Add Work Experience`.
+     - Each entry includes: Job Title / Role, Company / Organization, Duration / Period (e.g. `2023 – Present`), Location, and Scope / Key Achievements (`<textarea>`).
+   - **Section 3: Education & Academic Degrees (Dynamic Multi-Item Container `#repEducationList`):**
+     - Supports adding unlimited academic qualifications via `+ Add Education Entry`.
+     - Each entry includes: Degree / Major, College / University, Duration / Graduation Year, and Honors / GPA / Specialization.
+   - **Section 4: Featured Projects Showcase (Dynamic Multi-Item Container `#repProjectsList`):**
+     - Supports adding unlimited projects via `+ Add Another Project` with re-indexing.
+     - Each entry includes: Project Name, Tech Stack (comma-separated tokens), Project Tagline / Description, Live Demo URL, and Code Repository URL.
+   - **Section 5: Skills & Technologies (Quick Stack + Dynamic Groups `#repSkillCategoriesList`):**
+     - Core Tech Stack (comma-separated string), Technical Focus / Specialties, plus `+ Add Skill Group / Category` rows for domain breakdowns (Languages, Frameworks, Cloud, etc.).
+   - **Section 6: Achievements, Awards & Hackathons (Dynamic Multi-Item Container `#repAchievementsList`):**
+     - Supports adding unlimited honors via `+ Add Achievement / Award`.
+     - Each entry includes: Award / Competition Title, Issuing Organization / Hackathon, Date / Year, and Impact / Description.
+   - **Section 7: Licenses & Professional Certifications (Dynamic Multi-Item Container `#repCertificatesList`):**
+     - Supports adding unlimited professional certifications via `+ Add Certificate / License`.
+     - Each entry includes: Certification Title, Issuing Body (e.g. AWS, Coursera), Date / Year, and Credential / Verification URL.
+   - **Section 8: Contact, Socials & Action Buttons:**
      - Email Address, Phone Number / WhatsApp, Location, GitHub Profile URL, LinkedIn Profile URL, Twitter / X URL, Resume PDF Path / URL, and Primary CTA Button Text.
-   - **Section 6: Power Text Overrides (Custom Find & Replace Engine):**
-     - Dynamic rule builder container (`#repCustomOverridesList`) with "+ Add Custom Find & Replace Rule" rows.
+   - **Section 9: Power Text Overrides (Custom Find & Replace Engine `#repCustomOverridesList`):**
+     - Dynamic rule builder container with `+ Add Custom Find & Replace Rule` rows.
      - Performs exact string matching and replacement across the entire HTML template, giving users 100% fine-grained control to swap any unique slogan, statistic, easter egg, or custom sentence in any variant.
    - **Persistence & Productivity Tools:**
      - `localStorage` caching under `'pf_user_profile'` with auto-save debouncing (`onProfileInputChange()`).
-     - `⚡ Auto-Fill Sample Data` button for instant preview population.
+     - `⚡ Auto-Fill Sample Data` button for instant preview population across all 9 sections.
      - `💾 Save` and `↺ Clear` controls.
    - **🚀 Test Live in Simulator:** Generates a dynamic HTML document in-memory using `Blob` and `URL.createObjectURL()`, injects a `<base href="...">` tag for seamless asset loading, loads directly into `#simIframe`, and brings the multi-device simulator into view with an active reset button (`↺ Reset`).
    - **⤓ Export My Portfolio (.html):** Triggers client-side browser download of the customized, single-file HTML file with all personal credentials substituted and external switcher toolbars cleanly removed.
    - **📋 Copy Custom HTML:** Copies the customized source code directly to the clipboard.
 2. **🤖 AI Style Prompt Tab:**
-   - Dynamically compiles an exhaustive, world-class prompt for **Cursor**, **Claude**, **ChatGPT**, or **Antigravity** containing the archetype's exact palette tokens, typography, layout philosophy, complete bio, education, experience, tech stack, and 3 featured projects to generate additional pages or framework components.
+   - Dynamically compiles an exhaustive, world-class prompt for **Cursor**, **Claude**, **ChatGPT**, or **Antigravity** containing the archetype's exact palette tokens, typography, layout philosophy, complete bio, education history, work experience timeline, all featured projects with demo/repo links, complete skill matrix, achievements, and certifications to generate additional pages or framework components.
 3. **⚡ Raw Template Tab:**
    - Provides direct access to the original unedited variant source file and download link.
 4. **🎯 Design Tokens & CSS Tab:**

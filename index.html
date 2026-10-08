@@ -1360,6 +1360,7 @@
       line-height: 1.45;
     }
 
+    .rep-item-block,
     .rep-project-block {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -1368,14 +1369,24 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      position: relative;
     }
 
+    .rep-item-header,
     .rep-proj-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .rep-item-header-left {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
+    .rep-item-num,
     .rep-proj-num {
       font-family: var(--mono);
       font-size: 0.72rem;
@@ -1386,10 +1397,65 @@
       border-radius: 4px;
     }
 
+    .rep-item-title-label,
     .rep-proj-title-label {
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--text);
+    }
+
+    .btn-item-del {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.88rem;
+      padding: 3px 6px;
+      border-radius: 5px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .btn-item-del:hover {
+      background: rgba(239, 68, 68, 0.14);
+    }
+
+    .btn-add-item {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px dashed var(--card-border-hover);
+      color: var(--text);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .btn-add-item:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-subtle);
+    }
+
+    .rep-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rep-field-hint {
+      font-size: 0.74rem;
+      color: var(--text-sub);
+      margin-top: -2px;
     }
 
     /* CUSTOM OVERRIDES SECTION */
@@ -6029,49 +6095,55 @@
             </div>
           </div>
 
-          <!-- SECTION 2: EXPERIENCE, EDUCATION & HONORS -->
+          <!-- SECTION 2: WORK EXPERIENCE -->
           <div class="rep-section-card">
             <div class="rep-sec-title">
               <span class="rep-sec-icon">💼</span>
-              <span class="rep-sec-heading">Experience, Education &amp; Achievements</span>
-              <span class="rep-sec-tag">Background</span>
+              <span class="rep-sec-heading">Work Experience &amp; Internships</span>
+              <span class="rep-sec-tag">Career</span>
             </div>
-
-            <div class="rep-grid-2">
-              <div class="rep-field">
-                <label class="rep-label" for="repCompany">Current / Past Company</label>
-                <input type="text" id="repCompany" class="rep-input" placeholder="e.g. Octanet Services Pvt. Ltd. or Stripe" oninput="onProfileInputChange()" />
-              </div>
-              <div class="rep-field">
-                <label class="rep-label" for="repJobTitle">Job Title / Role</label>
-                <input type="text" id="repJobTitle" class="rep-input" placeholder="e.g. Web Development Intern or Staff Engineer" oninput="onProfileInputChange()" />
-              </div>
+            <p class="rep-field-hint">Add your roles, companies, dates, and key accomplishments:</p>
+            <div id="repExperienceList" class="rep-items-list">
+              <!-- Dynamically populated experience blocks -->
             </div>
-
-            <div class="rep-grid-2">
-              <div class="rep-field">
-                <label class="rep-label" for="repCollege">College / University</label>
-                <input type="text" id="repCollege" class="rep-input" placeholder="e.g. VCET, Mumbai University or Stanford University" oninput="onProfileInputChange()" />
-              </div>
-              <div class="rep-field">
-                <label class="rep-label" for="repDegree">Degree / Major</label>
-                <input type="text" id="repDegree" class="rep-input" placeholder="e.g. B.E. in Information Technology" oninput="onProfileInputChange()" />
-              </div>
-            </div>
-
-            <div class="rep-grid-2">
-              <div class="rep-field">
-                <label class="rep-label" for="repGradYear">Academic / Work Duration</label>
-                <input type="text" id="repGradYear" class="rep-input" placeholder="e.g. 2023–2027" oninput="onProfileInputChange()" />
-              </div>
-              <div class="rep-field">
-                <label class="rep-label" for="repAward">Top Award / Hackathon Honor</label>
-                <input type="text" id="repAward" class="rep-input" placeholder="e.g. 2nd Position, Techblitz National Hackathon" oninput="onProfileInputChange()" />
-              </div>
-            </div>
+            <button type="button" class="btn-add-item" onclick="addExperienceItem()">
+              <span>+ Add Work Experience</span>
+            </button>
           </div>
 
-          <!-- SECTION 3: SKILLS & TECH STACK -->
+          <!-- SECTION 3: EDUCATION & ACADEMIA -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">🎓</span>
+              <span class="rep-sec-heading">Education &amp; Academic Degrees</span>
+              <span class="rep-sec-tag">Academia</span>
+            </div>
+            <p class="rep-field-hint">Add degrees, universities, graduation years, and honors:</p>
+            <div id="repEducationList" class="rep-items-list">
+              <!-- Dynamically populated education blocks -->
+            </div>
+            <button type="button" class="btn-add-item" onclick="addEducationItem()">
+              <span>+ Add Education Entry</span>
+            </button>
+          </div>
+
+          <!-- SECTION 4: FEATURED PROJECTS -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">🚀</span>
+              <span class="rep-sec-heading">Featured Projects Showcase</span>
+              <span class="rep-sec-tag">Work</span>
+            </div>
+            <p class="rep-field-hint">Add unlimited featured projects, SaaS apps, libraries, and tools:</p>
+            <div id="repProjectsList" class="rep-items-list">
+              <!-- Dynamically populated project blocks -->
+            </div>
+            <button type="button" class="btn-add-item" onclick="addProjectItem()">
+              <span>+ Add Another Project</span>
+            </button>
+          </div>
+
+          <!-- SECTION 5: SKILLS & TECHNOLOGIES -->
           <div class="rep-section-card">
             <div class="rep-sec-title">
               <span class="rep-sec-icon">🛠️</span>
@@ -6080,7 +6152,7 @@
             </div>
 
             <div class="rep-field">
-              <label class="rep-label" for="repSkills">Core Tech Stack (Comma-separated)</label>
+              <label class="rep-label" for="repSkills">Quick Core Tech Stack (Comma-separated)</label>
               <input type="text" id="repSkills" class="rep-input" placeholder="e.g. TypeScript, React, Next.js, Node.js, Python, PostgreSQL, PyTorch, Docker, Tailwind CSS" oninput="onProfileInputChange()" />
             </div>
 
@@ -6088,80 +6160,51 @@
               <label class="rep-label" for="repSpecialties">Specialties / Technical Focus</label>
               <input type="text" id="repSpecialties" class="rep-input" placeholder="e.g. Full-Stack Web Development, AI/ML Engineering, Distributed Systems" oninput="onProfileInputChange()" />
             </div>
+
+            <div style="margin-top: 6px;">
+              <label class="rep-label" style="margin-bottom: 6px;">Categorized Skill Groups (Optional)</label>
+              <div id="repSkillCategoriesList" class="rep-items-list">
+                <!-- Dynamically populated skill categories -->
+              </div>
+              <button type="button" class="btn-add-item" onclick="addSkillCategoryItem()">
+                <span>+ Add Skill Group / Category</span>
+              </button>
+            </div>
           </div>
 
-          <!-- SECTION 4: FEATURED PROJECTS -->
+          <!-- SECTION 6: ACHIEVEMENTS & HONORS -->
           <div class="rep-section-card">
             <div class="rep-sec-title">
-              <span class="rep-sec-icon">🚀</span>
-              <span class="rep-sec-heading">Featured Projects</span>
-              <span class="rep-sec-tag">Work Showcase</span>
+              <span class="rep-sec-icon">🏆</span>
+              <span class="rep-sec-heading">Achievements, Awards &amp; Hackathons</span>
+              <span class="rep-sec-tag">Honors</span>
             </div>
-
-            <!-- Project 1 -->
-            <div class="rep-project-block">
-              <div class="rep-proj-header">
-                <span class="rep-proj-num">#1</span>
-                <span class="rep-proj-title-label">Primary Featured Project</span>
-              </div>
-              <div class="rep-grid-2">
-                <div class="rep-field">
-                  <label class="rep-label" for="repProj1Name">Project 1 Name</label>
-                  <input type="text" id="repProj1Name" class="rep-input" placeholder="e.g. VyaparFlow SaaS or PulseFlow" oninput="onProfileInputChange()" />
-                </div>
-                <div class="rep-field">
-                  <label class="rep-label" for="repProj1Tech">Project 1 Tech Stack</label>
-                  <input type="text" id="repProj1Tech" class="rep-input" placeholder="e.g. Next.js, PostgreSQL, Prisma, Tailwind" oninput="onProfileInputChange()" />
-                </div>
-              </div>
-              <div class="rep-field">
-                <label class="rep-label" for="repProj1Desc">Project 1 Overview / Tagline</label>
-                <input type="text" id="repProj1Desc" class="rep-input" placeholder="e.g. Full-Stack Inventory &amp; GST Invoicing SaaS with automated billing" oninput="onProfileInputChange()" />
-              </div>
+            <p class="rep-field-hint">Add hackathon wins, honors, competition placements, and awards:</p>
+            <div id="repAchievementsList" class="rep-items-list">
+              <!-- Dynamically populated achievement blocks -->
             </div>
-
-            <!-- Project 2 -->
-            <div class="rep-project-block">
-              <div class="rep-proj-header">
-                <span class="rep-proj-num">#2</span>
-                <span class="rep-proj-title-label">Secondary Featured Project</span>
-              </div>
-              <div class="rep-grid-2">
-                <div class="rep-field">
-                  <label class="rep-label" for="repProj2Name">Project 2 Name</label>
-                  <input type="text" id="repProj2Name" class="rep-input" placeholder="e.g. CyberSentinel or Aetheria" oninput="onProfileInputChange()" />
-                </div>
-                <div class="rep-field">
-                  <label class="rep-label" for="repProj2Tech">Project 2 Tech Stack</label>
-                  <input type="text" id="repProj2Tech" class="rep-input" placeholder="e.g. Python, FastAPI, WebSockets, Next.js" oninput="onProfileInputChange()" />
-                </div>
-              </div>
-              <div class="rep-field">
-                <label class="rep-label" for="repProj2Desc">Project 2 Overview / Tagline</label>
-                <input type="text" id="repProj2Desc" class="rep-input" placeholder="e.g. Real-Time Network Threat Monitoring with sub-millisecond sniffer" oninput="onProfileInputChange()" />
-              </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="rep-project-block">
-              <div class="rep-proj-header">
-                <span class="rep-proj-num">#3</span>
-                <span class="rep-proj-title-label">Tertiary Project (Optional)</span>
-              </div>
-              <div class="rep-grid-2">
-                <div class="rep-field">
-                  <label class="rep-label" for="repProj3Name">Project 3 Name</label>
-                  <input type="text" id="repProj3Name" class="rep-input" placeholder="e.g. Saturn Finance or Brain Tumor Detection" oninput="onProfileInputChange()" />
-                </div>
-                <div class="rep-field">
-                  <label class="rep-label" for="repProj3Desc">Project 3 Tagline</label>
-                  <input type="text" id="repProj3Desc" class="rep-input" placeholder="e.g. Decentralized Crypto Portfolio &amp; Gas Analytics" oninput="onProfileInputChange()" />
-                </div>
-              </div>
-            </div>
+            <button type="button" class="btn-add-item" onclick="addAchievementItem()">
+              <span>+ Add Achievement / Award</span>
+            </button>
           </div>
 
-          <!-- SECTION 5: CONTACT, SOCIALS & BUTTONS -->
+          <!-- SECTION 7: LICENSES & CERTIFICATIONS -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">📜</span>
+              <span class="rep-sec-heading">Licenses &amp; Professional Certifications</span>
+              <span class="rep-sec-tag">Credentials</span>
+            </div>
+            <p class="rep-field-hint">Add cloud certifications, licenses, and verified credentials:</p>
+            <div id="repCertificatesList" class="rep-items-list">
+              <!-- Dynamically populated certificate blocks -->
+            </div>
+            <button type="button" class="btn-add-item" onclick="addCertificateItem()">
+              <span>+ Add Certificate / License</span>
+            </button>
+          </div>
+
+          <!-- SECTION 8: CONTACT, SOCIALS & BUTTONS -->
           <div class="rep-section-card">
             <div class="rep-sec-title">
               <span class="rep-sec-icon">🌐</span>
@@ -6214,7 +6257,7 @@
             </div>
           </div>
 
-          <!-- SECTION 6: POWER OVERRIDES — CUSTOM FIND & REPLACE -->
+          <!-- SECTION 9: POWER OVERRIDES — CUSTOM FIND & REPLACE -->
           <div class="rep-section-card rep-overrides-card">
             <div class="rep-sec-title">
               <span class="rep-sec-icon">⚡</span>
@@ -6543,6 +6586,259 @@
         .replace(/>/g, '&gt;');
     }
 
+    function renumberDynamicItems(containerId, labelPrefix) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const items = container.querySelectorAll('.rep-item-block');
+      items.forEach((item, idx) => {
+        const numEl = item.querySelector('.rep-item-num');
+        if (numEl) numEl.innerText = `#${idx + 1}`;
+        const titleEl = item.querySelector('.rep-item-title-label');
+        if (titleEl && labelPrefix) titleEl.innerText = `${labelPrefix} ${idx + 1}`;
+      });
+    }
+
+    function removeDynamicItem(btn, containerId, labelPrefix) {
+      const block = btn.closest('.rep-item-block');
+      if (block) {
+        block.remove();
+        renumberDynamicItems(containerId, labelPrefix);
+        onProfileInputChange();
+      }
+    }
+
+    function addProjectItem(data = {}) {
+      const list = document.getElementById('repProjectsList');
+      if (!list) return;
+      const count = list.querySelectorAll('.rep-item-block').length + 1;
+      const block = document.createElement('div');
+      block.className = 'rep-item-block';
+      block.innerHTML = `
+        <div class="rep-item-header">
+          <div class="rep-item-header-left">
+            <span class="rep-item-num">#${count}</span>
+            <span class="rep-item-title-label">Project ${count}</span>
+          </div>
+          <button type="button" class="btn-item-del" onclick="removeDynamicItem(this, 'repProjectsList', 'Project')" title="Delete project">✕</button>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Project Name</label>
+            <input type="text" class="rep-input item-proj-name" placeholder="e.g. PulseFlow SaaS" value="${escapeHtmlAttr(data.name || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Tech Stack</label>
+            <input type="text" class="rep-input item-proj-tech" placeholder="e.g. Next.js, PostgreSQL, Tailwind" value="${escapeHtmlAttr(data.tech || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+        <div class="rep-field">
+          <label class="rep-label">Tagline / Overview</label>
+          <input type="text" class="rep-input item-proj-desc" placeholder="e.g. Real-time telemetry & cloud infrastructure observability" value="${escapeHtmlAttr(data.desc || '')}" oninput="onProfileInputChange()" />
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Live Demo URL (Optional)</label>
+            <input type="url" class="rep-input item-proj-demo" placeholder="e.g. https://pulseflow.io" value="${escapeHtmlAttr(data.demo || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">GitHub / Source URL (Optional)</label>
+            <input type="url" class="rep-input item-proj-repo" placeholder="e.g. https://github.com/alex/pulseflow" value="${escapeHtmlAttr(data.repo || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+      `;
+      list.appendChild(block);
+      renumberDynamicItems('repProjectsList', 'Project');
+    }
+
+    function addExperienceItem(data = {}) {
+      const list = document.getElementById('repExperienceList');
+      if (!list) return;
+      const count = list.querySelectorAll('.rep-item-block').length + 1;
+      const block = document.createElement('div');
+      block.className = 'rep-item-block';
+      block.innerHTML = `
+        <div class="rep-item-header">
+          <div class="rep-item-header-left">
+            <span class="rep-item-num">#${count}</span>
+            <span class="rep-item-title-label">Work Experience ${count}</span>
+          </div>
+          <button type="button" class="btn-item-del" onclick="removeDynamicItem(this, 'repExperienceList', 'Work Experience')" title="Delete experience">✕</button>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Job Title / Role</label>
+            <input type="text" class="rep-input item-exp-role" placeholder="e.g. Senior Software Engineer" value="${escapeHtmlAttr(data.role || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Company / Organization</label>
+            <input type="text" class="rep-input item-exp-company" placeholder="e.g. NovaCore Systems" value="${escapeHtmlAttr(data.company || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Duration / Dates</label>
+            <input type="text" class="rep-input item-exp-duration" placeholder="e.g. 2023 – Present" value="${escapeHtmlAttr(data.duration || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Location / Work Mode</label>
+            <input type="text" class="rep-input item-exp-location" placeholder="e.g. San Francisco, CA / Remote" value="${escapeHtmlAttr(data.location || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+        <div class="rep-field">
+          <label class="rep-label">Responsibilities & Impact</label>
+          <textarea class="rep-input rep-textarea item-exp-desc" rows="2" placeholder="e.g. Led telemetry architecture, improved API response times by 40%, managed CI/CD pipelines." oninput="onProfileInputChange()">${escapeHtmlAttr(data.desc || '')}</textarea>
+        </div>
+      `;
+      list.appendChild(block);
+      renumberDynamicItems('repExperienceList', 'Work Experience');
+    }
+
+    function addEducationItem(data = {}) {
+      const list = document.getElementById('repEducationList');
+      if (!list) return;
+      const count = list.querySelectorAll('.rep-item-block').length + 1;
+      const block = document.createElement('div');
+      block.className = 'rep-item-block';
+      block.innerHTML = `
+        <div class="rep-item-header">
+          <div class="rep-item-header-left">
+            <span class="rep-item-num">#${count}</span>
+            <span class="rep-item-title-label">Education ${count}</span>
+          </div>
+          <button type="button" class="btn-item-del" onclick="removeDynamicItem(this, 'repEducationList', 'Education')" title="Delete education">✕</button>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Degree / Major</label>
+            <input type="text" class="rep-input item-edu-degree" placeholder="e.g. B.S. in Computer Science" value="${escapeHtmlAttr(data.degree || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">College / University</label>
+            <input type="text" class="rep-input item-edu-college" placeholder="e.g. Stanford University" value="${escapeHtmlAttr(data.college || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Academic Duration</label>
+            <input type="text" class="rep-input item-edu-duration" placeholder="e.g. 2021 – 2025" value="${escapeHtmlAttr(data.duration || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">GPA / Academic Honors</label>
+            <input type="text" class="rep-input item-edu-honors" placeholder="e.g. First Class with Distinction · GPA 3.9" value="${escapeHtmlAttr(data.honors || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+      `;
+      list.appendChild(block);
+      renumberDynamicItems('repEducationList', 'Education');
+    }
+
+    function addAchievementItem(data = {}) {
+      const list = document.getElementById('repAchievementsList');
+      if (!list) return;
+      const count = list.querySelectorAll('.rep-item-block').length + 1;
+      const block = document.createElement('div');
+      block.className = 'rep-item-block';
+      block.innerHTML = `
+        <div class="rep-item-header">
+          <div class="rep-item-header-left">
+            <span class="rep-item-num">#${count}</span>
+            <span class="rep-item-title-label">Achievement ${count}</span>
+          </div>
+          <button type="button" class="btn-item-del" onclick="removeDynamicItem(this, 'repAchievementsList', 'Achievement')" title="Delete achievement">✕</button>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Award / Honor Title</label>
+            <input type="text" class="rep-input item-ach-title" placeholder="e.g. 2nd Position, Techblitz Hackathon" value="${escapeHtmlAttr(data.title || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Event / Issuing Body</label>
+            <input type="text" class="rep-input item-ach-issuer" placeholder="e.g. VCET AI&DS Dept & NSDC" value="${escapeHtmlAttr(data.issuer || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Date / Year</label>
+            <input type="text" class="rep-input item-ach-date" placeholder="e.g. March 2025" value="${escapeHtmlAttr(data.date || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Details / Highlights</label>
+            <input type="text" class="rep-input item-ach-desc" placeholder="e.g. Emergency Healthcare Dispatch solution" value="${escapeHtmlAttr(data.desc || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+      `;
+      list.appendChild(block);
+      renumberDynamicItems('repAchievementsList', 'Achievement');
+    }
+
+    function addCertificateItem(data = {}) {
+      const list = document.getElementById('repCertificatesList');
+      if (!list) return;
+      const count = list.querySelectorAll('.rep-item-block').length + 1;
+      const block = document.createElement('div');
+      block.className = 'rep-item-block';
+      block.innerHTML = `
+        <div class="rep-item-header">
+          <div class="rep-item-header-left">
+            <span class="rep-item-num">#${count}</span>
+            <span class="rep-item-title-label">Certificate ${count}</span>
+          </div>
+          <button type="button" class="btn-item-del" onclick="removeDynamicItem(this, 'repCertificatesList', 'Certificate')" title="Delete certificate">✕</button>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Certificate Name</label>
+            <input type="text" class="rep-input item-cert-title" placeholder="e.g. AWS Certified Solutions Architect" value="${escapeHtmlAttr(data.title || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Issuing Organization</label>
+            <input type="text" class="rep-input item-cert-issuer" placeholder="e.g. Amazon Web Services" value="${escapeHtmlAttr(data.issuer || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Date / Issued</label>
+            <input type="text" class="rep-input item-cert-date" placeholder="e.g. Jan 2025" value="${escapeHtmlAttr(data.date || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Credential Verification URL (Optional)</label>
+            <input type="url" class="rep-input item-cert-url" placeholder="e.g. https://www.credly.com/..." value="${escapeHtmlAttr(data.url || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+      `;
+      list.appendChild(block);
+      renumberDynamicItems('repCertificatesList', 'Certificate');
+    }
+
+    function addSkillCategoryItem(data = {}) {
+      const list = document.getElementById('repSkillCategoriesList');
+      if (!list) return;
+      const count = list.querySelectorAll('.rep-item-block').length + 1;
+      const block = document.createElement('div');
+      block.className = 'rep-item-block';
+      block.innerHTML = `
+        <div class="rep-item-header">
+          <div class="rep-item-header-left">
+            <span class="rep-item-num">#${count}</span>
+            <span class="rep-item-title-label">Skill Group ${count}</span>
+          </div>
+          <button type="button" class="btn-item-del" onclick="removeDynamicItem(this, 'repSkillCategoriesList', 'Skill Group')" title="Delete skill group">✕</button>
+        </div>
+        <div class="rep-grid-2">
+          <div class="rep-field">
+            <label class="rep-label">Category Name</label>
+            <input type="text" class="rep-input item-skill-cat" placeholder="e.g. Backend & Databases" value="${escapeHtmlAttr(data.category || '')}" oninput="onProfileInputChange()" />
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">Technologies / Skills (Comma-separated)</label>
+            <input type="text" class="rep-input item-skill-list" placeholder="e.g. Node.js, Go, PostgreSQL, Redis, Kafka" value="${escapeHtmlAttr(data.skills || '')}" oninput="onProfileInputChange()" />
+          </div>
+        </div>
+      `;
+      list.appendChild(block);
+      renumberDynamicItems('repSkillCategoriesList', 'Skill Group');
+    }
+
     function addCustomOverrideRow(findVal = '', replaceVal = '') {
       const list = document.getElementById('repCustomOverridesList');
       if (!list) return;
@@ -6568,10 +6864,83 @@
     function getUserProfileFromForm() {
       const getVal = (id) => (document.getElementById(id)?.value || '').trim();
 
-      // Collect custom find & replace rules
+      // Collect Work Experience
+      const experience = [];
+      document.querySelectorAll('#repExperienceList .rep-item-block').forEach(el => {
+        const role = (el.querySelector('.item-exp-role')?.value || '').trim();
+        const company = (el.querySelector('.item-exp-company')?.value || '').trim();
+        const duration = (el.querySelector('.item-exp-duration')?.value || '').trim();
+        const location = (el.querySelector('.item-exp-location')?.value || '').trim();
+        const desc = (el.querySelector('.item-exp-desc')?.value || '').trim();
+        if (role || company) {
+          experience.push({ role, company, duration, location, desc });
+        }
+      });
+
+      // Collect Education
+      const education = [];
+      document.querySelectorAll('#repEducationList .rep-item-block').forEach(el => {
+        const degree = (el.querySelector('.item-edu-degree')?.value || '').trim();
+        const college = (el.querySelector('.item-edu-college')?.value || '').trim();
+        const duration = (el.querySelector('.item-edu-duration')?.value || '').trim();
+        const honors = (el.querySelector('.item-edu-honors')?.value || '').trim();
+        if (degree || college) {
+          education.push({ degree, college, duration, honors });
+        }
+      });
+
+      // Collect Projects
+      const projects = [];
+      document.querySelectorAll('#repProjectsList .rep-item-block').forEach(el => {
+        const name = (el.querySelector('.item-proj-name')?.value || '').trim();
+        const tech = (el.querySelector('.item-proj-tech')?.value || '').trim();
+        const desc = (el.querySelector('.item-proj-desc')?.value || '').trim();
+        const demo = (el.querySelector('.item-proj-demo')?.value || '').trim();
+        const repo = (el.querySelector('.item-proj-repo')?.value || '').trim();
+        if (name || desc) {
+          projects.push({ name, tech, desc, demo, repo });
+        }
+      });
+
+      // Collect Skills & Categories
+      const quickSkills = getVal('repSkills');
+      const specialties = getVal('repSpecialties');
+      const skillCategories = [];
+      document.querySelectorAll('#repSkillCategoriesList .rep-item-block').forEach(el => {
+        const category = (el.querySelector('.item-skill-cat')?.value || '').trim();
+        const skills = (el.querySelector('.item-skill-list')?.value || '').trim();
+        if (category || skills) {
+          skillCategories.push({ category, skills });
+        }
+      });
+
+      // Collect Achievements
+      const achievements = [];
+      document.querySelectorAll('#repAchievementsList .rep-item-block').forEach(el => {
+        const title = (el.querySelector('.item-ach-title')?.value || '').trim();
+        const issuer = (el.querySelector('.item-ach-issuer')?.value || '').trim();
+        const date = (el.querySelector('.item-ach-date')?.value || '').trim();
+        const desc = (el.querySelector('.item-ach-desc')?.value || '').trim();
+        if (title) {
+          achievements.push({ title, issuer, date, desc });
+        }
+      });
+
+      // Collect Certificates
+      const certificates = [];
+      document.querySelectorAll('#repCertificatesList .rep-item-block').forEach(el => {
+        const title = (el.querySelector('.item-cert-title')?.value || '').trim();
+        const issuer = (el.querySelector('.item-cert-issuer')?.value || '').trim();
+        const date = (el.querySelector('.item-cert-date')?.value || '').trim();
+        const url = (el.querySelector('.item-cert-url')?.value || '').trim();
+        if (title) {
+          certificates.push({ title, issuer, date, url });
+        }
+      });
+
+      // Collect Custom Overrides
       const customOverrides = [];
-      const rows = document.querySelectorAll('#repCustomOverridesList .rep-override-row');
-      rows.forEach(row => {
+      document.querySelectorAll('#repCustomOverridesList .rep-override-row').forEach(row => {
         const find = (row.querySelector('.rep-override-find')?.value || '').trim();
         const replace = row.querySelector('.rep-override-replace')?.value || '';
         if (find) {
@@ -6588,29 +6957,27 @@
         bio: getVal('repBio'),
         avatar: getVal('repAvatar'),
 
-        // Section 2: Experience, Education & Honors
-        company: getVal('repCompany'),
-        jobTitle: getVal('repJobTitle'),
-        college: getVal('repCollege'),
-        degree: getVal('repDegree'),
-        gradYear: getVal('repGradYear'),
-        award: getVal('repAward'),
+        // Section 2: Experience (Array)
+        experience,
 
-        // Section 3: Skills & Tech
-        skills: getVal('repSkills'),
-        specialties: getVal('repSpecialties'),
+        // Section 3: Education (Array)
+        education,
 
-        // Section 4: Featured Projects
-        proj1Name: getVal('repProj1Name'),
-        proj1Tech: getVal('repProj1Tech'),
-        proj1Desc: getVal('repProj1Desc'),
-        proj2Name: getVal('repProj2Name'),
-        proj2Tech: getVal('repProj2Tech'),
-        proj2Desc: getVal('repProj2Desc'),
-        proj3Name: getVal('repProj3Name'),
-        proj3Desc: getVal('repProj3Desc'),
+        // Section 4: Projects (Array)
+        projects,
 
-        // Section 5: Contact, Socials & Actions
+        // Section 5: Skills (Text + Array)
+        quickSkills,
+        specialties,
+        skillCategories,
+
+        // Section 6: Achievements (Array)
+        achievements,
+
+        // Section 7: Certificates (Array)
+        certificates,
+
+        // Section 8: Contact & Socials
         email: getVal('repEmail'),
         phone: getVal('repPhone'),
         location: getVal('repLocation'),
@@ -6620,7 +6987,7 @@
         resume: getVal('repResume'),
         primaryBtn: getVal('repPrimaryBtn'),
 
-        // Section 6: Power Overrides
+        // Section 9: Custom Overrides
         customOverrides
       };
     }
@@ -6631,61 +6998,144 @@
       } catch (e) {}
     }
 
+    function ensureDefaultFormItems() {
+      const projList = document.getElementById('repProjectsList');
+      if (projList && projList.children.length === 0) {
+        addProjectItem();
+        addProjectItem();
+        addProjectItem();
+      }
+      const expList = document.getElementById('repExperienceList');
+      if (expList && expList.children.length === 0) {
+        addExperienceItem();
+      }
+      const eduList = document.getElementById('repEducationList');
+      if (eduList && eduList.children.length === 0) {
+        addEducationItem();
+      }
+      const achList = document.getElementById('repAchievementsList');
+      if (achList && achList.children.length === 0) {
+        addAchievementItem();
+      }
+    }
+
     function loadSavedUserProfile() {
       try {
         const saved = localStorage.getItem('pf_user_profile');
-        if (!saved) return;
-        const profile = JSON.parse(saved);
         const setVal = (id, val) => {
           const el = document.getElementById(id);
           if (el && val !== undefined) el.value = val;
         };
 
-        setVal('repName', profile.name);
-        setVal('repRole', profile.role);
-        setVal('repPunchline', profile.punchline);
-        setVal('repStatus', profile.status);
-        setVal('repBio', profile.bio);
-        setVal('repAvatar', profile.avatar);
+        if (saved) {
+          const profile = JSON.parse(saved);
+          setVal('repName', profile.name);
+          setVal('repRole', profile.role);
+          setVal('repPunchline', profile.punchline);
+          setVal('repStatus', profile.status);
+          setVal('repBio', profile.bio);
+          setVal('repAvatar', profile.avatar);
 
-        setVal('repCompany', profile.company);
-        setVal('repJobTitle', profile.jobTitle);
-        setVal('repCollege', profile.college);
-        setVal('repDegree', profile.degree);
-        setVal('repGradYear', profile.gradYear);
-        setVal('repAward', profile.award);
+          setVal('repSkills', profile.quickSkills || profile.skills);
+          setVal('repSpecialties', profile.specialties);
 
-        setVal('repSkills', profile.skills);
-        setVal('repSpecialties', profile.specialties);
+          setVal('repEmail', profile.email);
+          setVal('repPhone', profile.phone);
+          setVal('repLocation', profile.location);
+          setVal('repGithub', profile.github);
+          setVal('repLinkedin', profile.linkedin);
+          setVal('repTwitter', profile.twitter);
+          setVal('repResume', profile.resume);
+          setVal('repPrimaryBtn', profile.primaryBtn);
 
-        setVal('repProj1Name', profile.proj1Name);
-        setVal('repProj1Tech', profile.proj1Tech);
-        setVal('repProj1Desc', profile.proj1Desc);
-        setVal('repProj2Name', profile.proj2Name);
-        setVal('repProj2Tech', profile.proj2Tech);
-        setVal('repProj2Desc', profile.proj2Desc);
-        setVal('repProj3Name', profile.proj3Name);
-        setVal('repProj3Desc', profile.proj3Desc);
-
-        setVal('repEmail', profile.email);
-        setVal('repPhone', profile.phone);
-        setVal('repLocation', profile.location);
-        setVal('repGithub', profile.github);
-        setVal('repLinkedin', profile.linkedin);
-        setVal('repTwitter', profile.twitter);
-        setVal('repResume', profile.resume);
-        setVal('repPrimaryBtn', profile.primaryBtn);
-
-        const list = document.getElementById('repCustomOverridesList');
-        if (list) {
-          list.innerHTML = '';
-          if (Array.isArray(profile.customOverrides) && profile.customOverrides.length > 0) {
-            profile.customOverrides.forEach(rule => {
-              addCustomOverrideRow(rule.find, rule.replace);
-            });
+          // Populate Experience
+          const expList = document.getElementById('repExperienceList');
+          if (expList) {
+            expList.innerHTML = '';
+            if (Array.isArray(profile.experience) && profile.experience.length > 0) {
+              profile.experience.forEach(e => addExperienceItem(e));
+            } else if (profile.company || profile.jobTitle) {
+              addExperienceItem({ company: profile.company, role: profile.jobTitle, duration: profile.gradYear });
+            } else {
+              addExperienceItem();
+            }
           }
+
+          // Populate Education
+          const eduList = document.getElementById('repEducationList');
+          if (eduList) {
+            eduList.innerHTML = '';
+            if (Array.isArray(profile.education) && profile.education.length > 0) {
+              profile.education.forEach(ed => addEducationItem(ed));
+            } else if (profile.college || profile.degree) {
+              addEducationItem({ college: profile.college, degree: profile.degree, duration: profile.gradYear, honors: profile.award });
+            } else {
+              addEducationItem();
+            }
+          }
+
+          // Populate Projects
+          const projList = document.getElementById('repProjectsList');
+          if (projList) {
+            projList.innerHTML = '';
+            if (Array.isArray(profile.projects) && profile.projects.length > 0) {
+              profile.projects.forEach(p => addProjectItem(p));
+            } else if (profile.proj1Name || profile.proj2Name) {
+              if (profile.proj1Name) addProjectItem({ name: profile.proj1Name, tech: profile.proj1Tech, desc: profile.proj1Desc });
+              if (profile.proj2Name) addProjectItem({ name: profile.proj2Name, tech: profile.proj2Tech, desc: profile.proj2Desc });
+              if (profile.proj3Name) addProjectItem({ name: profile.proj3Name, desc: profile.proj3Desc });
+            } else {
+              addProjectItem();
+              addProjectItem();
+              addProjectItem();
+            }
+          }
+
+          // Populate Skill Categories
+          const skillList = document.getElementById('repSkillCategoriesList');
+          if (skillList) {
+            skillList.innerHTML = '';
+            if (Array.isArray(profile.skillCategories) && profile.skillCategories.length > 0) {
+              profile.skillCategories.forEach(s => addSkillCategoryItem(s));
+            }
+          }
+
+          // Populate Achievements
+          const achList = document.getElementById('repAchievementsList');
+          if (achList) {
+            achList.innerHTML = '';
+            if (Array.isArray(profile.achievements) && profile.achievements.length > 0) {
+              profile.achievements.forEach(a => addAchievementItem(a));
+            } else if (profile.award) {
+              addAchievementItem({ title: profile.award });
+            } else {
+              addAchievementItem();
+            }
+          }
+
+          // Populate Certificates
+          const certList = document.getElementById('repCertificatesList');
+          if (certList) {
+            certList.innerHTML = '';
+            if (Array.isArray(profile.certificates) && profile.certificates.length > 0) {
+              profile.certificates.forEach(c => addCertificateItem(c));
+            }
+          }
+
+          // Populate Custom Overrides
+          const overList = document.getElementById('repCustomOverridesList');
+          if (overList) {
+            overList.innerHTML = '';
+            if (Array.isArray(profile.customOverrides) && profile.customOverrides.length > 0) {
+              profile.customOverrides.forEach(rule => addCustomOverrideRow(rule.find, rule.replace));
+            }
+          }
+        } else {
+          ensureDefaultFormItems();
         }
-      } catch (e) {}
+      } catch (e) {
+        ensureDefaultFormItems();
+      }
     }
 
     function fillSampleUserData() {
@@ -6695,33 +7145,142 @@
       };
 
       setVal('repName', 'Alex Rivera');
-      setVal('repRole', 'Full-Stack Engineer & AI Architect');
+      setVal('repRole', 'Staff Systems Architect & AI Engineer');
       setVal('repPunchline', 'Engineering intelligent distributed systems, cloud architectures & elegant web interfaces');
       setVal('repStatus', 'Available for full-time opportunities · Worldwide remote');
-      setVal('repBio', 'Passionate software engineer and builder with 4+ years creating production-grade distributed applications, autonomous AI agents, and reactive web experiences.');
+      setVal('repBio', 'Passionate systems builder with 5+ years creating production-grade distributed architectures, autonomous AI agent pipelines, and reactive web experiences.');
       setVal('repAvatar', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80');
 
-      setVal('repCompany', 'NovaCore Systems');
-      setVal('repJobTitle', 'Senior Software Engineer');
-      setVal('repCollege', 'UC Berkeley');
-      setVal('repDegree', 'B.S. in Computer Science');
-      setVal('repGradYear', '2021–2025');
-      setVal('repAward', '1st Place, Silicon Valley AI Hackathon (Autonomous Agent Fleet)');
+      // Populate Experience
+      const expList = document.getElementById('repExperienceList');
+      if (expList) {
+        expList.innerHTML = '';
+        addExperienceItem({
+          role: 'Staff Systems Engineer',
+          company: 'NovaCore Systems',
+          duration: '2023 – Present',
+          location: 'San Francisco, CA / Remote',
+          desc: 'Led distributed telemetry pipeline processing 40M+ events/sec. Designed sub-millisecond event brokers and mentored 8 engineers.'
+        });
+        addExperienceItem({
+          role: 'Full-Stack Developer Intern',
+          company: 'Stripe',
+          duration: '2022 – 2023',
+          location: 'Seattle, WA',
+          desc: 'Developed real-time payout processing dashboards and automated fraud detection heuristics with 99.99% uptime.'
+        });
+      }
 
-      setVal('repSkills', 'TypeScript, Next.js, Node.js, Python, PyTorch, Go, PostgreSQL, Redis, Docker, AWS, Tailwind CSS');
+      // Populate Education
+      const eduList = document.getElementById('repEducationList');
+      if (eduList) {
+        eduList.innerHTML = '';
+        addEducationItem({
+          degree: 'M.S. in Computer Science',
+          college: 'Stanford University',
+          duration: '2021 – 2023',
+          honors: 'GPA 3.96 · Specialization in Systems & AI'
+        });
+        addEducationItem({
+          degree: 'B.S. in Electrical Engineering & CS',
+          college: 'UC Berkeley',
+          duration: '2017 – 2021',
+          honors: 'Summa Cum Laude · Dean\'s Honors List'
+        });
+      }
+
+      // Populate Projects
+      const projList = document.getElementById('repProjectsList');
+      if (projList) {
+        projList.innerHTML = '';
+        addProjectItem({
+          name: 'PulseFlow Cloud',
+          tech: 'Next.js, Go, PostgreSQL, Kafka, Tailwind CSS',
+          desc: 'Enterprise multi-tenant observability and real-time distributed telemetry dashboard',
+          demo: 'https://pulseflow.example.com',
+          repo: 'https://github.com/alexrivera/pulseflow'
+        });
+        addProjectItem({
+          name: 'Aetheria Neural Engine',
+          tech: 'Python, PyTorch, FastAPI, WebGPU, React',
+          desc: 'Sub-millisecond local LLM inference runtime with real-time stream decoding',
+          demo: 'https://aetheria.example.com',
+          repo: 'https://github.com/alexrivera/aetheria'
+        });
+        addProjectItem({
+          name: 'Chronos Protocol',
+          tech: 'Solidity, Rust, Ethers.js, React',
+          desc: 'Decentralized liquidity aggregator with automated slippage arbitrage algorithms',
+          demo: 'https://chronos.example.com',
+          repo: 'https://github.com/alexrivera/chronos'
+        });
+        addProjectItem({
+          name: 'VisionGuard Diagnostic U-Net',
+          tech: 'PyTorch, OpenCV, Docker, FastAPI',
+          desc: 'High-precision medical diagnostic segmentation model with 96.2% validation accuracy',
+          demo: '',
+          repo: 'https://github.com/alexrivera/visionguard'
+        });
+      }
+
+      // Populate Skills
+      setVal('repSkills', 'TypeScript, Next.js, Node.js, Python, PyTorch, Go, Rust, PostgreSQL, Redis, Docker, AWS, Tailwind CSS');
       setVal('repSpecialties', 'Cloud Systems, LLM Agentic Workflows, Real-Time WebSockets, High-Throughput APIs');
 
-      setVal('repProj1Name', 'PulseFlow Cloud');
-      setVal('repProj1Tech', 'Next.js, Go, PostgreSQL, Kafka, Tailwind CSS');
-      setVal('repProj1Desc', 'Enterprise multi-tenant observability and real-time distributed telemetry dashboard');
+      const skillList = document.getElementById('repSkillCategoriesList');
+      if (skillList) {
+        skillList.innerHTML = '';
+        addSkillCategoryItem({
+          category: 'Languages & Core',
+          skills: 'TypeScript, Python, Go, Rust, JavaScript, C++, SQL'
+        });
+        addSkillCategoryItem({
+          category: 'Frameworks & Web',
+          skills: 'Next.js, React, Node.js, FastAPI, Express, Tailwind CSS, GraphQL'
+        });
+        addSkillCategoryItem({
+          category: 'Data & Infrastructure',
+          skills: 'PostgreSQL, Redis, Kafka, Docker, Kubernetes, AWS, PyTorch'
+        });
+      }
 
-      setVal('repProj2Name', 'Aetheria Neural Engine');
-      setVal('repProj2Tech', 'Python, PyTorch, FastAPI, WebGPU, React');
-      setVal('repProj2Desc', 'Sub-millisecond local LLM inference runtime with real-time stream decoding');
+      // Populate Achievements
+      const achList = document.getElementById('repAchievementsList');
+      if (achList) {
+        achList.innerHTML = '';
+        addAchievementItem({
+          title: '1st Place Winner — Silicon Valley AI Hackathon',
+          issuer: 'Silicon Valley AI Alliance & TechStars',
+          date: 'March 2025',
+          desc: 'Built an autonomous emergency response dispatch fleet utilizing multi-agent consensus protocols.'
+        });
+        addAchievementItem({
+          title: 'Gold Medalist — National Collegiate Hackfest',
+          issuer: 'ACM Student Chapter',
+          date: '2023',
+          desc: 'Placed 1st out of 450 teams in algorithmic optimization and high-scale systems architecture.'
+        });
+      }
 
-      setVal('repProj3Name', 'Chronos Protocol');
-      setVal('repProj3Desc', 'Decentralized liquidity aggregator with automated slippage arbitrage algorithms');
+      // Populate Certificates
+      const certList = document.getElementById('repCertificatesList');
+      if (certList) {
+        certList.innerHTML = '';
+        addCertificateItem({
+          title: 'AWS Certified Solutions Architect – Professional',
+          issuer: 'Amazon Web Services',
+          date: '2024',
+          url: 'https://aws.amazon.com/verification'
+        });
+        addCertificateItem({
+          title: 'Deep Learning Specialization',
+          issuer: 'DeepLearning.AI / Coursera',
+          date: '2023',
+          url: 'https://coursera.org/verify'
+        });
+      }
 
+      // Populate Contact
       setVal('repEmail', 'alex.rivera@example.com');
       setVal('repPhone', '+1 (415) 890-1234');
       setVal('repLocation', 'San Francisco, CA');
@@ -6731,38 +7290,38 @@
       setVal('repResume', 'https://alexrivera.dev/resume.pdf');
       setVal('repPrimaryBtn', 'Explore My Work');
 
+      // Populate Custom Overrides
       const list = document.getElementById('repCustomOverridesList');
       if (list) {
         list.innerHTML = '';
-        addCustomOverrideRow('VCET', 'UC Berkeley');
+        addCustomOverrideRow('VCET', 'Stanford');
         addCustomOverrideRow('Techblitz', 'Silicon Valley AI Hackathon');
         addCustomOverrideRow('Octanet Services', 'NovaCore Systems');
       }
 
       saveUserProfile(getUserProfileFromForm());
       updateAiPromptView();
-      showToast('⚡ Sample profile & custom rules filled! Click "Test Live in Simulator" to see it.');
+      showToast('⚡ Comprehensive sample profile filled across all sections!');
     }
 
     function clearUserData() {
-      const ids = [
-        'repName', 'repRole', 'repPunchline', 'repStatus', 'repBio', 'repAvatar',
-        'repCompany', 'repJobTitle', 'repCollege', 'repDegree', 'repGradYear', 'repAward',
-        'repSkills', 'repSpecialties',
-        'repProj1Name', 'repProj1Tech', 'repProj1Desc',
-        'repProj2Name', 'repProj2Tech', 'repProj2Desc',
-        'repProj3Name', 'repProj3Desc',
-        'repEmail', 'repPhone', 'repLocation', 'repGithub', 'repLinkedin', 'repTwitter', 'repResume', 'repPrimaryBtn'
-      ];
-      ids.forEach(id => {
+      ['repName', 'repRole', 'repPunchline', 'repStatus', 'repBio', 'repAvatar',
+       'repSkills', 'repSpecialties',
+       'repEmail', 'repPhone', 'repLocation', 'repGithub', 'repLinkedin', 'repTwitter', 'repResume', 'repPrimaryBtn'
+      ].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
-      const list = document.getElementById('repCustomOverridesList');
-      if (list) list.innerHTML = '';
+
+      ['repExperienceList', 'repEducationList', 'repProjectsList', 'repSkillCategoriesList', 'repAchievementsList', 'repCertificatesList', 'repCustomOverridesList'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '';
+      });
+
+      ensureDefaultFormItems();
       localStorage.removeItem('pf_user_profile');
       updateAiPromptView();
-      showToast('Form and custom rules cleared.');
+      showToast('Form and dynamic lists cleared.');
     }
 
     let profileChangeDebounceTimer = null;
@@ -6827,91 +7386,143 @@
       }
 
       // 6. Experience & Education Replacements
-      if (profile.company) {
-        customized = customized.split('Octanet Services Pvt. Ltd.').join(profile.company);
-        customized = customized.split('Octanet Services').join(profile.company);
+      const exp0 = (Array.isArray(profile.experience) && profile.experience.length > 0) ? profile.experience[0] : null;
+      const expCompany = (exp0 && exp0.company) || profile.company;
+      const expRole = (exp0 && exp0.role) || profile.jobTitle;
+      const expDuration = (exp0 && exp0.duration) || '';
+      const expDesc = (exp0 && exp0.desc) || '';
+
+      if (expCompany) {
+        customized = customized.split('Octanet Services Pvt. Ltd.').join(expCompany);
+        customized = customized.split('Octanet Services').join(expCompany);
       }
-      if (profile.jobTitle) {
-        customized = customized.split('Web Development Intern').join(profile.jobTitle);
+      if (expRole) {
+        customized = customized.split('Web Development Intern').join(expRole);
       }
-      if (profile.college) {
-        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University").join(profile.college);
-        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai").join(profile.college);
-        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET)").join(profile.college);
-        customized = customized.split("Vidyavardhini’s College of Engineering and Technology (VCET)").join(profile.college);
-        customized = customized.split("Vidyavardhini's College of Engineering and Technology").join(profile.college);
-        customized = customized.split("Vidyavardhini’s College of Engineering and Technology").join(profile.college);
-        customized = customized.split("Vidyavardhini's College of Eng. & Tech (VCET)").join(profile.college);
-        customized = customized.split("VCET Mumbai University").join(profile.college);
-        customized = customized.split("VCET Mumbai").join(profile.college);
-        customized = customized.split("VCET").join(profile.college);
+      if (expDesc) {
+        customized = customized.split('Developed responsive web pages and reusable components during internship.').join(expDesc);
+        customized = customized.split('Developed responsive web pages, optimized client-side performance, and collaborated with senior engineers.').join(expDesc);
       }
-      if (profile.degree) {
-        customized = customized.split('B.E. in Information Technology').join(profile.degree);
-        customized = customized.split('B.E. Information Technology').join(profile.degree);
-        customized = customized.split('B.E. in Computer Engineering').join(profile.degree);
-        customized = customized.split('B.E. Computer Engineering').join(profile.degree);
+
+      const edu0 = (Array.isArray(profile.education) && profile.education.length > 0) ? profile.education[0] : null;
+      const eduCollege = (edu0 && edu0.college) || profile.college;
+      const eduDegree = (edu0 && edu0.degree) || profile.degree;
+      const eduDuration = (edu0 && edu0.duration) || profile.gradYear;
+
+      if (eduCollege) {
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University").join(eduCollege);
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai").join(eduCollege);
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET)").join(eduCollege);
+        customized = customized.split("Vidyavardhini’s College of Engineering and Technology (VCET)").join(eduCollege);
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology").join(eduCollege);
+        customized = customized.split("Vidyavardhini’s College of Engineering and Technology").join(eduCollege);
+        customized = customized.split("Vidyavardhini's College of Eng. & Tech (VCET)").join(eduCollege);
+        customized = customized.split("VCET Mumbai University").join(eduCollege);
+        customized = customized.split("VCET Mumbai").join(eduCollege);
+        customized = customized.split("VCET").join(eduCollege);
       }
-      if (profile.gradYear) {
-        customized = customized.split('2023–2027').join(profile.gradYear);
-        customized = customized.split('2023 - 2027').join(profile.gradYear);
-        customized = customized.split('2023-2027').join(profile.gradYear);
-        customized = customized.split('Class of 2027').join(profile.gradYear);
-        customized = customized.split('Graduating 2027').join(profile.gradYear);
+      if (eduDegree) {
+        customized = customized.split('B.E. in Information Technology').join(eduDegree);
+        customized = customized.split('B.E. Information Technology').join(eduDegree);
+        customized = customized.split('B.E. in Computer Engineering').join(eduDegree);
+        customized = customized.split('B.E. Computer Engineering').join(eduDegree);
       }
-      if (profile.award) {
-        customized = customized.split('2nd Position, Techblitz National Hackathon').join(profile.award);
-        customized = customized.split('2nd Position in Techblitz Hackathon 2025').join(profile.award);
-        customized = customized.split('2nd Position in Techblitz Hackathon').join(profile.award);
-        customized = customized.split('Techblitz National Hackathon').join(profile.award);
-        customized = customized.split('Techblitz Hackathon 2025').join(profile.award);
-        customized = customized.split('Techblitz Hackathon').join(profile.award);
+      if (eduDuration) {
+        customized = customized.split('2023–2027').join(eduDuration);
+        customized = customized.split('2023 - 2027').join(eduDuration);
+        customized = customized.split('2023-2027').join(eduDuration);
+        customized = customized.split('Class of 2027').join(eduDuration);
+        customized = customized.split('Graduating 2027').join(eduDuration);
+      }
+
+      const ach0 = (Array.isArray(profile.achievements) && profile.achievements.length > 0) ? profile.achievements[0] : null;
+      const achTitle = (ach0 && ach0.title) || profile.award;
+      if (achTitle) {
+        customized = customized.split('2nd Position, Techblitz National Hackathon').join(achTitle);
+        customized = customized.split('2nd Position in Techblitz Hackathon 2025').join(achTitle);
+        customized = customized.split('2nd Position in Techblitz Hackathon').join(achTitle);
+        customized = customized.split('Techblitz National Hackathon').join(achTitle);
+        customized = customized.split('Techblitz Hackathon 2025').join(achTitle);
+        customized = customized.split('Techblitz Hackathon').join(achTitle);
       }
 
       // 7. Tech Stack & Specialties
-      if (profile.skills) {
-        customized = customized.split('TypeScript, Next.js, React, Node.js, Python, PostgreSQL, PyTorch, Docker, Tailwind CSS').join(profile.skills);
-        customized = customized.split('Next.js, Node.js, Express, PostgreSQL, Prisma, Tailwind CSS, Razorpay').join(profile.skills);
+      const skillsStr = profile.quickSkills || profile.skills;
+      if (skillsStr) {
+        customized = customized.split('TypeScript, Next.js, React, Node.js, Python, PostgreSQL, PyTorch, Docker, Tailwind CSS').join(skillsStr);
+        customized = customized.split('Next.js, Node.js, Express, PostgreSQL, Prisma, Tailwind CSS, Razorpay').join(skillsStr);
       }
 
       // 8. Featured Projects Replacements
-      if (profile.proj1Name) {
-        customized = customized.split('VyaparFlow').join(profile.proj1Name);
+      const p0 = (Array.isArray(profile.projects) && profile.projects[0]) || {};
+      const p1 = (Array.isArray(profile.projects) && profile.projects[1]) || {};
+      const p2 = (Array.isArray(profile.projects) && profile.projects[2]) || {};
+      const p3 = (Array.isArray(profile.projects) && profile.projects[3]) || {};
+
+      const proj1Name = p0.name || profile.proj1Name;
+      const proj1Tech = p0.tech || profile.proj1Tech;
+      const proj1Desc = p0.desc || profile.proj1Desc;
+      if (proj1Name) customized = customized.split('VyaparFlow').join(proj1Name);
+      if (proj1Tech) {
+        customized = customized.split('Next.js · Node.js · PostgreSQL · Prisma · Tailwind CSS').join(proj1Tech);
+        customized = customized.split('Next.js, PostgreSQL, Prisma, Razorpay').join(proj1Tech);
       }
-      if (profile.proj1Tech) {
-        customized = customized.split('Next.js · Node.js · PostgreSQL · Prisma · Tailwind CSS').join(profile.proj1Tech);
-        customized = customized.split('Next.js, PostgreSQL, Prisma, Razorpay').join(profile.proj1Tech);
+      if (proj1Desc) {
+        customized = customized.split('Full-Stack Inventory & GST Invoicing SaaS').join(proj1Desc);
+        customized = customized.split('Full-Stack Inventory &amp; GST Invoicing SaaS').join(proj1Desc);
+        customized = customized.split('Multi-tenant inventory and GST billing solution with real-time analytics').join(proj1Desc);
+        customized = customized.split('Multi-tenant inventory & GST billing solution with automated invoicing').join(proj1Desc);
+        customized = customized.split('Multi-tenant business management, automated GST calculation, PDF invoices, role-based access.').join(proj1Desc);
       }
-      if (profile.proj1Desc) {
-        customized = customized.split('Full-Stack Inventory & GST Invoicing SaaS').join(profile.proj1Desc);
-        customized = customized.split('Full-Stack Inventory &amp; GST Invoicing SaaS').join(profile.proj1Desc);
-        customized = customized.split('Multi-tenant inventory and GST billing solution with real-time analytics').join(profile.proj1Desc);
-        customized = customized.split('Multi-tenant inventory & GST billing solution with automated invoicing').join(profile.proj1Desc);
-        customized = customized.split('Multi-tenant business management, automated GST calculation, PDF invoices, role-based access.').join(profile.proj1Desc);
+      if (p0.repo) {
+        customized = customized.split('https://github.com/aryanrokade7/vyaparflow').join(p0.repo);
       }
 
-      if (profile.proj2Name) {
-        customized = customized.split('CyberSentinel').join(profile.proj2Name);
+      const proj2Name = p1.name || profile.proj2Name;
+      const proj2Tech = p1.tech || profile.proj2Tech;
+      const proj2Desc = p1.desc || profile.proj2Desc;
+      if (proj2Name) customized = customized.split('CyberSentinel').join(proj2Name);
+      if (proj2Tech) {
+        customized = customized.split('Python · Scapy · FastAPI · WebSockets · Next.js').join(proj2Tech);
+        customized = customized.split('Python, FastAPI, Scapy, WebSockets').join(proj2Tech);
       }
-      if (profile.proj2Tech) {
-        customized = customized.split('Python · Scapy · FastAPI · WebSockets · Next.js').join(profile.proj2Tech);
-        customized = customized.split('Python, FastAPI, Scapy, WebSockets').join(profile.proj2Tech);
+      if (proj2Desc) {
+        customized = customized.split('Real-Time Network Threat Monitoring').join(proj2Desc);
+        customized = customized.split('Packet sniffer & intrusion detection system with real-time alerting').join(proj2Desc);
+        customized = customized.split('Sub-millisecond packet sniffer, ARP spoofing detection, SYN flood DoS alerting, interactive security telemetry.').join(proj2Desc);
       }
-      if (profile.proj2Desc) {
-        customized = customized.split('Real-Time Network Threat Monitoring').join(profile.proj2Desc);
-        customized = customized.split('Packet sniffer & intrusion detection system with real-time alerting').join(profile.proj2Desc);
-        customized = customized.split('Sub-millisecond packet sniffer, ARP spoofing detection, SYN flood DoS alerting, interactive security telemetry.').join(profile.proj2Desc);
+      if (p1.repo) {
+        customized = customized.split('https://github.com/aryanrokade7/cybersentinel').join(p1.repo);
       }
 
-      if (profile.proj3Name) {
-        customized = customized.split('Saturn Finance').join(profile.proj3Name);
-        customized = customized.split('MRI Brain Tumor Detection').join(profile.proj3Name);
-        customized = customized.split('Brain Tumor Detection').join(profile.proj3Name);
+      const proj3Name = p2.name || profile.proj3Name;
+      const proj3Tech = p2.tech || profile.proj3Tech;
+      const proj3Desc = p2.desc || profile.proj3Desc;
+      if (proj3Name) customized = customized.split('Saturn Finance').join(proj3Name);
+      if (proj3Tech) {
+        customized = customized.split('React · TypeScript · Ethers.js · Tailwind CSS · CoinGecko').join(proj3Tech);
+        customized = customized.split('React, TypeScript, Ethers.js, CoinGecko').join(proj3Tech);
       }
-      if (profile.proj3Desc) {
-        customized = customized.split('Decentralized Crypto Portfolio & Gas Analytics').join(profile.proj3Desc);
-        customized = customized.split('Decentralized Crypto Portfolio &amp; Gas Analytics').join(profile.proj3Desc);
-        customized = customized.split('Deep Learning Diagnostic U-Net').join(profile.proj3Desc);
+      if (proj3Desc) {
+        customized = customized.split('Decentralized Crypto Portfolio & Gas Analytics').join(proj3Desc);
+        customized = customized.split('Decentralized Crypto Portfolio &amp; Gas Analytics').join(proj3Desc);
+        customized = customized.split('Multi-wallet net worth tracking, live Ethereum gas fee heatmaps, ERC-20 token metrics.').join(proj3Desc);
+      }
+
+      const proj4Name = p3.name;
+      const proj4Tech = p3.tech;
+      const proj4Desc = p3.desc;
+      if (proj4Name) {
+        customized = customized.split('MRI Brain Tumor Detection').join(proj4Name);
+        customized = customized.split('Brain Tumor Detection').join(proj4Name);
+      }
+      if (proj4Tech) {
+        customized = customized.split('PyTorch · TensorFlow / Keras · OpenCV · FastAPI').join(proj4Tech);
+        customized = customized.split('PyTorch, TensorFlow, OpenCV, FastAPI').join(proj4Tech);
+      }
+      if (proj4Desc) {
+        customized = customized.split('Deep Learning Diagnostic U-Net').join(proj4Desc);
+        customized = customized.split('95%+ validation accuracy, MRI image tumor segmentation mask generation, medical diagnostic inference.').join(proj4Desc);
       }
 
       // 9. Contact & Socials
@@ -6969,7 +7580,7 @@
       customized = customized.replace(/<script\s+src=["'](?:\.\.\/)?(?:variants\/)?switcher\.js["']><\/script>/gi, '<!-- Replicated with PortfolioForge -->');
       customized = customized.replace(/<link\s+rel=["']stylesheet["']\s+href=["'](?:\.\.\/)?(?:variants\/)?switcher\.css["']\s*\/?>/gi, '');
 
-      // 13. Dynamic Custom Overrides (Section 6)
+      // 13. Dynamic Custom Overrides (Section 9)
       if (Array.isArray(profile.customOverrides)) {
         profile.customOverrides.forEach(rule => {
           if (rule && rule.find) {
@@ -7088,11 +7699,78 @@
 
     function generateAiPromptText(v, profile) {
       const userName = profile.name || 'Developer';
-      const userRole = profile.role || 'Full-Stack Developer';
+      const userRole = profile.role || 'Full-Stack Developer & AI Engineer';
       const userPunchline = profile.punchline || 'Building scalable web applications & distributed systems';
       const userBio = profile.bio || 'Passionate software engineer building robust, production-grade applications.';
-      const userEdu = profile.college ? `${profile.degree ? profile.degree + ' from ' : ''}${profile.college} (${profile.gradYear || 'Recent Grad'})` : 'B.E. in Computer Engineering';
-      const userExp = profile.company ? `${profile.jobTitle || 'Software Engineer'} at ${profile.company}` : 'Full Stack Developer';
+
+      // Experience listing
+      let expText = '';
+      if (Array.isArray(profile.experience) && profile.experience.length > 0) {
+        expText = profile.experience.map((e, idx) => {
+          let line = `${idx + 1}. ${e.role || 'Software Engineer'}${e.company ? ' at ' + e.company : ''}${e.duration ? ' (' + e.duration + ')' : ''}${e.location ? ' · ' + e.location : ''}`;
+          if (e.desc) line += `\n     Scope / Impact: ${e.desc}`;
+          return line;
+        }).join('\n');
+      } else {
+        expText = '1. Web Development Intern at Octanet Services';
+      }
+
+      // Education listing
+      let eduText = '';
+      if (Array.isArray(profile.education) && profile.education.length > 0) {
+        eduText = profile.education.map((ed, idx) => {
+          let line = `${idx + 1}. ${ed.degree || 'Degree'}${ed.college ? ' — ' + ed.college : ''}${ed.duration ? ' (' + ed.duration + ')' : ''}`;
+          if (ed.honors) line += `\n     Honors / GPA: ${ed.honors}`;
+          return line;
+        }).join('\n');
+      } else {
+        eduText = "1. B.E. in Information Technology — Vidyavardhini's College of Engineering & Technology (2023–2027)";
+      }
+
+      // Projects listing
+      let projText = '';
+      if (Array.isArray(profile.projects) && profile.projects.length > 0) {
+        projText = profile.projects.map((p, idx) => {
+          let line = `${idx + 1}. ${p.name || 'Project ' + (idx + 1)}: ${p.desc || 'Full-Stack Web Application'}`;
+          if (p.tech) line += `\n   - Tech Stack: ${p.tech}`;
+          if (p.demo) line += `\n   - Live Demo: ${p.demo}`;
+          if (p.repo) line += `\n   - Source Code: ${p.repo}`;
+          return line;
+        }).join('\n');
+      } else {
+        projText = '1. VyaparFlow: Full-Stack Inventory & GST Invoicing SaaS (Next.js, Node.js, PostgreSQL, Tailwind)\n2. CyberSentinel: Real-Time Network Threat Monitoring (Python, FastAPI, Scapy, WebSockets)';
+      }
+
+      // Skills & Categories
+      const mainSkills = profile.quickSkills || profile.skills || 'TypeScript, React, Next.js, Node.js, Python, PostgreSQL, Docker, Tailwind CSS';
+      let skillCatText = '';
+      if (Array.isArray(profile.skillCategories) && profile.skillCategories.length > 0) {
+        skillCatText = '\nSpecialized Skill Categories:\n' + profile.skillCategories.map(s => `  • ${s.category || 'Domain'}: ${s.skills || 'Tools'}`).join('\n');
+      }
+
+      // Achievements
+      let achText = '';
+      if (Array.isArray(profile.achievements) && profile.achievements.length > 0) {
+        achText = profile.achievements.map((a, idx) => {
+          let line = `${idx + 1}. ${a.title || 'Honor / Award'}${a.issuer ? ' — ' + a.issuer : ''}${a.date ? ' (' + a.date + ')' : ''}`;
+          if (a.desc) line += `\n     Details: ${a.desc}`;
+          return line;
+        }).join('\n');
+      } else if (profile.award) {
+        achText = `1. ${profile.award}`;
+      } else {
+        achText = '1. 2nd Position, Techblitz National Hackathon';
+      }
+
+      // Certifications
+      let certText = '';
+      if (Array.isArray(profile.certificates) && profile.certificates.length > 0) {
+        certText = profile.certificates.map((c, idx) => {
+          let line = `${idx + 1}. ${c.title || 'Certification'}${c.issuer ? ' by ' + c.issuer : ''}${c.date ? ' (' + c.date + ')' : ''}`;
+          if (c.url) line += `\n     Credential URL: ${c.url}`;
+          return line;
+        }).join('\n');
+      }
 
       return `Act as a world-class Frontend Engineer and UI/UX Designer.
 I want to build a personal developer portfolio website replicating the "${v.name}" aesthetic archetype (PortfolioForge Variant #${v.id}, ${v.cat.toUpperCase()} category).
@@ -7111,11 +7789,6 @@ My Profile & Credentials:
 - Sub-Headline / Punchline: ${userPunchline}
 - Status / Availability: ${profile.status || 'Available for opportunities'}
 - Bio: ${userBio}
-- Experience: ${userExp}
-- Education: ${userEdu}
-- Top Honor / Award: ${profile.award || 'Hackathon Winner'}
-- Core Skills & Tech Stack: ${profile.skills || 'TypeScript, React, Next.js, Node.js, Python, PostgreSQL, Docker'}
-- Technical Focus / Specialties: ${profile.specialties || 'Full-Stack Web Development, Distributed Systems'}
 - Email: ${profile.email || 'developer@example.com'}
 - Location: ${profile.location || 'Remote'}
 - Phone / Contact: ${profile.phone || '+1 (555) 019-2834'}
@@ -7124,17 +7797,28 @@ My Profile & Credentials:
 - Twitter / X: ${profile.twitter || 'https://x.com/developer'}
 - Resume Link: ${profile.resume || 'resume.pdf'}
 
+Work Experience & Career History:
+${expText}
+
+Education & Academic Degrees:
+${eduText}
+
+Core Tech Stack & Skills:
+- Primary Tech: ${mainSkills}
+- Key Specialties: ${profile.specialties || 'Distributed Systems, Cloud Architecture, Real-Time Web Apps'}${skillCatText}
+
 Featured Projects to Showcase:
-1. ${profile.proj1Name || 'VyaparFlow'}: ${profile.proj1Desc || 'Full-Stack Inventory & GST Invoicing SaaS'}
-   - Tech: ${profile.proj1Tech || 'Next.js, Node.js, PostgreSQL, Prisma, Tailwind'}
-2. ${profile.proj2Name || 'CyberSentinel'}: ${profile.proj2Desc || 'Real-Time Network Threat Monitoring with sub-millisecond sniffer'}
-   - Tech: ${profile.proj2Tech || 'Python, Scapy, FastAPI, WebSockets, Next.js'}
-${profile.proj3Name ? `3. ${profile.proj3Name}: ${profile.proj3Desc || 'High-performance system architecture'}\n` : ''}
+${projText}
+
+Achievements, Honors & Hackathons:
+${achText}${certText ? `\n\nLicenses & Professional Certifications:\n${certText}` : ''}
+
 Implementation Requirements:
 1. Generate a single-file, production-ready index.html with embedded CSS and vanilla JS (zero build steps, zero npm dependencies).
 2. Adhere strictly to the color palette (${v.accent} accent on ${v.bg} background) and the ${v.tags.join('/')} typography and layout hierarchy.
 3. Make it fully responsive (mobile, tablet, desktop) and accessible with clean semantic HTML5 markup.
-4. Include interactive micro-animations and smooth section transitions matching the archetype.`;
+4. Include all my projects, work experiences, education degrees, achievements, certificates, and skills neatly structured into the layout matching the archetype.
+5. Include interactive micro-animations and smooth section transitions matching the archetype.`;
     }
 
     function updateAiPromptView() {
