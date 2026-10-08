@@ -1215,11 +1215,96 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* REPLICATOR PERSONALIZATION FORM */
+    /* REPLICATOR PERSONALIZATION FORM & CATEGORY SECTIONS */
     .rep-form {
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 16px;
+    }
+
+    .rep-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .rep-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .rep-status-badge {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-subtle);
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 113, 227, 0.2);
+    }
+
+    .rep-hints {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    .rep-toolbar-right {
+      display: flex;
+      gap: 6px;
+    }
+
+    .rep-section-card {
+      background: var(--card-hover);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .rep-section-card:focus-within {
+      border-color: rgba(0, 113, 227, 0.4);
+      box-shadow: 0 4px 18px rgba(0, 113, 227, 0.06);
+    }
+
+    .rep-sec-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+    }
+
+    .rep-sec-icon {
+      font-size: 1.05rem;
+    }
+
+    .rep-sec-heading {
+      flex: 1;
+    }
+
+    .rep-sec-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-sub);
+      background: rgba(128, 128, 128, 0.1);
+      padding: 2px 7px;
+      border-radius: 5px;
     }
 
     .rep-grid-2 {
@@ -1228,9 +1313,10 @@
       gap: 12px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
       .rep-grid-2 { grid-template-columns: 1fr; }
       .studio-tabs-nav { flex-wrap: nowrap; }
+      .rep-override-row { grid-template-columns: 1fr !important; }
     }
 
     .rep-field {
@@ -1252,7 +1338,7 @@
 
     .rep-input {
       width: 100%;
-      background: var(--card-hover);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 9px;
       padding: 9px 12px;
@@ -1265,15 +1351,127 @@
     .rep-input:focus {
       outline: none;
       border-color: var(--blue);
-      background: var(--card-bg);
       box-shadow: 0 0 0 3px var(--blue-subtle);
+    }
+
+    .rep-textarea {
+      resize: vertical;
+      min-height: 58px;
+      line-height: 1.45;
+    }
+
+    .rep-project-block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rep-proj-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rep-proj-num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: var(--blue-subtle);
+      color: var(--blue);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .rep-proj-title-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* CUSTOM OVERRIDES SECTION */
+    .rep-overrides-card {
+      border-color: rgba(234, 179, 8, 0.28);
+      background: rgba(234, 179, 8, 0.03);
+    }
+
+    .rep-overrides-hint {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .rep-overrides-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rep-override-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto;
+      gap: 8px;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 7px 10px;
+      border-radius: 8px;
+    }
+
+    .rep-override-arrow {
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      user-select: none;
+    }
+
+    .btn-override-del {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-override-del:hover {
+      background: rgba(239, 68, 68, 0.12);
+    }
+
+    .btn-add-override {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px dashed var(--card-border-hover);
+      color: var(--text);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-add-override:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-subtle);
     }
 
     .rep-actions-bar {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--card-border);
     }
 
     .btn-rep-sim {
@@ -1346,9 +1544,9 @@
 
     .btn-rep-sample {
       background: transparent;
-      border: 1px dashed var(--card-border);
+      border: 1px solid var(--card-border);
       color: var(--text-sub);
-      padding: 5px 11px;
+      padding: 5px 10px;
       border-radius: 8px;
       font-size: 0.74rem;
       font-weight: 600;
@@ -5775,75 +5973,268 @@
 
       <!-- TAB 1: REPLICATE WITH MY INFO -->
       <div class="studio-tab-panel active" id="panel-replicate">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-          <span style="font-size:0.8rem; color:var(--text-sub);">Personalize this template with your own details:</span>
-          <div style="display:flex; gap:6px;">
-            <button type="button" class="btn-rep-sample" onclick="fillSampleUserData()">⚡ Auto-Fill Sample Data</button>
-            <button type="button" class="btn-rep-sample" onclick="clearUserData()">↺ Clear</button>
+        <!-- Top Toolbar with stats and actions -->
+        <div class="rep-toolbar">
+          <div class="rep-toolbar-left">
+            <span class="rep-status-badge" id="repStatusBadge">✨ Full Portfolio Customizer</span>
+            <span class="rep-hints">Changes propagate across all 84 design systems in real time.</span>
+          </div>
+          <div class="rep-toolbar-right">
+            <button type="button" class="btn-rep-sample" onclick="fillSampleUserData()" title="Populate realistic profile data">⚡ Auto-Fill Sample</button>
+            <button type="button" class="btn-rep-sample" onclick="saveUserProfile(getUserProfileFromForm()); showToast('💾 Profile saved locally!');" title="Save profile to browser">💾 Save</button>
+            <button type="button" class="btn-rep-sample" onclick="clearUserData()" title="Clear form">↺ Clear</button>
           </div>
         </div>
 
         <form class="rep-form" onsubmit="event.preventDefault(); simulateReplicatedPortfolio();">
-          <div class="rep-grid-2">
-            <div class="rep-field">
-              <label class="rep-label" for="repName">Full Name</label>
-              <input type="text" id="repName" class="rep-input" placeholder="e.g. Alex Rivera" />
+          
+          <!-- SECTION 1: IDENTITY & BIO -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">👤</span>
+              <span class="rep-sec-heading">Personal Identity &amp; Bio</span>
+              <span class="rep-sec-tag">Hero &amp; Nav</span>
             </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repName">Full Name</label>
+                <input type="text" id="repName" class="rep-input" placeholder="e.g. Alex Rivera" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repRole">Role / Professional Headline</label>
+                <input type="text" id="repRole" class="rep-input" placeholder="e.g. Full-Stack Engineer &amp; AI Developer" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repPunchline">Sub-Headline / Punchline</label>
+                <input type="text" id="repPunchline" class="rep-input" placeholder="e.g. Designing robust distributed systems &amp; modern apps" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repStatus">Availability / Status Pill</label>
+                <input type="text" id="repStatus" class="rep-input" placeholder="e.g. Available for hire · Open to full-time roles" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
             <div class="rep-field">
-              <label class="rep-label" for="repRole">Role / Headline</label>
-              <input type="text" id="repRole" class="rep-input" placeholder="e.g. Full-Stack Engineer &amp; AI Developer" />
+              <label class="rep-label" for="repBio">About Me / Bio Paragraph</label>
+              <textarea id="repBio" class="rep-input rep-textarea" rows="2" placeholder="e.g. Software engineer focused on scalable cloud infrastructure, machine learning models, and delightful web interfaces." oninput="onProfileInputChange()"></textarea>
+            </div>
+
+            <div class="rep-field">
+              <label class="rep-label" for="repAvatar">Avatar / Headshot Image URL (Optional)</label>
+              <input type="url" id="repAvatar" class="rep-input" placeholder="e.g. https://images.unsplash.com/... or your custom hosted photo URL" oninput="onProfileInputChange()" />
             </div>
           </div>
 
-          <div class="rep-grid-2">
-            <div class="rep-field">
-              <label class="rep-label" for="repEmail">Email Address</label>
-              <input type="email" id="repEmail" class="rep-input" placeholder="e.g. alex@example.com" />
+          <!-- SECTION 2: EXPERIENCE, EDUCATION & HONORS -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">💼</span>
+              <span class="rep-sec-heading">Experience, Education &amp; Achievements</span>
+              <span class="rep-sec-tag">Background</span>
             </div>
-            <div class="rep-field">
-              <label class="rep-label" for="repLocation">Location</label>
-              <input type="text" id="repLocation" class="rep-input" placeholder="e.g. San Francisco, CA" />
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repCompany">Current / Past Company</label>
+                <input type="text" id="repCompany" class="rep-input" placeholder="e.g. Octanet Services Pvt. Ltd. or Stripe" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repJobTitle">Job Title / Role</label>
+                <input type="text" id="repJobTitle" class="rep-input" placeholder="e.g. Web Development Intern or Staff Engineer" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repCollege">College / University</label>
+                <input type="text" id="repCollege" class="rep-input" placeholder="e.g. VCET, Mumbai University or Stanford University" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repDegree">Degree / Major</label>
+                <input type="text" id="repDegree" class="rep-input" placeholder="e.g. B.E. in Information Technology" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repGradYear">Academic / Work Duration</label>
+                <input type="text" id="repGradYear" class="rep-input" placeholder="e.g. 2023–2027" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repAward">Top Award / Hackathon Honor</label>
+                <input type="text" id="repAward" class="rep-input" placeholder="e.g. 2nd Position, Techblitz National Hackathon" oninput="onProfileInputChange()" />
+              </div>
             </div>
           </div>
 
-          <div class="rep-grid-2">
-            <div class="rep-field">
-              <label class="rep-label" for="repGithub">GitHub Profile URL</label>
-              <input type="text" id="repGithub" class="rep-input" placeholder="e.g. https://github.com/alexrivera" />
+          <!-- SECTION 3: SKILLS & TECH STACK -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">🛠️</span>
+              <span class="rep-sec-heading">Skills &amp; Technologies</span>
+              <span class="rep-sec-tag">Tech Stack</span>
             </div>
+
             <div class="rep-field">
-              <label class="rep-label" for="repLinkedin">LinkedIn Profile URL</label>
-              <input type="text" id="repLinkedin" class="rep-input" placeholder="e.g. https://linkedin.com/in/alexrivera" />
+              <label class="rep-label" for="repSkills">Core Tech Stack (Comma-separated)</label>
+              <input type="text" id="repSkills" class="rep-input" placeholder="e.g. TypeScript, React, Next.js, Node.js, Python, PostgreSQL, PyTorch, Docker, Tailwind CSS" oninput="onProfileInputChange()" />
+            </div>
+
+            <div class="rep-field">
+              <label class="rep-label" for="repSpecialties">Specialties / Technical Focus</label>
+              <input type="text" id="repSpecialties" class="rep-input" placeholder="e.g. Full-Stack Web Development, AI/ML Engineering, Distributed Systems" oninput="onProfileInputChange()" />
             </div>
           </div>
 
-          <div class="rep-grid-2">
-            <div class="rep-field">
-              <label class="rep-label" for="repProj1Name">Featured Project 1 Name</label>
-              <input type="text" id="repProj1Name" class="rep-input" placeholder="e.g. PulseFlow SaaS" />
+          <!-- SECTION 4: FEATURED PROJECTS -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">🚀</span>
+              <span class="rep-sec-heading">Featured Projects</span>
+              <span class="rep-sec-tag">Work Showcase</span>
             </div>
-            <div class="rep-field">
-              <label class="rep-label" for="repProj1Desc">Project 1 Tagline</label>
-              <input type="text" id="repProj1Desc" class="rep-input" placeholder="e.g. Real-time telemetry &amp; observability pipeline" />
+
+            <!-- Project 1 -->
+            <div class="rep-project-block">
+              <div class="rep-proj-header">
+                <span class="rep-proj-num">#1</span>
+                <span class="rep-proj-title-label">Primary Featured Project</span>
+              </div>
+              <div class="rep-grid-2">
+                <div class="rep-field">
+                  <label class="rep-label" for="repProj1Name">Project 1 Name</label>
+                  <input type="text" id="repProj1Name" class="rep-input" placeholder="e.g. VyaparFlow SaaS or PulseFlow" oninput="onProfileInputChange()" />
+                </div>
+                <div class="rep-field">
+                  <label class="rep-label" for="repProj1Tech">Project 1 Tech Stack</label>
+                  <input type="text" id="repProj1Tech" class="rep-input" placeholder="e.g. Next.js, PostgreSQL, Prisma, Tailwind" oninput="onProfileInputChange()" />
+                </div>
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repProj1Desc">Project 1 Overview / Tagline</label>
+                <input type="text" id="repProj1Desc" class="rep-input" placeholder="e.g. Full-Stack Inventory &amp; GST Invoicing SaaS with automated billing" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="rep-project-block">
+              <div class="rep-proj-header">
+                <span class="rep-proj-num">#2</span>
+                <span class="rep-proj-title-label">Secondary Featured Project</span>
+              </div>
+              <div class="rep-grid-2">
+                <div class="rep-field">
+                  <label class="rep-label" for="repProj2Name">Project 2 Name</label>
+                  <input type="text" id="repProj2Name" class="rep-input" placeholder="e.g. CyberSentinel or Aetheria" oninput="onProfileInputChange()" />
+                </div>
+                <div class="rep-field">
+                  <label class="rep-label" for="repProj2Tech">Project 2 Tech Stack</label>
+                  <input type="text" id="repProj2Tech" class="rep-input" placeholder="e.g. Python, FastAPI, WebSockets, Next.js" oninput="onProfileInputChange()" />
+                </div>
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repProj2Desc">Project 2 Overview / Tagline</label>
+                <input type="text" id="repProj2Desc" class="rep-input" placeholder="e.g. Real-Time Network Threat Monitoring with sub-millisecond sniffer" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="rep-project-block">
+              <div class="rep-proj-header">
+                <span class="rep-proj-num">#3</span>
+                <span class="rep-proj-title-label">Tertiary Project (Optional)</span>
+              </div>
+              <div class="rep-grid-2">
+                <div class="rep-field">
+                  <label class="rep-label" for="repProj3Name">Project 3 Name</label>
+                  <input type="text" id="repProj3Name" class="rep-input" placeholder="e.g. Saturn Finance or Brain Tumor Detection" oninput="onProfileInputChange()" />
+                </div>
+                <div class="rep-field">
+                  <label class="rep-label" for="repProj3Desc">Project 3 Tagline</label>
+                  <input type="text" id="repProj3Desc" class="rep-input" placeholder="e.g. Decentralized Crypto Portfolio &amp; Gas Analytics" oninput="onProfileInputChange()" />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="rep-grid-2">
-            <div class="rep-field">
-              <label class="rep-label" for="repProj2Name">Featured Project 2 Name</label>
-              <input type="text" id="repProj2Name" class="rep-input" placeholder="e.g. Aetheria Neural Engine" />
+          <!-- SECTION 5: CONTACT, SOCIALS & BUTTONS -->
+          <div class="rep-section-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">🌐</span>
+              <span class="rep-sec-heading">Contact, Socials &amp; Action Buttons</span>
+              <span class="rep-sec-tag">Links &amp; CTAs</span>
             </div>
-            <div class="rep-field">
-              <label class="rep-label" for="repProj2Desc">Project 2 Tagline</label>
-              <input type="text" id="repProj2Desc" class="rep-input" placeholder="e.g. Sub-millisecond local LLM inference runtime" />
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repEmail">Email Address</label>
+                <input type="email" id="repEmail" class="rep-input" placeholder="e.g. alex@example.com" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repPhone">Phone Number / WhatsApp</label>
+                <input type="text" id="repPhone" class="rep-input" placeholder="e.g. +1 (555) 019-2834" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repLocation">Location</label>
+                <input type="text" id="repLocation" class="rep-input" placeholder="e.g. San Francisco, CA" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repGithub">GitHub Profile URL</label>
+                <input type="text" id="repGithub" class="rep-input" placeholder="e.g. https://github.com/alexrivera" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repLinkedin">LinkedIn Profile URL</label>
+                <input type="text" id="repLinkedin" class="rep-input" placeholder="e.g. https://linkedin.com/in/alexrivera" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repTwitter">Twitter / X URL</label>
+                <input type="text" id="repTwitter" class="rep-input" placeholder="e.g. https://x.com/alexrivera" oninput="onProfileInputChange()" />
+              </div>
+            </div>
+
+            <div class="rep-grid-2">
+              <div class="rep-field">
+                <label class="rep-label" for="repResume">Resume PDF URL</label>
+                <input type="text" id="repResume" class="rep-input" placeholder="e.g. Aryan_Rokade_Resume.pdf or https://myresume.pdf" oninput="onProfileInputChange()" />
+              </div>
+              <div class="rep-field">
+                <label class="rep-label" for="repPrimaryBtn">Primary Button Text</label>
+                <input type="text" id="repPrimaryBtn" class="rep-input" placeholder="e.g. View Featured Work" oninput="onProfileInputChange()" />
+              </div>
             </div>
           </div>
 
-          <div class="rep-field">
-            <label class="rep-label" for="repAvatar">Avatar / Headshot Image URL (Optional)</label>
-            <input type="url" id="repAvatar" class="rep-input" placeholder="e.g. https://images.unsplash.com/... or your hosted image URL" />
+          <!-- SECTION 6: POWER OVERRIDES — CUSTOM FIND & REPLACE -->
+          <div class="rep-section-card rep-overrides-card">
+            <div class="rep-sec-title">
+              <span class="rep-sec-icon">⚡</span>
+              <span class="rep-sec-heading">Power Text Overrides (Custom Find &amp; Replace)</span>
+              <span class="rep-sec-tag" style="background:rgba(234, 179, 8, 0.15); color:#eab308;">Exact Match</span>
+            </div>
+            <p class="rep-overrides-hint">
+              Replace <strong>any exact word, phrase, statistic, or slogan</strong> in the selected template with your own custom text:
+            </p>
+
+            <div id="repCustomOverridesList" class="rep-overrides-list">
+              <!-- Dynamically populated rows -->
+            </div>
+
+            <button type="button" class="btn-add-override" onclick="addCustomOverrideRow()">
+              <span>+ Add Custom Find &amp; Replace Rule</span>
+            </button>
           </div>
 
+          <!-- Action Buttons Bar -->
           <div class="rep-actions-bar">
             <button type="button" class="btn-rep-sim" onclick="simulateReplicatedPortfolio()">
               <span>🚀 Test Live in Simulator</span>
@@ -6142,19 +6533,95 @@
       return text;
     }
 
+    function escapeHtmlAttr(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function addCustomOverrideRow(findVal = '', replaceVal = '') {
+      const list = document.getElementById('repCustomOverridesList');
+      if (!list) return;
+      const row = document.createElement('div');
+      row.className = 'rep-override-row';
+      row.innerHTML = `
+        <input type="text" class="rep-input rep-override-find" placeholder="Find text in template..." value="${escapeHtmlAttr(findVal)}" oninput="onProfileInputChange()" />
+        <span class="rep-override-arrow">➔</span>
+        <input type="text" class="rep-input rep-override-replace" placeholder="Replace with..." value="${escapeHtmlAttr(replaceVal)}" oninput="onProfileInputChange()" />
+        <button type="button" class="btn-override-del" onclick="removeCustomOverrideRow(this)" title="Delete rule">✕</button>
+      `;
+      list.appendChild(row);
+    }
+
+    function removeCustomOverrideRow(btn) {
+      const row = btn.closest('.rep-override-row');
+      if (row) {
+        row.remove();
+        onProfileInputChange();
+      }
+    }
+
     function getUserProfileFromForm() {
+      const getVal = (id) => (document.getElementById(id)?.value || '').trim();
+
+      // Collect custom find & replace rules
+      const customOverrides = [];
+      const rows = document.querySelectorAll('#repCustomOverridesList .rep-override-row');
+      rows.forEach(row => {
+        const find = (row.querySelector('.rep-override-find')?.value || '').trim();
+        const replace = row.querySelector('.rep-override-replace')?.value || '';
+        if (find) {
+          customOverrides.push({ find, replace });
+        }
+      });
+
       return {
-        name: (document.getElementById('repName')?.value || '').trim(),
-        role: (document.getElementById('repRole')?.value || '').trim(),
-        email: (document.getElementById('repEmail')?.value || '').trim(),
-        location: (document.getElementById('repLocation')?.value || '').trim(),
-        github: (document.getElementById('repGithub')?.value || '').trim(),
-        linkedin: (document.getElementById('repLinkedin')?.value || '').trim(),
-        proj1Name: (document.getElementById('repProj1Name')?.value || '').trim(),
-        proj1Desc: (document.getElementById('repProj1Desc')?.value || '').trim(),
-        proj2Name: (document.getElementById('repProj2Name')?.value || '').trim(),
-        proj2Desc: (document.getElementById('repProj2Desc')?.value || '').trim(),
-        avatar: (document.getElementById('repAvatar')?.value || '').trim()
+        // Section 1: Identity & Bio
+        name: getVal('repName'),
+        role: getVal('repRole'),
+        punchline: getVal('repPunchline'),
+        status: getVal('repStatus'),
+        bio: getVal('repBio'),
+        avatar: getVal('repAvatar'),
+
+        // Section 2: Experience, Education & Honors
+        company: getVal('repCompany'),
+        jobTitle: getVal('repJobTitle'),
+        college: getVal('repCollege'),
+        degree: getVal('repDegree'),
+        gradYear: getVal('repGradYear'),
+        award: getVal('repAward'),
+
+        // Section 3: Skills & Tech
+        skills: getVal('repSkills'),
+        specialties: getVal('repSpecialties'),
+
+        // Section 4: Featured Projects
+        proj1Name: getVal('repProj1Name'),
+        proj1Tech: getVal('repProj1Tech'),
+        proj1Desc: getVal('repProj1Desc'),
+        proj2Name: getVal('repProj2Name'),
+        proj2Tech: getVal('repProj2Tech'),
+        proj2Desc: getVal('repProj2Desc'),
+        proj3Name: getVal('repProj3Name'),
+        proj3Desc: getVal('repProj3Desc'),
+
+        // Section 5: Contact, Socials & Actions
+        email: getVal('repEmail'),
+        phone: getVal('repPhone'),
+        location: getVal('repLocation'),
+        github: getVal('repGithub'),
+        linkedin: getVal('repLinkedin'),
+        twitter: getVal('repTwitter'),
+        resume: getVal('repResume'),
+        primaryBtn: getVal('repPrimaryBtn'),
+
+        // Section 6: Power Overrides
+        customOverrides
       };
     }
 
@@ -6169,51 +6636,149 @@
         const saved = localStorage.getItem('pf_user_profile');
         if (!saved) return;
         const profile = JSON.parse(saved);
-        if (profile.name) document.getElementById('repName').value = profile.name;
-        if (profile.role) document.getElementById('repRole').value = profile.role;
-        if (profile.email) document.getElementById('repEmail').value = profile.email;
-        if (profile.location) document.getElementById('repLocation').value = profile.location;
-        if (profile.github) document.getElementById('repGithub').value = profile.github;
-        if (profile.linkedin) document.getElementById('repLinkedin').value = profile.linkedin;
-        if (profile.proj1Name) document.getElementById('repProj1Name').value = profile.proj1Name;
-        if (profile.proj1Desc) document.getElementById('repProj1Desc').value = profile.proj1Desc;
-        if (profile.proj2Name) document.getElementById('repProj2Name').value = profile.proj2Name;
-        if (profile.proj2Desc) document.getElementById('repProj2Desc').value = profile.proj2Desc;
-        if (profile.avatar) document.getElementById('repAvatar').value = profile.avatar;
+        const setVal = (id, val) => {
+          const el = document.getElementById(id);
+          if (el && val !== undefined) el.value = val;
+        };
+
+        setVal('repName', profile.name);
+        setVal('repRole', profile.role);
+        setVal('repPunchline', profile.punchline);
+        setVal('repStatus', profile.status);
+        setVal('repBio', profile.bio);
+        setVal('repAvatar', profile.avatar);
+
+        setVal('repCompany', profile.company);
+        setVal('repJobTitle', profile.jobTitle);
+        setVal('repCollege', profile.college);
+        setVal('repDegree', profile.degree);
+        setVal('repGradYear', profile.gradYear);
+        setVal('repAward', profile.award);
+
+        setVal('repSkills', profile.skills);
+        setVal('repSpecialties', profile.specialties);
+
+        setVal('repProj1Name', profile.proj1Name);
+        setVal('repProj1Tech', profile.proj1Tech);
+        setVal('repProj1Desc', profile.proj1Desc);
+        setVal('repProj2Name', profile.proj2Name);
+        setVal('repProj2Tech', profile.proj2Tech);
+        setVal('repProj2Desc', profile.proj2Desc);
+        setVal('repProj3Name', profile.proj3Name);
+        setVal('repProj3Desc', profile.proj3Desc);
+
+        setVal('repEmail', profile.email);
+        setVal('repPhone', profile.phone);
+        setVal('repLocation', profile.location);
+        setVal('repGithub', profile.github);
+        setVal('repLinkedin', profile.linkedin);
+        setVal('repTwitter', profile.twitter);
+        setVal('repResume', profile.resume);
+        setVal('repPrimaryBtn', profile.primaryBtn);
+
+        const list = document.getElementById('repCustomOverridesList');
+        if (list) {
+          list.innerHTML = '';
+          if (Array.isArray(profile.customOverrides) && profile.customOverrides.length > 0) {
+            profile.customOverrides.forEach(rule => {
+              addCustomOverrideRow(rule.find, rule.replace);
+            });
+          }
+        }
       } catch (e) {}
     }
 
     function fillSampleUserData() {
-      document.getElementById('repName').value = 'Alex Rivera';
-      document.getElementById('repRole').value = 'Full-Stack Engineer & Creative Technologist';
-      document.getElementById('repEmail').value = 'alex.rivera@example.com';
-      document.getElementById('repLocation').value = 'San Francisco, CA';
-      document.getElementById('repGithub').value = 'https://github.com/alexrivera';
-      document.getElementById('repLinkedin').value = 'https://linkedin.com/in/alexrivera';
-      document.getElementById('repProj1Name').value = 'PulseFlow SaaS';
-      document.getElementById('repProj1Desc').value = 'Real-time telemetry & cloud infrastructure observability';
-      document.getElementById('repProj2Name').value = 'Aetheria Neural Engine';
-      document.getElementById('repProj2Desc').value = 'Sub-millisecond local LLM inference runtime with WebGPU';
-      document.getElementById('repAvatar').value = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      };
+
+      setVal('repName', 'Alex Rivera');
+      setVal('repRole', 'Full-Stack Engineer & AI Architect');
+      setVal('repPunchline', 'Engineering intelligent distributed systems, cloud architectures & elegant web interfaces');
+      setVal('repStatus', 'Available for full-time opportunities · Worldwide remote');
+      setVal('repBio', 'Passionate software engineer and builder with 4+ years creating production-grade distributed applications, autonomous AI agents, and reactive web experiences.');
+      setVal('repAvatar', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80');
+
+      setVal('repCompany', 'NovaCore Systems');
+      setVal('repJobTitle', 'Senior Software Engineer');
+      setVal('repCollege', 'UC Berkeley');
+      setVal('repDegree', 'B.S. in Computer Science');
+      setVal('repGradYear', '2021–2025');
+      setVal('repAward', '1st Place, Silicon Valley AI Hackathon (Autonomous Agent Fleet)');
+
+      setVal('repSkills', 'TypeScript, Next.js, Node.js, Python, PyTorch, Go, PostgreSQL, Redis, Docker, AWS, Tailwind CSS');
+      setVal('repSpecialties', 'Cloud Systems, LLM Agentic Workflows, Real-Time WebSockets, High-Throughput APIs');
+
+      setVal('repProj1Name', 'PulseFlow Cloud');
+      setVal('repProj1Tech', 'Next.js, Go, PostgreSQL, Kafka, Tailwind CSS');
+      setVal('repProj1Desc', 'Enterprise multi-tenant observability and real-time distributed telemetry dashboard');
+
+      setVal('repProj2Name', 'Aetheria Neural Engine');
+      setVal('repProj2Tech', 'Python, PyTorch, FastAPI, WebGPU, React');
+      setVal('repProj2Desc', 'Sub-millisecond local LLM inference runtime with real-time stream decoding');
+
+      setVal('repProj3Name', 'Chronos Protocol');
+      setVal('repProj3Desc', 'Decentralized liquidity aggregator with automated slippage arbitrage algorithms');
+
+      setVal('repEmail', 'alex.rivera@example.com');
+      setVal('repPhone', '+1 (415) 890-1234');
+      setVal('repLocation', 'San Francisco, CA');
+      setVal('repGithub', 'https://github.com/alexrivera');
+      setVal('repLinkedin', 'https://linkedin.com/in/alexrivera');
+      setVal('repTwitter', 'https://x.com/alexrivera_dev');
+      setVal('repResume', 'https://alexrivera.dev/resume.pdf');
+      setVal('repPrimaryBtn', 'Explore My Work');
+
+      const list = document.getElementById('repCustomOverridesList');
+      if (list) {
+        list.innerHTML = '';
+        addCustomOverrideRow('VCET', 'UC Berkeley');
+        addCustomOverrideRow('Techblitz', 'Silicon Valley AI Hackathon');
+        addCustomOverrideRow('Octanet Services', 'NovaCore Systems');
+      }
+
       saveUserProfile(getUserProfileFromForm());
       updateAiPromptView();
-      showToast('⚡ Sample profile filled! Click "Test Live in Simulator" to see it.');
+      showToast('⚡ Sample profile & custom rules filled! Click "Test Live in Simulator" to see it.');
     }
 
     function clearUserData() {
-      ['repName', 'repRole', 'repEmail', 'repLocation', 'repGithub', 'repLinkedin', 'repProj1Name', 'repProj1Desc', 'repProj2Name', 'repProj2Desc', 'repAvatar'].forEach(id => {
+      const ids = [
+        'repName', 'repRole', 'repPunchline', 'repStatus', 'repBio', 'repAvatar',
+        'repCompany', 'repJobTitle', 'repCollege', 'repDegree', 'repGradYear', 'repAward',
+        'repSkills', 'repSpecialties',
+        'repProj1Name', 'repProj1Tech', 'repProj1Desc',
+        'repProj2Name', 'repProj2Tech', 'repProj2Desc',
+        'repProj3Name', 'repProj3Desc',
+        'repEmail', 'repPhone', 'repLocation', 'repGithub', 'repLinkedin', 'repTwitter', 'repResume', 'repPrimaryBtn'
+      ];
+      ids.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
+      const list = document.getElementById('repCustomOverridesList');
+      if (list) list.innerHTML = '';
       localStorage.removeItem('pf_user_profile');
       updateAiPromptView();
-      showToast('Form cleared.');
+      showToast('Form and custom rules cleared.');
+    }
+
+    let profileChangeDebounceTimer = null;
+    function onProfileInputChange() {
+      clearTimeout(profileChangeDebounceTimer);
+      profileChangeDebounceTimer = setTimeout(() => {
+        const profile = getUserProfileFromForm();
+        saveUserProfile(profile);
+        updateAiPromptView();
+      }, 400);
     }
 
     function generateReplicatedPortfolioHtml(rawHtml, v, profile) {
       let customized = rawHtml;
 
-      // 1. Name Replacements
+      // 1. Identity & Bio Replacements
       if (profile.name) {
         customized = customized.split('Aryan Rokade').join(profile.name);
         customized = customized.split('ARYAN ROKADE').join(profile.name.toUpperCase());
@@ -6221,30 +6786,150 @@
         customized = customized.replace(/\bAryan\b/g, firstName);
       }
 
-      // 2. Role / Title Replacements
+      // 2. Role / Headline Replacements (Ordered from most specific to least specific)
       if (profile.role) {
         customized = customized.split('Full Stack Developer & AI Engineer').join(profile.role);
         customized = customized.split('Full Stack Developer &amp; AI Engineer').join(profile.role);
+        customized = customized.split('Full Stack Developer & AI Specialist').join(profile.role);
+        customized = customized.split('Full Stack Developer and AI Engineer').join(profile.role);
+        customized = customized.split('Full-Stack Architect & AI Specialist').join(profile.role);
         customized = customized.split('Full Stack Developer').join(profile.role);
         customized = customized.split('Computer Engineering student').join(profile.role);
         customized = customized.split('Computer Engineering Student').join(profile.role);
+        customized = customized.split('Computer Engineering undergraduate').join(profile.role);
+        customized = customized.split('Computer Engineering Undergraduate').join(profile.role);
         customized = customized.split('AI Engineer').join(profile.role);
       }
 
-      // 3. Email
+      // 3. Sub-Headline / Punchline
+      if (profile.punchline) {
+        customized = customized.split('Building intelligent, scalable, and resilient systems').join(profile.punchline);
+        customized = customized.split('Crafting scalable web systems & intelligent AI solutions').join(profile.punchline);
+        customized = customized.split('Building high-impact digital experiences').join(profile.punchline);
+        customized = customized.split('Turning complex problems into elegant engineering solutions').join(profile.punchline);
+        customized = customized.split('A relentless builder of high-performance web systems.').join(profile.punchline);
+      }
+
+      // 4. Status / Availability Pill
+      if (profile.status) {
+        customized = customized.split('Available for opportunities').join(profile.status);
+        customized = customized.split('Available for work').join(profile.status);
+        customized = customized.split('Open to work').join(profile.status);
+        customized = customized.split('Open for opportunities').join(profile.status);
+      }
+
+      // 5. About Me / Bio Paragraph
+      if (profile.bio) {
+        customized = customized.split("Full-stack developer and AI engineer passionate about building high-performance web applications and intelligent systems.").join(profile.bio);
+        customized = customized.split("Passionate about building scalable web applications, real-time architectures, and machine learning models.").join(profile.bio);
+        customized = customized.split("Pursuing B.E. in Computer Engineering at Vidyavardhini's College of Engineering and Technology (VCET). Focused on building responsive user interfaces, modular backend services, and machine learning models.").join(profile.bio);
+        customized = customized.split("Computer Engineering scholar at Vidyavardhini's College of Engineering & Technology (VCET), Mumbai University (Graduating 2027).").join(profile.bio);
+      }
+
+      // 6. Experience & Education Replacements
+      if (profile.company) {
+        customized = customized.split('Octanet Services Pvt. Ltd.').join(profile.company);
+        customized = customized.split('Octanet Services').join(profile.company);
+      }
+      if (profile.jobTitle) {
+        customized = customized.split('Web Development Intern').join(profile.jobTitle);
+      }
+      if (profile.college) {
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET), Mumbai University").join(profile.college);
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai").join(profile.college);
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology (VCET)").join(profile.college);
+        customized = customized.split("Vidyavardhini’s College of Engineering and Technology (VCET)").join(profile.college);
+        customized = customized.split("Vidyavardhini's College of Engineering and Technology").join(profile.college);
+        customized = customized.split("Vidyavardhini’s College of Engineering and Technology").join(profile.college);
+        customized = customized.split("Vidyavardhini's College of Eng. & Tech (VCET)").join(profile.college);
+        customized = customized.split("VCET Mumbai University").join(profile.college);
+        customized = customized.split("VCET Mumbai").join(profile.college);
+        customized = customized.split("VCET").join(profile.college);
+      }
+      if (profile.degree) {
+        customized = customized.split('B.E. in Information Technology').join(profile.degree);
+        customized = customized.split('B.E. Information Technology').join(profile.degree);
+        customized = customized.split('B.E. in Computer Engineering').join(profile.degree);
+        customized = customized.split('B.E. Computer Engineering').join(profile.degree);
+      }
+      if (profile.gradYear) {
+        customized = customized.split('2023–2027').join(profile.gradYear);
+        customized = customized.split('2023 - 2027').join(profile.gradYear);
+        customized = customized.split('2023-2027').join(profile.gradYear);
+        customized = customized.split('Class of 2027').join(profile.gradYear);
+        customized = customized.split('Graduating 2027').join(profile.gradYear);
+      }
+      if (profile.award) {
+        customized = customized.split('2nd Position, Techblitz National Hackathon').join(profile.award);
+        customized = customized.split('2nd Position in Techblitz Hackathon 2025').join(profile.award);
+        customized = customized.split('2nd Position in Techblitz Hackathon').join(profile.award);
+        customized = customized.split('Techblitz National Hackathon').join(profile.award);
+        customized = customized.split('Techblitz Hackathon 2025').join(profile.award);
+        customized = customized.split('Techblitz Hackathon').join(profile.award);
+      }
+
+      // 7. Tech Stack & Specialties
+      if (profile.skills) {
+        customized = customized.split('TypeScript, Next.js, React, Node.js, Python, PostgreSQL, PyTorch, Docker, Tailwind CSS').join(profile.skills);
+        customized = customized.split('Next.js, Node.js, Express, PostgreSQL, Prisma, Tailwind CSS, Razorpay').join(profile.skills);
+      }
+
+      // 8. Featured Projects Replacements
+      if (profile.proj1Name) {
+        customized = customized.split('VyaparFlow').join(profile.proj1Name);
+      }
+      if (profile.proj1Tech) {
+        customized = customized.split('Next.js · Node.js · PostgreSQL · Prisma · Tailwind CSS').join(profile.proj1Tech);
+        customized = customized.split('Next.js, PostgreSQL, Prisma, Razorpay').join(profile.proj1Tech);
+      }
+      if (profile.proj1Desc) {
+        customized = customized.split('Full-Stack Inventory & GST Invoicing SaaS').join(profile.proj1Desc);
+        customized = customized.split('Full-Stack Inventory &amp; GST Invoicing SaaS').join(profile.proj1Desc);
+        customized = customized.split('Multi-tenant inventory and GST billing solution with real-time analytics').join(profile.proj1Desc);
+        customized = customized.split('Multi-tenant inventory & GST billing solution with automated invoicing').join(profile.proj1Desc);
+        customized = customized.split('Multi-tenant business management, automated GST calculation, PDF invoices, role-based access.').join(profile.proj1Desc);
+      }
+
+      if (profile.proj2Name) {
+        customized = customized.split('CyberSentinel').join(profile.proj2Name);
+      }
+      if (profile.proj2Tech) {
+        customized = customized.split('Python · Scapy · FastAPI · WebSockets · Next.js').join(profile.proj2Tech);
+        customized = customized.split('Python, FastAPI, Scapy, WebSockets').join(profile.proj2Tech);
+      }
+      if (profile.proj2Desc) {
+        customized = customized.split('Real-Time Network Threat Monitoring').join(profile.proj2Desc);
+        customized = customized.split('Packet sniffer & intrusion detection system with real-time alerting').join(profile.proj2Desc);
+        customized = customized.split('Sub-millisecond packet sniffer, ARP spoofing detection, SYN flood DoS alerting, interactive security telemetry.').join(profile.proj2Desc);
+      }
+
+      if (profile.proj3Name) {
+        customized = customized.split('Saturn Finance').join(profile.proj3Name);
+        customized = customized.split('MRI Brain Tumor Detection').join(profile.proj3Name);
+        customized = customized.split('Brain Tumor Detection').join(profile.proj3Name);
+      }
+      if (profile.proj3Desc) {
+        customized = customized.split('Decentralized Crypto Portfolio & Gas Analytics').join(profile.proj3Desc);
+        customized = customized.split('Decentralized Crypto Portfolio &amp; Gas Analytics').join(profile.proj3Desc);
+        customized = customized.split('Deep Learning Diagnostic U-Net').join(profile.proj3Desc);
+      }
+
+      // 9. Contact & Socials
       if (profile.email) {
         customized = customized.split('aryanrokade416@gmail.com').join(profile.email);
       }
-
-      // 4. Location
+      if (profile.phone) {
+        customized = customized.split('+91 85912 24192').join(profile.phone);
+        customized = customized.split('+91 8591224192').join(profile.phone);
+        customized = customized.split('85912 24192').join(profile.phone);
+        customized = customized.split('8591224192').join(profile.phone);
+      }
       if (profile.location) {
         customized = customized.split('Mumbai, Maharashtra, India').join(profile.location);
         customized = customized.split('Mumbai, India').join(profile.location);
         customized = customized.split('Mumbai, IN').join(profile.location);
-        customized = customized.split('VCET Mumbai').join(profile.location);
+        customized = customized.split('Mumbai Realm').join(profile.location);
       }
-
-      // 5. GitHub
       if (profile.github) {
         customized = customized.split('https://github.com/aryanrokade7').join(profile.github);
         const ghUser = profile.github.replace(/^https?:\/\/github\.com\//, '').replace(/\/$/, '');
@@ -6252,44 +6937,46 @@
           customized = customized.split('aryanrokade7').join(ghUser);
         }
       }
-
-      // 6. LinkedIn
       if (profile.linkedin) {
         customized = customized.split('https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/').join(profile.linkedin);
       }
-
-      // 7. Projects
-      if (profile.proj1Name) {
-        customized = customized.split('VyaparFlow').join(profile.proj1Name);
+      if (profile.twitter) {
+        customized = customized.split('https://twitter.com/').join(profile.twitter);
+        customized = customized.split('https://x.com/').join(profile.twitter);
       }
-      if (profile.proj1Desc) {
-        customized = customized.split('Full-Stack Inventory & GST Invoicing SaaS').join(profile.proj1Desc);
-        customized = customized.split('Multi-tenant inventory and GST billing solution with real-time analytics').join(profile.proj1Desc);
+      if (profile.resume) {
+        customized = customized.split('Aryan_Rokade_Resume.pdf').join(profile.resume);
       }
-
-      if (profile.proj2Name) {
-        customized = customized.split('CyberSentinel').join(profile.proj2Name);
-      }
-      if (profile.proj2Desc) {
-        customized = customized.split('Real-Time Network Threat Monitoring').join(profile.proj2Desc);
-        customized = customized.split('Packet sniffer & intrusion detection system with real-time alerting').join(profile.proj2Desc);
+      if (profile.primaryBtn) {
+        customized = customized.split('View Featured Work').join(profile.primaryBtn);
+        customized = customized.split('View Projects').join(profile.primaryBtn);
+        customized = customized.split('Explore Projects').join(profile.primaryBtn);
+        customized = customized.split('Browse Projects').join(profile.primaryBtn);
       }
 
-      // 8. Avatar
+      // 10. Avatar / Headshot Image
       if (profile.avatar) {
         customized = customized.split('aryan-rokade.jpg').join(profile.avatar);
-        customized = customized.split('../aryan-rokade.jpg').join(profile.avatar);
         customized = customized.replace(/onerror="[^"]*aryan-rokade\.jpg[^"]*"/gi, '');
       }
 
-      // 9. Document Title
+      // 11. Document Title
       if (profile.name) {
         customized = customized.replace(/<title>.*?<\/title>/i, `<title>${profile.name} — ${v.name}</title>`);
       }
 
-      // 10. Switcher bar removal for standalone exported/replicated portfolio
+      // 12. Switcher Bar Removal for Clean Standalone Export
       customized = customized.replace(/<script\s+src=["'](?:\.\.\/)?(?:variants\/)?switcher\.js["']><\/script>/gi, '<!-- Replicated with PortfolioForge -->');
       customized = customized.replace(/<link\s+rel=["']stylesheet["']\s+href=["'](?:\.\.\/)?(?:variants\/)?switcher\.css["']\s*\/?>/gi, '');
+
+      // 13. Dynamic Custom Overrides (Section 6)
+      if (Array.isArray(profile.customOverrides)) {
+        profile.customOverrides.forEach(rule => {
+          if (rule && rule.find) {
+            customized = customized.split(rule.find).join(rule.replace !== undefined ? rule.replace : '');
+          }
+        });
+      }
 
       return customized;
     }
@@ -6402,6 +7089,11 @@
     function generateAiPromptText(v, profile) {
       const userName = profile.name || 'Developer';
       const userRole = profile.role || 'Full-Stack Developer';
+      const userPunchline = profile.punchline || 'Building scalable web applications & distributed systems';
+      const userBio = profile.bio || 'Passionate software engineer building robust, production-grade applications.';
+      const userEdu = profile.college ? `${profile.degree ? profile.degree + ' from ' : ''}${profile.college} (${profile.gradYear || 'Recent Grad'})` : 'B.E. in Computer Engineering';
+      const userExp = profile.company ? `${profile.jobTitle || 'Software Engineer'} at ${profile.company}` : 'Full Stack Developer';
+
       return `Act as a world-class Frontend Engineer and UI/UX Designer.
 I want to build a personal developer portfolio website replicating the "${v.name}" aesthetic archetype (PortfolioForge Variant #${v.id}, ${v.cat.toUpperCase()} category).
 
@@ -6414,16 +7106,30 @@ Aesthetic System Specifications:
 - Visual Tone: High craft, authentic attention to detail, polished micro-interactions.
 
 My Profile & Credentials:
-- Name: ${userName}
-- Role / Title: ${userRole}
+- Full Name: ${userName}
+- Professional Role / Title: ${userRole}
+- Sub-Headline / Punchline: ${userPunchline}
+- Status / Availability: ${profile.status || 'Available for opportunities'}
+- Bio: ${userBio}
+- Experience: ${userExp}
+- Education: ${userEdu}
+- Top Honor / Award: ${profile.award || 'Hackathon Winner'}
+- Core Skills & Tech Stack: ${profile.skills || 'TypeScript, React, Next.js, Node.js, Python, PostgreSQL, Docker'}
+- Technical Focus / Specialties: ${profile.specialties || 'Full-Stack Web Development, Distributed Systems'}
 - Email: ${profile.email || 'developer@example.com'}
 - Location: ${profile.location || 'Remote'}
+- Phone / Contact: ${profile.phone || '+1 (555) 019-2834'}
 - GitHub: ${profile.github || 'https://github.com/developer'}
 - LinkedIn: ${profile.linkedin || 'https://linkedin.com/in/developer'}
-- Key Projects:
-  1. ${profile.proj1Name || 'Project 1'}: ${profile.proj1Desc || 'Full-stack application'}
-  2. ${profile.proj2Name || 'Project 2'}: ${profile.proj2Desc || 'High-performance system tool'}
+- Twitter / X: ${profile.twitter || 'https://x.com/developer'}
+- Resume Link: ${profile.resume || 'resume.pdf'}
 
+Featured Projects to Showcase:
+1. ${profile.proj1Name || 'VyaparFlow'}: ${profile.proj1Desc || 'Full-Stack Inventory & GST Invoicing SaaS'}
+   - Tech: ${profile.proj1Tech || 'Next.js, Node.js, PostgreSQL, Prisma, Tailwind'}
+2. ${profile.proj2Name || 'CyberSentinel'}: ${profile.proj2Desc || 'Real-Time Network Threat Monitoring with sub-millisecond sniffer'}
+   - Tech: ${profile.proj2Tech || 'Python, Scapy, FastAPI, WebSockets, Next.js'}
+${profile.proj3Name ? `3. ${profile.proj3Name}: ${profile.proj3Desc || 'High-performance system architecture'}\n` : ''}
 Implementation Requirements:
 1. Generate a single-file, production-ready index.html with embedded CSS and vanilla JS (zero build steps, zero npm dependencies).
 2. Adhere strictly to the color palette (${v.accent} accent on ${v.bg} background) and the ${v.tags.join('/')} typography and layout hierarchy.
