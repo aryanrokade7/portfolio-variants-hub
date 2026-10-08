@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Akihabara Neon Vending Machine (Variant 83)</title>
+  <meta name="description" content="Cyberpunk Tokyo Akihabara Neon Vending Machine portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-cyan: #00f3ff;
+      --neon-magenta: #ff0077;
+      --neon-yellow: #ffea00;
+      --machine-body: #161a22;
+      --glass-tint: rgba(10, 25, 45, 0.7);
+      --font-jp: 'Kosugi Maru', sans-serif;
+      --font-cyber: 'Rajdhani', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #090a0f;
+      background-image: radial-gradient(circle at 50% 20%, #1a1c2d 0%, #050608 100%);
+      color: #e6edf3;
+      font-family: var(--font-cyber);
+      min-height: 100vh;
+      padding: 30px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .vending-cabinet {
+      width: 100%;
+      max-width: 860px;
+      background: var(--machine-body);
+      border: 8px solid #283040;
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 0 50px rgba(0, 243, 255, 0.2), 0 35px 80px rgba(0,0,0,0.9);
+      position: relative;
+    }
+
+    /* Top Marquee Signage */
+    .vending-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0b0d13;
+      border: 3px solid #1f293d;
+      border-radius: 12px;
+      padding: 16px 24px;
+      margin-bottom: 24px;
+      box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.2);
+    }
+    .header-jp-title {
+      font-family: var(--font-jp);
+      font-size: 1.1rem;
+      color: var(--neon-magenta);
+      letter-spacing: 2px;
+      margin-bottom: 2px;
+    }
+    .header-name {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+    }
+    .header-sub {
+      font-size: 0.85rem;
+      color: #8b9bb4;
+      letter-spacing: 1.5px;
+    }
+
+    /* Glass Display Case */
+    .showcase-window {
+      background: var(--glass-tint);
+      border: 4px solid #23344e;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 0 25px rgba(0, 243, 255, 0.1);
+      margin-bottom: 24px;
+    }
+
+    .drinks-shelf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 680px) {
+      .drinks-shelf-grid { grid-template-columns: 1fr; }
+    }
+
+    .drink-slot {
+      background: #0f1622;
+      border: 2px solid #202e47;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .drink-slot:hover {
+      border-color: var(--neon-cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 243, 255, 0.2);
+    }
+
+    .drink-icon {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+    }
+    .drink-code {
+      font-size: 0.75rem;
+      background: #1e2838;
+      color: var(--neon-yellow);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .drink-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .drink-spec {
+      font-size: 0.75rem;
+      color: #8c9fb5;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      min-height: 38px;
+    }
+
+    .vend-btn {
+      width: 100%;
+      background: linear-gradient(180deg, #1b73e8, #0d47a1);
+      color: #fff;
+      font-family: var(--font-cyber);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 8px;
+      border: 2px solid #64b5f6;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #002171;
+      transition: all 0.1s;
+    }
+    .vend-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #002171;
+    }
+
+    /* Dispenser Tray & Coin Return */
+    .dispenser-bay {
+      background: #090c12;
+      border: 4px solid #1c2433;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .dispenser-flap {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #8194ad;
+      letter-spacing: 2px;
+    }
+    .status-terminal {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--neon-cyan);
+    }
+
+    /* Bottom Action Links */
+    .machine-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .neon-pill {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 10px 18px;
+      border-radius: 20px;
+      background: #141b26;
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+      transition: all 0.2s;
+    }
+    .neon-pill:hover {
+      background: var(--neon-cyan);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="vending-cabinet">
+    <!-- Marquee -->
+    <header class="vending-header">
+      <div>
+        <div class="header-jp-title">⚡ 秋葉原 ハイテク自動販売機</div>
+        <h1 class="header-name">ARYAN ROKADE</h1>
+        <div class="header-sub">FULL-STACK &bull; AI ENGINEER &bull; VCET 2027 (CGPA 8.7+)</div>
+      </div>
+      <div style="text-align: right; font-family: monospace; color: var(--neon-yellow); font-size: 0.9rem;">
+        COIN: ¥500<br>
+        STATUS: ONLINE
+      </div>
+    </header>
+
+    <!-- Showcase Case -->
+    <div class="showcase-window">
+      <div class="drinks-shelf-grid">
+        <!-- Can 1 -->
+        <div class="drink-slot">
+          <div class="drink-code">A1 &bull; COLD BREW</div>
+          <div class="drink-icon">☕</div>
+          <div class="drink-name">VyaparFlow</div>
+          <div class="drink-spec">MSME Inventory &amp; GST Invoicing Cloud App. Next.js, Node, PostgreSQL.</div>
+          <button class="vend-btn" onclick="vendItem('VyaparFlow', 'A1')">VEND &bull; ¥160</button>
+        </div>
+
+        <!-- Can 2 -->
+        <div class="drink-slot">
+          <div class="drink-code">A2 &bull; ENERGY SODA</div>
+          <div class="drink-icon">⚡</div>
+          <div class="drink-name">CyberSentinel</div>
+          <div class="drink-spec">Network Intrusion Detector &amp; Packet Sniffer. Python, Scapy, FastAPI.</div>
+          <button class="vend-btn" onclick="vendItem('CyberSentinel', 'A2')">VEND &bull; ¥180</button>
+        </div>
+
+        <!-- Can 3 -->
+        <div class="drink-slot">
+          <div class="drink-code">B1 &bull; DECENTRAL FIZZ</div>
+          <div class="drink-icon">🪐</div>
+          <div class="drink-name">Saturn Finance</div>
+          <div class="drink-spec">Decentralized Crypto Asset &amp; Gas Price Tracker. React, Ethers.js.</div>
+          <button class="vend-btn" onclick="vendItem('Saturn Finance', 'B1')">VEND &bull; ¥150</button>
+        </div>
+
+        <!-- Can 4 -->
+        <div class="drink-slot">
+          <div class="drink-code">B2 &bull; NEURAL TONIC</div>
+          <div class="drink-icon">🧠</div>
+          <div class="drink-name">MRI Tumor AI</div>
+          <div class="drink-spec">Deep Learning Brain MRI Tumor Segmentation 95% Acc. PyTorch, U-Net.</div>
+          <button class="vend-btn" onclick="vendItem('MRI Brain Tumor AI', 'B2')">VEND &bull; ¥200</button>
+        </div>
+
+        <!-- Can 5 -->
+        <div class="drink-slot">
+          <div class="drink-code">C1 &bull; GOLDEN TROPHY</div>
+          <div class="drink-icon">🏆</div>
+          <div class="drink-name">Techblitz Hackathon</div>
+          <div class="drink-spec">2nd Place National Winner: Emergency healthcare response routing system.</div>
+          <button class="vend-btn" onclick="vendItem('Techblitz Hackathon 2nd Place', 'C1')">VEND &bull; ¥250</button>
+        </div>
+
+        <!-- Can 6 -->
+        <div class="drink-slot">
+          <div class="drink-code">C2 &bull; FRESH CRAFT</div>
+          <div class="drink-icon">💼</div>
+          <div class="drink-name">Octanet Internship</div>
+          <div class="drink-spec">Web Developer Intern: Production UI components &amp; REST API services.</div>
+          <button class="vend-btn" onclick="vendItem('Octanet Internship', 'C2')">VEND &bull; ¥140</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dispenser -->
+    <div class="dispenser-bay">
+      <div class="dispenser-flap">▼ PUSH DISPENSER FLAP [取り出し口]</div>
+      <div id="vendLog" class="status-terminal">SELECT A CAN TO DISPENSE</div>
+    </div>
+
+    <!-- Links -->
+    <div class="machine-links">
+      <a href="../Aryan_Rokade_Resume.pdf" class="neon-pill" download>📄 DISPENSE RESUME (PDF)</a>
+      <a href="https://github.com/aryanrokade7" target="_blank" class="neon-pill">🐙 GITHUB TERMINAL</a>
+      <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="neon-pill">💼 LINKEDIN NEXUS</a>
+      <a href="mailto:aryanrokade07@gmail.com" class="neon-pill">✉️ SEND EMAIL DISPATCH</a>
+    </div>
+  </div>
+
+  <script>
+    function playVendSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        // Coin clink
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.frequency.setValueAtTime(1400, ctx.currentTime);
+        gain1.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start();
+        osc1.stop(ctx.currentTime + 0.11);
+
+        // Can drop thud
+        setTimeout(() => {
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.frequency.setValueAtTime(120, ctx.currentTime);
+          gain2.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start();
+          osc2.stop(ctx.currentTime + 0.31);
+        }, 150);
+      } catch (e) {}
+    }
+
+    function vendItem(name, code) {
+      playVendSound();
+      const log = document.getElementById('vendLog');
+      log.innerText = `DISPENSED [${code}]: ${name}!`;
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Florence Atelier Serif Portfolio. Renaissance Proportion & Luxury Editorial." />
+  <title>Aryan Rokade — Florence Atelier Serif (Variant 61)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --parchment: #faf8f3;
+      --card-bg: #ffffff;
+      --ink: #1c1a16;
+      --ink-muted: #6b665c;
+      --border: #e8e3d5;
+      --gold: #bfa15f;
+      --gold-dark: #967838;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 120px;
+    }
+
+    .wrap {
+      width: min(1080px, calc(100% - 60px));
+      margin: 0 auto;
+    }
+
+    /* FLORENCE HEADER */
+    header.atelier-nav {
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0 24px;
+      position: sticky;
+      top: 0;
+      background: rgba(250, 248, 243, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 500;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .brand-group {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .brand-serif {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    nav.nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.88rem;
+    }
+    nav.nav-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    nav.nav-links a:hover { color: var(--gold-dark); }
+
+    /* HERO */
+    .hero {
+      padding: 88px 0 64px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold-dark);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 860px;
+      margin: 0 auto 28px;
+    }
+    .hero-p {
+      font-size: 1.15rem;
+      color: var(--ink-muted);
+      max-width: 660px;
+      margin: 0 auto 36px;
+      line-height: 1.75;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .btn-gold {
+      background: var(--ink);
+      color: #faf8f3;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-gold:hover {
+      background: var(--gold-dark);
+      color: #fff;
+    }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold-dark);
+    }
+
+    /* SECTION BASICS */
+    section.editorial-sec {
+      padding: 68px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-head {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .sec-chapter {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold-dark);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* PROJECTS EDITORIAL GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 36px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(28, 26, 22, 0.06);
+      border-color: var(--gold);
+    }
+    .prj-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold-dark);
+      margin-bottom: 14px;
+    }
+    .prj-title {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .prj-desc {
+      font-size: 0.94rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .prj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+    .prj-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: #faf8f3;
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .prj-links {
+      display: flex;
+      gap: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .prj-links a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .prj-links a:hover { color: var(--gold-dark); }
+    .prj-links a.live { color: var(--gold-dark); font-weight: 600; }
+
+    /* TIMELINE */
+    .timeline-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .timeline-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 640px) {
+      .timeline-item { grid-template-columns: 1fr; }
+    }
+    .tl-date {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--gold-dark);
+    }
+    .tl-org {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-top: 4px;
+    }
+    .tl-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .tl-text {
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 6px;
+    }
+    .skill-head {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+    }
+
+    /* CONTACT */
+    .contact-block {
+      text-align: center;
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-title {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .contact-p {
+      color: var(--ink-muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer.atelier-footer {
+      padding: 36px 0 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+    footer a { color: var(--ink); text-decoration: none; }
+    footer a:hover { color: var(--gold-dark); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- NAV -->
+    <header class="atelier-nav">
+      <div class="nav-inner">
+        <a href="#" class="brand-group">
+          <span class="brand-serif">Aryan Rokade</span>
+          <span class="brand-tag">/ Florence Atelier</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#projects">Opere</a>
+          <a href="#experience">Cronaca</a>
+          <a href="#skills">Competenze</a>
+          <a href="#contact">Contatto</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-eyebrow">Computer Engineering Undergraduate • Mumbai</div>
+      <h1 class="hero-h1">The craft of elegant software & intelligent deep learning systems.</h1>
+      <p class="hero-p">
+        Student at Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai. Building full-stack web architectures with Next.js, distributed Node.js/Python backends, and deep learning computer vision platforms.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-gold">Initiate Correspondence ↗</a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-outline">Download Resume (PDF)</a>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-outline">GitHub</a>
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="btn-outline">LinkedIn</a>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="editorial-sec">
+      <div class="sec-head">
+        <div class="sec-chapter">Capitolo I // Selected Works</div>
+        <h2 class="sec-title">Engineered Opere</h2>
+      </div>
+
+      <div class="projects-grid">
+        <!-- 1. VyaparFlow -->
+        <article class="project-card">
+          <div>
+            <div class="prj-meta">
+              <span>OPERA 01</span>
+              <span>LIVE SAAS</span>
+            </div>
+            <h3 class="prj-title">VyaparFlow</h3>
+            <p class="prj-desc">
+              All-in-one inventory and business management web application engineered for real-time stock replenishment, transactions management, sales metrics, and automated inventory record processing.
+            </p>
+            <div class="prj-tags">
+              <span class="prj-tag">Next.js</span>
+              <span class="prj-tag">React</span>
+              <span class="prj-tag">TypeScript</span>
+              <span class="prj-tag">Tailwind CSS</span>
+              <span class="prj-tag">Prisma</span>
+              <span class="prj-tag">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="prj-links">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer" class="live">Live Application ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer">Source Repository</a>
+          </div>
+        </article>
+
+        <!-- 2. CyberSentinel Suite -->
+        <article class="project-card">
+          <div>
+            <div class="prj-meta">
+              <span>OPERA 02</span>
+              <span>CYBERSECURITY</span>
+            </div>
+            <h3 class="prj-title">CyberSentinel Suite</h3>
+            <p class="prj-desc">
+              Proactive cybersecurity suite featuring an automated threat detection engine, live WebSocket notification dispatch, and a purpose-built Chrome browser extension for endpoint monitoring.
+            </p>
+            <div class="prj-tags">
+              <span class="prj-tag">React</span>
+              <span class="prj-tag">Socket.IO</span>
+              <span class="prj-tag">Flask</span>
+              <span class="prj-tag">Python</span>
+              <span class="prj-tag">Chrome Extension</span>
+            </div>
+          </div>
+          <div class="prj-links">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">Source Repository ↗</a>
+          </div>
+        </article>
+
+        <!-- 3. Saturn -->
+        <article class="project-card">
+          <div>
+            <div class="prj-meta">
+              <span>OPERA 03</span>
+              <span>MERN PLATFORM</span>
+            </div>
+            <h3 class="prj-title">Saturn</h3>
+            <p class="prj-desc">
+              Collaborative productivity application with interactive Kanban boards, state management powered by Redux Toolkit, JWT session security, and structured sprint workflows.
+            </p>
+            <div class="prj-tags">
+              <span class="prj-tag">React</span>
+              <span class="prj-tag">Redux Toolkit</span>
+              <span class="prj-tag">Node.js</span>
+              <span class="prj-tag">Express</span>
+              <span class="prj-tag">MongoDB</span>
+              <span class="prj-tag">JWT</span>
+            </div>
+          </div>
+          <div class="prj-links">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">Source Repository ↗</a>
+          </div>
+        </article>
+
+        <!-- 4. MRI Brain Tumor Detection -->
+        <article class="project-card">
+          <div>
+            <div class="prj-meta">
+              <span>OPERA 04</span>
+              <span>DEEP LEARNING</span>
+            </div>
+            <h3 class="prj-title">MRI Brain Tumor Detection System</h3>
+            <p class="prj-desc">
+              Computer vision diagnostic system utilizing fine-tuned VGG16 architecture for binary and multiclass tumor classification from MRI brain scans, with OpenCV preprocessing.
+            </p>
+            <div class="prj-tags">
+              <span class="prj-tag">TensorFlow</span>
+              <span class="prj-tag">Keras</span>
+              <span class="prj-tag">VGG16</span>
+              <span class="prj-tag">Flask</span>
+              <span class="prj-tag">Python</span>
+              <span class="prj-tag">OpenCV</span>
+            </div>
+          </div>
+          <div class="prj-links">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">Source Repository ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="experience" class="editorial-sec">
+      <div class="sec-head">
+        <div class="sec-chapter">Capitolo II // Chronology</div>
+        <h2 class="sec-title">Academic & Professional Journey</h2>
+      </div>
+
+      <div class="timeline-rows">
+        <div class="timeline-item">
+          <div>
+            <div class="tl-date">Dec 2024 – Jan 2025</div>
+            <div class="tl-org">Octanet Services Pvt. Ltd.</div>
+          </div>
+          <div>
+            <h3 class="tl-title">Web Development Intern</h3>
+            <p class="tl-text">
+              Engineered responsive frontend web interfaces, tested cross-browser compatibility, and built clean modular web templates.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div>
+            <div class="tl-date">March 2025</div>
+            <div class="tl-org">Techblitz Hackathon</div>
+          </div>
+          <div>
+            <h3 class="tl-title">2nd Position Award Winner</h3>
+            <p class="tl-text">
+              Awarded 2nd place in Techblitz organized by NSDC Committee & VCET AI&DS Department for collaborative problem-solving and rapid software execution.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div>
+            <div class="tl-date">2023 – 2027</div>
+            <div class="tl-org">University of Mumbai</div>
+          </div>
+          <div>
+            <h3 class="tl-title">B.E. in Computer Engineering</h3>
+            <p class="tl-text">
+              Vidyavardhini's College of Engineering and Technology (VCET), Vasai. Core coursework in Data Structures, Algorithms, DBMS, Operating Systems, Computer Networks, and Machine Learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="editorial-sec">
+      <div class="sec-head">
+        <div class="sec-chapter">Capitolo III // Technical Inventory</div>
+        <h2 class="sec-title">Competenze & Tools</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-head">Languages</div>
+          <ul class="skill-list">
+            <li>JavaScript & TypeScript</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>C & C++</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="skill-head">Frontend</div>
+          <ul class="skill-list">
+            <li>React & Next.js</li>
+            <li>Tailwind CSS</li>
+            <li>Redux Toolkit</li>
+            <li>HTML5 & CSS3</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="skill-head">Backend & DB</div>
+          <ul class="skill-list">
+            <li>Node.js & Express</li>
+            <li>Flask (Python)</li>
+            <li>PostgreSQL & Prisma</li>
+            <li>MongoDB</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="skill-head">AI & DevOps</div>
+          <ul class="skill-list">
+            <li>TensorFlow & Keras</li>
+            <li>OpenCV & VGG16</li>
+            <li>Docker Containers</li>
+            <li>Git & Socket.IO</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-block">
+      <h2 class="contact-title">Iniziamo la Conversazione.</h2>
+      <p class="contact-p">
+        Currently seeking software engineering internships and innovative technical collaborations.
+      </p>
+      <div class="contact-actions">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-gold">aryanrokade416@gmail.com</a>
+        <a href="tel:+918591224192" class="btn-outline">+91 85912 24192</a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-outline">Curriculum Vitae (PDF)</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="atelier-footer">
+      <div>© 2025 Aryan Rokade. Florence Atelier Serif Edition.</div>
+      <div>Mumbai, Maharashtra, India</div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

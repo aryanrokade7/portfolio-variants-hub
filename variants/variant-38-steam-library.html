@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Steam Gaming Client Library (Variant 38)</title>
+  <meta name="description" content="Steam Gaming Library portfolio of Aryan Rokade, Computer Engineering student & Software Developer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Motiva+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --steam-darkest: #121418;
+      --steam-dark: #171a21;
+      --steam-nav: #1b2838;
+      --steam-panel: #212b36;
+      --steam-blue: #66c0f4;
+      --steam-bright-blue: #1999ff;
+      --steam-green: #5c7e10;
+      --steam-green-hover: #79a314;
+      --text-white: #ffffff;
+      --text-gray: #8f98a0;
+      --text-dim: #626366;
+      --font: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--steam-darkest);
+      color: var(--text-gray);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+    }
+
+    /* Top Steam Header */
+    .steam-header {
+      background: var(--steam-dark);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    }
+
+    .steam-brand {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .steam-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steam-nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .steam-nav-links a {
+      color: #c7d5e0;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .steam-nav-links a:hover, .steam-nav-links a.active {
+      color: var(--steam-blue);
+    }
+
+    .steam-user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+    }
+
+    .steam-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      border: 1px solid var(--steam-blue);
+      object-fit: cover;
+    }
+
+    /* Client App Layout */
+    .client-layout {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+
+    /* Left Game Library Sidebar */
+    .library-sidebar {
+      width: 270px;
+      background: var(--steam-dark);
+      border-right: 1px solid #23262e;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-search {
+      padding: 14px;
+      border-bottom: 1px solid #23262e;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #23262e;
+      border: none;
+      border-radius: 3px;
+      padding: 6px 10px;
+      color: #fff;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .library-category {
+      padding: 12px 14px 6px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+
+    .game-item {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.83rem;
+      color: #b8b6b4;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .game-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .game-item.active {
+      background: #2b3b4f;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .game-icon {
+      width: 18px;
+      height: 18px;
+      background: var(--steam-blue);
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: #000;
+      font-weight: 800;
+    }
+
+    /* Main Game Detail View */
+    .game-hero-view {
+      flex: 1;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #1f2f42 0%, #121418 500px);
+      padding: 30px 40px;
+    }
+
+    .hero-banner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .game-title-lg {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-action-bar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 16px 20px;
+      border-radius: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-play {
+      background: linear-gradient(90deg, var(--steam-green), var(--steam-green-hover));
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 12px 34px;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(92, 126, 16, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn-play:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(92, 126, 16, 0.6);
+    }
+
+    .game-stat-cell {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.78rem;
+    }
+    .game-stat-cell span { color: var(--text-dim); }
+    .game-stat-cell strong { color: #fff; font-size: 0.95rem; }
+
+    /* Content Panes */
+    .game-grid-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 900px) {
+      .client-layout { flex-direction: column; height: auto; }
+      .library-sidebar { width: 100%; }
+      .game-grid-content { grid-template-columns: 1fr; }
+    }
+
+    .box-module {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .box-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #fff;
+      margin-bottom: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .game-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #acb2b8;
+      margin-bottom: 16px;
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .achievement-card {
+      background: #1b2129;
+      border: 1px solid #2a3340;
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ach-icon {
+      font-size: 1.4rem;
+    }
+
+    .ach-text strong {
+      display: block;
+      color: #fff;
+      font-size: 0.8rem;
+    }
+    .ach-text span {
+      font-size: 0.72rem;
+      color: var(--text-gray);
+    }
+
+    .info-list {
+      font-size: 0.82rem;
+      line-height: 1.9;
+    }
+    .info-list strong { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Steam Top Header -->
+  <header class="steam-header">
+    <div class="steam-brand">
+      <div class="steam-logo">
+        <span>⚙</span> STEAM
+      </div>
+      <nav class="steam-nav-links">
+        <a href="#library" class="active">LIBRARY</a>
+        <a href="../Aryan_Rokade_Resume.pdf" download>RESUME PDF</a>
+        <a href="https://github.com/aryanrokade7" target="_blank">GITHUB</a>
+        <a href="https://linkedin.com/in/aryan-rokade" target="_blank">COMMUNITY</a>
+      </nav>
+    </div>
+
+    <div class="steam-user-badge">
+      <img src="../aryan-rokade.jpg" alt="Aryan" class="steam-avatar">
+      <div>
+        <span style="color:#fff; font-weight:600;">Aryan Rokade</span><br>
+        <span style="color:var(--steam-blue); font-size:0.72rem;">Level 27 · Comp Eng</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Client Main Body -->
+  <div class="client-layout">
+    
+    <!-- Left Library Sidebar -->
+    <aside class="library-sidebar">
+      <div class="sidebar-search">
+        <input type="text" class="search-input" placeholder="Search portfolio library...">
+      </div>
+      <div class="library-category">Installed Projects (4)</div>
+      <div class="game-item active" onclick="selectGame(0, this)">
+        <span class="game-icon">VF</span>
+        <span>VyaparFlow Platform</span>
+      </div>
+      <div class="game-item" onclick="selectGame(1, this)">
+        <span class="game-icon">CS</span>
+        <span>CyberSentinel Suite</span>
+      </div>
+      <div class="game-item" onclick="selectGame(2, this)">
+        <span class="game-icon">SF</span>
+        <span>Saturn Finance Engine</span>
+      </div>
+      <div class="game-item" onclick="selectGame(3, this)">
+        <span class="game-icon">AI</span>
+        <span>MRI Brain Tumor AI</span>
+      </div>
+      
+      <div class="library-category" style="margin-top:20px;">Developer Profile</div>
+      <div class="game-item" onclick="selectGame(4, this)">
+        <span class="game-icon" style="background:#4cb782;">AR</span>
+        <span>Aryan Rokade (Bio &amp; Education)</span>
+      </div>
+    </aside>
+
+    <!-- Main Game View -->
+    <main class="game-hero-view">
+      <div class="hero-banner">
+        <div style="font-size:0.8rem; color:var(--steam-blue); font-weight:700; letter-spacing:0.05em;">
+          READY TO RUN // RECENTLY DEPLOYED
+        </div>
+        <h1 class="game-title-lg" id="gameTitle">VyaparFlow</h1>
+
+        <div class="game-action-bar">
+          <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="btn-play" id="btnPlay">
+            <span>▶</span> LAUNCH DEMO
+          </a>
+          <div class="game-stat-cell">
+            <span>PLAY TIME</span>
+            <strong>2,480 HOURS LOGGED</strong>
+          </div>
+          <div class="game-stat-cell">
+            <span>LAST DEPLOYED</span>
+            <strong>TODAY</strong>
+          </div>
+          <div class="game-stat-cell">
+            <span>USER REVIEWS</span>
+            <strong style="color:var(--steam-blue);">OVERWHELMINGLY POSITIVE (98.4%)</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-grid-content">
+        <!-- Left: Description & Tech -->
+        <div>
+          <div class="box-module">
+            <div class="box-title">PROJECT SPECIFICATIONS &amp; OVERVIEW</div>
+            <p class="game-desc" id="gameDesc">
+              Developed a full-stack export-readiness platform using Next.js, React, TypeScript, and Tailwind CSS for Indian MSME workflows. Implemented compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.
+            </p>
+            <div style="font-size:0.82rem; color:var(--text-white);" id="gameTags">
+              <strong>Tags:</strong> Next.js · React · TypeScript · Tailwind CSS · Prisma · PostgreSQL
+            </div>
+            <div style="margin-top:16px;">
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" style="color:var(--steam-blue); text-decoration:none; font-size:0.85rem; font-weight:600;" id="gameRepo">
+                View Source Repository on GitHub ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Achievements Module -->
+          <div class="box-module">
+            <div class="box-title">ACHIEVEMENTS UNLOCKED (3 / 3)</div>
+            <div class="achievements-grid">
+              <div class="achievement-card">
+                <span class="ach-icon">🏆</span>
+                <div class="ach-text">
+                  <strong>Techblitz Runner-Up</strong>
+                  <span>2nd Place National Hackathon</span>
+                </div>
+              </div>
+              <div class="achievement-card">
+                <span class="ach-icon">💼</span>
+                <div class="ach-text">
+                  <strong>Octanet Intern</strong>
+                  <span>Web Dev Intern @ Octanet</span>
+                </div>
+              </div>
+              <div class="achievement-card">
+                <span class="ach-icon">🎓</span>
+                <div class="ach-text">
+                  <strong>VCET Scholar</strong>
+                  <span>B.E. Comp Eng Class of '27</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Meta & Direct Comms -->
+        <div>
+          <div class="box-module">
+            <div class="box-title">DEVELOPER INFO</div>
+            <div class="info-list">
+              <div><strong>Developer:</strong> Aryan Rokade</div>
+              <div><strong>Location:</strong> Mumbai, India</div>
+              <div><strong>Education:</strong> VCET Mumbai (2027)</div>
+              <div><strong>Email:</strong> <a href="mailto:aryanrokade416@gmail.com" style="color:var(--steam-blue);">aryanrokade416@gmail.com</a></div>
+              <div><strong>Phone:</strong> <a href="tel:8591224192" style="color:#5c7e10; text-decoration:none;">+91 85912 24192</a></div>
+              <div><strong>GitHub:</strong> <a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--steam-blue);">github.com/aryanrokade7</a></div>
+              <div><strong>Resume:</strong> <a href="../Aryan_Rokade_Resume.pdf" download style="color:var(--steam-blue);">Download PDF</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const games = [
+      {
+        title: "VyaparFlow",
+        desc: "Developed a full-stack export-readiness platform using Next.js, React, TypeScript, and Tailwind CSS for Indian MSME workflows. Implemented compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.",
+        tags: "Next.js · React · TypeScript · Tailwind CSS · Prisma · PostgreSQL",
+        playText: "▶ LAUNCH DEMO",
+        playLink: "https://vyaparflow-smoky.vercel.app/",
+        repoLink: "https://github.com/Sidd-commits/VyaparFlow"
+      },
+      {
+        title: "CyberSentinel Suite",
+        desc: "Completed an interactive cybersecurity suite covering DoS/DDoS, SQL injection, ransomware detection, and phishing URL analysis. Built monitoring dashboards with HTML, CSS, JavaScript, React/Socket.IO and Flask, plus phishing URL scoring and a Chrome extension.",
+        tags: "React · Socket.IO · Flask · Python · Chrome Extension · Cybersecurity",
+        playText: "▶ VIEW GITHUB",
+        playLink: "https://github.com/aryanrokade7/CyberSentinel-Suite",
+        repoLink: "https://github.com/aryanrokade7/CyberSentinel-Suite"
+      },
+      {
+        title: "Saturn",
+        desc: "Built a full-stack expense and budget management application with dashboards, interactive charts, categorized expenses, and financial statistics. Frontend built with React, Redux Toolkit, and Tailwind CSS; backend powered by Node.js, Express, MongoDB, and JWT authentication.",
+        tags: "React · Redux Toolkit · Node.js · Express · MongoDB · Tailwind CSS",
+        playText: "▶ VIEW GITHUB",
+        playLink: "https://github.com/aryanrokade7/Saturnn",
+        repoLink: "https://github.com/aryanrokade7/Saturnn"
+      },
+      {
+        title: "MRI Brain Tumor Detection System",
+        desc: "Built a Flask web application that classifies MRI scans into Glioma, Meningioma, Pituitary and No Tumor using VGG16 transfer learning. Implemented an HTML/CSS/Bootstrap/JavaScript interface with confidence scores, trained and evaluated with TensorFlow/Keras.",
+        tags: "TensorFlow · Keras · VGG16 · Flask · Python · Deep Learning",
+        playText: "▶ VIEW GITHUB",
+        playLink: "https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System",
+        repoLink: "https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System"
+      },
+      {
+        title: "Aryan Rokade — Developer Dossier",
+        desc: "Pursuing B.E. in Computer Engineering at Vidyavardhini’s College of Engineering and Technology, University of Mumbai (Class of 2027). Awarded 2nd Position in Techblitz Hackathon (March 2025) and completed Web Development Internship at Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025).",
+        tags: "Problem-Solving · Full Stack Development · Machine Learning · System Design",
+        playText: "📄 DOWNLOAD RESUME",
+        playLink: "../Aryan_Rokade_Resume.pdf",
+        repoLink: "https://github.com/aryanrokade7"
+      }
+    ];
+
+    function selectGame(idx, el) {
+      document.querySelectorAll('.game-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+      const g = games[idx];
+      document.getElementById('gameTitle').innerText = g.title;
+      document.getElementById('gameDesc').innerText = g.desc;
+      document.getElementById('gameTags').innerHTML = '<strong>Tags:</strong> ' + g.tags;
+      const btn = document.getElementById('btnPlay');
+      btn.innerText = g.playText;
+      btn.href = g.playLink;
+      const repo = document.getElementById('gameRepo');
+      repo.href = g.repoLink;
+      repo.innerText = 'View Source Repository on GitHub ↗';
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

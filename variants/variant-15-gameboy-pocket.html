@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Aryan Rokade - Retro Game Boy Handheld GUI Developer Portfolio" />
-  <title>Aryan Rokade — GAME BOY POCKET 31</title>
+  <title>Aryan Rokade — Game Boy Pocket Handheld (Variant 15)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -506,7 +506,9 @@
           <div class="stripe-blue"></div>
           <div class="stripe-red"></div>
         </div>
-        <span>DOT MATRIX WITH STEREO SOUND</span>
+        <span id="stereoSoundBtn" onclick="toggleSound();" style="cursor: pointer; user-select: none;" title="Click to Toggle Sound">
+          DOT MATRIX WITH STEREO SOUND <span id="soundBadge" style="color: #84cc16; font-size: 0.55rem; margin-left: 6px;">[🔊 SOUND ON]</span>
+        </span>
         <div class="stripes">
           <div class="stripe-red"></div>
           <div class="stripe-blue"></div>
@@ -706,11 +708,11 @@
       <!-- A & B BUTTONS -->
       <div class="buttons-container">
         <div class="action-btn-wrap">
-          <button class="action-btn" onclick="playBeep(); openResume();" title="Action B: Open Resume">B</button>
+          <button class="action-btn" onclick="playBeep('b'); openResume();" title="Action B: Open Resume (CV)">B</button>
           <span class="btn-label">B (CV)</span>
         </div>
         <div class="action-btn-wrap">
-          <button class="action-btn" onclick="playBeep(); cycleTab(1);" title="Action A: Next Tab">A</button>
+          <button class="action-btn" onclick="playBeep('a'); cycleTab(1);" title="Action A: Next Tab">A</button>
           <span class="btn-label">A (NEXT)</span>
         </div>
       </div>
@@ -719,17 +721,17 @@
     <!-- SELECT & START BUTTONS -->
     <div class="bottom-system-btns">
       <div class="pill-btn-wrap">
-        <button class="pill-btn" onclick="playClick(); cycleTab(-1);" aria-label="Select"></button>
+        <button class="pill-btn" onclick="playSelect(); cycleTab(-1);" aria-label="Select"></button>
         <span class="pill-label">SELECT</span>
       </div>
       <div class="pill-btn-wrap">
-        <button class="pill-btn" onclick="playBeep(); openResume();" aria-label="Start"></button>
+        <button class="pill-btn" onclick="playStart(); openResume();" aria-label="Start"></button>
         <span class="pill-label">START</span>
       </div>
     </div>
 
-    <!-- Speaker Grille -->
-    <div class="speaker-grille">
+    <!-- Speaker Grille (Clickable for sound toggle) -->
+    <div class="speaker-grille" onclick="toggleSound();" style="cursor: pointer;" title="Stereo Speaker Grille — Click to Toggle Audio">
       <div class="speaker-slot"></div>
       <div class="speaker-slot"></div>
       <div class="speaker-slot"></div>
@@ -767,40 +769,182 @@
       a.click();
     }
 
-    // Audio Synthesis for authentic Game Boy 8-bit sound
-    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
-    function playBeep() {
-      if (!audioCtx) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.05);
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.15);
-      } catch (e) {}
+    // --- GAME BOY 8-BIT STEREO AUDIO SYNTHESIZER ---
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
     }
 
-    function playClick() {
+    // Auto-resume on any user gesture
+    ['click', 'keydown', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, () => initAudio(), { once: true });
+    });
+
+    function playTone(freq, type, duration, delay = 0, vol = 0.12) {
+      if (!soundEnabled) return;
+      initAudio();
       if (!audioCtx) return;
+
       try {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.type = type || 'square';
+        const start = audioCtx.currentTime + delay;
+        osc.frequency.setValueAtTime(freq, start);
+
+        gain.gain.setValueAtTime(vol, start);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
-      } catch (e) {}
+
+        osc.start(start);
+        osc.stop(start + duration);
+      } catch (e) {
+        console.warn(e);
+      }
     }
+
+    function playNoise(duration = 0.035, vol = 0.08) {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      try {
+        const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * 0.7;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1400;
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        noise.start();
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    // Tactile D-pad and menu button click
+    function playClick() {
+      if (!soundEnabled) return;
+      playNoise(0.025, 0.06);
+      playTone(320, 'square', 0.035, 0, 0.07);
+    }
+
+    // Game Boy A / B Action button sound
+    function playBeep(mode = 'a') {
+      if (!soundEnabled) return;
+      if (mode === 'b') {
+        // 4-note victory / item chime (C5 -> E5 -> G5 -> C6)
+        playTone(523.25, 'square', 0.07, 0, 0.12);
+        playTone(659.25, 'square', 0.07, 0.06, 0.12);
+        playTone(783.99, 'square', 0.07, 0.12, 0.12);
+        playTone(1046.50, 'square', 0.2, 0.18, 0.14);
+      } else {
+        // Jump / Next Tab 8-bit upward chime (C5 -> E5 -> G5)
+        playTone(440.00, 'square', 0.05, 0, 0.09);
+        playTone(659.25, 'square', 0.05, 0.04, 0.11);
+        playTone(880.00, 'square', 0.11, 0.08, 0.13);
+      }
+    }
+
+    // Select button click
+    function playSelect() {
+      if (!soundEnabled) return;
+      playTone(587.33, 'square', 0.04, 0, 0.09);
+      playTone(783.99, 'square', 0.06, 0.03, 0.11);
+    }
+
+    // Start / Pause button chime
+    function playStart() {
+      if (!soundEnabled) return;
+      playTone(659.25, 'square', 0.06, 0, 0.12);
+      playTone(523.25, 'square', 0.14, 0.05, 0.12);
+    }
+
+    // Famous Game Boy "ba-ding!" boot sound
+    function playBootChime() {
+      if (!soundEnabled) return;
+      initAudio();
+      playTone(261.63, 'square', 0.04, 0, 0.08);
+      setTimeout(() => {
+        playTone(2093.00, 'square', 0.42, 0, 0.14);
+        playTone(4186.00, 'sine', 0.28, 0, 0.04);
+      }, 100);
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const badge = document.getElementById('soundBadge');
+      if (badge) {
+        badge.innerText = soundEnabled ? '[🔊 SOUND ON]' : '[🔇 MUTED]';
+        badge.style.color = soundEnabled ? '#84cc16' : '#ef4444';
+      }
+      if (soundEnabled) {
+        playBootChime();
+      }
+    }
+
+    // Keyboard Controller mapping (D-Pad, A, B, Start, Select)
+    window.addEventListener('keydown', (e) => {
+      const k = e.key.toLowerCase();
+      if (e.key === 'ArrowUp') {
+        playClick();
+        window.scrollBy({ top: -160, behavior: 'smooth' });
+      } else if (e.key === 'ArrowDown') {
+        playClick();
+        window.scrollBy({ top: 160, behavior: 'smooth' });
+      } else if (e.key === 'ArrowLeft') {
+        playClick();
+        cycleTab(-1);
+      } else if (e.key === 'ArrowRight') {
+        playClick();
+        cycleTab(1);
+      } else if (k === 'a' || k === 'z') {
+        playBeep('a');
+        cycleTab(1);
+      } else if (k === 'b' || k === 'x') {
+        playBeep('b');
+        openResume();
+      } else if (e.key === 'Enter') {
+        playStart();
+        openResume();
+      } else if (e.key === ' ' || k === 's') {
+        playSelect();
+        cycleTab(-1);
+      } else if (k === 'm') {
+        toggleSound();
+      }
+    });
+
+    // Attach click sound to interactive cards
+    document.querySelectorAll('.quest-btn, .game-tab').forEach(el => {
+      el.addEventListener('click', () => playClick());
+    });
   </script>
 
   <script src="switcher.js"></script>

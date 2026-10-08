@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Postman REST API Documentation (Variant 39)</title>
+  <meta name="description" content="Interactive Postman API suite showcasing full stack software and AI services of Aryan Rokade, Computer Engineering student.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --postman-bg: #212121;
+      --postman-sidebar: #1a1a1a;
+      --postman-orange: #ff6c37;
+      --postman-border: #323232;
+      --text: #e6e6e6;
+      --dim: #999999;
+      --green: #0cbb52;
+      --blue: #0265d2;
+      --purple: #905cfb;
+      --yellow: #f5a623;
+      --font: 'Inter', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--postman-bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+    }
+
+    /* Top App Header */
+    .pm-header {
+      background: var(--postman-sidebar);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--postman-border);
+    }
+
+    .pm-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    .pm-logo-icon {
+      background: var(--postman-orange);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .pm-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-pm-orange {
+      background: var(--postman-orange);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Studio Layout */
+    .pm-studio {
+      flex: 1;
+      display: flex;
+    }
+
+    /* Left Collections Sidebar */
+    .pm-sidebar {
+      width: 290px;
+      background: var(--postman-sidebar);
+      border-right: 1px solid var(--postman-border);
+      padding: 16px 0;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .collection-header {
+      padding: 0 16px 12px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--dim);
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .endpoint-item {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: #bbb;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .endpoint-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+    }
+
+    .endpoint-item.active {
+      background: #2b2b2b;
+      color: #fff;
+      font-weight: 600;
+      border-left: 3px solid var(--postman-orange);
+    }
+
+    .method {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 44px;
+      text-align: center;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    .method.post { background: rgba(76, 183, 130, 0.2); color: var(--green); }
+    .method.get { background: rgba(2, 101, 210, 0.25); color: #58a6ff; }
+    .method.put { background: rgba(245, 166, 35, 0.2); color: var(--yellow); }
+
+    /* Main Request & Response Workbench */
+    .pm-main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .request-bar {
+      display: flex;
+      background: #141414;
+      border: 1px solid var(--postman-border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .req-method {
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-right: 1px solid var(--postman-border);
+      display: flex;
+      align-items: center;
+    }
+
+    .req-url {
+      flex: 1;
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: #fff;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+
+    .btn-send {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 0 24px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Response Container */
+    .response-pane {
+      background: #141414;
+      border: 1px solid var(--postman-border);
+      border-radius: 6px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .resp-header {
+      background: #1c1c1c;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--postman-border);
+      font-size: 0.8rem;
+    }
+
+    .resp-status {
+      display: flex;
+      gap: 16px;
+    }
+    .resp-status strong { color: var(--green); }
+
+    .json-preview {
+      padding: 20px;
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: #79c0ff;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .json-key { color: #d2a8ff; }
+    .json-str { color: #a5d6ff; }
+    .json-num { color: #79c0ff; }
+    .json-bool { color: #ff7b72; }
+
+    @media (max-width: 800px) {
+      .pm-studio { flex-direction: column; }
+      .pm-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--postman-border); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Bar -->
+  <header class="pm-header">
+    <div class="pm-brand">
+      <div class="pm-logo-icon">✈</div>
+      <span>Aryan Rokade API Workspace · Production v2.0</span>
+    </div>
+    <div class="pm-actions">
+      <a href="../Aryan_Rokade_Resume.pdf" download class="btn-pm-orange">
+        📄 Download Resume PDF ↓
+      </a>
+    </div>
+  </header>
+
+  <!-- Studio Workspace -->
+  <div class="pm-studio">
+    <!-- Left Collection Nav -->
+    <aside class="pm-sidebar">
+      <div class="collection-header">
+        <span>Portfolio API Endpoints</span>
+        <span style="color:var(--postman-orange);">5 Active</span>
+      </div>
+
+      <div class="endpoint-item active" onclick="loadEndpoint(0, this)">
+        <span class="method post">POST</span>
+        <span>/services/vyaparflow</span>
+      </div>
+      <div class="endpoint-item" onclick="loadEndpoint(1, this)">
+        <span class="method get">GET</span>
+        <span>/telemetry/cybersentinel</span>
+      </div>
+      <div class="endpoint-item" onclick="loadEndpoint(2, this)">
+        <span class="method put">PUT</span>
+        <span>/finance/saturn</span>
+      </div>
+      <div class="endpoint-item" onclick="loadEndpoint(3, this)">
+        <span class="method post">POST</span>
+        <span>/diagnostics/mri-tumor</span>
+      </div>
+      <div class="endpoint-item" onclick="loadEndpoint(4, this)">
+        <span class="method get">GET</span>
+        <span>/developer/profile</span>
+      </div>
+    </aside>
+
+    <!-- Main Console Pane -->
+    <main class="pm-main">
+      <div class="request-bar">
+        <div class="req-method" id="reqMethod" style="color:var(--green);">POST</div>
+        <input type="text" class="req-url" id="reqUrl" value="https://api.aryanrokade.dev/v1/services/vyaparflow" readonly>
+        <button class="btn-send" onclick="simulateSend()">Send</button>
+      </div>
+
+      <div class="response-pane">
+        <div class="resp-header">
+          <div class="resp-status">
+            <span>Status: <strong>200 OK</strong></span>
+            <span>Time: <span style="color:#fff;">18 ms</span></span>
+            <span>Size: <span style="color:#fff;">2.4 KB</span></span>
+          </div>
+          <div style="font-size:0.75rem; color:var(--dim);">JSON Body</div>
+        </div>
+
+        <div class="json-preview" id="jsonBody">
+{
+  <span class="json-key">"status"</span>: <span class="json-num">200</span>,
+  <span class="json-key">"project"</span>: <span class="json-str">"VyaparFlow"</span>,
+  <span class="json-key">"category"</span>: <span class="json-str">"Export Logistics & Compliance MSME SaaS"</span>,
+  <span class="json-key">"summary"</span>: <span class="json-str">"Full-stack export-readiness platform using Next.js, React, TypeScript, and Tailwind CSS for Indian MSME workflows."</span>,
+  <span class="json-key">"tech_stack"</span>: [<span class="json-str">"Next.js"</span>, <span class="json-str">"React"</span>, <span class="json-str">"TypeScript"</span>, <span class="json-str">"Tailwind CSS"</span>, <span class="json-str">"Prisma"</span>, <span class="json-str">"PostgreSQL"</span>],
+  <span class="json-key">"live_demo"</span>: <span class="json-str">"https://vyaparflow-smoky.vercel.app/"</span>,
+  <span class="json-key">"repository"</span>: <span class="json-str">"https://github.com/Sidd-commits/VyaparFlow"</span>,
+  <span class="json-key">"developer"</span>: {
+    <span class="json-key">"name"</span>: <span class="json-str">"Aryan Rokade"</span>,
+    <span class="json-key">"college"</span>: <span class="json-str">"VCET Mumbai (2023-2027)"</span>,
+    <span class="json-key">"email"</span>: <span class="json-str">"aryanrokade416@gmail.com"</span>,
+    <span class="json-key">"phone"</span>: <span class="json-str">"+91 85912 24192"</span>
+  }
+}
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const endpoints = [
+      {
+        method: "POST",
+        color: "var(--green)",
+        url: "https://api.aryanrokade.dev/v1/services/vyaparflow",
+        data: `{
+  "status": 200,
+  "project": "VyaparFlow",
+  "category": "Export Logistics & Compliance MSME SaaS",
+  "summary": "Full-stack export-readiness platform using Next.js, React, TypeScript, and Tailwind CSS for Indian MSME workflows.",
+  "tech_stack": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
+  "live_demo": "https://vyaparflow-smoky.vercel.app/",
+  "repository": "https://github.com/Sidd-commits/VyaparFlow",
+  "developer": {
+    "name": "Aryan Rokade",
+    "college": "VCET Mumbai (2023-2027)",
+    "email": "aryanrokade416@gmail.com",
+    "phone": "+91 85912 24192"
+  }
+}`
+      },
+      {
+        method: "GET",
+        color: "#58a6ff",
+        url: "https://api.aryanrokade.dev/v1/telemetry/cybersentinel",
+        data: `{
+  "status": 200,
+  "project": "CyberSentinel Suite",
+  "category": "Cybersecurity Threat Detection & Simulation",
+  "summary": "Interactive cybersecurity suite covering DoS/DDoS, SQL injection, ransomware detection, and phishing URL analysis with live Socket.IO dashboards and Chrome extension.",
+  "tech_stack": ["React", "Socket.IO", "Flask", "Python", "Chrome Extension", "Cybersecurity"],
+  "repository": "https://github.com/aryanrokade7/CyberSentinel-Suite",
+  "active_status": "Shield Active (0 Unmitigated Threats)"
+}`
+      },
+      {
+        method: "PUT",
+        color: "var(--yellow)",
+        url: "https://api.aryanrokade.dev/v1/finance/saturn",
+        data: `{
+  "status": 200,
+  "project": "Saturn",
+  "category": "Full-Stack Personal Finance & Budget Management",
+  "summary": "Full-stack expense and budget management application with dashboards, interactive charts, categorized expenses, and financial statistics.",
+  "tech_stack": ["React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+  "repository": "https://github.com/aryanrokade7/Saturnn",
+  "security": "JWT Token Authorization"
+}`
+      },
+      {
+        method: "POST",
+        color: "var(--green)",
+        url: "https://api.aryanrokade.dev/v1/diagnostics/mri-tumor",
+        data: `{
+  "status": 200,
+  "project": "MRI Brain Tumor Detection System",
+  "category": "Deep Learning Healthcare AI Diagnostic",
+  "summary": "Flask web application classifying MRI scans into Glioma, Meningioma, Pituitary and No Tumor using VGG16 transfer learning and TensorFlow/Keras.",
+  "tech_stack": ["TensorFlow", "Keras", "VGG16", "Flask", "Python", "Deep Learning"],
+  "validation_accuracy": "98.4%",
+  "repository": "https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System"
+}`
+      },
+      {
+        method: "GET",
+        color: "#58a6ff",
+        url: "https://api.aryanrokade.dev/v1/developer/profile",
+        data: `{
+  "status": 200,
+  "developer": "Aryan Rokade",
+  "degree": "B.E. Computer Engineering",
+  "institution": "Vidyavardhini’s College of Engineering and Technology (VCET)",
+  "graduation_year": 2027,
+  "awards": [
+    "2nd Position, Techblitz Hackathon (VCET AI&DS Dept & NSDC, March 2025)"
+  ],
+  "internship": "Web Development Intern @ Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025)",
+  "contact": {
+    "email": "aryanrokade416@gmail.com",
+    "phone": "+91 85912 24192",
+    "github": "https://github.com/aryanrokade7",
+    "linkedin": "https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/"
+  }
+}`
+      }
+    ];
+
+    function loadEndpoint(idx, el) {
+      document.querySelectorAll('.endpoint-item').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      const item = endpoints[idx];
+      const m = document.getElementById('reqMethod');
+      m.innerText = item.method;
+      m.style.color = item.color;
+      document.getElementById('reqUrl').value = item.url;
+      renderJson(item.data);
+    }
+
+    function renderJson(raw) {
+      const formatted = raw
+        .replace(/(".*?"):/g, '<span class="json-key">$1</span>:')
+        .replace(/: (".*?")/g, ': <span class="json-str">$1</span>')
+        .replace(/: (\d+)/g, ': <span class="json-num">$1</span>');
+      document.getElementById('jsonBody').innerHTML = formatted;
+    }
+
+    function simulateSend() {
+      const pane = document.getElementById('jsonBody');
+      pane.style.opacity = '0.5';
+      setTimeout(() => { pane.style.opacity = '1'; }, 150);
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

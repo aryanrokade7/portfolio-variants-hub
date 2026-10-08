@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Parisian Gazette High-Fashion Monochrome Editorial Portfolio." />
+  <title>Aryan Rokade — Parisian Gazette Monochrome (Variant 64)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --black: #0a0a0a;
+      --muted: #666666;
+      --border: #1a1a1a;
+      --border-subtle: #e5e5e5;
+      --font-serif: 'Bodoni Moda', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 120px;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* MASTHEAD */
+    header.gazette-masthead {
+      border-bottom: 3px double var(--border);
+      padding: 32px 0 20px;
+      text-align: center;
+    }
+    .masthead-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      color: var(--muted);
+    }
+    .masthead-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .masthead-sub {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    /* TOP NAV STRIP */
+    nav.gazette-nav {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    nav.gazette-nav a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      transition: opacity 0.15s;
+    }
+    nav.gazette-nav a:hover { opacity: 0.6; }
+
+    /* HERO EDITORIAL FEATURE */
+    .hero-gazette {
+      padding: 64px 0 52px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 48px;
+    }
+    @media (max-width: 800px) {
+      .hero-gazette { grid-template-columns: 1fr; }
+    }
+    .hero-h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .hero-lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .btn-black {
+      background: var(--black);
+      color: #ffffff;
+      padding: 12px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: background 0.15s;
+    }
+    .btn-black:hover { background: #333333; }
+    .btn-outline {
+      border: 1px solid var(--black);
+      color: var(--black);
+      padding: 12px 22px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: transparent;
+      transition: all 0.15s;
+    }
+    .btn-outline:hover { background: var(--black); color: #fff; }
+
+    .hero-sidebar {
+      border-left: 1px solid var(--border);
+      padding-left: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @media (max-width: 800px) {
+      .hero-sidebar { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 28px; }
+    }
+    .sidebar-block-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .sidebar-block-val {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    /* SECTION */
+    section.gazette-sec {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 36px;
+    }
+    .sec-title {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+    .sec-count {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* PROJECTS 2-COL BROADSHEET */
+    .projects-broadsheet {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+    @media (max-width: 768px) {
+      .projects-broadsheet { grid-template-columns: 1fr; }
+    }
+    .broadsheet-card {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card-p {
+      font-size: 0.94rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .card-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .card-chip {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+    }
+    .card-links {
+      display: flex;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .card-links a {
+      color: var(--black);
+      text-decoration: underline;
+      transition: opacity 0.15s;
+    }
+    .card-links a:hover { opacity: 0.5; }
+
+    /* TIMELINE */
+    .chronicle-rows {
+      display: flex;
+      flex-direction: column;
+    }
+    .chronicle-item {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    @media (max-width: 640px) {
+      .chronicle-item { grid-template-columns: 1fr; }
+    }
+    .chronicle-date {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .chronicle-org {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .chronicle-role {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .chronicle-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* SKILLS */
+    .skills-broadsheet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+    }
+    .skill-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+    .skill-col-list {
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* FOOTER */
+    .gazette-contact {
+      text-align: center;
+      padding: 60px 0;
+      border-bottom: 3px double var(--border);
+    }
+    .gazette-contact-h2 {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .gazette-contact-p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+
+    footer.gazette-footer {
+      padding: 32px 0 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    footer a { color: var(--black); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- MASTHEAD -->
+    <header class="gazette-masthead">
+      <div class="masthead-meta">
+        <span>EDITION NO. 064 // MONOCHROME</span>
+        <span>MUMBAI, INDIA</span>
+        <span>COMPUTER ENG UNDERGRADUATE</span>
+      </div>
+      <h1 class="masthead-title">Aryan Rokade</h1>
+      <div class="masthead-sub">Software Development & Artificial Intelligence Systems</div>
+    </header>
+
+    <!-- TOP NAV -->
+    <nav class="gazette-nav">
+      <a href="#projects">Engineering Works</a>
+      <a href="#experience">Career Record</a>
+      <a href="#skills">Competencies</a>
+      <a href="#contact">Correspondence</a>
+    </nav>
+
+    <!-- HERO FEATURE -->
+    <section class="hero-gazette">
+      <div>
+        <h2 class="hero-h1">The Architectural Art of Web Engineering & Deep Learning.</h2>
+        <p class="hero-lead">
+          Undergraduate student at Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai. Dedicated to crafting full-stack web solutions with Next.js, resilient backend services, and deep learning computer vision algorithms.
+        </p>
+        <div class="hero-actions">
+          <a href="mailto:aryanrokade416@gmail.com" class="btn-black">Dispatch Message ↗</a>
+          <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-outline">Curriculum Vitae (PDF)</a>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-outline">GitHub</a>
+          <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="btn-outline">LinkedIn</a>
+        </div>
+      </div>
+      <div class="hero-sidebar">
+        <div>
+          <div class="sidebar-block-title">Academic Degree</div>
+          <div class="sidebar-block-val">B.E. Computer Eng (VCET '27)</div>
+        </div>
+        <div>
+          <div class="sidebar-block-title">Industry Training</div>
+          <div class="sidebar-block-val">Octanet Services Intern</div>
+        </div>
+        <div>
+          <div class="sidebar-block-title">Hackathon Award</div>
+          <div class="sidebar-block-val">2nd Place • Techblitz '25</div>
+        </div>
+        <div>
+          <div class="sidebar-block-title">Current Status</div>
+          <div class="sidebar-block-val">Open for Internships</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="gazette-sec">
+      <div class="sec-head">
+        <h2 class="sec-title">Selected Engineering Feats</h2>
+        <span class="sec-count">04 Production Builds</span>
+      </div>
+
+      <div class="projects-broadsheet">
+        <!-- 1. VyaparFlow -->
+        <article class="broadsheet-card">
+          <div>
+            <div class="card-meta">PROJECT 01 // SAAS PLATFORM</div>
+            <h3 class="card-title">VyaparFlow</h3>
+            <p class="card-p">
+              All-in-one inventory and business management web application engineered for real-time stock replenishment, transactions management, sales metrics, and automated inventory record processing.
+            </p>
+            <div class="card-chips">
+              <span class="card-chip">Next.js</span>
+              <span class="card-chip">React</span>
+              <span class="card-chip">TypeScript</span>
+              <span class="card-chip">Tailwind CSS</span>
+              <span class="card-chip">Prisma</span>
+              <span class="card-chip">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer">Source Code</a>
+          </div>
+        </article>
+
+        <!-- 2. CyberSentinel Suite -->
+        <article class="broadsheet-card">
+          <div>
+            <div class="card-meta">PROJECT 02 // SECURITY SUITE</div>
+            <h3 class="card-title">CyberSentinel Suite</h3>
+            <p class="card-p">
+              Proactive cybersecurity suite featuring an automated threat detection engine, live WebSocket notification dispatch, and a purpose-built Chrome browser extension for endpoint monitoring.
+            </p>
+            <div class="card-chips">
+              <span class="card-chip">React</span>
+              <span class="card-chip">Socket.IO</span>
+              <span class="card-chip">Flask</span>
+              <span class="card-chip">Python</span>
+              <span class="card-chip">Chrome Extension</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+          </div>
+        </article>
+
+        <!-- 3. Saturn -->
+        <article class="broadsheet-card">
+          <div>
+            <div class="card-meta">PROJECT 03 // MERN PLATFORM</div>
+            <h3 class="card-title">Saturn</h3>
+            <p class="card-p">
+              Collaborative productivity application with interactive Kanban boards, state management powered by Redux Toolkit, JWT session security, and structured sprint workflows.
+            </p>
+            <div class="card-chips">
+              <span class="card-chip">React</span>
+              <span class="card-chip">Redux Toolkit</span>
+              <span class="card-chip">Node.js</span>
+              <span class="card-chip">Express</span>
+              <span class="card-chip">MongoDB</span>
+              <span class="card-chip">JWT</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+          </div>
+        </article>
+
+        <!-- 4. MRI Brain Tumor Detection -->
+        <article class="broadsheet-card">
+          <div>
+            <div class="card-meta">PROJECT 04 // COMPUTER VISION</div>
+            <h3 class="card-title">MRI Brain Tumor Detection System</h3>
+            <p class="card-p">
+              Computer vision diagnostic system utilizing fine-tuned VGG16 architecture for binary and multiclass tumor classification from MRI brain scans, with OpenCV preprocessing.
+            </p>
+            <div class="card-chips">
+              <span class="card-chip">TensorFlow</span>
+              <span class="card-chip">Keras</span>
+              <span class="card-chip">VGG16</span>
+              <span class="card-chip">Flask</span>
+              <span class="card-chip">Python</span>
+              <span class="card-chip">OpenCV</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="experience" class="gazette-sec">
+      <div class="sec-head">
+        <h2 class="sec-title">The Career Record</h2>
+        <span class="sec-count">Academic & Professional</span>
+      </div>
+
+      <div class="chronicle-rows">
+        <div class="chronicle-item">
+          <div>
+            <div class="chronicle-date">DEC 2024 – JAN 2025</div>
+            <div class="chronicle-org">Octanet Services Pvt. Ltd.</div>
+          </div>
+          <div>
+            <h3 class="chronicle-role">Web Development Intern</h3>
+            <p class="chronicle-desc">
+              Engineered responsive frontend web interfaces, tested cross-browser compatibility, and built clean modular CSS web templates.
+            </p>
+          </div>
+        </div>
+
+        <div class="chronicle-item">
+          <div>
+            <div class="chronicle-date">MARCH 2025</div>
+            <div class="chronicle-org">Techblitz Hackathon</div>
+          </div>
+          <div>
+            <h3 class="chronicle-role">2nd Position Award Winner</h3>
+            <p class="chronicle-desc">
+              Recognized with 2nd place award at Techblitz organized by NSDC Committee & VCET AI&DS Department for collaborative problem-solving and rapid software execution.
+            </p>
+          </div>
+        </div>
+
+        <div class="chronicle-item">
+          <div>
+            <div class="chronicle-date">2023 – 2027</div>
+            <div class="chronicle-org">University of Mumbai</div>
+          </div>
+          <div>
+            <h3 class="chronicle-role">B.E. in Computer Engineering</h3>
+            <p class="chronicle-desc">
+              Vidyavardhini's College of Engineering and Technology (VCET), Vasai. Core coursework in Data Structures, Algorithms, DBMS, Operating Systems, and Machine Learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="gazette-sec">
+      <div class="sec-head">
+        <h2 class="sec-title">Technical Competencies</h2>
+        <span class="sec-count">Skills Roster</span>
+      </div>
+
+      <div class="skills-broadsheet-grid">
+        <div>
+          <div class="skill-col-title">Languages</div>
+          <ul class="skill-col-list">
+            <li>JavaScript & TypeScript</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>C & C++</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-col-title">Frontend</div>
+          <ul class="skill-col-list">
+            <li>React & Next.js</li>
+            <li>Tailwind CSS</li>
+            <li>Redux Toolkit</li>
+            <li>HTML5 & CSS3</li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-col-title">Backend & DB</div>
+          <ul class="skill-col-list">
+            <li>Node.js & Express</li>
+            <li>Flask (Python)</li>
+            <li>PostgreSQL & Prisma</li>
+            <li>MongoDB</li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-col-title">AI & Systems</div>
+          <ul class="skill-col-list">
+            <li>TensorFlow & Keras</li>
+            <li>OpenCV & VGG16</li>
+            <li>Docker Containers</li>
+            <li>Git & Socket.IO</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="gazette-contact">
+      <h2 class="gazette-contact-h2">Initiate Correspondence</h2>
+      <p class="gazette-contact-p">
+        Currently seeking software development internships and engineering collaborations.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-black">aryanrokade416@gmail.com</a>
+        <a href="tel:+918591224192" class="btn-outline">+91 85912 24192</a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-outline">Curriculum Vitae (PDF)</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="gazette-footer">
+      <div>© 2025 ARYAN ROKADE // PARISIAN GAZETTE</div>
+      <div>MUMBAI, INDIA</div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

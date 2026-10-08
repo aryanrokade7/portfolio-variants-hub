@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Tokyo Modernist Minimalist Engineering Portfolio" />
+  <title>Aryan Rokade — Tokyo Modernist Grid (Variant 53)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #f5f5f3;
+      --card-bg: #ffffff;
+      --border: #e6e6e2;
+      --border-dark: #d4d4ce;
+      --text: #191919;
+      --text-muted: #666663;
+      --text-subtle: #999994;
+      --accent: #2c2c2b;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 100px;
+    }
+
+    .wrap {
+      width: min(980px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* TOP HEADER */
+    header.site-header {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+      margin-left: 8px;
+    }
+    nav.site-nav {
+      display: flex;
+      gap: 24px;
+    }
+    nav.site-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.15s;
+    }
+    nav.site-nav a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .hero-h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+    .hero-p {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .hero-chips {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    /* SECTION */
+    .section-head {
+      padding: 64px 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-index {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+    }
+
+    /* PROJECT ROWS */
+    .project-row {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 240px 1fr 180px;
+      gap: 28px;
+      align-items: baseline;
+      transition: background 0.15s;
+    }
+    @media (max-width: 768px) {
+      .project-row { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    .p-title-col h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .p-type {
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+    }
+
+    .p-desc-col p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .p-tag {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-subtle);
+      background: rgba(0, 0, 0, 0.03);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .p-link-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    @media (max-width: 768px) {
+      .p-link-col { align-items: flex-start; flex-direction: row; }
+    }
+    .row-link {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 2px;
+      transition: border-color 0.15s;
+    }
+    .row-link:hover { border-color: var(--text); }
+
+    /* BACKGROUND TWO-COLUMN */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      .two-col-grid { grid-template-columns: 1fr; }
+    }
+    .col-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .history-card {
+      margin-bottom: 28px;
+    }
+    .history-card:last-child { margin-bottom: 0; }
+    .history-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      margin-bottom: 4px;
+    }
+    .history-role {
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+    .history-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* TOOLKIT */
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      .toolkit-grid { grid-template-columns: 1fr; }
+    }
+    .toolkit-item h4 {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .toolkit-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    footer.site-footer {
+      padding: 60px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-left {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- SITE HEADER -->
+  <header class="site-header wrap">
+    <div>
+      <a href="#top" class="brand">Aryan Rokade</a>
+      <span class="brand-sub">Mumbai &bull; 2027</span>
+    </div>
+    <nav class="site-nav">
+      <a href="#projects">Works</a>
+      <a href="#background">Background</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top" class="wrap">
+    
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-label">Full-Stack Development &bull; Machine Learning</div>
+      <h1 class="hero-h1">Building clear digital experiences with purpose.</h1>
+      <p class="hero-p">
+        I am a Computer Engineering student at Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai.
+        Dedicated to engineering scalable web services, robust full-stack software, and reliable medical &amp; security AI systems.
+      </p>
+      <div class="hero-chips">
+        <span class="chip">Next.js &bull; React</span>
+        <span class="chip">Node.js &bull; Express</span>
+        <span class="chip">Python &bull; TensorFlow</span>
+        <span class="chip">PostgreSQL &bull; MongoDB</span>
+      </div>
+    </section>
+
+    <!-- SELECTED PROJECTS -->
+    <section id="projects">
+      <div class="section-head">
+        <h2 class="section-title">Selected Works</h2>
+        <span class="section-index">01 / 04</span>
+      </div>
+
+      <!-- Project 1 -->
+      <article class="project-row">
+        <div class="p-title-col">
+          <h3>VyaparFlow</h3>
+          <span class="p-type">Logistics MSME Platform</span>
+        </div>
+        <div class="p-desc-col">
+          <p>
+            Full-stack export logistics readiness platform tailored for Indian MSME workflows. Includes compliance scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL atomic data transactions.
+          </p>
+          <div class="p-tags">
+            <span class="p-tag">Next.js</span>
+            <span class="p-tag">TypeScript</span>
+            <span class="p-tag">Prisma</span>
+            <span class="p-tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="p-link-col">
+          <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noreferrer" class="row-link">Live Demo ↗</a>
+          <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noreferrer" class="row-link">GitHub ↗</a>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="project-row">
+        <div class="p-title-col">
+          <h3>CyberSentinel Suite</h3>
+          <span class="p-type">Security Threat Suite</span>
+        </div>
+        <div class="p-desc-col">
+          <p>
+            Interactive network intrusion platform covering DoS/DDoS, SQL injection, ransomware mitigation, and live WebSocket packet telemetry with an integrated Chrome extension and phishing URL scoring.
+          </p>
+          <div class="p-tags">
+            <span class="p-tag">React</span>
+            <span class="p-tag">Socket.IO</span>
+            <span class="p-tag">Flask</span>
+            <span class="p-tag">Python</span>
+          </div>
+        </div>
+        <div class="p-link-col">
+          <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noreferrer" class="row-link">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="project-row">
+        <div class="p-title-col">
+          <h3>Saturn Finance</h3>
+          <span class="p-type">Personal Budget Ledger</span>
+        </div>
+        <div class="p-desc-col">
+          <p>
+            Full-stack budget and expense tracking application featuring categorized expense logging, custom savings targets, recurring payment projections, interactive financial charts, and JWT authentication.
+          </p>
+          <div class="p-tags">
+            <span class="p-tag">React</span>
+            <span class="p-tag">Redux Toolkit</span>
+            <span class="p-tag">Node.js</span>
+            <span class="p-tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="p-link-col">
+          <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noreferrer" class="row-link">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+      <!-- Project 4 -->
+      <article class="project-row">
+        <div class="p-title-col">
+          <h3>MRI Brain Tumor AI</h3>
+          <span class="p-type">Deep Learning Diagnostics</span>
+        </div>
+        <div class="p-desc-col">
+          <p>
+            Flask diagnostic web application that classifies brain MRI scans into Glioma, Meningioma, Pituitary, and No Tumor using transfer-learned VGG16 architecture with 98.4% validation accuracy.
+          </p>
+          <div class="p-tags">
+            <span class="p-tag">TensorFlow</span>
+            <span class="p-tag">Keras</span>
+            <span class="p-tag">VGG16</span>
+            <span class="p-tag">OpenCV</span>
+          </div>
+        </div>
+        <div class="p-link-col">
+          <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noreferrer" class="row-link">GitHub Repository ↗</a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- BACKGROUND -->
+    <section id="background">
+      <div class="section-head">
+        <h2 class="section-title">Background &amp; Credentials</h2>
+        <span class="section-index">Timeline</span>
+      </div>
+
+      <div class="two-col-grid">
+        <div>
+          <h3 class="col-title">Experience &amp; Recognition</h3>
+          
+          <div class="history-card">
+            <div class="history-meta">
+              <span>Octanet Services Pvt. Ltd.</span>
+              <span>Dec 2024 &ndash; Jan 2025</span>
+            </div>
+            <div class="history-role">Web Development Intern</div>
+            <p class="history-desc">
+              Engineered responsive client web modules and connected RESTful services, reducing frontend load times.
+            </p>
+          </div>
+
+          <div class="history-card">
+            <div class="history-meta">
+              <span>TECHBLITZ HACKATHON</span>
+              <span>MARCH 2025</span>
+            </div>
+            <div class="history-role">2nd Position Winner</div>
+            <p class="history-desc">
+              Awarded by NSDC Committee &amp; VCET AI&amp;DS Department for constructing an emergency dispatcher system in 24 hours.
+            </p>
+          </div>
+
+          <div class="history-card">
+            <div class="history-meta">
+              <span>INFOSYS SPRINGBOARD</span>
+              <span>COURSEWORK</span>
+            </div>
+            <div class="history-role">Sigma 5.0 (MERN &amp; DSA)</div>
+            <p class="history-desc">
+              Advanced training in full-stack web applications, data structures, and computational thinking.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="col-title">Education &amp; Core Strengths</h3>
+
+          <div class="history-card">
+            <div class="history-meta">
+              <span>MUMBAI UNIVERSITY</span>
+              <span>2023 &ndash; 2027</span>
+            </div>
+            <div class="history-role">B.E. Computer Engineering</div>
+            <p class="history-desc">
+              Vidyavardhini's College of Engineering &amp; Technology (VCET), Vasai. Core study in algorithms, databases, operating systems, and AI.
+            </p>
+          </div>
+
+          <div class="history-card">
+            <div class="history-meta">
+              <span>ENGINEERING MINDSET</span>
+              <span>DISCIPLINE</span>
+            </div>
+            <div class="history-role">Core Strengths</div>
+            <p class="history-desc">
+              Problem-Solving &bull; Communication &bull; Cross-Functional Team Collaboration &bull; Adaptability &bull; Time Management &bull; Critical Thinking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLKIT -->
+    <section id="toolkit">
+      <div class="section-head">
+        <h2 class="section-title">Technical Toolkit</h2>
+        <span class="section-index">Stack</span>
+      </div>
+
+      <div class="toolkit-grid">
+        <div class="toolkit-item">
+          <h4>Languages</h4>
+          <p>Java &bull; C &bull; C++ &bull; Python &bull; JavaScript &bull; TypeScript &bull; SQL</p>
+        </div>
+        <div class="toolkit-item">
+          <h4>Frameworks &amp; DB</h4>
+          <p>Next.js &bull; React &bull; Node.js &bull; Express &bull; Tailwind CSS &bull; Prisma &bull; PostgreSQL &bull; MongoDB</p>
+        </div>
+        <div class="toolkit-item">
+          <h4>AI &amp; Tools</h4>
+          <p>TensorFlow &bull; Keras &bull; VGG16 &bull; Docker &bull; Git &bull; GitHub &bull; REST APIs &bull; Socket.IO &bull; Figma</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contact" class="site-footer">
+      <div class="footer-left">
+        Aryan Rokade &bull; aryanrokade416@gmail.com &bull; +91 85912 24192
+      </div>
+      <div class="footer-links">
+        <a href="../Aryan_Rokade_Resume.pdf" download>Resume (PDF) ↓</a>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <a href="mailto:aryanrokade416@gmail.com">Email ↗</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

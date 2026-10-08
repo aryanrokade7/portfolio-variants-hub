@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Kinetic Split Editorial Portfolio. Minimalist Split Layout." />
+  <title>Aryan Rokade — Kinetic Split Editorial (Variant 57)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #090a0f;
+      --sidebar-bg: #0f1118;
+      --card-bg: #131722;
+      --border: #212638;
+      --border-light: #2d344d;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.15);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* SPLIT CONTAINER */
+    .split-layout {
+      display: flex;
+      min-height: 100vh;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* LEFT SIDEBAR (STICKY) */
+    aside.split-sidebar {
+      width: 420px;
+      padding: 60px 48px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--border);
+      background: var(--sidebar-bg);
+      flex-shrink: 0;
+    }
+
+    .sidebar-top {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #34d399;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: #34d399;
+      border-radius: 50%;
+    }
+
+    .sidebar-name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .sidebar-role {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .sidebar-bio {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-top: 8px;
+    }
+
+    /* SIDEBAR NAVIGATION */
+    nav.sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 36px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+    .nav-indicator {
+      width: 24px;
+      height: 2px;
+      background: var(--border);
+      transition: all 0.2s;
+    }
+    .nav-item:hover {
+      color: #ffffff;
+      transform: translateX(4px);
+    }
+    .nav-item:hover .nav-indicator {
+      width: 40px;
+      background: var(--amber);
+    }
+
+    /* SIDEBAR BOTTOM CONTACT */
+    .sidebar-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-line {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-line a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .contact-line a:hover {
+      color: var(--amber);
+    }
+    .sidebar-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .btn-side {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-side.primary {
+      background: var(--amber);
+      color: #000;
+    }
+    .btn-side.primary:hover {
+      background: #fbbf24;
+      transform: translateY(-1px);
+    }
+    .btn-side.outline {
+      border: 1px solid var(--border-light);
+      color: var(--text);
+    }
+    .btn-side.outline:hover {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    /* RIGHT CONTENT AREA */
+    main.split-main {
+      flex: 1;
+      padding: 60px 56px 120px;
+      overflow-y: auto;
+    }
+
+    .main-section {
+      margin-bottom: 80px;
+    }
+    .sec-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .sec-heading {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 28px;
+    }
+
+    /* PROJECTS STACK */
+    .projects-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .project-row-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+    .project-row-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .project-row-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .project-row-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      background: var(--amber-glow);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .project-row-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .tag-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .tag-cluster span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .project-links {
+      display: flex;
+      gap: 16px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    .project-links a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #ffffff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .project-links a:hover {
+      color: var(--amber);
+    }
+
+    /* TIMELINE */
+    .timeline-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .timeline-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .tl-meta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+    .tl-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .tl-org {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .tl-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* SKILLS TILES */
+    .skills-cluster {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .skill-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .skill-box-title {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .skill-box-items {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .split-layout {
+        flex-direction: column;
+      }
+      aside.split-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 40px 24px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      main.split-main {
+        padding: 40px 24px 80px;
+      }
+      .skills-cluster {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="split-layout">
+    <!-- LEFT STICKY SIDEBAR -->
+    <aside class="split-sidebar">
+      <div class="sidebar-top">
+        <div class="badge-status">
+          <span class="badge-dot"></span>
+          <span>Open to SDE Internships</span>
+        </div>
+        <h1 class="sidebar-name">Aryan Rokade</h1>
+        <div class="sidebar-role">Computer Engineering Student & Developer</div>
+        <p class="sidebar-bio">
+          Undergraduate engineer at VCET (University of Mumbai). Building responsive full-stack applications with Next.js, Node.js, and deep learning computer vision systems.
+        </p>
+
+        <!-- NAVIGATION -->
+        <nav class="sidebar-nav">
+          <a href="#about" class="nav-item">
+            <span class="nav-indicator"></span>
+            <span>About</span>
+          </a>
+          <a href="#projects" class="nav-item">
+            <span class="nav-indicator"></span>
+            <span>Projects</span>
+          </a>
+          <a href="#experience" class="nav-item">
+            <span class="nav-indicator"></span>
+            <span>Experience</span>
+          </a>
+          <a href="#skills" class="nav-item">
+            <span class="nav-indicator"></span>
+            <span>Skills</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-bottom">
+        <div class="contact-line">
+          <span>Email:</span>
+          <a href="mailto:aryanrokade416@gmail.com">aryanrokade416@gmail.com</a>
+        </div>
+        <div class="contact-line">
+          <span>Phone:</span>
+          <a href="tel:+918591224192">+91 85912 24192</a>
+        </div>
+        <div class="contact-line">
+          <span>Location:</span>
+          <span>Mumbai, Maharashtra, India</span>
+        </div>
+        <div class="sidebar-actions">
+          <a href="mailto:aryanrokade416@gmail.com" class="btn-side primary">
+            Contact ↗
+          </a>
+          <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-side outline">
+            Resume (PDF)
+          </a>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-side outline">
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="btn-side outline">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT SCROLLING MAIN CONTENT -->
+    <main class="split-main">
+      <!-- ABOUT -->
+      <section id="about" class="main-section">
+        <div class="sec-tag">// Profile Overview</div>
+        <h2 class="sec-heading">Engineered with Intent</h2>
+        <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+          I am a 3rd-year Computer Engineering undergraduate at Vidyavardhini's College of Engineering and Technology (VCET), Vasai. My engineering focus combines responsive frontend craft with resilient backend design and machine learning algorithms.
+        </p>
+        <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+          Recently recognized as the 2nd Position Winner in the Techblitz Hackathon (March 2025) and completed a frontend engineering internship at Octanet Services Pvt. Ltd.
+        </p>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="main-section">
+        <div class="sec-tag">// Engineering Portfolio</div>
+        <h2 class="sec-heading">Featured Projects</h2>
+
+        <div class="projects-stack">
+          <!-- 1. VyaparFlow -->
+          <article class="project-row-card">
+            <div class="card-top">
+              <h3 class="project-row-name">VyaparFlow</h3>
+              <span class="project-row-badge">Live SaaS</span>
+            </div>
+            <p class="project-row-desc">
+              All-in-one inventory and business workflow management web application. Designed for inventory tracking, sales overview, streamlined transactions, and automated stock alerting.
+            </p>
+            <div class="tag-cluster">
+              <span>Next.js</span>
+              <span>React</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
+              <span>Prisma</span>
+              <span>PostgreSQL</span>
+            </div>
+            <div class="project-links">
+              <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer">
+                Live Application ↗
+              </a>
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer">
+                GitHub Repository
+              </a>
+            </div>
+          </article>
+
+          <!-- 2. CyberSentinel Suite -->
+          <article class="project-row-card">
+            <div class="card-top">
+              <h3 class="project-row-name">CyberSentinel Suite</h3>
+              <span class="project-row-badge">Security Tool</span>
+            </div>
+            <p class="project-row-desc">
+              Security intelligence application integrating an automated threat detection engine, live WebSocket notification dispatching, and a purpose-built Chrome browser extension for endpoint monitoring.
+            </p>
+            <div class="tag-cluster">
+              <span>React</span>
+              <span>Socket.IO</span>
+              <span>Flask</span>
+              <span>Python</span>
+              <span>Chrome Extension</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">
+                GitHub Repository ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- 3. Saturn -->
+          <article class="project-row-card">
+            <div class="card-top">
+              <h3 class="project-row-name">Saturn</h3>
+              <span class="project-row-badge">MERN Stack</span>
+            </div>
+            <p class="project-row-desc">
+              Collaborative workspace and task orchestration application featuring Kanban boards, JWT authentication, centralized state management with Redux Toolkit, and sprint productivity analytics.
+            </p>
+            <div class="tag-cluster">
+              <span>React</span>
+              <span>Redux Toolkit</span>
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>MongoDB</span>
+              <span>Tailwind CSS</span>
+              <span>JWT</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">
+                GitHub Repository ↗
+              </a>
+            </div>
+          </article>
+
+          <!-- 4. MRI Brain Tumor Detection -->
+          <article class="project-row-card">
+            <div class="card-top">
+              <h3 class="project-row-name">MRI Brain Tumor Detection System</h3>
+              <span class="project-row-badge">Computer Vision</span>
+            </div>
+            <p class="project-row-desc">
+              Deep learning diagnostic tool utilizing fine-tuned VGG16 architecture for binary and multi-class brain tumor classification from MRI imagery, complete with OpenCV preprocessing and confidence metric scoring.
+            </p>
+            <div class="tag-cluster">
+              <span>TensorFlow</span>
+              <span>Keras</span>
+              <span>VGG16</span>
+              <span>Flask</span>
+              <span>Python</span>
+              <span>OpenCV</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">
+                GitHub Repository ↗
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience" class="main-section">
+        <div class="sec-tag">// Career & Education</div>
+        <h2 class="sec-heading">Experience & Milestones</h2>
+
+        <div class="timeline-stack">
+          <div class="timeline-card">
+            <div class="tl-meta">DEC 2024 – JAN 2025</div>
+            <h3 class="tl-title">Web Development Intern</h3>
+            <div class="tl-org">Octanet Services Pvt. Ltd.</div>
+            <p class="tl-text">
+              Engineered responsive frontend interfaces, applied modern CSS3 design techniques, ensured cross-browser compatibility, and built clean modular web templates.
+            </p>
+          </div>
+
+          <div class="timeline-card">
+            <div class="tl-meta">MARCH 2025</div>
+            <h3 class="tl-title">2nd Position Winner</h3>
+            <div class="tl-org">Techblitz Hackathon (NSDC Committee & VCET AI&DS)</div>
+            <p class="tl-text">
+              Secured 2nd place in a competitive hackathon for designing and deploying software solutions within rigorous time constraints.
+            </p>
+          </div>
+
+          <div class="timeline-card">
+            <div class="tl-meta">2023 – 2027</div>
+            <h3 class="tl-title">B.E. in Computer Engineering</h3>
+            <div class="tl-org">Vidyavardhini's College of Engineering and Technology (VCET)</div>
+            <p class="tl-text">
+              Affiliated with the University of Mumbai. Coursework covers Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Computer Networks, and AI.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="main-section">
+        <div class="sec-tag">// Technical Inventory</div>
+        <h2 class="sec-heading">Skills & Tools</h2>
+
+        <div class="skills-cluster">
+          <div class="skill-box">
+            <div class="skill-box-title">Languages</div>
+            <div class="skill-box-items">JavaScript, TypeScript, Python, Java, C, C++, SQL</div>
+          </div>
+          <div class="skill-box">
+            <div class="skill-box-title">Frontend Frameworks</div>
+            <div class="skill-box-items">React.js, Next.js, Tailwind CSS, Redux Toolkit, HTML5, CSS3</div>
+          </div>
+          <div class="skill-box">
+            <div class="skill-box-title">Backend & Database</div>
+            <div class="skill-box-items">Node.js, Express, Flask (Python), PostgreSQL, Prisma ORM, MongoDB</div>
+          </div>
+          <div class="skill-box">
+            <div class="skill-box-title">AI & Systems</div>
+            <div class="skill-box-items">TensorFlow, Keras, VGG16, OpenCV, Docker, Git, REST APIs, Socket.IO</div>
+          </div>
+        </div>
+      </section>
+
+      <footer style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim); padding-top: 24px; border-top: 1px solid var(--border);">
+        © 2025 Aryan Rokade. Kinetic Split Editorial Edition.
+      </footer>
+    </main>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

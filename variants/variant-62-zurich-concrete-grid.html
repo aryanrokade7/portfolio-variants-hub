@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Zürich Concrete Swiss Grid Portfolio. Systematic International Typographic Style." />
+  <title>Aryan Rokade — Zürich Concrete Grid (Variant 62)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #efefed;
+      --card-bg: #ffffff;
+      --black: #111111;
+      --cobalt: #0047bb;
+      --cobalt-light: #e8effc;
+      --border: #111111;
+      --gray-text: #555555;
+      --font-swiss: 'Inter Tight', -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--font-swiss);
+      min-height: 100vh;
+      line-height: 1.45;
+      overflow-x: hidden;
+      border-top: 8px solid var(--cobalt);
+      padding-bottom: 120px;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* SWISS NAV */
+    header.zurich-nav {
+      border-bottom: 2px solid var(--black);
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(239, 239, 237, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+    }
+    .zurich-nav-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      align-items: baseline;
+      font-size: 0.88rem;
+      font-family: var(--font-mono);
+    }
+    @media (max-width: 768px) {
+      .zurich-nav-grid { grid-template-columns: 1fr; gap: 12px; }
+    }
+    .brand-id {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-link {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: var(--cobalt); }
+
+    /* SYSTEM BANNER */
+    .system-strip {
+      border-bottom: 2px solid var(--black);
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    /* HERO */
+    .hero-swiss {
+      padding: 64px 0 52px;
+      border-bottom: 2px solid var(--black);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+    }
+    @media (max-width: 840px) {
+      .hero-swiss { grid-template-columns: 1fr; }
+    }
+    .hero-col-left {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.8;
+      border-right: 2px solid var(--black);
+      padding-right: 32px;
+    }
+    @media (max-width: 840px) {
+      .hero-col-left { border-right: none; padding-right: 0; border-bottom: 2px solid var(--black); padding-bottom: 24px; }
+    }
+    .hero-index-badge {
+      display: inline-block;
+      background: var(--cobalt);
+      color: #ffffff;
+      padding: 4px 10px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.55;
+      color: #333333;
+      margin-bottom: 32px;
+      max-width: 680px;
+    }
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-solid-black {
+      background: var(--black);
+      color: #ffffff;
+      padding: 12px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-solid-black:hover { background: var(--cobalt); }
+    .btn-outline-black {
+      border: 2px solid var(--black);
+      color: var(--black);
+      padding: 10px 22px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: transparent;
+      transition: all 0.15s;
+    }
+    .btn-outline-black:hover { background: var(--black); color: #fff; }
+
+    /* SECTION BASICS */
+    section.swiss-section {
+      padding: 60px 0;
+      border-bottom: 2px solid var(--black);
+    }
+    .sec-header-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 36px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--black);
+    }
+    .sec-h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+    }
+    .sec-number {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--cobalt);
+    }
+
+    /* PROJECTS SWISS 4-COLUMN GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    .swiss-project-card {
+      background: var(--card-bg);
+      border: 2px solid var(--black);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s;
+    }
+    .swiss-project-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+    .card-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cobalt);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .card-desc {
+      font-size: 0.94rem;
+      color: var(--gray-text);
+      line-height: 1.55;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: var(--bg);
+      border: 1px solid var(--black);
+      padding: 3px 8px;
+      font-weight: 600;
+    }
+    .card-links {
+      display: flex;
+      gap: 16px;
+      border-top: 2px solid var(--black);
+      padding-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .card-links a {
+      color: var(--black);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .card-links a:hover { color: var(--cobalt); }
+
+    /* TIMELINE */
+    .swiss-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .timeline-card {
+      background: var(--card-bg);
+      border: 2px solid var(--black);
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 640px) {
+      .timeline-card { grid-template-columns: 1fr; }
+    }
+    .tl-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cobalt);
+    }
+    .tl-inst {
+      font-size: 0.85rem;
+      color: var(--gray-text);
+      margin-top: 4px;
+    }
+    .tl-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .tl-text {
+      font-size: 0.92rem;
+      color: var(--gray-text);
+      line-height: 1.55;
+    }
+
+    /* SKILLS MATRIX */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .skill-block {
+      background: var(--card-bg);
+      border: 2px solid var(--black);
+      padding: 24px;
+    }
+    .skill-block-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--cobalt);
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--black);
+      padding-bottom: 6px;
+    }
+    .skill-list {
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    /* FOOTER DISPATCH */
+    .contact-dispatch {
+      text-align: center;
+      padding: 60px 0;
+      border-bottom: 2px solid var(--black);
+    }
+    .dispatch-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .dispatch-p {
+      color: var(--gray-text);
+      max-width: 520px;
+      margin: 0 auto 30px;
+      font-size: 1rem;
+    }
+
+    footer.zurich-footer {
+      padding: 32px 0 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    footer a { color: var(--black); text-decoration: none; }
+    footer a:hover { color: var(--cobalt); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- NAV -->
+    <header class="zurich-nav">
+      <div class="zurich-nav-grid">
+        <a href="#" class="brand-id">ARYAN ROKADE</a>
+        <a href="#projects" class="nav-link">[01] WORK</a>
+        <a href="#experience" class="nav-link">[02] TIMELINE</a>
+        <a href="#skills" class="nav-link">[03] SPECS</a>
+      </div>
+    </header>
+
+    <!-- SYSTEM STRIP -->
+    <div class="system-strip">
+      <span>SWISS CONCRETE GRID // EDITION 062</span>
+      <span>VCET COMPUTER ENG '27</span>
+      <span>MUMBAI, INDIA</span>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero-swiss">
+      <div class="hero-col-left">
+        <span class="hero-index-badge">SYSTEM NO. 62</span>
+        <div style="font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">CANDIDATE PROFILE</div>
+        <div>Computer Engineering Undergraduate</div>
+        <div>Full-Stack & AI Systems</div>
+        <div style="margin-top: 16px; color: var(--cobalt); font-weight: 700;">● STATUS: OPEN FOR INTERNSHIPS</div>
+      </div>
+      <div>
+        <h1 class="hero-h1">FUNCTIONAL ARCHITECTURE & INTELLIGENT SYSTEMS.</h1>
+        <p class="hero-p">
+          Undergraduate engineer at Vidyavardhini's College of Engineering and Technology (VCET), University of Mumbai. Building full-stack web applications, scalable Node.js/Python backends, and deep learning computer vision platforms.
+        </p>
+        <div class="hero-btns">
+          <a href="mailto:aryanrokade416@gmail.com" class="btn-solid-black">CONTACT DISPATCH ↗</a>
+          <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-outline-black">RESUME (PDF)</a>
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-outline-black">GITHUB</a>
+          <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="btn-outline-black">LINKEDIN</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="swiss-section">
+      <div class="sec-header-strip">
+        <h2 class="sec-h2">SELECTED ENGINEERING BUILDS</h2>
+        <span class="sec-number">[ 04 SYSTEMS ]</span>
+      </div>
+
+      <div class="projects-grid">
+        <!-- 1. VyaparFlow -->
+        <article class="swiss-project-card">
+          <div>
+            <div class="card-num">
+              <span>SYS. 01 / SAAS</span>
+              <span>LIVE</span>
+            </div>
+            <h3 class="card-title">VyaparFlow</h3>
+            <p class="card-desc">
+              Full-stack inventory and business operations web application. Built for stock replenishment, transactions management, sales metrics, and automated inventory record processing.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">Next.js</span>
+              <span class="card-tag">React</span>
+              <span class="card-tag">TypeScript</span>
+              <span class="card-tag">Tailwind CSS</span>
+              <span class="card-tag">Prisma</span>
+              <span class="card-tag">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer">LIVE APP ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer">REPO</a>
+          </div>
+        </article>
+
+        <!-- 2. CyberSentinel Suite -->
+        <article class="swiss-project-card">
+          <div>
+            <div class="card-num">
+              <span>SYS. 02 / SECURITY</span>
+              <span>GITHUB</span>
+            </div>
+            <h3 class="card-title">CyberSentinel Suite</h3>
+            <p class="card-desc">
+              Security intelligence platform featuring automated threat detection, real-time WebSocket alert dispatching, and a purpose-built Chrome browser extension for endpoint monitoring.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">React</span>
+              <span class="card-tag">Socket.IO</span>
+              <span class="card-tag">Flask</span>
+              <span class="card-tag">Python</span>
+              <span class="card-tag">Chrome Extension</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">REPO ↗</a>
+          </div>
+        </article>
+
+        <!-- 3. Saturn -->
+        <article class="swiss-project-card">
+          <div>
+            <div class="card-num">
+              <span>SYS. 03 / MERN</span>
+              <span>FULL-STACK</span>
+            </div>
+            <h3 class="card-title">Saturn</h3>
+            <p class="card-desc">
+              Collaborative productivity application with interactive Kanban boards, state management powered by Redux Toolkit, JWT session security, and structured sprint workflows.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">React</span>
+              <span class="card-tag">Redux Toolkit</span>
+              <span class="card-tag">Node.js</span>
+              <span class="card-tag">Express</span>
+              <span class="card-tag">MongoDB</span>
+              <span class="card-tag">JWT</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">REPO ↗</a>
+          </div>
+        </article>
+
+        <!-- 4. MRI Brain Tumor Detection -->
+        <article class="swiss-project-card">
+          <div>
+            <div class="card-num">
+              <span>SYS. 04 / AI</span>
+              <span>COMPUTER VISION</span>
+            </div>
+            <h3 class="card-title">MRI Brain Tumor Detection System</h3>
+            <p class="card-desc">
+              Deep learning diagnostic tool utilizing fine-tuned VGG16 architecture for binary and multi-class brain tumor classification from MRI imagery with OpenCV preprocessing.
+            </p>
+            <div class="card-tags">
+              <span class="card-tag">TensorFlow</span>
+              <span class="card-tag">Keras</span>
+              <span class="card-tag">VGG16</span>
+              <span class="card-tag">Flask</span>
+              <span class="card-tag">Python</span>
+              <span class="card-tag">OpenCV</span>
+            </div>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">REPO ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="experience" class="swiss-section">
+      <div class="sec-header-strip">
+        <h2 class="sec-h2">CAREER & EDUCATION TIMELINE</h2>
+        <span class="sec-number">[ HISTORY ]</span>
+      </div>
+
+      <div class="swiss-timeline">
+        <div class="timeline-card">
+          <div>
+            <div class="tl-meta">DEC 2024 – JAN 2025</div>
+            <div class="tl-inst">Octanet Services Pvt. Ltd.</div>
+          </div>
+          <div>
+            <h3 class="tl-title">Web Development Intern</h3>
+            <p class="tl-text">
+              Engineered responsive frontend web interfaces, tested cross-browser compatibility, and built clean modular CSS web templates.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div>
+            <div class="tl-meta">MARCH 2025</div>
+            <div class="tl-inst">Techblitz Hackathon</div>
+          </div>
+          <div>
+            <h3 class="tl-title">2nd Position Award Winner</h3>
+            <p class="tl-text">
+              Recognized with 2nd place award at Techblitz organized by NSDC Committee & VCET AI&DS Department for collaborative problem-solving and rapid software execution.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div>
+            <div class="tl-meta">2023 – 2027</div>
+            <div class="tl-inst">University of Mumbai</div>
+          </div>
+          <div>
+            <h3 class="tl-title">B.E. in Computer Engineering</h3>
+            <p class="tl-text">
+              Vidyavardhini's College of Engineering and Technology (VCET), Vasai. Core coursework in Data Structures, Algorithms, DBMS, Operating Systems, and Machine Learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX -->
+    <section id="skills" class="swiss-section">
+      <div class="sec-header-strip">
+        <h2 class="sec-h2">TECHNICAL SPECIFICATIONS</h2>
+        <span class="sec-number">[ STACK ]</span>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="skill-block-title">01 // Languages</div>
+          <ul class="skill-list">
+            <li>JavaScript & TypeScript</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>C & C++</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-title">02 // Frontend</div>
+          <ul class="skill-list">
+            <li>React & Next.js</li>
+            <li>Tailwind CSS</li>
+            <li>Redux Toolkit</li>
+            <li>HTML5 & CSS3</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-title">03 // Backend & DB</div>
+          <ul class="skill-list">
+            <li>Node.js & Express</li>
+            <li>Flask (Python)</li>
+            <li>PostgreSQL & Prisma</li>
+            <li>MongoDB</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-title">04 // AI & Systems</div>
+          <ul class="skill-list">
+            <li>TensorFlow & Keras</li>
+            <li>OpenCV & VGG16</li>
+            <li>Docker Containers</li>
+            <li>Git & Socket.IO</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT DISPATCH -->
+    <section id="contact" class="contact-dispatch">
+      <h2 class="dispatch-title">INITIATE INQUIRY</h2>
+      <p class="dispatch-p">
+        Currently seeking software development internships and engineering collaborations.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-solid-black">aryanrokade416@gmail.com</a>
+        <a href="tel:+918591224192" class="btn-outline-black">+91 85912 24192</a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-outline-black">RESUME (PDF)</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="zurich-footer">
+      <div>© 2025 ARYAN ROKADE // ZÜRICH CONCRETE GRID</div>
+      <div>MUMBAI, INDIA</div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

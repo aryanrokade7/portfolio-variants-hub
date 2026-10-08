@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aryan Rokade â€” Arcade Fighter Select</title>
+  <title>Aryan Rokade — 16-Bit Arcade Fighter Select (Variant 26)</title>
   <meta name="description" content="16-bit Capcom/Neo-Geo arcade fighting game character select screen portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
   <link rel="stylesheet" href="switcher.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -337,9 +337,14 @@
     
     <!-- Arcade Marquee -->
     <header class="arcade-marquee">
-      <div class="marquee-sub">â˜… CAPCOM / NEO-GEO ARCADE CABINET // 60 FPS â˜…</div>
+      <div class="marquee-sub">★ CAPCOM / NEO-GEO ARCADE CABINET // 60 FPS ★</div>
       <h1 class="marquee-title">SELECT YOUR FIGHTER</h1>
-      <div class="coins-tag">CREDITS: 02 (FREE)</div>
+      <div class="coins-tag" id="coinsTag" onclick="insertCoin();" style="cursor: pointer; user-select: none;" title="Click to Insert Coin!">
+        🪙 INSERT COIN: <span id="creditCount">02</span>
+      </div>
+      <div style="margin-top: 8px;">
+        <span id="arcadeMuteBtn" onclick="toggleArcadeAudio();" style="cursor: pointer; font-family: var(--font-pixel); font-size: 0.6rem; color: var(--arcade-cyan);" title="Toggle Arcade Audio">🔊 SOUND: ON</span>
+      </div>
     </header>
 
     <!-- Main Arena Grid -->
@@ -395,37 +400,37 @@
         <div class="roster-grid">
           
           <div class="roster-tile selected" onclick="pickFighter(0)" id="slot0">
-            <div class="roster-icon">âš¡</div>
+            <div class="roster-icon">⚡</div>
             <div class="roster-name">ARYAN</div>
             <div class="roster-role">Full-Stack Hero</div>
           </div>
 
           <div class="roster-tile" onclick="pickFighter(1)" id="slot1">
-            <div class="roster-icon">ðŸ¢</div>
+            <div class="roster-icon">🌐</div>
             <div class="roster-name">VYAPAR</div>
             <div class="roster-role">ERP Titan</div>
           </div>
 
           <div class="roster-tile" onclick="pickFighter(2)" id="slot2">
-            <div class="roster-icon">ðŸ›¡ï¸</div>
+            <div class="roster-icon">🛡️</div>
             <div class="roster-name">SENTINEL</div>
             <div class="roster-role">SecOps Shield</div>
           </div>
 
           <div class="roster-tile" onclick="pickFighter(3)" id="slot3">
-            <div class="roster-icon">ðŸ’°</div>
+            <div class="roster-icon">💡°</div>
             <div class="roster-name">SATURN</div>
             <div class="roster-role">Fintech Engine</div>
           </div>
 
           <div class="roster-tile" onclick="pickFighter(4)" id="slot4">
-            <div class="roster-icon">ðŸ§ </div>
+            <div class="roster-icon">🧠</div>
             <div class="roster-name">CORTEX</div>
             <div class="roster-role">VGG16 AI Brain</div>
           </div>
 
           <div class="roster-tile" onclick="pickFighter(5)" id="slot5">
-            <div class="roster-icon">ðŸ†</div>
+            <div class="roster-icon">🏆</div>
             <div class="roster-name">TECHBLITZ</div>
             <div class="roster-role">Hackathon 2nd</div>
           </div>
@@ -435,56 +440,59 @@
         <!-- Special Moves Command List -->
         <div class="moves-box">
           <div class="pane-title" style="margin-bottom: 8px;">
-            <span style="color:var(--arcade-gold)">SPECIAL COMMAND LIST // SKILL COMBO</span>
+            <span style="color:var(--arcade-gold)">SPECIAL COMMAND LIST // CLICK TO EXECUTE MOVE</span>
             <span>SUPER ART: READY</span>
           </div>
 
-          <div class="move-row">
+          <div class="move-row" onclick="triggerSpecialMove('hadouken');" style="cursor: pointer;" title="Execute Next.js Server Burst!">
             <div>
               <div class="move-name">Next.js Server Burst</div>
               <div class="move-desc">App Router SSR + Prisma database hydration in under 40ms.</div>
             </div>
-            <span class="move-input">â†“ â†˜ â†’ + P</span>
+            <span class="move-input">↓ ↘ → + P</span>
           </div>
 
-          <div class="move-row">
+          <div class="move-row" onclick="triggerSpecialMove('shield');" style="cursor: pointer;" title="Execute Snort Anomaly Aegis!">
             <div>
               <div class="move-name">Snort Anomaly Aegis</div>
               <div class="move-desc">Real-time Socket.IO packet filter blocking brute-force traffic.</div>
             </div>
-            <span class="move-input">â† â†™ â†“ + K</span>
+            <span class="move-input">← ↙ ↓ + K</span>
           </div>
 
-          <div class="move-row">
+          <div class="move-row" onclick="triggerSpecialMove('shoryuken');" style="cursor: pointer;" title="Execute VGG16 Neural Conv Blast!">
             <div>
               <div class="move-name">VGG16 Neural Conv Blast</div>
               <div class="move-desc">Grad-CAM deep learning slice classifier with 98.2% test accuracy.</div>
             </div>
-            <span class="move-input">â†’ â†“ â†˜ + HP</span>
+            <span class="move-input">→ ↓ ↘ + HP</span>
           </div>
 
-          <div class="move-row" style="border:none;">
+          <div class="move-row" onclick="triggerSpecialMove('super');" style="cursor: pointer; border:none;" title="Execute Super Combo Techblitz Finish!">
             <div>
               <div class="move-name" style="color:var(--arcade-gold)">SUPER COMBO: Techblitz Finish</div>
               <div class="move-desc">VCET AI&DS Department Hackathon 2nd Place Victorious Strike!</div>
             </div>
-            <span class="move-input" style="color:#ff2a55;">â†“ â†˜ â†’ â†“ â†˜ â†’ + 3P</span>
+            <span class="move-input" style="color:#ff2a55;">↓ ↘ → ↓ ↘ → + 3P</span>
           </div>
         </div>
 
         <!-- Action / Coin Drop Buttons -->
         <div class="arcade-actions">
-          <a href="../Aryan_Rokade_Resume.pdf" download class="coin-btn gold">
-            â˜… 1P START (RESUME.PDF)
+          <a href="../Aryan_Rokade_Resume.pdf" download class="coin-btn gold" onclick="playRoundStart();">
+            ★ 1P START (RESUME.PDF)
           </a>
-          <a href="mailto:aryanrokade416@gmail.com" class="coin-btn">
-            âœ‰ CHALLENGE IN BATTLE (HIRE)
+          <a href="mailto:aryanrokade416@gmail.com" class="coin-btn" onclick="playChallengeAlert();">
+            ✉ CHALLENGE IN BATTLE (HIRE)
           </a>
           <a href="https://github.com/aryanrokade7" target="_blank" class="coin-btn" style="background:#281848; border-color:#653ba8;">
-            ðŸ™ GITHUB ROSTER
+            🐙 GITHUB ROSTER
           </a>
           <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="coin-btn" style="background:#281848; border-color:#653ba8;">
-            ðŸ’¼ LINKEDIN
+            💼 LINKEDIN
+          </a>
+          <a href="tel:+918591224192" class="coin-btn" style="background:#281848; border-color:#653ba8;">
+            📞 +91 85912 24192
           </a>
         </div>
 
@@ -495,22 +503,233 @@
   </div>
 
   <script>
-    // Audio synthesizer for retro 8-bit blip
-    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
-    function playBeep(freq = 440) {
-      if (!audioCtx) return;
+    let audioCtx = null;
+    let arcadeAudioEnabled = true;
+    let credits = 2;
+
+    function initArcadeAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    ['click', 'keydown', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, () => initArcadeAudio(), { once: true });
+    });
+
+    // Arcade Coin Insert SFX
+    function insertCoin() {
+      initArcadeAudio();
+      credits++;
+      const c = document.getElementById('creditCount');
+      if (c) c.innerText = String(credits).padStart(2, '0');
+
+      if (!arcadeAudioEnabled || !audioCtx) return;
       try {
+        const now = audioCtx.currentTime;
+        // Two-tone high chime (B5 -> E6)
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(987.77, now);
+        osc1.frequency.setValueAtTime(1318.51, now + 0.06);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(1975.53, now);
+        osc2.frequency.setValueAtTime(2637.02, now + 0.06);
+
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.45);
+        osc2.stop(now + 0.45);
+      } catch (e) {}
+    }
+
+    // Heavy arcade punch / impact sound
+    function playImpact(vol = 0.22, pitch = 140) {
+      if (!arcadeAudioEnabled || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        // Sub hit
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(pitch, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.12);
+        gain.gain.setValueAtTime(vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
-      } catch(e) {}
+        osc.start(now);
+        osc.stop(now + 0.12);
+
+        // Noise crack
+        const bufferSize = Math.floor(audioCtx.sampleRate * 0.06);
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * 0.8;
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const nGain = audioCtx.createGain();
+        nGain.gain.setValueAtTime(vol * 0.8, now);
+        nGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+        noise.connect(nGain);
+        nGain.connect(audioCtx.destination);
+        noise.start(now);
+      } catch (e) {}
+    }
+
+    // Special moves combat SFX
+    function triggerSpecialMove(moveType) {
+      initArcadeAudio();
+      if (!arcadeAudioEnabled || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        if (moveType === 'hadouken') {
+          // Energy fireball whoosh + deep impact
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(120, now + 0.28);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.28);
+          setTimeout(() => playImpact(0.28, 90), 120);
+        } else if (moveType === 'shield') {
+          // Electric barrier pulse / cyber shield
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.2);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (moveType === 'shoryuken') {
+          // Rising dragon punch power whoosh
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(150, now);
+          osc.frequency.exponentialRampToValueAtTime(1600, now + 0.3);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.35);
+          setTimeout(() => playImpact(0.3, 160), 200);
+        } else if (moveType === 'super') {
+          // Super Combo multi-hit barrage + KO explosion!
+          playImpact(0.25, 180);
+          setTimeout(() => playImpact(0.28, 220), 90);
+          setTimeout(() => playImpact(0.32, 260), 180);
+          setTimeout(() => {
+            playImpact(0.4, 70); // Final heavy crash
+            // Victory chime
+            [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+              const o = audioCtx.createOscillator();
+              const g = audioCtx.createGain();
+              o.type = 'sine';
+              o.frequency.setValueAtTime(freq, now + 0.3 + idx * 0.08);
+              g.gain.setValueAtTime(0.18, now + 0.3 + idx * 0.08);
+              g.gain.exponentialRampToValueAtTime(0.0001, now + 0.7 + idx * 0.08);
+              o.connect(g);
+              g.connect(audioCtx.destination);
+              o.start(now + 0.3 + idx * 0.08);
+              o.stop(now + 0.8 + idx * 0.08);
+            });
+          }, 280);
+        }
+      } catch (e) {}
+    }
+
+    // Round 1 / Fight Start Bell & Gong
+    function playRoundStart() {
+      initArcadeAudio();
+      if (!arcadeAudioEnabled || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        // Heavy brass round start gong
+        const gong = audioCtx.createOscillator();
+        const gongGain = audioCtx.createGain();
+        gong.type = 'triangle';
+        gong.frequency.setValueAtTime(220, now);
+        gong.frequency.exponentialRampToValueAtTime(55, now + 0.9);
+        gongGain.gain.setValueAtTime(0.3, now);
+        gongGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+        gong.connect(gongGain);
+        gongGain.connect(audioCtx.destination);
+        gong.start(now);
+        gong.stop(now + 0.9);
+
+        // Fight alert chime
+        const bell = audioCtx.createOscillator();
+        const bellGain = audioCtx.createGain();
+        bell.type = 'sine';
+        bell.frequency.setValueAtTime(1174.66, now);
+        bellGain.gain.setValueAtTime(0.25, now);
+        bellGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
+        bell.connect(bellGain);
+        bellGain.connect(audioCtx.destination);
+        bell.start(now);
+        bell.stop(now + 0.6);
+      } catch (e) {}
+    }
+
+    // New Challenger battle warning siren
+    function playChallengeAlert() {
+      initArcadeAudio();
+      if (!arcadeAudioEnabled || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        [880, 1174.66, 880, 1174.66].forEach((f, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(f, now + i * 0.1);
+          gain.gain.setValueAtTime(0.14, now + i * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.1 + 0.09);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + i * 0.1);
+          osc.stop(now + i * 0.1 + 0.09);
+        });
+      } catch (e) {}
+    }
+
+    function toggleArcadeAudio() {
+      arcadeAudioEnabled = !arcadeAudioEnabled;
+      const b = document.getElementById('arcadeMuteBtn');
+      if (b) {
+        b.innerText = arcadeAudioEnabled ? '🔊 SOUND: ON' : '🔇 MUTED';
+        b.style.color = arcadeAudioEnabled ? 'var(--arcade-cyan)' : '#888';
+      }
+      if (arcadeAudioEnabled) {
+        insertCoin();
+      }
     }
 
     const rosterData = [
@@ -553,7 +772,24 @@
     ];
 
     function pickFighter(idx) {
-      playBeep(300 + idx * 80);
+      initArcadeAudio();
+      if (arcadeAudioEnabled && audioCtx) {
+        try {
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(320 + idx * 70, now);
+          osc.frequency.exponentialRampToValueAtTime(700 + idx * 60, now + 0.08);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } catch (e) {}
+      }
+
       document.querySelectorAll('.roster-tile').forEach((tile, i) => {
         tile.classList.toggle('selected', i === idx);
       });
@@ -567,6 +803,18 @@
       document.getElementById('stat3').style.width = f.stats[2] + '%';
       document.getElementById('stat4').style.width = f.stats[3] + '%';
     }
+
+    // Keyboard support for arcade gaming
+    window.addEventListener('keydown', (e) => {
+      const k = e.key.toLowerCase();
+      if (k === 'c') insertCoin();
+      else if (k >= '1' && k <= '6') pickFighter(parseInt(k) - 1);
+      else if (k === 'h') triggerSpecialMove('hadouken');
+      else if (k === 'j') triggerSpecialMove('shield');
+      else if (k === 'k') triggerSpecialMove('shoryuken');
+      else if (k === 'l') triggerSpecialMove('super');
+      else if (k === 'm') toggleArcadeAudio();
+    });
   </script>
   <script src="switcher.js"></script>
 </body>

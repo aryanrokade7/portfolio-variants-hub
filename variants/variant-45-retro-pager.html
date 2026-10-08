@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aryan Rokade — 90s Motorola Alpha Pager</title>
+  <title>Aryan Rokade — 1990s Alpha Pager Dispatch (Variant 45)</title>
   <meta name="description" content="1990s Retro Alphanumeric Pager / Beeper portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
   <link rel="stylesheet" href="switcher.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -204,7 +204,7 @@
       <div id="lcdScreen" class="lcd-display">
         <div class="lcd-top-bar">
           <span id="pageCounter">PAGE 1/5 [NEW MSG]</span>
-          <span id="timeClock">12:30 PM &bull; 🔕 CHIRP</span>
+          <span id="timeClock" onclick="toggleAlertMode();" style="cursor: pointer; user-select: none;" title="Click to Cycle Sound: Audible / Vibrate / Silent">12:30 PM &bull; <span id="soundModeLabel">🔔 AUDIBLE</span></span>
         </div>
         <div id="lcdText" class="lcd-message-text"></div>
       </div>
@@ -215,43 +215,160 @@
       <button class="pager-btn" onclick="prevMessage()">◀ PREV</button>
       <button class="pager-btn" onclick="nextMessage()">NEXT ▶</button>
       <button class="pager-btn" onclick="toggleBacklight()">💡 LIGHT</button>
-      <button class="pager-btn" onclick="chirpAlert()">🔔 BEEP</button>
+      <button class="pager-btn" onclick="chirpAlert()" style="color: #ff7b72;" title="Incoming Page Alert Test">🚨 ALERT</button>
     </div>
 
     <!-- External Action Links -->
     <div class="pager-links-dock">
       <a href="../Aryan_Rokade_Resume.pdf" class="dock-link" download>📄 RESUME PDF</a>
       <a href="https://github.com/aryanrokade7" target="_blank" class="dock-link">🐙 GITHUB</a>
-      <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="dock-link">💼 LINKEDIN</a>
-      <a href="mailto:aryanrokade07@gmail.com" class="dock-link">✉️ SEND EMAIL</a>
+      <a href="https://linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" class="dock-link">💼 LINKEDIN</a>
+      <a href="mailto:aryanrokade416@gmail.com" class="dock-link">✉️ SEND EMAIL</a>
+      <a href="tel:8591224192" class="dock-link">📞 +91 85912 24192</a>
     </div>
   </div>
 
   <script>
     const messages = [
-      "FROM: ARYAN ROKADE\nROLE: FULL STACK & AI DEV\nCOLLEGE: VCET MUMBAI '27 (CGPA 8.7+)\nSTACK: REACT, NEXT.JS, NODE, PYTORCH\nSTATUS: AVAILABLE FOR DISPATCH",
-      "MSG 2/5 - PROJECT: VYAPARFLOW\n&gt; MSME INVENTORY & GST BILLING\n&gt; AUTOMATED PDF INVOICES & RAZORPAY\n&gt; BUILT W/ NEXT.JS, NODE & POSTGRES\nCODE: GITHUB/ARYANROKADE7/VYAPARFLOW",
-      "MSG 3/5 - PROJECT: CYBERSENTINEL\n&gt; REAL-TIME NETWORK INTRUSION MONITOR\n&gt; PACKET SNIFFER W/ LIVE WEBSOCKETS\n&gt; BUILT W/ PYTHON, SCAPY & FASTAPI\nSTATUS: 0 ANOMALIES DETECTED",
-      "MSG 4/5 - PROJECT: SATURN FINANCE & MRI AI\n&gt; SATURN: CRYPTO BALANCE & GAS TRACKER\n&gt; MRI AI: TUMOR SEGMENTATION 95% ACC\nTECH: ETHERS.JS, PYTORCH, U-NET, DOCKER",
-      "MSG 5/5 - ACCOLADES & EXP\n★ 2ND PLACE TECHBLITZ NATIONAL HACKATHON\n★ WEB DEV INTERN @ OCTANET SERVICES\nCALL: ARYANROKADE07@GMAIL.COM\nMUMBAI, MH, INDIA"
+      "FROM: ARYAN ROKADE\nROLE: FULL STACK & AI DEV\nCOLLEGE: VCET MUMBAI '27\nSTACK: NEXT.JS, REACT, PYTHON, TENSORFLOW\nSTATUS: AVAILABLE FOR HIRE",
+      "MSG 2/5 - PROJECT: VYAPARFLOW\n&gt; MSME EXPORT LOGISTICS & COMPLIANCE\n&gt; AUTOMATED PDF INVOICES & LEDGER\n&gt; NEXT.JS, REACT, TS, POSTGRESQL, PRISMA\nURL: VYAPARFLOW-SMOKY.VERCEL.APP",
+      "MSG 3/5 - PROJECT: CYBERSENTINEL\n&gt; REAL-TIME NETWORK INTRUSION SUITE\n&gt; PACKET MONITOR W/ LIVE WEBSOCKETS\n&gt; REACT, SOCKET.IO, FLASK, PYTHON\nSTATUS: ACTIVE DEFENSE SHIELD",
+      "MSG 4/5 - PROJECT: SATURN & MRI AI\n&gt; SATURN: EXPENSE & BUDGET MERN ENGINE\n&gt; MRI AI: BRAIN TUMOR VGG16 (98.4% ACC)\nTECH: MERN, REDUX, TENSORFLOW, KERAS",
+      "MSG 5/5 - ACCOLADES & EXP\n★ 2ND PLACE TECHBLITZ NATIONAL HACKATHON\n★ WEB DEV INTERN @ OCTANET SERVICES\nCALL: +91 85912 24192 | ARYANROKADE416@GMAIL.COM\nMUMBAI, INDIA"
     ];
 
     let currentMsg = 0;
     let isLit = false;
 
-    function playBeep(freq = 1760, duration = 0.08) {
+    let audioCtx = null;
+    let alertMode = 'AUDIBLE'; // 'AUDIBLE' | 'VIBRATE' | 'SILENT'
+
+    function initPagerAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    ['click', 'keydown', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, () => initPagerAudio(), { once: true });
+    });
+
+    // Authentic 2.7kHz piezoelectric beeper diaphragm
+    function playBeep(freq = 2730, dur = 0.05, vol = 0.14) {
+      if (alertMode === 'SILENT') return;
+      if (alertMode === 'VIBRATE') {
+        playVibrateMotor(dur * 2);
+        return;
+      }
+      initPagerAudio();
+      if (!audioCtx) return;
+
       try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        // High-Q square wave characteristic of piezo ceramic discs
         osc.type = 'square';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.06, ctx.currentTime);
+        osc.frequency.setValueAtTime(freq, now);
+
+        gain.gain.setValueAtTime(vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
         osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + duration);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + dur);
       } catch (e) {}
+    }
+
+    // Physical pager vibration motor rumble (60Hz modulated harmonic)
+    function playVibrateMotor(dur = 0.2) {
+      if (alertMode === 'SILENT') return;
+      initPagerAudio();
+      if (navigator.vibrate) {
+        try { navigator.vibrate(Math.round(dur * 1000)); } catch (e) {}
+      }
+      if (!audioCtx) return;
+
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(65, now);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(140, now);
+
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + dur);
+      } catch (e) {}
+    }
+
+    // Iconic 90s Motorola Advisor 4-chirp page alert sequence
+    function chirpAlert() {
+      initPagerAudio();
+      const dot = document.querySelector('.led-dot');
+      if (dot) {
+        dot.style.background = '#ef4444';
+        dot.style.boxShadow = '0 0 16px #ef4444';
+      }
+
+      // 4 double-chirps with vibration bursts
+      for (let i = 0; i < 4; i++) {
+        const tOffset = i * 280;
+        setTimeout(() => {
+          playVibrateMotor(0.12);
+          if (alertMode === 'AUDIBLE') {
+            playBeep(2730, 0.05, 0.16);
+            setTimeout(() => playBeep(3200, 0.06, 0.18), 65);
+          }
+        }, tOffset);
+      }
+
+      setTimeout(() => {
+        if (dot) {
+          dot.style.background = '#238636';
+          dot.style.boxShadow = '0 0 10px #238636';
+        }
+      }, 1300);
+    }
+
+    function toggleAlertMode() {
+      if (alertMode === 'AUDIBLE') {
+        alertMode = 'VIBRATE';
+      } else if (alertMode === 'VIBRATE') {
+        alertMode = 'SILENT';
+      } else {
+        alertMode = 'AUDIBLE';
+      }
+
+      const label = document.getElementById('soundModeLabel');
+      if (label) {
+        if (alertMode === 'AUDIBLE') label.innerText = '🔔 AUDIBLE';
+        else if (alertMode === 'VIBRATE') label.innerText = '📳 VIBRATE';
+        else label.innerText = '🔕 SILENT';
+      }
+
+      if (alertMode === 'AUDIBLE') playBeep(2730, 0.08);
+      else if (alertMode === 'VIBRATE') playVibrateMotor(0.2);
     }
 
     function renderMessage() {
@@ -260,28 +377,39 @@
     }
 
     function nextMessage() {
-      playBeep(2200, 0.06);
+      playBeep(2730, 0.045);
       currentMsg = (currentMsg + 1) % messages.length;
       renderMessage();
     }
 
     function prevMessage() {
-      playBeep(1800, 0.06);
+      playBeep(2180, 0.045);
       currentMsg = (currentMsg - 1 + messages.length) % messages.length;
       renderMessage();
     }
 
     function toggleBacklight() {
-      playBeep(800, 0.04);
+      // Switch tick + subtle EL inverter high-frequency coil buzz
+      initPagerAudio();
+      playBeep(4200, 0.03, 0.05);
       isLit = !isLit;
       document.getElementById('lcdScreen').classList.toggle('backlight-on', isLit);
     }
 
-    function chirpAlert() {
-      playBeep(2400, 0.08);
-      setTimeout(() => playBeep(2400, 0.08), 120);
-      setTimeout(() => playBeep(2800, 0.15), 240);
-    }
+    // Attach click feedback to external dock links
+    document.querySelectorAll('.dock-link').forEach(link => {
+      link.addEventListener('click', () => playBeep(2400, 0.04));
+    });
+
+    // Keyboard navigation for pager
+    window.addEventListener('keydown', (e) => {
+      const k = e.key.toLowerCase();
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextMessage();
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevMessage();
+      else if (k === 'l') toggleBacklight();
+      else if (k === 'a' || e.key === ' ') chirpAlert();
+      else if (k === 'm') toggleAlertMode();
+    });
 
     // Initial load
     renderMessage();

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Solaris Ambient Portfolio. Modern Linear & Vercel Inspired Engineering Portfolio." />
+  <title>Aryan Rokade — Solaris Ambient Dark (Variant 56)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #07090e;
+      --card-bg: rgba(15, 19, 30, 0.7);
+      --card-hover: rgba(23, 29, 45, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(129, 140, 248, 0.35);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --indigo: #6366f1;
+      --indigo-glow: rgba(99, 102, 241, 0.25);
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.15), transparent 70%),
+        radial-gradient(ellipse 60% 30% at 90% 40%, rgba(56, 189, 248, 0.08), transparent 60%);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 120px;
+    }
+
+    .container {
+      width: min(1040px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header.ambient-header {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 9, 14, 0.8);
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-glyph {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #6366f1, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+    }
+    .brand-name {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-pill-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: #fff !important;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem !important;
+      transition: all 0.2s !important;
+    }
+    .nav-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* HERO */
+    .hero-section {
+      padding: 90px 0 70px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      max-width: 860px;
+      margin: 0 auto 24px;
+      background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .btn-gradient {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-gradient:hover {
+      box-shadow: 0 6px 28px rgba(99, 102, 241, 0.6);
+      transform: translateY(-2px);
+    }
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* STATS / HIGHLIGHTS */
+    .highlights-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 32px 0 60px;
+    }
+    @media (max-width: 768px) {
+      .highlights-bar { grid-template-columns: 1fr 1fr; }
+    }
+    .highlight-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s;
+    }
+    .highlight-card:hover { border-color: var(--border-hover); }
+    .highlight-kpi {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .highlight-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* SECTION TITLES */
+    .section-head {
+      margin-bottom: 36px;
+    }
+    .section-category {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+
+    /* PROJECTS AMBIENT CARDS */
+    .ambient-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+    @media (max-width: 600px) {
+      .ambient-projects-grid { grid-template-columns: 1fr; }
+    }
+    .ambient-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .ambient-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .ambient-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    }
+    .ambient-card:hover::before { opacity: 1; }
+    .card-top-tag {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .tag-badge {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.12);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .card-p {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .pill-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .pill-item {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .card-links-row {
+      display: flex;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .card-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .card-link:hover { color: var(--cyan); }
+    .card-link.live { color: #38bdf8; }
+
+    /* EXPERIENCE & EDUCATION */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 80px;
+    }
+    .exp-row {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 680px) {
+      .exp-row { grid-template-columns: 1fr; }
+    }
+    .exp-time {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--indigo);
+      font-weight: 600;
+    }
+    .exp-org {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .exp-heading {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .exp-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* SKILLS GRID */
+    .skills-ambient-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 80px;
+    }
+    .skill-glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+    }
+    .skill-glass-title {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    .skill-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-badge {
+      font-size: 0.84rem;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    /* CONTACT BANNER */
+    .contact-banner {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(56, 189, 248, 0.05));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 16px;
+      padding: 50px 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .contact-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+    .contact-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+    .contact-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    footer.ambient-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="ambient-header">
+      <a href="#" class="brand-group">
+        <div class="brand-glyph">A</div>
+        <span class="brand-name">Aryan Rokade</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Stack</a>
+        <a href="mailto:aryanrokade416@gmail.com" class="nav-pill-btn">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-section">
+      <div class="hero-chip">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399;"></span>
+        Computer Engineering Student • Mumbai, India
+      </div>
+      <h1 class="hero-title">Designing modern web products & deep learning architectures.</h1>
+      <p class="hero-desc">
+        Undergraduate at Vidyavardhini's College of Engineering and Technology (VCET). Passionate about full-stack TypeScript, scalable distributed systems, and real-time intelligence.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-gradient">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Get in Touch
+        </a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-glass">
+          Download Resume (PDF)
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-glass">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="btn-glass">
+          LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHT STATS -->
+    <div class="highlights-bar">
+      <div class="highlight-card">
+        <div class="highlight-kpi">VCET '27</div>
+        <div class="highlight-label">B.E. Computer Engineering</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-kpi">2nd Place</div>
+        <div class="highlight-label">Techblitz Hackathon 2025</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-kpi">Octanet Intern</div>
+        <div class="highlight-label">Web Development</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-kpi">4 Systems</div>
+        <div class="highlight-label">Full-Stack & Deep Learning</div>
+      </div>
+    </div>
+
+    <!-- FEATURED PROJECTS -->
+    <section id="projects">
+      <div class="section-head">
+        <div class="section-category">Engineered Systems</div>
+        <h2 class="section-title">Selected Projects</h2>
+      </div>
+
+      <div class="ambient-projects-grid">
+        <!-- VyaparFlow -->
+        <article class="ambient-card">
+          <div>
+            <div class="card-top-tag">
+              <span class="tag-badge">Next.js • SaaS</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #34d399;">● Live</span>
+            </div>
+            <h3 class="card-title">VyaparFlow</h3>
+            <p class="card-p">
+              End-to-end inventory and business management web app engineered for seamless order processing, stock replenishment, and automated business analytics.
+            </p>
+            <div class="pill-stack">
+              <span class="pill-item">Next.js</span>
+              <span class="pill-item">React</span>
+              <span class="pill-item">TypeScript</span>
+              <span class="pill-item">Tailwind CSS</span>
+              <span class="pill-item">Prisma</span>
+              <span class="pill-item">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="card-links-row">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer" class="card-link live">
+              Live App ↗
+            </a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer" class="card-link">
+              GitHub Repo
+            </a>
+          </div>
+        </article>
+
+        <!-- CyberSentinel Suite -->
+        <article class="ambient-card">
+          <div>
+            <div class="card-top-tag">
+              <span class="tag-badge">Security • WebSockets</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #94a3b8;">Chrome Ext</span>
+            </div>
+            <h3 class="card-title">CyberSentinel Suite</h3>
+            <p class="card-p">
+              Proactive cybersecurity suite featuring an automated threat detection engine, live WebSocket notification dispatch, and a companion Chrome extension.
+            </p>
+            <div class="pill-stack">
+              <span class="pill-item">React</span>
+              <span class="pill-item">Socket.IO</span>
+              <span class="pill-item">Flask</span>
+              <span class="pill-item">Python</span>
+              <span class="pill-item">Chrome Extension</span>
+            </div>
+          </div>
+          <div class="card-links-row">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer" class="card-link">
+              GitHub Repo ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Saturn -->
+        <article class="ambient-card">
+          <div>
+            <div class="card-top-tag">
+              <span class="tag-badge">MERN • Collaboration</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #94a3b8;">Full-Stack</span>
+            </div>
+            <h3 class="card-title">Saturn</h3>
+            <p class="card-p">
+              Collaborative workspace and task management platform offering Kanban boards, JWT session security, Redux Toolkit state synchronization, and sprint views.
+            </p>
+            <div class="pill-stack">
+              <span class="pill-item">React</span>
+              <span class="pill-item">Redux Toolkit</span>
+              <span class="pill-item">Node.js</span>
+              <span class="pill-item">Express</span>
+              <span class="pill-item">MongoDB</span>
+              <span class="pill-item">JWT</span>
+            </div>
+          </div>
+          <div class="card-links-row">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer" class="card-link">
+              GitHub Repo ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- MRI Brain Tumor Detection -->
+        <article class="ambient-card">
+          <div>
+            <div class="card-top-tag">
+              <span class="tag-badge">AI • Computer Vision</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #94a3b8;">VGG16</span>
+            </div>
+            <h3 class="card-title">MRI Brain Tumor Detection System</h3>
+            <p class="card-p">
+              Deep learning diagnostic tool utilizing fine-tuned VGG16 architecture for binary and multiclass tumor classification from magnetic resonance imaging scans.
+            </p>
+            <div class="pill-stack">
+              <span class="pill-item">TensorFlow</span>
+              <span class="pill-item">Keras</span>
+              <span class="pill-item">VGG16</span>
+              <span class="pill-item">Flask</span>
+              <span class="pill-item">Python</span>
+              <span class="pill-item">OpenCV</span>
+            </div>
+          </div>
+          <div class="card-links-row">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer" class="card-link">
+              GitHub Repo ↗
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-head">
+        <div class="section-category">Career Milestones</div>
+        <h2 class="section-title">Experience & Education</h2>
+      </div>
+
+      <div class="experience-list">
+        <div class="exp-row">
+          <div>
+            <div class="exp-time">Dec 2024 – Jan 2025</div>
+            <div class="exp-org">Octanet Services Pvt. Ltd.</div>
+          </div>
+          <div>
+            <h3 class="exp-heading">Web Development Intern</h3>
+            <p class="exp-desc">
+              Engineered responsive frontend web interfaces, ensured cross-device layout parity, applied modern CSS3 styling, and optimized web asset delivery.
+            </p>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div>
+            <div class="exp-time">March 2025</div>
+            <div class="exp-org">Techblitz Hackathon</div>
+          </div>
+          <div>
+            <h3 class="exp-heading">2nd Position Winner</h3>
+            <p class="exp-desc">
+              Secured 2nd position at the Techblitz Hackathon organized by NSDC Committee & VCET AI&DS Department for designing and implementing high-impact solutions.
+            </p>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div>
+            <div class="exp-time">2023 – 2027</div>
+            <div class="exp-org">University of Mumbai</div>
+          </div>
+          <div>
+            <h3 class="exp-heading">B.E. in Computer Engineering</h3>
+            <p class="exp-desc">
+              Pursuing bachelor's degree at Vidyavardhini's College of Engineering and Technology (VCET), Vasai. Core coursework in Data Structures, Algorithms, DBMS, and Machine Learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-head">
+        <div class="section-category">Technology Matrix</div>
+        <h2 class="section-title">Skills & Technologies</h2>
+      </div>
+
+      <div class="skills-ambient-grid">
+        <div class="skill-glass-card">
+          <div class="skill-glass-title">Languages</div>
+          <div class="skill-badges">
+            <span class="skill-badge">JavaScript</span>
+            <span class="skill-badge">TypeScript</span>
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">Java</span>
+            <span class="skill-badge">C / C++</span>
+            <span class="skill-badge">SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-glass-card">
+          <div class="skill-glass-title">Frontend</div>
+          <div class="skill-badges">
+            <span class="skill-badge">React</span>
+            <span class="skill-badge">Next.js</span>
+            <span class="skill-badge">Tailwind CSS</span>
+            <span class="skill-badge">Redux Toolkit</span>
+            <span class="skill-badge">HTML5 / CSS3</span>
+          </div>
+        </div>
+
+        <div class="skill-glass-card">
+          <div class="skill-glass-title">Backend & Database</div>
+          <div class="skill-badges">
+            <span class="skill-badge">Node.js</span>
+            <span class="skill-badge">Express</span>
+            <span class="skill-badge">Flask</span>
+            <span class="skill-badge">PostgreSQL</span>
+            <span class="skill-badge">Prisma ORM</span>
+            <span class="skill-badge">MongoDB</span>
+          </div>
+        </div>
+
+        <div class="skill-glass-card">
+          <div class="skill-glass-title">AI, ML & Tools</div>
+          <div class="skill-badges">
+            <span class="skill-badge">TensorFlow</span>
+            <span class="skill-badge">Keras</span>
+            <span class="skill-badge">OpenCV</span>
+            <span class="skill-badge">Docker</span>
+            <span class="skill-badge">Git & GitHub</span>
+            <span class="skill-badge">Socket.IO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT BANNER -->
+    <section id="contact" class="contact-banner">
+      <h2 class="contact-title">Let's build something exceptional.</h2>
+      <p class="contact-sub">
+        I am currently available for software developer internships and exciting technical collaborations.
+      </p>
+      <div class="contact-btns">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-gradient">
+          Email: aryanrokade416@gmail.com
+        </a>
+        <a href="tel:+918591224192" class="btn-glass">
+          +91 85912 24192
+        </a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-glass">
+          Resume (PDF)
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ambient-footer">
+      <div>© 2025 Aryan Rokade. Built with Solaris Ambient Design.</div>
+      <div>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer">GitHub</a> •
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

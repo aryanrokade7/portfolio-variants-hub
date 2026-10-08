@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Atelier Design Engineering Gallery Portfolio." />
+  <title>Aryan Rokade — Atelier Design Monograph (Variant 59)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #121214;
+      --card: #18181b;
+      --card-hover: #1f1f23;
+      --border: #27272a;
+      --border-subtle: #3f3f46;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --accent: #e4e4e7;
+      --amber: #fbbf24;
+      --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 120px;
+    }
+
+    .wrap {
+      width: min(1000px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* ATELIER HEADER */
+    header.atelier-header {
+      padding: 36px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+    }
+    .atelier-brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .atelier-role {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-left: 10px;
+    }
+    nav.atelier-nav {
+      display: flex;
+      gap: 24px;
+    }
+    nav.atelier-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.15s;
+    }
+    nav.atelier-nav a:hover { color: #fff; }
+
+    /* ATELIER HERO */
+    .atelier-hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .atelier-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+    .atelier-title {
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      max-width: 820px;
+    }
+    .atelier-p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+    .atelier-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .btn-atelier {
+      background: #ffffff;
+      color: #121214;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-atelier:hover {
+      background: #e4e4e7;
+      transform: translateY(-1px);
+    }
+    .btn-atelier-outline {
+      border: 1px solid var(--border-subtle);
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-atelier-outline:hover {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    /* SECTION BASICS */
+    section.atelier-section {
+      padding: 64px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .atelier-sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 36px;
+    }
+    .atelier-sec-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    .atelier-sec-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    /* CASE STUDIES CARDS */
+    .case-studies-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .case-study-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 36px;
+      transition: all 0.2s;
+    }
+    @media (max-width: 820px) {
+      .case-study-card { grid-template-columns: 1fr; }
+    }
+    .case-study-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-subtle);
+    }
+    .case-study-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .case-index {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .case-name {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .case-category {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+    }
+    .case-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .case-links a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .case-links a:hover {
+      color: var(--amber);
+    }
+    .case-study-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .case-block-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .case-block-text {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .case-tech-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .case-tech-chip {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* EXPERIENCE & TIMELINE */
+    .atelier-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .atelier-timeline-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 30px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 640px) {
+      .atelier-timeline-item { grid-template-columns: 1fr; }
+    }
+    .tl-date {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--amber);
+    }
+    .tl-org {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .tl-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .tl-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* SKILLS TILES */
+    .atelier-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .atelier-skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .atelier-skill-title {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .atelier-skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+    .atelier-contact-box {
+      text-align: center;
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .atelier-contact-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .atelier-contact-p {
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 30px;
+      font-size: 0.95rem;
+    }
+
+    footer.atelier-footer {
+      padding: 36px 0 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- HEADER -->
+    <header class="atelier-header">
+      <div>
+        <a href="#" class="atelier-brand">Aryan Rokade</a>
+        <span class="atelier-role">/ Engineering Monograph</span>
+      </div>
+      <nav class="atelier-nav">
+        <a href="#work">Work</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="atelier-hero">
+      <span class="atelier-tag">Software Engineer & Computer Engineering Undergraduate</span>
+      <h1 class="atelier-title">Thoughtful software systems, built with precision and clarity.</h1>
+      <p class="atelier-p">
+        Undergraduate engineer at VCET (University of Mumbai). Specializing in modern web technologies, scalable backend architectures, and deep learning computer vision models.
+      </p>
+      <div class="atelier-actions">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-atelier">
+          Start Conversation
+        </a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-atelier-outline">
+          Resume (PDF)
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="btn-atelier-outline">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="btn-atelier-outline">
+          LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="work" class="atelier-section">
+      <div class="atelier-sec-head">
+        <h2 class="atelier-sec-title">Selected Case Studies</h2>
+        <span class="atelier-sec-meta">4 Comprehensive Builds</span>
+      </div>
+
+      <div class="case-studies-list">
+        <!-- 1. VyaparFlow -->
+        <article class="case-study-card">
+          <div class="case-study-left">
+            <div>
+              <div class="case-index">CASE 01</div>
+              <h3 class="case-name">VyaparFlow</h3>
+              <div class="case-category">Business & Inventory SaaS</div>
+            </div>
+            <div class="case-links">
+              <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </div>
+          <div class="case-study-right">
+            <div>
+              <div class="case-block-label">Overview</div>
+              <p class="case-block-text">
+                Engineered an end-to-end inventory management platform with real-time stock updating, automated transactions tracking, and responsive business analytics dashboards.
+              </p>
+            </div>
+            <div>
+              <div class="case-block-label">Stack & Architecture</div>
+              <div class="case-tech-chips">
+                <span class="case-tech-chip">Next.js</span>
+                <span class="case-tech-chip">React</span>
+                <span class="case-tech-chip">TypeScript</span>
+                <span class="case-tech-chip">Tailwind CSS</span>
+                <span class="case-tech-chip">Prisma ORM</span>
+                <span class="case-tech-chip">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. CyberSentinel Suite -->
+        <article class="case-study-card">
+          <div class="case-study-left">
+            <div>
+              <div class="case-index">CASE 02</div>
+              <h3 class="case-name">CyberSentinel Suite</h3>
+              <div class="case-category">Threat Intelligence & Telemetry</div>
+            </div>
+            <div class="case-links">
+              <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="case-study-right">
+            <div>
+              <div class="case-block-label">Overview</div>
+              <p class="case-block-text">
+                Real-time security telemetry application featuring an automated threat detection engine, live WebSocket notification dispatch, and a custom Chrome extension for browser endpoint monitoring.
+              </p>
+            </div>
+            <div>
+              <div class="case-block-label">Stack & Architecture</div>
+              <div class="case-tech-chips">
+                <span class="case-tech-chip">React</span>
+                <span class="case-tech-chip">Socket.IO</span>
+                <span class="case-tech-chip">Flask</span>
+                <span class="case-tech-chip">Python</span>
+                <span class="case-tech-chip">Chrome Extension</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Saturn -->
+        <article class="case-study-card">
+          <div class="case-study-left">
+            <div>
+              <div class="case-index">CASE 03</div>
+              <h3 class="case-name">Saturn</h3>
+              <div class="case-category">Productivity & Sprint Platform</div>
+            </div>
+            <div class="case-links">
+              <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="case-study-right">
+            <div>
+              <div class="case-block-label">Overview</div>
+              <p class="case-block-text">
+                Collaborative project management application with interactive Kanban boards, state synchronization powered by Redux Toolkit, and secure JWT authentication.
+              </p>
+            </div>
+            <div>
+              <div class="case-block-label">Stack & Architecture</div>
+              <div class="case-tech-chips">
+                <span class="case-tech-chip">React</span>
+                <span class="case-tech-chip">Redux Toolkit</span>
+                <span class="case-tech-chip">Node.js</span>
+                <span class="case-tech-chip">Express</span>
+                <span class="case-tech-chip">MongoDB</span>
+                <span class="case-tech-chip">JWT</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. MRI Brain Tumor Detection -->
+        <article class="case-study-card">
+          <div class="case-study-left">
+            <div>
+              <div class="case-index">CASE 04</div>
+              <h3 class="case-name">MRI Brain Tumor Detection System</h3>
+              <div class="case-category">Deep Learning Diagnostics</div>
+            </div>
+            <div class="case-links">
+              <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="case-study-right">
+            <div>
+              <div class="case-block-label">Overview</div>
+              <p class="case-block-text">
+                Deep learning diagnostic tool utilizing fine-tuned VGG16 architecture for binary and multi-class brain tumor classification with OpenCV preprocessing and confidence metric scoring.
+              </p>
+            </div>
+            <div>
+              <div class="case-block-label">Stack & Architecture</div>
+              <div class="case-tech-chips">
+                <span class="case-tech-chip">TensorFlow</span>
+                <span class="case-tech-chip">Keras</span>
+                <span class="case-tech-chip">VGG16</span>
+                <span class="case-tech-chip">Flask</span>
+                <span class="case-tech-chip">Python</span>
+                <span class="case-tech-chip">OpenCV</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="atelier-section">
+      <div class="atelier-sec-head">
+        <h2 class="atelier-sec-title">Academic & Professional Timeline</h2>
+        <span class="atelier-sec-meta">Experience</span>
+      </div>
+
+      <div class="atelier-timeline">
+        <div class="atelier-timeline-item">
+          <div>
+            <div class="tl-date">Dec 2024 – Jan 2025</div>
+            <div class="tl-org">Octanet Services Pvt. Ltd.</div>
+          </div>
+          <div>
+            <h3 class="tl-name">Web Development Intern</h3>
+            <p class="tl-desc">
+              Engineered responsive frontend interfaces, implemented accessible markup patterns, resolved cross-browser rendering inconsistencies, and applied modular CSS architecture.
+            </p>
+          </div>
+        </div>
+
+        <div class="atelier-timeline-item">
+          <div>
+            <div class="tl-date">March 2025</div>
+            <div class="tl-org">Techblitz Hackathon</div>
+          </div>
+          <div>
+            <h3 class="tl-name">2nd Position Award Winner</h3>
+            <p class="tl-desc">
+              Awarded 2nd place at the Techblitz Hackathon organized by the NSDC Committee & VCET AI&DS Department for collaborative problem-solving and rapid prototype deployment.
+            </p>
+          </div>
+        </div>
+
+        <div class="atelier-timeline-item">
+          <div>
+            <div class="tl-date">2023 – 2027</div>
+            <div class="tl-org">University of Mumbai</div>
+          </div>
+          <div>
+            <h3 class="tl-name">B.E. in Computer Engineering</h3>
+            <p class="tl-desc">
+              Vidyavardhini's College of Engineering and Technology (VCET), Vasai. Core coursework in Data Structures & Algorithms, Object-Oriented Programming, and Machine Learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section id="capabilities" class="atelier-section">
+      <div class="atelier-sec-head">
+        <h2 class="atelier-sec-title">Technical Capabilities</h2>
+        <span class="atelier-sec-meta">Skills Index</span>
+      </div>
+
+      <div class="atelier-skills-grid">
+        <div class="atelier-skill-card">
+          <div class="atelier-skill-title">Languages</div>
+          <ul class="atelier-skill-list">
+            <li>JavaScript & TypeScript</li>
+            <li>Python 3</li>
+            <li>Java</li>
+            <li>C & C++</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div class="atelier-skill-card">
+          <div class="atelier-skill-title">Frontend</div>
+          <ul class="atelier-skill-list">
+            <li>React & Next.js</li>
+            <li>Tailwind CSS</li>
+            <li>Redux Toolkit</li>
+            <li>HTML5 & CSS3</li>
+            <li>Responsive UX</li>
+          </ul>
+        </div>
+        <div class="atelier-skill-card">
+          <div class="atelier-skill-title">Backend & Data</div>
+          <ul class="atelier-skill-list">
+            <li>Node.js & Express</li>
+            <li>Flask (Python)</li>
+            <li>PostgreSQL & Prisma</li>
+            <li>MongoDB</li>
+            <li>REST APIs & Socket.IO</li>
+          </ul>
+        </div>
+        <div class="atelier-skill-card">
+          <div class="atelier-skill-title">AI & Tooling</div>
+          <ul class="atelier-skill-list">
+            <li>TensorFlow & Keras</li>
+            <li>OpenCV & VGG16</li>
+            <li>Docker & Containers</li>
+            <li>Git & GitHub</li>
+            <li>Postman & Figma</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="atelier-contact-box">
+      <h2 class="atelier-contact-title">Let’s connect.</h2>
+      <p class="atelier-contact-p">
+        Currently seeking software development internships and engineering collaborations.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-atelier">
+          aryanrokade416@gmail.com
+        </a>
+        <a href="tel:+918591224192" class="btn-atelier-outline">
+          +91 85912 24192
+        </a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="btn-atelier-outline">
+          Resume (PDF)
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="atelier-footer">
+      <div>© 2025 Aryan Rokade. Atelier Design Engineering Monograph.</div>
+      <div>Mumbai, India</div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

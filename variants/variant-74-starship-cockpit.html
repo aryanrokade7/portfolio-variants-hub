@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Sci-Fi Starship Flight Deck (Variant 74)</title>
+  <meta name="description" content="Sci-Fi Starship Cockpit and space navigation flight deck portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --star-blue: #00d4ff;
+      --star-orange: #ff9100;
+      --star-dark: #050b14;
+      --star-panel: rgba(10, 20, 36, 0.85);
+      --font-display: 'Orbitron', monospace;
+      --font-body: 'Chakra Petch', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--star-dark);
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 70%),
+        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 100px 150px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 200px 80px, #ddd, rgba(0,0,0,0));
+      color: #d8e6f3;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    .cockpit-frame {
+      max-width: 1250px;
+      margin: 0 auto;
+      border: 3px solid #1a3352;
+      border-radius: 12px;
+      box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
+      background: var(--star-panel);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Top Cockpit Windshield Header */
+    .cockpit-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #1a3352;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .ship-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--star-blue);
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .warp-indicator {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--star-blue);
+      box-shadow: 0 0 12px var(--star-blue);
+      animation: warpBlink 1s infinite;
+    }
+    @keyframes warpBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    /* Nav Grid */
+    .flight-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .flight-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Left Pilot & Ship Status */
+    .pilot-module {
+      border: 1px solid #1f4066;
+      background: rgba(6, 14, 26, 0.7);
+      padding: 16px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pilot-title {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--star-blue);
+      letter-spacing: 1px;
+      border-bottom: 1px solid #1f4066;
+      padding-bottom: 6px;
+    }
+    .status-meter {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.82rem;
+    }
+    .meter-bar {
+      height: 8px;
+      background: #091524;
+      border: 1px solid #1f4066;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .meter-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--star-blue), #55ff99);
+    }
+
+    /* Right Warp Targets (Projects) */
+    .warp-targets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 650px) {
+      .warp-targets { grid-template-columns: 1fr; }
+    }
+
+    .warp-card {
+      border: 1px solid #1f4066;
+      background: rgba(10, 24, 44, 0.6);
+      padding: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .warp-card:hover {
+      border-color: var(--star-blue);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .wc-head {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    .wc-coords {
+      font-size: 0.72rem;
+      color: var(--star-orange);
+      margin: 2px 0 6px;
+      letter-spacing: 1px;
+    }
+    .wc-body {
+      font-size: 0.85rem;
+      color: #a6c4df;
+      line-height: 1.4;
+    }
+
+    /* Actions */
+    .cockpit-actions {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #1a3352;
+      padding-top: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .c-btn {
+      background: rgba(0, 212, 255, 0.15);
+      border: 1px solid var(--star-blue);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .c-btn:hover {
+      background: var(--star-blue);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cockpit-frame">
+    
+    <!-- Windshield Header -->
+    <header class="cockpit-header">
+      <div class="ship-name">
+        <div class="warp-indicator"></div>
+        USS ROKADE // NCC-2027
+      </div>
+      <div style="font-size:0.85rem; color:#8eaec9;">
+        WARP FACTOR: 9.9 â€¢ DESTINATION: PRODUCTION
+      </div>
+      <div>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="c-btn">
+          â¬‡ MANIFEST (CV.PDF)
+        </a>
+      </div>
+    </header>
+
+    <!-- Flight Grid -->
+    <div class="flight-grid">
+      
+      <!-- Pilot Status -->
+      <aside class="pilot-module">
+        <div class="pilot-title">PILOT TELEMETRY</div>
+        <p style="font-size:0.9rem;">
+          <b>Commander Aryan Rokade</b><br>
+          B.E. Computer Engineering, VCET Mumbai (Class of 2027).<br>
+          â€¢ ðŸ† <b>2nd Position:</b> Techblitz Hackathon 2025.<br>
+          â€¢ ðŸ’¼ <b>Internship:</b> Octanet Services (+35% Page Speed).
+        </p>
+
+        <div class="status-meter">
+          <span>HULL INTEGRITY (CLEAN CODE)</span>
+          <div class="meter-bar"><div class="meter-fill" style="width: 98%;"></div></div>
+        </div>
+
+        <div class="status-meter">
+          <span>SHIELD POWER (CYBERSENTINEL IDS)</span>
+          <div class="meter-bar"><div class="meter-fill" style="width: 95%;"></div></div>
+        </div>
+
+        <div class="status-meter">
+          <span>NEURAL SENSORS (MRI VGG16)</span>
+          <div class="meter-bar"><div class="meter-fill" style="width: 98.2%;"></div></div>
+        </div>
+      </aside>
+
+      <!-- Warp Navigation Targets (Projects) -->
+      <main class="warp-targets">
+        
+        <div class="warp-card" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+          <div class="wc-head">VYAPARFLOW ERP</div>
+          <div class="wc-coords">SECTOR: NEXT.JS 14 // POSTGRESQL</div>
+          <p class="wc-body">
+            Automated GST invoicing, atomic stock balance synchronization, and role-based permissions engine.
+          </p>
+        </div>
+
+        <div class="warp-card" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+          <div class="wc-head">CYBERSENTINEL SUITE</div>
+          <div class="wc-coords">SECTOR: REAL-TIME IDS // SOCKET.IO</div>
+          <p class="wc-body">
+            Network threat detection and live telemetry monitor ingesting packet streams via Socket.IO with Snort IDS alarms.
+          </p>
+        </div>
+
+        <div class="warp-card" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+          <div class="wc-head">SATURN FINANCE</div>
+          <div class="wc-coords">SECTOR: MERN WEALTH // JWT</div>
+          <p class="wc-body">
+            Personal budgeting telemetry engine with categorized expense logging, custom savings targets, and JWT security.
+          </p>
+        </div>
+
+        <div class="warp-card" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+          <div class="wc-head">MRI BRAIN TUMOR AI</div>
+          <div class="wc-coords">SECTOR: TENSORFLOW // VGG16</div>
+          <p class="wc-body">
+            Convolutional neural network diagnostic engine achieving 98.2% test accuracy on Kaggle MRI scans with Grad-CAM heatmaps.
+          </p>
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- Actions Footer -->
+    <footer class="cockpit-actions">
+      <div>ALL SYSTEMS OPERATIONAL // READY FOR ENGAGEMENT</div>
+      <div style="display:flex; gap:10px;">
+        <a href="mailto:aryanrokade416@gmail.com" class="c-btn">âœ‰ TRANSMIT SUB-SPACE MESSAGE</a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="c-btn">GITHUB â†—</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>
+

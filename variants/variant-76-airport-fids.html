@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Solari Split-Flap Airport Board (Variant 76)</title>
+  <meta name="description" content="Solari split-flap mechanical airport departure board portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fids-bg: #121417;
+      --flap-bg: #1e2229;
+      --flap-yellow: #f8c000;
+      --flap-green: #00e070;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--fids-bg);
+      color: #fff;
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      padding: 30px 16px;
+      line-height: 1.4;
+    }
+
+    .fids-board {
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 4px solid #2e3540;
+      background: #0a0c0e;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    }
+
+    /* Top Terminal Banner */
+    .fids-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #2e3540;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .airport-title {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      letter-spacing: 3px;
+      color: var(--flap-yellow);
+    }
+    .airport-sub {
+      font-size: 0.85rem;
+      color: #99aab8;
+    }
+
+    /* Split-Flap Table Header */
+    .board-cols-header {
+      display: grid;
+      grid-template-columns: 90px 180px 1fr 140px 120px;
+      padding: 8px 12px;
+      background: #181d24;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: #7d8f9e;
+      text-transform: uppercase;
+      font-weight: 700;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 860px) {
+      .board-cols-header { display: none; }
+    }
+
+    /* Flight Row */
+    .flight-row {
+      display: grid;
+      grid-template-columns: 90px 180px 1fr 140px 120px;
+      padding: 12px;
+      border-bottom: 1px solid #1c222a;
+      background: #10141a;
+      align-items: center;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    @media (max-width: 860px) {
+      .flight-row { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    .flight-row:hover {
+      background: #19202a;
+      border-color: var(--flap-yellow);
+    }
+
+    .f-time { color: var(--flap-yellow); font-weight: 700; }
+    .f-num { color: #fff; font-weight: 700; }
+    .f-dest {
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .f-gate { color: #8ba2b5; }
+    .f-status {
+      color: var(--flap-green);
+      font-weight: 700;
+      background: rgba(0, 224, 112, 0.1);
+      padding: 2px 8px;
+      border-radius: 2px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    /* Passenger Gate Details */
+    .gate-details-box {
+      margin-top: 24px;
+      background: #141921;
+      border: 1px solid #2d3847;
+      padding: 20px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .passenger-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .passenger-info p {
+      font-size: 0.85rem;
+      color: #9cb1c2;
+      line-height: 1.5;
+    }
+
+    .btn-boarding {
+      background: var(--flap-yellow);
+      color: #000;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      padding: 8px 18px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-boarding:hover { background: #fff; }
+  </style>
+</head>
+<body>
+
+  <div class="fids-board">
+    
+    <!-- Top Airport Header -->
+    <header class="fids-header">
+      <div>
+        <div class="airport-title">DEPARTURES // BOM MUMBAI INTERNATIONAL</div>
+        <div class="airport-sub">ARYAN ROKADE FLIGHT OPERATIONS & ENGINEERING TERMINAL</div>
+      </div>
+      <div style="font-size:1.1rem; color:var(--flap-yellow);">
+        LOCAL TIME: 00:15 IST
+      </div>
+    </header>
+
+    <!-- Column Headers -->
+    <div class="board-cols-header">
+      <span>TIME</span>
+      <span>FLIGHT</span>
+      <span>DESTINATION / SYSTEM</span>
+      <span>GATE</span>
+      <span>STATUS</span>
+    </div>
+
+    <!-- Flight 1: VyaparFlow -->
+    <div class="flight-row" onclick="alert('VyaparFlow: Next.js 14, PostgreSQL, Prisma, automated GST invoices.')">
+      <span class="f-time">04:20</span>
+      <span class="f-num">AR-101</span>
+      <div>
+        <div class="f-dest">VYAPARFLOW CLOUD ERP</div>
+        <div style="font-size:0.75rem; color:#8ba2b5;">Next.js 14 â€¢ PostgreSQL â€¢ Prisma â€¢ Stripe</div>
+      </div>
+      <span class="f-gate">GATE B01</span>
+      <span class="f-status">ON TIME</span>
+    </div>
+
+    <!-- Flight 2: CyberSentinel -->
+    <div class="flight-row" onclick="alert('CyberSentinel: React, Python Flask, Socket.IO, Snort IDS.')">
+      <span class="f-time">03:45</span>
+      <span class="f-num">AR-202</span>
+      <div>
+        <div class="f-dest">CYBERSENTINEL THREAT IDS</div>
+        <div style="font-size:0.75rem; color:#8ba2b5;">React â€¢ Python Flask â€¢ Socket.IO â€¢ Snort</div>
+      </div>
+      <span class="f-gate">GATE B02</span>
+      <span class="f-status">BOARDING</span>
+    </div>
+
+    <!-- Flight 3: Saturn Finance -->
+    <div class="flight-row" onclick="alert('Saturn Finance: MERN Stack, MongoDB, Express, React, Node.js.')">
+      <span class="f-time">05:12</span>
+      <span class="f-num">AR-303</span>
+      <div>
+        <div class="f-dest">SATURN CAPITAL LEDGER</div>
+        <div style="font-size:0.75rem; color:#8ba2b5;">MongoDB â€¢ Express â€¢ React â€¢ Node.js â€¢ JWT</div>
+      </div>
+      <span class="f-gate">GATE B03</span>
+      <span class="f-status">ON TIME</span>
+    </div>
+
+    <!-- Flight 4: MRI Tumor AI -->
+    <div class="flight-row" onclick="alert('MRI Brain Tumor AI: Deep Learning VGG16 with 98.2% test accuracy.')">
+      <span class="f-time">04:55</span>
+      <span class="f-num">AR-404</span>
+      <div>
+        <div class="f-dest">MRI BRAIN TUMOR AI</div>
+        <div style="font-size:0.75rem; color:#8ba2b5;">TensorFlow â€¢ Keras VGG16 â€¢ OpenCV (98.2% Accuracy)</div>
+      </div>
+      <span class="f-gate">GATE B04</span>
+      <span class="f-status" style="color:var(--flap-yellow);">DEPARTED</span>
+    </div>
+
+    <!-- Passenger Gate Details -->
+    <footer class="gate-details-box">
+      <div class="passenger-info">
+        <h3>PILOT IN COMMAND: ARYAN ROKADE</h3>
+        <p>
+          B.E. Computer Engineering, VCET Mumbai (Class of 2027).<br>
+          ðŸ† <b>2nd Position:</b> Techblitz Hackathon 2025 â€¢ ðŸ’¼ <b>Web Dev Intern:</b> Octanet Services (+35% Page Speed).
+        </p>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-boarding">
+          â¬‡ BOARDING PASS (CV.PDF)
+        </a>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-boarding" style="background:#2a3340; color:#fff;">
+          âœ‰ FLIGHT DISPATCH (EMAIL)
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>
+

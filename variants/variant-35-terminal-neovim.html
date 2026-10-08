@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Linux Terminal & Neovim Studio (Variant 35)</title>
+  <meta name="description" content="Hacker Neovim / tmux developer workstation portfolio of Aryan Rokade, Computer Engineering student & Full Stack Developer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --term-bg: #161b22;
+      --term-border: #30363d;
+      --text: #c9d1d9;
+      --dim: #8b949e;
+      --cyan: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --purple: #bc8cff;
+      --red: #f85149;
+      --orange: #ffa657;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      padding: 30px 16px 100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+
+    .term-window {
+      width: 100%;
+      max-width: 1060px;
+      background: var(--term-bg);
+      border: 1px solid var(--term-border);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Terminal Title Bar */
+    .term-titlebar {
+      background: #090d13;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--term-border);
+      user-select: none;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .term-title {
+      font-size: 0.8rem;
+      color: var(--dim);
+      font-weight: 500;
+    }
+
+    /* Tmux & Buffer Tabs */
+    .buffer-tabs {
+      display: flex;
+      background: #0d1117;
+      border-bottom: 1px solid var(--term-border);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 9px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--dim);
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--term-border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: var(--term-bg);
+      color: var(--cyan);
+      font-weight: 600;
+      border-bottom: 2px solid var(--cyan);
+    }
+
+    /* Code & Viewport Body */
+    .term-body {
+      padding: 24px 20px;
+      min-height: 520px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.18s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Code Line Grid */
+    .code-grid {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 16px;
+      font-size: 0.88rem;
+    }
+
+    .line-numbers {
+      color: #484f58;
+      text-align: right;
+      user-select: none;
+      line-height: 1.68;
+    }
+
+    .code-lines {
+      line-height: 1.68;
+      overflow-x: auto;
+    }
+
+    .kw { color: #ff7b72; font-weight: 600; }
+    .fn { color: #d2a8ff; }
+    .str { color: #a5d6ff; }
+    .cm { color: #8b949e; font-style: italic; }
+    .type { color: #79c0ff; }
+    .prop { color: #7ee787; }
+    .num { color: #79c0ff; }
+
+    /* Project Cards in Terminal */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .repo-card {
+      background: #0d1117;
+      border: 1px solid var(--term-border);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .repo-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .repo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .repo-name {
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .repo-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--term-border);
+      color: var(--dim);
+    }
+
+    .repo-desc {
+      font-size: 0.8rem;
+      color: #8b949e;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .repo-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .repo-tags span {
+      font-size: 0.7rem;
+      color: var(--purple);
+      background: rgba(188, 140, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .repo-links {
+      display: flex;
+      gap: 12px;
+      font-size: 0.78rem;
+    }
+
+    .repo-links a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .repo-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Htop Stats Grid */
+    .htop-container {
+      background: #090d13;
+      border: 1px solid var(--term-border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+    }
+
+    .htop-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .htop-bar {
+      flex: 1;
+      min-width: 200px;
+      height: 14px;
+      background: #21262d;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-left: 10px;
+      display: inline-flex;
+    }
+
+    .htop-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+    }
+
+    /* Tmux Bottom Statusline */
+    .tmux-statusline {
+      background: #21262d;
+      color: #c9d1d9;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--term-border);
+      user-select: none;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tmux-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .tmux-session {
+      background: var(--green);
+      color: #0d1117;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .tmux-right {
+      display: flex;
+      gap: 14px;
+      color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="term-window">
+    <!-- Window Titlebar -->
+    <div class="term-titlebar">
+      <div class="window-controls">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <div class="term-title">aryan@vcet-workstation: ~/portfolio (zsh • tmux • nvim)</div>
+      <div style="font-size:0.75rem; color:var(--green);">● Online</div>
+    </div>
+
+    <!-- Buffer Tabs -->
+    <div class="buffer-tabs">
+      <button class="tab-btn active" onclick="switchTab('about', this)">
+        <span>📄</span> about_me.ts
+      </button>
+      <button class="tab-btn" onclick="switchTab('projects', this)">
+        <span>📦</span> projects.json
+      </button>
+      <button class="tab-btn" onclick="switchTab('skills', this)">
+        <span>⚡</span> toolkit.yaml
+      </button>
+      <button class="tab-btn" onclick="switchTab('htop', this)">
+        <span>📊</span> htop_stats.sh
+      </button>
+      <button class="tab-btn" onclick="switchTab('contact', this)">
+        <span>✉️</span> contact.env
+      </button>
+    </div>
+
+    <!-- Terminal Viewport -->
+    <div class="term-body">
+      
+      <!-- Tab 1: about_me.ts -->
+      <div id="tab-about" class="tab-content active">
+        <div class="code-grid">
+          <div class="line-numbers">
+            1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
+          </div>
+          <div class="code-lines">
+            <span class="cm">// Aryan Rokade — Developer Portfolio & Profile</span><br>
+            <span class="kw">interface</span> <span class="type">SoftwareEngineer</span> {<br>
+            &nbsp;&nbsp;<span class="prop">name</span>: <span class="type">string</span>;<br>
+            &nbsp;&nbsp;<span class="prop">education</span>: <span class="type">string</span>;<br>
+            &nbsp;&nbsp;<span class="prop">batch</span>: <span class="type">number</span>;<br>
+            &nbsp;&nbsp;<span class="prop">location</span>: <span class="type">string</span>;<br>
+            &nbsp;&nbsp;<span class="prop">accolades</span>: <span class="type">string</span>[];<br>
+            &nbsp;&nbsp;<span class="prop">experience</span>: <span class="type">string</span>;<br>
+            }<br><br>
+            <span class="kw">export const</span> <span class="fn">developer</span>: <span class="type">SoftwareEngineer</span> = {<br>
+            &nbsp;&nbsp;<span class="prop">name</span>: <span class="str">"Aryan Rokade"</span>,<br>
+            &nbsp;&nbsp;<span class="prop">education</span>: <span class="str">"B.E. Computer Engineering, Vidyavardhini's College of Eng. & Tech (VCET)"</span>,<br>
+            &nbsp;&nbsp;<span class="prop">batch</span>: <span class="num">2027</span>,<br>
+            &nbsp;&nbsp;<span class="prop">location</span>: <span class="str">"Mumbai, Maharashtra, India"</span>,<br>
+            &nbsp;&nbsp;<span class="prop">accolades</span>: [<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"2nd Position Winner — Techblitz Hackathon (VCET AI&DS & NSDC, March 2025)"</span><br>
+            &nbsp;&nbsp;],<br>
+            &nbsp;&nbsp;<span class="prop">experience</span>: <span class="str">"Web Development Intern @ Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025)"</span><br>
+            };<br><br>
+            <span class="cm">// Press [2] projects.json or click tabs to explore repos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: projects.json -->
+      <div id="tab-projects" class="tab-content">
+        <div style="font-size:0.8rem; color:var(--dim); margin-bottom:12px;">
+          <span style="color:var(--green); font-weight:700;">$ git log</span> --oneline -n 4 (Featured Repositories)
+        </div>
+        <div class="repo-grid">
+          <!-- Repo 1: VyaparFlow -->
+          <div class="repo-card">
+            <div>
+              <div class="repo-header">
+                <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" class="repo-name">01. VyaparFlow ↗</a>
+                <span class="repo-badge">Full-Stack SaaS</span>
+              </div>
+              <p class="repo-desc">
+                Export-readiness & compliance workflow platform for Indian MSMEs. Implemented compliance scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.
+              </p>
+              <div class="repo-tags">
+                <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind CSS</span><span>Prisma</span><span>PostgreSQL</span>
+              </div>
+            </div>
+            <div class="repo-links">
+              <a href="https://vyaparflow-smoky.vercel.app/" target="_blank">⚡ Live Demo ↗</a>
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank">🐙 GitHub Repo ↗</a>
+            </div>
+          </div>
+
+          <!-- Repo 2: CyberSentinel Suite -->
+          <div class="repo-card">
+            <div>
+              <div class="repo-header">
+                <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" class="repo-name">02. CyberSentinel Suite ↗</a>
+                <span class="repo-badge">Cybersecurity</span>
+              </div>
+              <p class="repo-desc">
+                Interactive cybersecurity suite covering DoS/DDoS, SQL injection, ransomware detection, and phishing URL analysis with live Socket.IO monitoring dashboards and Chrome extension.
+              </p>
+              <div class="repo-tags">
+                <span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span><span>Chrome Ext</span><span>Cybersecurity</span>
+              </div>
+            </div>
+            <div class="repo-links">
+              <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank">🐙 GitHub Repo ↗</a>
+            </div>
+          </div>
+
+          <!-- Repo 3: Saturn -->
+          <div class="repo-card">
+            <div>
+              <div class="repo-header">
+                <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" class="repo-name">03. Saturn Finance ↗</a>
+                <span class="repo-badge">Full-Stack MERN</span>
+              </div>
+              <p class="repo-desc">
+                Full-stack expense and budget management application with dashboards, interactive charts, categorized expenses, financial statistics, and JWT authentication.
+              </p>
+              <div class="repo-tags">
+                <span>React</span><span>Redux Toolkit</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Tailwind CSS</span>
+              </div>
+            </div>
+            <div class="repo-links">
+              <a href="https://github.com/aryanrokade7/Saturnn" target="_blank">🐙 GitHub Repo ↗</a>
+            </div>
+          </div>
+
+          <!-- Repo 4: MRI Brain Tumor Detection -->
+          <div class="repo-card">
+            <div>
+              <div class="repo-header">
+                <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" class="repo-name">04. MRI Brain Tumor AI ↗</a>
+                <span class="repo-badge">Deep Learning</span>
+              </div>
+              <p class="repo-desc">
+                Flask web application classifying MRI scans into Glioma, Meningioma, Pituitary and No Tumor using VGG16 transfer learning and TensorFlow/Keras with high validation accuracy.
+              </p>
+              <div class="repo-tags">
+                <span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span><span>Deep Learning</span>
+              </div>
+            </div>
+            <div class="repo-links">
+              <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank">🐙 GitHub Repo ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: toolkit.yaml -->
+      <div id="tab-skills" class="tab-content">
+        <div class="code-grid">
+          <div class="line-numbers">
+            1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16
+          </div>
+          <div class="code-lines">
+            <span class="cm"># Engineering Toolkit & Core Strengths</span><br>
+            <span class="prop">languages</span>:<br>
+            &nbsp;&nbsp;- <span class="str">Java</span>, <span class="str">C</span>, <span class="str">C++</span>, <span class="str">Python</span>, <span class="str">JavaScript</span>, <span class="str">TypeScript</span>, <span class="str">SQL</span><br>
+            <span class="prop">frontend_backend</span>:<br>
+            &nbsp;&nbsp;- <span class="str">Next.js</span>, <span class="str">React</span>, <span class="str">Tailwind CSS</span>, <span class="str">Node.js</span>, <span class="str">Express</span>, <span class="str">MERN Stack</span><br>
+            <span class="prop">databases_orm</span>:<br>
+            &nbsp;&nbsp;- <span class="str">PostgreSQL</span>, <span class="str">MongoDB</span>, <span class="str">Prisma ORM</span><br>
+            <span class="prop">tools_devops</span>:<br>
+            &nbsp;&nbsp;- <span class="str">Git &amp; GitHub</span>, <span class="str">Docker</span>, <span class="str">REST APIs</span>, <span class="str">Socket.IO</span>, <span class="str">Figma</span><br>
+            <span class="prop">data_structures</span>:<br>
+            &nbsp;&nbsp;- <span class="str">DSA</span>, <span class="str">Object-Oriented Design</span>, <span class="str">Problem-Solving</span><br>
+            <span class="prop">strengths</span>:<br>
+            &nbsp;&nbsp;- <span class="str">Communication</span>, <span class="str">Team Collaboration</span>, <span class="str">Critical Thinking</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: htop_stats.sh -->
+      <div id="tab-htop" class="tab-content">
+        <div style="font-size:0.8rem; color:var(--dim); margin-bottom:12px;">
+          <span style="color:var(--green); font-weight:700;">$ htop</span> — Core Performance &amp; Academics Telemetry
+        </div>
+        <div class="htop-container">
+          <div class="htop-row">
+            <span>CPU 1 [Featured Projects]</span>
+            <div class="htop-bar"><div class="htop-fill" style="width: 100%;"></div></div>
+            <span>04 / 04 (100%)</span>
+          </div>
+          <div class="htop-row">
+            <span>CPU 2 [Internship Experience]</span>
+            <div class="htop-bar"><div class="htop-fill" style="width: 100%;"></div></div>
+            <span>Octanet Services (100%)</span>
+          </div>
+          <div class="htop-row">
+            <span>CPU 3 [Hackathon Achievement]</span>
+            <div class="htop-bar"><div class="htop-fill" style="width: 95%;"></div></div>
+            <span>Techblitz 2nd Place</span>
+          </div>
+          <div class="htop-row">
+            <span>MEM &nbsp;[Graduation Milestone]</span>
+            <div class="htop-bar"><div class="htop-fill" style="width: 75%;"></div></div>
+            <span>VCET Mumbai · Class of 2027</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 5: contact.env -->
+      <div id="tab-contact" class="tab-content">
+        <div class="code-grid">
+          <div class="line-numbers">
+            1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+          </div>
+          <div class="code-lines">
+            <span class="cm"># Dispatch & Communications Config</span><br>
+            <span class="prop">DEVELOPER_NAME</span>=<span class="str">"Aryan Rokade"</span><br>
+            <span class="prop">EMAIL_ADDRESS</span>=<span class="str"><a href="mailto:aryanrokade416@gmail.com" style="color:var(--cyan); text-decoration:none;">"aryanrokade416@gmail.com"</a></span><br>
+            <span class="prop">PHONE_NUMBER</span>=<span class="str"><a href="tel:8591224192" style="color:var(--green); text-decoration:none;">"+91 85912 24192"</a></span><br>
+            <span class="prop">GITHUB_PROFILE</span>=<span class="str"><a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--purple); text-decoration:none;">"https://github.com/aryanrokade7"</a></span><br>
+            <span class="prop">LINKEDIN_URL</span>=<span class="str"><a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:var(--cyan); text-decoration:none;">"linkedin.com/in/aryan-rokade"</a></span><br>
+            <span class="prop">RESUME_DOWNLOAD</span>=<span class="str"><a href="../Aryan_Rokade_Resume.pdf" download style="color:var(--yellow); text-decoration:none;">"Aryan_Rokade_Resume.pdf"</a></span><br><br>
+            <span class="cm">// Status: Open to software engineering roles & collaboration</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tmux Bottom Statusline -->
+    <div class="tmux-statusline">
+      <div class="tmux-left">
+        <span class="tmux-session">0:portfolio*</span>
+        <span>git:(main)</span>
+        <span style="color:var(--green);">✓ Clean</span>
+      </div>
+      <div class="tmux-right">
+        <span>"about_me.ts"</span>
+        <span>utf-8</span>
+        <span>[TypeScript]</span>
+        <span>VCET Mumbai '27</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

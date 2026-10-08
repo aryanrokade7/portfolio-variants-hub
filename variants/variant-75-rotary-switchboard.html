@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — 1950s Rotary Telephone Exchange (Variant 75)</title>
+  <meta name="description" content="Vintage 1950s Rotary Telephone and switchboard operator portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cutive+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --phone-bakelite: #181c1c;
+      --phone-gold: #cfa862;
+      --phone-cream: #f2e9d2;
+      --font-rotary: 'Special Elite', monospace;
+      --font-mono: 'Cutive Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1e1610;
+      background-image: radial-gradient(circle, #2d2218 0%, #120d09 100%);
+      color: var(--phone-cream);
+      font-family: var(--font-rotary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px;
+      line-height: 1.5;
+    }
+
+    .rotary-chassis {
+      max-width: 900px;
+      width: 100%;
+      background: var(--phone-bakelite);
+      border: 6px solid #33271c;
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.1);
+      padding: 32px;
+      position: relative;
+    }
+
+    /* Top Nameplate */
+    .switchboard-head {
+      text-align: center;
+      border-bottom: 2px solid #3d3124;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .sb-title {
+      font-size: 1.8rem;
+      color: var(--phone-gold);
+      letter-spacing: 3px;
+    }
+    .sb-sub {
+      font-size: 0.85rem;
+      color: #9c8a77;
+    }
+
+    /* Rotary Dial & Extension Jacks Grid */
+    .switch-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .switch-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Rotary Dial Wheel Graphic */
+    .rotary-dial-wheel {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: #111;
+      border: 8px solid var(--phone-gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.9);
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .dial-center-cap {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--phone-cream);
+      color: #111;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 3px solid #333;
+    }
+
+    /* Number Holes */
+    .finger-hole {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid var(--phone-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .finger-hole:hover {
+      background: var(--phone-gold);
+      color: #000;
+      transform: scale(1.15);
+    }
+    .h1 { top: 20px; right: 65px; }
+    .h2 { top: 50px; right: 25px; }
+    .h3 { top: 95px; right: 15px; }
+    .h4 { bottom: 65px; right: 25px; }
+    .h5 { bottom: 25px; right: 65px; }
+
+    /* Switchboard Extension Patch Plugs */
+    .extensions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ext-plug {
+      background: #111414;
+      border: 1px solid #3a3224;
+      border-left: 4px solid var(--phone-gold);
+      padding: 12px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ext-plug:hover, .ext-plug.active {
+      border-color: var(--phone-gold);
+      background: #1b2020;
+    }
+    .ext-num {
+      color: var(--phone-gold);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+    .ext-name {
+      font-size: 1.1rem;
+      color: #fff;
+      margin: 2px 0;
+    }
+    .ext-desc {
+      font-size: 0.82rem;
+      color: #a69888;
+    }
+
+    /* Operator Dossier */
+    .operator-card {
+      margin-top: 24px;
+      border-top: 1px dashed #473a2b;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .op-text { font-size: 0.88rem; color: #cfc2b2; }
+
+    .btn-rotary {
+      background: var(--phone-gold);
+      color: #000;
+      padding: 8px 18px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-rotary:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <div class="rotary-chassis">
+    
+    <!-- Header -->
+    <header class="switchboard-head">
+      <div class="sb-title">CENTRAL TELEPHONE EXCHANGE</div>
+      <div class="sb-sub">MANUAL OPERATOR SWITCHBOARD // ARYAN ROKADE EXTENSION 2027</div>
+    </header>
+
+    <!-- Rotary Grid -->
+    <div class="switch-grid">
+      
+      <!-- Rotary Wheel -->
+      <div class="rotary-dial-wheel">
+        <div class="finger-hole h1" onclick="dialExt(1)">1</div>
+        <div class="finger-hole h2" onclick="dialExt(2)">2</div>
+        <div class="finger-hole h3" onclick="dialExt(3)">3</div>
+        <div class="finger-hole h4" onclick="dialExt(4)">4</div>
+        <div class="finger-hole h5" onclick="dialExt(5)">5</div>
+
+        <div class="dial-center-cap">
+          DIAL 1-5
+        </div>
+      </div>
+
+      <!-- Extensions (Projects) -->
+      <div class="extensions-list">
+        
+        <div class="ext-plug active" onclick="dialExt(1)" id="ext1">
+          <div class="ext-num">LINE 01 // ENTERPRISE ERP</div>
+          <div class="ext-name">VyaparFlow Platform</div>
+          <p class="ext-desc">Automated GST invoicing, atomic inventory synchronization, and Stripe billing pipelines.</p>
+        </div>
+
+        <div class="ext-plug" onclick="dialExt(2)" id="ext2">
+          <div class="ext-num">LINE 02 // NETWORK SECURITY</div>
+          <div class="ext-name">CyberSentinel Suite</div>
+          <p class="ext-desc">Real-time threat monitoring and packet sniffing with Snort IDS alarms via Socket.IO.</p>
+        </div>
+
+        <div class="ext-plug" onclick="dialExt(3)" id="ext3">
+          <div class="ext-num">LINE 03 // PERSONAL WEALTH</div>
+          <div class="ext-name">Saturn Finance</div>
+          <p class="ext-desc">MERN Stack capital telemetry with budget limits, expense categorization, and JWT security.</p>
+        </div>
+
+        <div class="ext-plug" onclick="dialExt(4)" id="ext4">
+          <div class="ext-num">LINE 04 // NEURAL DIAGNOSTICS</div>
+          <div class="ext-name">MRI Brain Tumor AI</div>
+          <p class="ext-desc">Convolutional neural network diagnostic engine with 98.2% test accuracy and Grad-CAM heatmaps.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Operator Dossier Footer -->
+    <footer class="operator-card">
+      <div class="op-text">
+        <b>OPERATOR:</b> Aryan Rokade â€¢ B.E. Comp Eng (VCET 2027)<br>
+        ðŸ† <b>Techblitz 2025:</b> 2nd Position â€¢ ðŸ’¼ <b>Octanet Services:</b> Web Dev Intern (+35% Speed)
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-rotary">
+          â¬‡ OPERATOR DOSSIER (PDF)
+        </a>
+        <a href="tel:+918591224192" class="btn-rotary" style="background:#fff;">
+          ðŸ“ž RING +91 85912 24192
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function dialExt(num) {
+      document.querySelectorAll('.ext-plug').forEach(p => p.classList.remove('active'));
+      const activePlug = document.getElementById('ext' + num);
+      if (activePlug) activePlug.classList.add('active');
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>
+

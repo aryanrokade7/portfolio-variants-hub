@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade — Zenith Minimalist Noir Portfolio. Ultra-Minimal Engineering Portfolio." />
+  <title>Aryan Rokade — Vessel Zenith Minimal Noir (Variant 60)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #111114;
+      --border: #1f1f23;
+      --border-light: #2c2c32;
+      --text: #fafaf9;
+      --text-muted: #8c8c94;
+      --text-dim: #52525b;
+      --accent: #e4e4e7;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 120px;
+    }
+
+    .zenith-wrap {
+      width: min(880px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* NAV */
+    header.zenith-header {
+      padding: 44px 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .zenith-logo {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .zenith-nav {
+      display: flex;
+      gap: 24px;
+      font-size: 0.86rem;
+    }
+    .zenith-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .zenith-nav a:hover { color: #fff; }
+
+    /* HERO */
+    .zenith-hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .zenith-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .zenith-dot {
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+    .zenith-title {
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 24px;
+      max-width: 780px;
+    }
+    .zenith-intro {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 660px;
+      margin-bottom: 36px;
+    }
+    .zenith-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .zenith-btn {
+      font-size: 0.86rem;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .zenith-btn.solid {
+      background: #ffffff;
+      color: #09090b;
+      font-weight: 600;
+    }
+    .zenith-btn.solid:hover {
+      background: #e4e4e7;
+    }
+    .zenith-btn.subtle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .zenith-btn.subtle:hover {
+      border-color: var(--border-light);
+      color: #fff;
+    }
+
+    /* SECTION BASICS */
+    section.zenith-sec {
+      padding: 60px 0 30px;
+      border-bottom: 1px solid var(--border);
+    }
+    .zenith-sec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 36px;
+    }
+    .zenith-sec-h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    .zenith-sec-count {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* PROJECT ROWS */
+    .project-rows-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .project-zenith-row {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .project-zenith-row:hover {
+      border-color: var(--border-light);
+    }
+    .p-zen-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .p-zen-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .p-zen-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+    .p-zen-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .p-zen-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .p-zen-chip {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .p-zen-actions {
+      display: flex;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .p-zen-actions a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .p-zen-actions a:hover {
+      color: #38bdf8;
+    }
+
+    /* TIMELINE */
+    .zenith-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .zenith-tl-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .zenith-tl-item { grid-template-columns: 1fr; }
+    }
+    .zenith-tl-date {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    .zenith-tl-role {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .zenith-tl-org {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .zenith-tl-body {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* SKILLS */
+    .zenith-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .zenith-skill-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+    }
+    .zenith-skill-heading {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .zenith-skill-box ul {
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* CONTACT */
+    .zenith-contact {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .zenith-contact-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .zenith-contact-p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      max-width: 520px;
+    }
+    .zenith-contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* FOOTER */
+    footer.zenith-footer {
+      padding: 32px 0 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="zenith-wrap">
+    <!-- NAV -->
+    <header class="zenith-header">
+      <a href="#" class="zenith-logo">Aryan Rokade</a>
+      <nav class="zenith-nav">
+        <a href="#work">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="zenith-hero">
+      <div class="zenith-badge">
+        <span class="zenith-dot"></span>
+        <span>Computer Engineering Undergraduate • Mumbai, India</span>
+      </div>
+      <h1 class="zenith-title">Full-stack web software & deep learning applications.</h1>
+      <p class="zenith-intro">
+        Pursuing B.E. in Computer Engineering at Vidyavardhini's College of Engineering and Technology (VCET). Focused on building responsive user interfaces, modular backend services, and machine learning models.
+      </p>
+      <div class="zenith-actions">
+        <a href="mailto:aryanrokade416@gmail.com" class="zenith-btn solid">
+          Get in Touch
+        </a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="zenith-btn subtle">
+          Resume (PDF)
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="zenith-btn subtle">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="zenith-btn subtle">
+          LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <!-- SELECTED PROJECTS -->
+    <section id="work" class="zenith-sec">
+      <div class="zenith-sec-header">
+        <h2 class="zenith-sec-h2">Selected Projects</h2>
+        <span class="zenith-sec-count">04 Systems</span>
+      </div>
+
+      <div class="project-rows-list">
+        <!-- 1. VyaparFlow -->
+        <article class="project-zenith-row">
+          <div class="p-zen-top">
+            <h3 class="p-zen-name">VyaparFlow</h3>
+            <span class="p-zen-tag">Next.js • SaaS</span>
+          </div>
+          <p class="p-zen-desc">
+            Complete business and inventory management platform designed for real-time stock updates, order workflows, sales metrics, and automated inventory record keeping.
+          </p>
+          <div class="p-zen-tech">
+            <span class="p-zen-chip">Next.js</span>
+            <span class="p-zen-chip">React</span>
+            <span class="p-zen-chip">TypeScript</span>
+            <span class="p-zen-chip">Tailwind CSS</span>
+            <span class="p-zen-chip">Prisma</span>
+            <span class="p-zen-chip">PostgreSQL</span>
+          </div>
+          <div class="p-zen-actions">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <!-- 2. CyberSentinel Suite -->
+        <article class="project-zenith-row">
+          <div class="p-zen-top">
+            <h3 class="p-zen-name">CyberSentinel Suite</h3>
+            <span class="p-zen-tag">Flask • WebSockets</span>
+          </div>
+          <p class="p-zen-desc">
+            Proactive security tool with automated threat detection, real-time alert notifications over WebSockets, and a companion Chrome extension for browser endpoint telemetry.
+          </p>
+          <div class="p-zen-tech">
+            <span class="p-zen-chip">React</span>
+            <span class="p-zen-chip">Socket.IO</span>
+            <span class="p-zen-chip">Flask</span>
+            <span class="p-zen-chip">Python</span>
+            <span class="p-zen-chip">Chrome Extension</span>
+          </div>
+          <div class="p-zen-actions">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </article>
+
+        <!-- 3. Saturn -->
+        <article class="project-zenith-row">
+          <div class="p-zen-top">
+            <h3 class="p-zen-name">Saturn</h3>
+            <span class="p-zen-tag">MERN Stack</span>
+          </div>
+          <p class="p-zen-desc">
+            Collaborative task management and sprint productivity suite with Kanban boards, JWT authentication, and centralized state management via Redux Toolkit.
+          </p>
+          <div class="p-zen-tech">
+            <span class="p-zen-chip">React</span>
+            <span class="p-zen-chip">Redux Toolkit</span>
+            <span class="p-zen-chip">Node.js</span>
+            <span class="p-zen-chip">Express</span>
+            <span class="p-zen-chip">MongoDB</span>
+            <span class="p-zen-chip">JWT</span>
+          </div>
+          <div class="p-zen-actions">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </article>
+
+        <!-- 4. MRI Brain Tumor Detection -->
+        <article class="project-zenith-row">
+          <div class="p-zen-top">
+            <h3 class="p-zen-name">MRI Brain Tumor Detection System</h3>
+            <span class="p-zen-tag">Deep Learning</span>
+          </div>
+          <p class="p-zen-desc">
+            Computer vision platform employing fine-tuned VGG16 architecture for binary and multiclass tumor classification from MRI brain scans, with OpenCV preprocessing.
+          </p>
+          <div class="p-zen-tech">
+            <span class="p-zen-chip">TensorFlow</span>
+            <span class="p-zen-chip">Keras</span>
+            <span class="p-zen-chip">VGG16</span>
+            <span class="p-zen-chip">Flask</span>
+            <span class="p-zen-chip">Python</span>
+            <span class="p-zen-chip">OpenCV</span>
+          </div>
+          <div class="p-zen-actions">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION -->
+    <section id="experience" class="zenith-sec">
+      <div class="zenith-sec-header">
+        <h2 class="zenith-sec-h2">Experience & Education</h2>
+        <span class="zenith-sec-count">Timeline</span>
+      </div>
+
+      <div class="zenith-timeline">
+        <div class="zenith-tl-item">
+          <div class="zenith-tl-date">Dec 2024 – Jan 2025</div>
+          <div>
+            <h3 class="zenith-tl-role">Web Development Intern</h3>
+            <div class="zenith-tl-org">Octanet Services Pvt. Ltd.</div>
+            <p class="zenith-tl-body">
+              Designed and built responsive frontend web components, tested cross-browser compatibility, and adhered to clean HTML/CSS/JavaScript best practices.
+            </p>
+          </div>
+        </div>
+
+        <div class="zenith-tl-item">
+          <div class="zenith-tl-date">March 2025</div>
+          <div>
+            <h3 class="zenith-tl-role">2nd Position Winner</h3>
+            <div class="zenith-tl-org">Techblitz Hackathon (NSDC Committee & VCET AI&DS)</div>
+            <p class="zenith-tl-body">
+              Awarded second place for building an innovative software solution under hackathon time limits.
+            </p>
+          </div>
+        </div>
+
+        <div class="zenith-tl-item">
+          <div class="zenith-tl-date">2023 – 2027</div>
+          <div>
+            <h3 class="zenith-tl-role">B.E. in Computer Engineering</h3>
+            <div class="zenith-tl-org">VCET, Mumbai (University of Mumbai)</div>
+            <p class="zenith-tl-body">
+              Academic coursework focused on Data Structures, Algorithms, DBMS, Operating Systems, Computer Networks, and Machine Learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="zenith-sec">
+      <div class="zenith-sec-header">
+        <h2 class="zenith-sec-h2">Skills</h2>
+        <span class="zenith-sec-count">Stack</span>
+      </div>
+
+      <div class="zenith-skills-grid">
+        <div class="zenith-skill-box">
+          <div class="zenith-skill-heading">Languages</div>
+          <ul>
+            <li>JavaScript & TypeScript</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>C & C++</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div class="zenith-skill-box">
+          <div class="zenith-skill-heading">Frontend</div>
+          <ul>
+            <li>React & Next.js</li>
+            <li>Tailwind CSS</li>
+            <li>Redux Toolkit</li>
+            <li>HTML5 / CSS3</li>
+          </ul>
+        </div>
+        <div class="zenith-skill-box">
+          <div class="zenith-skill-heading">Backend & DB</div>
+          <ul>
+            <li>Node.js & Express</li>
+            <li>Flask (Python)</li>
+            <li>PostgreSQL & Prisma</li>
+            <li>MongoDB</li>
+          </ul>
+        </div>
+        <div class="zenith-skill-box">
+          <div class="zenith-skill-heading">AI & DevOps</div>
+          <ul>
+            <li>TensorFlow & Keras</li>
+            <li>OpenCV & VGG16</li>
+            <li>Docker & Git</li>
+            <li>Socket.IO & Postman</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="zenith-contact">
+      <h2 class="zenith-contact-title">Contact</h2>
+      <p class="zenith-contact-p">
+        Interested in collaborating or discussing software engineering roles? Feel free to reach out directly.
+      </p>
+      <div class="zenith-contact-links">
+        <a href="mailto:aryanrokade416@gmail.com" class="zenith-btn solid">aryanrokade416@gmail.com</a>
+        <a href="tel:+918591224192" class="zenith-btn subtle">+91 85912 24192</a>
+        <a href="../Aryan_Rokade_Resume.pdf" target="_blank" class="zenith-btn subtle">Resume (PDF)</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="zenith-footer">
+      <div>© 2025 Aryan Rokade. Zenith Noir Edition.</div>
+      <div>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer">GitHub</a> •
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

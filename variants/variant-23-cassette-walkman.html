@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aryan Rokade â€” Retro Cassette Walkman</title>
+  <title>Aryan Rokade — Retro Sony Walkman Cassette (Variant 23)</title>
   <meta name="description" content="Vintage Sony Walkman cassette tape player interactive portfolio for Aryan Rokade, Full Stack Developer & AI Engineer.">
   <link rel="stylesheet" href="switcher.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -434,6 +434,7 @@
         <div class="lcd-display">
           <span id="lcdTrack">TRK 01: VYAPARFLOW</span>
           <span id="lcdTime">00:00</span>
+          <span id="lcdSoundBadge" onclick="toggleTapeSound();" style="cursor: pointer; font-size: 0.8rem; border-left: 1px solid #2e3e50; padding-left: 8px; color: var(--amber-lcd);" title="Click to Toggle Analog Tape Audio">🔊 AUDIO ON</span>
           <div class="meter-dots" id="meterDots">
             <div class="meter-bar active"></div>
             <div class="meter-bar active"></div>
@@ -452,7 +453,7 @@
               <span>ARYAN ROKADE</span>
               <span style="font-family: var(--font-display); font-size: 0.9rem; color: #111;">SIDE A</span>
             </div>
-            <div class="tape-sub">FULL STACK DEVELOPER & AI ENGINEER â€¢ MUMBAI</div>
+            <div class="tape-sub">FULL STACK DEVELOPER & AI ENGINEER • MUMBAI</div>
 
             <!-- Tape Spools -->
             <div class="tape-spool-area">
@@ -467,22 +468,22 @@
       <!-- Mechanical Buttons Deck -->
       <div class="controls-deck">
         <button class="mech-btn play pressed" id="btnPlay" onclick="handlePlay()">
-          â–¶ PLAY
+          ▶ PLAY
         </button>
         <button class="mech-btn" id="btnPause" onclick="handlePause()">
-          âšâš PAUSE
+          ⏸ PAUSE
         </button>
         <button class="mech-btn" id="btnRewind" onclick="handleRewind()">
-          â—„â—„ REW
+          ⏮ REW
         </button>
         <button class="mech-btn" id="btnFfwd" onclick="handleFfwd()">
-          â–ºâ–º FF
+          ⏭ FF
         </button>
         <button class="mech-btn" id="btnEject" onclick="handleEject()">
-          â EJECT (INFO)
+          ⏏ EJECT (INFO)
         </button>
         <a href="../Aryan_Rokade_Resume.pdf" download class="mech-btn" style="text-decoration:none;">
-          â¬‡ RESUME.PDF
+          ⬇ RESUME.PDF
         </a>
       </div>
 
@@ -497,7 +498,7 @@
           <div class="track-row active" onclick="selectTrack(0)" id="trk0">
             <div class="t-num">01</div>
             <div class="t-info">
-              <div class="t-name">VyaparFlow â€” ERP SaaS Platform</div>
+              <div class="t-name">VyaparFlow — ERP SaaS Platform</div>
               <div class="t-desc">Multi-tenant business suite with automated GST billing, real-time inventory ledger, and Stripe payments.</div>
               <div class="t-tags">
                 <span class="t-tag">Next.js 14</span>
@@ -514,7 +515,7 @@
           <div class="track-row" onclick="selectTrack(1)" id="trk1">
             <div class="t-num">02</div>
             <div class="t-info">
-              <div class="t-name">CyberSentinel Suite â€” Threat Intelligence</div>
+              <div class="t-name">CyberSentinel Suite — Threat Intelligence</div>
               <div class="t-desc">Live security operations center monitoring network telemetry, Snort intrusion detection, and Socket.IO anomaly streaming.</div>
               <div class="t-tags">
                 <span class="t-tag">React</span>
@@ -531,7 +532,7 @@
           <div class="track-row" onclick="selectTrack(2)" id="trk2">
             <div class="t-num">03</div>
             <div class="t-info">
-              <div class="t-name">Saturn Finance â€” Wealth Tracker</div>
+              <div class="t-name">Saturn Finance — Wealth Tracker</div>
               <div class="t-desc">Modern personal budgeting and financial telemetry engine with multi-account syncing, JWT authentication, and spending analytics.</div>
               <div class="t-tags">
                 <span class="t-tag">MongoDB</span>
@@ -547,7 +548,7 @@
           <div class="track-row" onclick="selectTrack(3)" id="trk3">
             <div class="t-num">04</div>
             <div class="t-info">
-              <div class="t-name">MRI Brain Tumor AI â€” Deep Learning Diagnostic</div>
+              <div class="t-name">MRI Brain Tumor AI — Deep Learning Diagnostic</div>
               <div class="t-desc">Convolutional Neural Network diagnosing cranial MRI scans with 98.2% test accuracy and Grad-CAM medical visualizers.</div>
               <div class="t-tags">
                 <span class="t-tag">TensorFlow</span>
@@ -567,30 +568,30 @@
             <h4 style="color:#fff; margin-bottom: 6px;">ARTIST STATEMENT & CREDENTIALS</h4>
             <p>
               Hi, I'm Aryan Rokade. B.E. Computer Engineering student at Vidyavardhini's College of Engineering & Technology (VCET), Mumbai University (Graduating 2027).
-              Former Web Development Intern at <b>Octanet Services Pvt. Ltd.</b> (Dec 2024 â€“ Jan 2025), where I engineered responsive web apps and cut page load times by 35%.
+              Former Web Development Intern at <b>Octanet Services Pvt. Ltd.</b> (Dec 2024 – Jan 2025), where I engineered responsive web apps and cut page load times by 35%.
             </p>
             <div class="award-card">
-              ðŸ† <b>2nd Position</b> in Techblitz Hackathon 2025 (AI & Data Science Dept, VCET)
+              🏆 <b>2nd Position</b> in Techblitz Hackathon 2025 (AI & Data Science Dept, VCET)
             </div>
           </div>
 
           <div class="contact-dock">
             <h4 style="color:#fff; margin-bottom: 4px;">CONTACT CASSETTE</h4>
             <a href="mailto:aryanrokade416@gmail.com" class="c-btn">
-              <span>âœ‰ EMAIL</span>
+              <span>✉ EMAIL</span>
               <span style="font-size:0.75rem; color:#8ba0b8;">aryanrokade416@gmail.com</span>
             </a>
             <a href="tel:+918591224192" class="c-btn">
-              <span>ðŸ“ž PHONE</span>
+              <span>📞 PHONE</span>
               <span style="font-size:0.75rem; color:#8ba0b8;">+91 85912 24192</span>
             </a>
             <a href="https://github.com/aryanrokade7" target="_blank" class="c-btn">
-              <span>ðŸ™ GITHUB</span>
-              <span style="font-size:0.75rem; color:#8ba0b8;">aryanrokade7 â†—</span>
+              <span>🐙 GITHUB</span>
+              <span style="font-size:0.75rem; color:#8ba0b8;">aryanrokade7 ↗</span>
             </a>
             <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="c-btn">
-              <span>ðŸ’¼ LINKEDIN</span>
-              <span style="font-size:0.75rem; color:#8ba0b8;">aryan-rokade â†—</span>
+              <span>💼 LINKEDIN</span>
+              <span style="font-size:0.75rem; color:#8ba0b8;">aryan-rokade ↗</span>
             </a>
           </div>
         </div>
@@ -602,36 +603,47 @@
   </div>
 
   <script>
-    // Audio synthesis for retro clicks
-    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
-    function playClick() {
-      if (!audioCtx) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.05);
-      } catch(e) {}
-    }
-
     const tracks = [
-      { id: "01", name: "VYAPARFLOW", dur: "04:20" },
-      { id: "02", name: "CYBERSENTINEL", dur: "03:45" },
-      { id: "03", name: "SATURN FINANCE", dur: "05:12" },
-      { id: "04", name: "MRI BRAIN AI", dur: "04:55" }
+      {
+        id: "01",
+        name: "VYAPARFLOW",
+        dur: "04:20",
+        notes: [261.63, 329.63, 392.00, 440.00, 392.00, 329.63, 293.66, 261.63], // 80s City Pop tape
+        chords: [[130.81, 164.81], [146.83, 174.61], [164.81, 196.00], [130.81, 164.81]]
+      },
+      {
+        id: "02",
+        name: "CYBERSENTINEL",
+        dur: "03:45",
+        notes: [196.00, 233.08, 261.63, 311.13, 261.63, 233.08, 196.00, 174.61], // Retrowave tape arp
+        chords: [[98.00, 146.83], [116.54, 174.61], [130.81, 196.00], [98.00, 146.83]]
+      },
+      {
+        id: "03",
+        name: "SATURN FINANCE",
+        dur: "05:12",
+        notes: [220.00, 277.18, 329.63, 440.00, 392.00, 329.63, 277.18, 246.94], // Lo-Fi jazz tape
+        chords: [[110.00, 164.81], [123.47, 185.00], [146.83, 220.00], [110.00, 164.81]]
+      },
+      {
+        id: "04",
+        name: "MRI BRAIN AI",
+        dur: "04:55",
+        notes: [293.66, 369.99, 440.00, 587.33, 440.00, 369.99, 329.63, 293.66], // Ethereal vapor tape
+        chords: [[146.83, 220.00], [164.81, 246.94], [196.00, 293.66], [146.83, 220.00]]
+      }
     ];
 
     let currentTrackIdx = 0;
-    let isPlaying = true;
+    let isPlaying = false;
+    let tapeAudioEnabled = true;
     let timerSeconds = 0;
     let timerInterval = null;
+    let audioCtx = null;
+    let tapeMasterGain = null;
+    let tapeHissGain = null;
+    let tapeSeqInterval = null;
+    let tapeStep = 0;
 
     const spoolL = document.getElementById('spoolLeft');
     const spoolR = document.getElementById('spoolRight');
@@ -640,6 +652,219 @@
     const lcdTrack = document.getElementById('lcdTrack');
     const lcdTime = document.getElementById('lcdTime');
     const meterDots = document.getElementById('meterDots');
+
+    function initTapeAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+          tapeMasterGain = audioCtx.createGain();
+          tapeMasterGain.gain.setValueAtTime(0.16, audioCtx.currentTime);
+          tapeMasterGain.connect(audioCtx.destination);
+
+          // Subtle analog tape background hiss
+          createTapeHiss();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Creates subtle warm background tape noise
+    function createTapeHiss() {
+      try {
+        const bufferSize = audioCtx.sampleRate * 2;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          lastOut = (lastOut * 0.95) + (white * 0.05); // Pink-filtered noise
+          data[i] = lastOut * 0.15;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        noise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 2400;
+
+        tapeHissGain = audioCtx.createGain();
+        tapeHissGain.gain.value = 0.02; // Very subtle warm air
+
+        noise.connect(filter);
+        filter.connect(tapeHissGain);
+        tapeHissGain.connect(tapeMasterGain);
+        noise.start();
+      } catch (e) {}
+    }
+
+    // Authentic mechanical tape deck latch SFX
+    function playTapeMechanic(action) {
+      initTapeAudio();
+      if (!audioCtx) return;
+
+      try {
+        const now = audioCtx.currentTime;
+        if (action === 'play') {
+          // Heavy mechanical latch "THUNK-KLIK" + motor head engage
+          const sub = audioCtx.createOscillator();
+          const subGain = audioCtx.createGain();
+          sub.type = 'sine';
+          sub.frequency.setValueAtTime(95, now);
+          sub.frequency.exponentialRampToValueAtTime(30, now + 0.09);
+          subGain.gain.setValueAtTime(0.25, now);
+          subGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+          sub.connect(subGain);
+          subGain.connect(audioCtx.destination);
+          sub.start(now);
+          sub.stop(now + 0.09);
+
+          // Metallic latch snap click
+          const click = audioCtx.createOscillator();
+          const clickGain = audioCtx.createGain();
+          click.type = 'triangle';
+          click.frequency.setValueAtTime(2200, now + 0.02);
+          click.frequency.exponentialRampToValueAtTime(400, now + 0.07);
+          clickGain.gain.setValueAtTime(0.12, now + 0.02);
+          clickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+          click.connect(clickGain);
+          clickGain.connect(audioCtx.destination);
+          click.start(now + 0.02);
+          click.stop(now + 0.07);
+        } else if (action === 'pause') {
+          // Sharp spring release "CH-CLACK"
+          const snap = audioCtx.createOscillator();
+          const snapGain = audioCtx.createGain();
+          snap.type = 'square';
+          snap.frequency.setValueAtTime(1400, now);
+          snap.frequency.exponentialRampToValueAtTime(180, now + 0.05);
+          snapGain.gain.setValueAtTime(0.15, now);
+          snapGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+          snap.connect(snapGain);
+          snapGain.connect(audioCtx.destination);
+          snap.start(now);
+          snap.stop(now + 0.05);
+        } else if (action === 'wind') {
+          // High-speed winding motor spool whine
+          const whine = audioCtx.createOscillator();
+          const whineGain = audioCtx.createGain();
+          whine.type = 'sawtooth';
+          whine.frequency.setValueAtTime(450, now);
+          whine.frequency.exponentialRampToValueAtTime(900, now + 0.15);
+          whine.frequency.exponentialRampToValueAtTime(300, now + 0.35);
+          whineGain.gain.setValueAtTime(0.08, now);
+          whineGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+          whine.connect(whineGain);
+          whineGain.connect(audioCtx.destination);
+          whine.start(now);
+          whine.stop(now + 0.35);
+        } else if (action === 'eject') {
+          // Spring door release "KA-CHUNK"
+          const ej = audioCtx.createOscillator();
+          const ejGain = audioCtx.createGain();
+          ej.type = 'triangle';
+          ej.frequency.setValueAtTime(600, now);
+          ej.frequency.exponentialRampToValueAtTime(80, now + 0.18);
+          ejGain.gain.setValueAtTime(0.2, now);
+          ejGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+          ej.connect(ejGain);
+          ejGain.connect(audioCtx.destination);
+          ej.start(now);
+          ej.stop(now + 0.18);
+        } else {
+          // Standard tactile button click
+          const b = audioCtx.createOscillator();
+          const bGain = audioCtx.createGain();
+          b.type = 'sine';
+          b.frequency.setValueAtTime(800, now);
+          b.frequency.exponentialRampToValueAtTime(120, now + 0.03);
+          bGain.gain.setValueAtTime(0.08, now);
+          bGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+          b.connect(bGain);
+          bGain.connect(audioCtx.destination);
+          b.start(now);
+          b.stop(now + 0.03);
+        }
+      } catch (e) {}
+    }
+
+    function playClick() {
+      playTapeMechanic('click');
+    }
+
+    // Warm Lo-Fi tape synthesizer note with authentic "wow & flutter"
+    function playTapeNote(freq, dur = 0.35, vol = 0.1) {
+      if (!audioCtx || !tapeAudioEnabled) return;
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        // Wow & flutter LFO
+        const lfo = audioCtx.createOscillator();
+        const lfoGain = audioCtx.createGain();
+        lfo.frequency.value = 2.4; // 2.4 Hz tape flutter
+        lfoGain.gain.value = 4.5;   // +/- 4.5 Hz detune
+        lfo.connect(osc.frequency);
+        lfo.start(now);
+        lfo.stop(now + dur);
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, now);
+
+        // Analog cassette tape filter (warm lowpass + resonance)
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1200, now);
+        filter.frequency.exponentialRampToValueAtTime(700, now + dur);
+
+        gain.gain.setValueAtTime(vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(tapeMasterGain);
+
+        osc.start(now);
+        osc.stop(now + dur);
+      } catch (e) {}
+    }
+
+    function stepTapeLoop() {
+      if (!isPlaying || !tapeAudioEnabled) return;
+      const t = tracks[currentTrackIdx];
+      const note = t.notes[tapeStep % t.notes.length];
+      playTapeNote(note, 0.28, 0.09);
+
+      if (tapeStep % 2 === 0) {
+        const chordPair = t.chords[(tapeStep / 2) % t.chords.length];
+        if (chordPair) {
+          playTapeNote(chordPair[0], 0.45, 0.06);
+          playTapeNote(chordPair[1], 0.45, 0.06);
+        }
+      }
+      tapeStep = (tapeStep + 1) % 16;
+    }
+
+    function startTapePlayback() {
+      initTapeAudio();
+      if (tapeSeqInterval) clearInterval(tapeSeqInterval);
+      tapeSeqInterval = setInterval(stepTapeLoop, 240); // ~125 BPM 8th notes
+      if (tapeHissGain) tapeHissGain.gain.setTargetAtTime(0.02, audioCtx.currentTime, 0.1);
+    }
+
+    function stopTapePlayback() {
+      if (tapeSeqInterval) {
+        clearInterval(tapeSeqInterval);
+        tapeSeqInterval = null;
+      }
+      if (tapeHissGain && audioCtx) {
+        tapeHissGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.1);
+      }
+    }
 
     function startTimer() {
       if (timerInterval) clearInterval(timerInterval);
@@ -656,7 +881,7 @@
     }
 
     function handlePlay() {
-      playClick();
+      playTapeMechanic('play');
       isPlaying = true;
       spoolL.className = "spool spinning";
       spoolR.className = "spool spinning";
@@ -664,10 +889,11 @@
       btnPause.classList.remove('pressed');
       meterDots.querySelectorAll('.meter-bar').forEach(b => b.classList.add('active'));
       startTimer();
+      startTapePlayback();
     }
 
     function handlePause() {
-      playClick();
+      playTapeMechanic('pause');
       isPlaying = false;
       spoolL.className = "spool";
       spoolR.className = "spool";
@@ -675,36 +901,38 @@
       btnPause.classList.add('pressed');
       meterDots.querySelectorAll('.meter-bar').forEach(b => b.classList.remove('active'));
       stopTimer();
+      stopTapePlayback();
     }
 
     function handleRewind() {
-      playClick();
+      playTapeMechanic('wind');
       spoolL.className = "spool fast";
       spoolR.className = "spool fast";
       timerSeconds = Math.max(0, timerSeconds - 15);
       setTimeout(() => {
         if (isPlaying) handlePlay(); else handlePause();
-      }, 400);
+      }, 450);
     }
 
     function handleFfwd() {
-      playClick();
+      playTapeMechanic('wind');
       spoolL.className = "spool fast";
       spoolR.className = "spool fast";
       timerSeconds += 15;
       setTimeout(() => {
         if (isPlaying) handlePlay(); else handlePause();
-      }, 400);
+      }, 450);
     }
 
     function handleEject() {
-      playClick();
-      alert("CASSETTE EJECT: Aryan Rokade Portfolio Tape. B.E. Comp Eng (VCET 2027) â€¢ Techblitz Hackathon 2nd Place.");
+      playTapeMechanic('eject');
+      if (isPlaying) handlePause();
+      document.querySelector('.jcard-foldout').scrollIntoView({ behavior: 'smooth' });
     }
 
     function selectTrack(idx) {
-      playClick();
       currentTrackIdx = idx;
+      tapeStep = 0;
       document.querySelectorAll('.track-row').forEach((row, i) => {
         row.classList.toggle('active', i === idx);
       });
@@ -713,8 +941,29 @@
       handlePlay();
     }
 
-    // Start with play mode
-    startTimer();
+    function toggleTapeSound() {
+      tapeAudioEnabled = !tapeAudioEnabled;
+      const badge = document.getElementById('lcdSoundBadge');
+      if (badge) {
+        badge.innerText = tapeAudioEnabled ? '🔊 AUDIO ON' : '🔇 MUTED';
+        badge.style.color = tapeAudioEnabled ? 'var(--amber-lcd)' : '#888';
+      }
+      if (tapeAudioEnabled && isPlaying) {
+        startTapePlayback();
+      } else {
+        stopTapePlayback();
+      }
+    }
+
+    // Attach mechanical sound to contact and action buttons
+    document.querySelectorAll('.c-btn').forEach(b => {
+      b.addEventListener('click', () => playClick());
+    });
+
+    // Auto-init audio on first gesture
+    ['click', 'keydown', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, () => initTapeAudio(), { once: true });
+    });
   </script>
   <script src="switcher.js"></script>
 </body>

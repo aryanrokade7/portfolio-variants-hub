@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Sublime Text Monokai IDE (Variant 41)</title>
+  <meta name="description" content="Classic Sublime Text Monokai developer workstation portfolio of Aryan Rokade, Computer Engineering student & Software Developer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --st-bg: #272822;
+      --st-sidebar: #1e1f1c;
+      --st-tab-bg: #181915;
+      --st-tab-active: #272822;
+      --st-border: #3e3d32;
+      --st-text: #f8f8f2;
+      --st-dim: #75715e;
+      --st-pink: #f92672;
+      --st-green: #a6e22e;
+      --st-yellow: #e6db74;
+      --st-cyan: #66d9ef;
+      --st-orange: #fd971f;
+      --st-purple: #ae81ff;
+      --font: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #161713;
+      color: var(--st-text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px;
+      line-height: 1.6;
+    }
+
+    /* Sublime Window Frame */
+    .st-app {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin: 20px auto;
+      width: min(1200px, calc(100% - 30px));
+      background: var(--st-bg);
+      border: 1px solid var(--st-border);
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    /* Top Tabs Bar */
+    .st-tabbar {
+      display: flex;
+      background: var(--st-tab-bg);
+      border-bottom: 1px solid var(--st-border);
+      overflow-x: auto;
+    }
+
+    .st-tab {
+      padding: 10px 18px;
+      font-size: 0.8rem;
+      color: var(--st-dim);
+      background: var(--st-tab-bg);
+      border: none;
+      border-right: 1px solid var(--st-border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font);
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .st-tab:hover { color: #fff; }
+
+    .st-tab.active {
+      background: var(--st-tab-active);
+      color: #fff;
+      font-weight: 600;
+      border-top: 2px solid var(--st-pink);
+    }
+
+    /* Workspace Body */
+    .st-body {
+      flex: 1;
+      display: flex;
+      min-height: 540px;
+    }
+
+    /* Left Sidebar Tree */
+    .st-sidebar {
+      width: 240px;
+      background: var(--st-sidebar);
+      border-right: 1px solid var(--st-border);
+      padding: 16px 12px;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .tree-folder {
+      color: var(--st-yellow);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 12px 0 6px;
+    }
+
+    .tree-file {
+      padding: 5px 8px;
+      border-radius: 4px;
+      color: #b5b4a5;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .tree-file:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .tree-file.active {
+      background: rgba(249, 38, 114, 0.15);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Editor View */
+    .st-editor {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 48px 1fr 110px;
+      padding: 18px 0;
+      background: var(--st-bg);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .st-sidebar { display: none; }
+      .st-editor { grid-template-columns: 40px 1fr; }
+      .st-minimap { display: none; }
+    }
+
+    .line-numbers {
+      color: var(--st-dim);
+      text-align: right;
+      padding-right: 14px;
+      user-select: none;
+      line-height: 1.65;
+    }
+
+    .code-content {
+      padding-right: 20px;
+      overflow-x: auto;
+      line-height: 1.65;
+    }
+
+    /* Monokai Syntax Tokens */
+    .c-pink { color: var(--st-pink); font-weight: 600; }
+    .c-green { color: var(--st-green); }
+    .c-yellow { color: var(--st-yellow); }
+    .c-cyan { color: var(--st-cyan); }
+    .c-orange { color: var(--st-orange); }
+    .c-purple { color: var(--st-purple); }
+    .c-dim { color: var(--st-dim); font-style: italic; }
+
+    /* Right Minimap */
+    .st-minimap {
+      background: #22231e;
+      border-left: 1px solid var(--st-border);
+      padding: 10px 8px;
+      font-size: 3.5px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.3);
+      user-select: none;
+      overflow: hidden;
+      opacity: 0.6;
+    }
+
+    /* Bottom Status Bar */
+    .st-statusbar {
+      background: #181915;
+      padding: 6px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--st-border);
+      font-size: 0.75rem;
+      color: var(--st-dim);
+      user-select: none;
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-action {
+      background: var(--st-pink);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.72rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="st-app">
+    <!-- Top Tabs -->
+    <div class="st-tabbar">
+      <button class="st-tab active" onclick="loadTab('vyapar', this)">
+        <span>📄</span> VyaparFlow.tsx
+      </button>
+      <button class="st-tab" onclick="loadTab('sentinel', this)">
+        <span>🛡️</span> CyberSentinel.py
+      </button>
+      <button class="st-tab" onclick="loadTab('saturn', this)">
+        <span>💳</span> Saturn.jsx
+      </button>
+      <button class="st-tab" onclick="loadTab('tumor', this)">
+        <span>🧠</span> MRITumor.py
+      </button>
+      <button class="st-tab" onclick="loadTab('profile', this)">
+        <span>👤</span> AryanRokade.json
+      </button>
+    </div>
+
+    <!-- Main Body Layout -->
+    <div class="st-body">
+      <!-- Left Sidebar Tree -->
+      <aside class="st-sidebar">
+        <div style="font-weight:700; color:#fff; margin-bottom:12px;">FOLDERS</div>
+        
+        <div class="tree-folder">▼ PROJECTS</div>
+        <div class="tree-file active" onclick="selectFromTree('vyapar')">📄 VyaparFlow.tsx</div>
+        <div class="tree-file" onclick="selectFromTree('sentinel')">🛡️ CyberSentinel.py</div>
+        <div class="tree-file" onclick="selectFromTree('saturn')">💳 Saturn.jsx</div>
+        <div class="tree-file" onclick="selectFromTree('tumor')">🧠 MRITumor.py</div>
+
+        <div class="tree-folder">▼ CREDENTIALS</div>
+        <div class="tree-file" onclick="selectFromTree('profile')">🏆 Techblitz_2nd.md</div>
+        <div class="tree-file" onclick="selectFromTree('profile')">💼 Octanet_Intern.md</div>
+        <div class="tree-file" onclick="selectFromTree('profile')">🎓 VCET_Mumbai.edu</div>
+      </aside>
+
+      <!-- Editor Panel -->
+      <div class="st-editor">
+        <div class="line-numbers" id="stLineNumbers">
+          1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20
+        </div>
+        <div class="code-content" id="stCodeContent">
+          <!-- Default loaded content (VyaparFlow) -->
+          <span class="c-dim">// VyaparFlow — Export Readiness & MSME Compliance Platform</span><br>
+          <span class="c-pink">import</span> { <span class="c-orange">NextResponse</span> } <span class="c-pink">from</span> <span class="c-yellow">'next/server'</span>;<br>
+          <span class="c-pink">import</span> { <span class="c-cyan">prisma</span> } <span class="c-pink">from</span> <span class="c-yellow">'@/lib/prisma'</span>;<br><br>
+          <span class="c-pink">export async function</span> <span class="c-green">POST</span>(<span class="c-orange">req</span>: <span class="c-cyan">Request</span>) {<br>
+          &nbsp;&nbsp;<span class="c-dim">// Developed by Aryan Rokade for MSME export operations</span><br>
+          &nbsp;&nbsp;<span class="c-pink">const</span> { <span class="c-orange">iecCode</span>, <span class="c-orange">shipmentDoc</span> } = <span class="c-pink">await</span> <span class="c-orange">req</span>.<span class="c-cyan">json</span>();<br>
+          &nbsp;&nbsp;<span class="c-pink">const</span> <span class="c-orange">complianceScore</span> = <span class="c-cyan">calculateExportReadiness</span>(<span class="c-orange">shipmentDoc</span>);<br><br>
+          &nbsp;&nbsp;<span class="c-pink">const</span> <span class="c-orange">shipment</span> = <span class="c-pink">await</span> <span class="c-cyan">prisma</span>.<span class="c-orange">exportShipment</span>.<span class="c-green">create</span>({<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">data</span>: { <span class="c-orange">iecCode</span>, <span class="c-orange">complianceScore</span>, <span class="c-orange">status</span>: <span class="c-yellow">'VERIFIED'</span> }<br>
+          &nbsp;&nbsp;});<br><br>
+          &nbsp;&nbsp;<span class="c-pink">return</span> <span class="c-orange">NextResponse</span>.<span class="c-green">json</span>({ <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">success</span>: <span class="c-purple">true</span>, <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">liveDemo</span>: <span class="c-yellow">'https://vyaparflow-smoky.vercel.app/'</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">github</span>: <span class="c-yellow">'https://github.com/Sidd-commits/VyaparFlow'</span><br>
+          &nbsp;&nbsp;});<br>
+          }
+        </div>
+
+        <!-- Right Minimap -->
+        <div class="st-minimap">
+          // VyaparFlow MSME<br>
+          import { NextResponse } from 'next/server'<br>
+          import { prisma } from '@/lib/prisma'<br><br>
+          export async function POST(req) {<br>
+          &nbsp;&nbsp;const { iecCode } = await req.json()<br>
+          &nbsp;&nbsp;const score = calculate(iecCode)<br>
+          &nbsp;&nbsp;const res = await prisma.create()<br>
+          &nbsp;&nbsp;return NextResponse.json({<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;success: true<br>
+          &nbsp;&nbsp;})<br>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="st-statusbar">
+      <div class="status-left">
+        <span>Line 1, Column 1</span>
+        <span>UTF-8</span>
+        <span>Tab Size: 2</span>
+        <span id="stLang">TypeScript React</span>
+      </div>
+      <div class="status-right">
+        <span>Aryan Rokade · VCET 2027</span>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-action">Download Resume ↓</a>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-action" style="background:#555;">Email ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const files = {
+      vyapar: {
+        lang: "TypeScript React",
+        content: `<span class="c-dim">// VyaparFlow — Export Readiness & MSME Compliance Platform</span><br>
+<span class="c-pink">import</span> { <span class="c-orange">NextResponse</span> } <span class="c-pink">from</span> <span class="c-yellow">'next/server'</span>;<br>
+<span class="c-pink">import</span> { <span class="c-cyan">prisma</span> } <span class="c-pink">from</span> <span class="c-yellow">'@/lib/prisma'</span>;<br><br>
+<span class="c-pink">export async function</span> <span class="c-green">POST</span>(<span class="c-orange">req</span>: <span class="c-cyan">Request</span>) {<br>
+&nbsp;&nbsp;<span class="c-dim">// Developed by Aryan Rokade for MSME export workflows</span><br>
+&nbsp;&nbsp;<span class="c-pink">const</span> { <span class="c-orange">iecCode</span>, <span class="c-orange">shipmentDoc</span> } = <span class="c-pink">await</span> <span class="c-orange">req</span>.<span class="c-cyan">json</span>();<br>
+&nbsp;&nbsp;<span class="c-pink">const</span> <span class="c-orange">complianceScore</span> = <span class="c-cyan">calculateExportReadiness</span>(<span class="c-orange">shipmentDoc</span>);<br><br>
+&nbsp;&nbsp;<span class="c-pink">const</span> <span class="c-orange">shipment</span> = <span class="c-pink">await</span> <span class="c-cyan">prisma</span>.<span class="c-orange">exportShipment</span>.<span class="c-green">create</span>({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">data</span>: { <span class="c-orange">iecCode</span>, <span class="c-orange">complianceScore</span>, <span class="c-orange">status</span>: <span class="c-yellow">'VERIFIED'</span> }<br>
+&nbsp;&nbsp;});<br><br>
+&nbsp;&nbsp;<span class="c-pink">return</span> <span class="c-orange">NextResponse</span>.<span class="c-green">json</span>({ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">success</span>: <span class="c-purple">true</span>, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">liveDemo</span>: <span class="c-yellow">'https://vyaparflow-smoky.vercel.app/'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-orange">github</span>: <span class="c-yellow">'https://github.com/Sidd-commits/VyaparFlow'</span><br>
+&nbsp;&nbsp;});<br>
+}`
+      },
+      sentinel: {
+        lang: "Python 3.12",
+        content: `<span class="c-dim"># CyberSentinel Suite — Threat Detection & Anomaly Simulation</span><br>
+<span class="c-pink">from</span> flask <span class="c-pink">import</span> Flask, render_template<br>
+<span class="c-pink">from</span> flask_socketio <span class="c-pink">import</span> SocketIO, emit<br><br>
+app = Flask(__name__)<br>
+socketio = SocketIO(app, cors_allowed_origins=<span class="c-yellow">"*"</span>)<br><br>
+<span class="c-pink">def</span> <span class="c-green">analyze_packet_stream</span>(packet):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-dim"># Evaluates DoS, SQL Injection & Ransomware threat signatures</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;anomaly_flag = detect_heuristic(packet)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-pink">if</span> anomaly_flag:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socketio.emit(<span class="c-yellow">'threat_alarm'</span>, {<span class="c-yellow">'ip'</span>: packet.src, <span class="c-yellow">'level'</span>: <span class="c-yellow">'CRITICAL'</span>})<br><br>
+<span class="c-dim"># GitHub Repository: https://github.com/aryanrokade7</a> | <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank">LinkedIn/CyberSentinel-Suite</span>`
+      },
+      saturn: {
+        lang: "JavaScript (React)",
+        content: `<span class="c-dim">// Saturn — Full-Stack Expense & Budget Management Engine</span><br>
+<span class="c-pink">import</span> React, { useEffect } <span class="c-pink">from</span> <span class="c-yellow">'react'</span>;<br>
+<span class="c-pink">import</span> { useDispatch, useSelector } <span class="c-pink">from</span> <span class="c-yellow">'react-redux'</span>;<br><br>
+<span class="c-pink">export const</span> <span class="c-green">WealthLedger</span> = () => {<br>
+&nbsp;&nbsp;<span class="c-pink">const</span> dispatch = useDispatch();<br>
+&nbsp;&nbsp;<span class="c-pink">const</span> { expenses, monthlyBudget } = useSelector(state => state.finance);<br><br>
+&nbsp;&nbsp;<span class="c-dim">// MERN Stack telemetry with MongoDB & JWT authentication</span><br>
+&nbsp;&nbsp;<span class="c-pink">return</span> (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="c-pink">div</span> className=<span class="c-yellow">"saturn-dashboard"</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="c-pink">h2</span>&gt;Saturn Budget Visualizer&lt;/<span class="c-pink">h2</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="c-pink">div</span>&gt;<br>
+&nbsp;&nbsp;);<br>
+};<br><br>
+<span class="c-dim">// GitHub Repository: https://github.com/aryanrokade7</a> | <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank">LinkedIn/Saturnn</span>`
+      },
+      tumor: {
+        lang: "Python (TensorFlow)",
+        content: `<span class="c-dim"># MRI Brain Tumor Diagnostic System — Healthcare AI</span><br>
+<span class="c-pink">import</span> tensorflow <span class="c-pink">as</span> tf<br>
+<span class="c-pink">from</span> tensorflow.keras.applications.vgg16 <span class="c-pink">import</span> VGG16, preprocess_input<br><br>
+<span class="c-pink">def</span> <span class="c-green">classify_mri_scan</span>(scan_tensor):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-dim"># Transfer learning with VGG16 CNN architecture</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;model = tf.keras.models.load_model(<span class="c-yellow">'vgg16_tumor_weights.h5'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;preds = model.predict(scan_tensor)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-dim"># Classes: Glioma, Meningioma, Pituitary, No Tumor (98.4% Val Accuracy)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-pink">return</span> decode_predictions(preds)<br><br>
+<span class="c-dim"># GitHub Repository: https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System</span>`
+      },
+      profile: {
+        lang: "JSON Dossier",
+        content: `{<br>
+&nbsp;&nbsp;<span class="c-yellow">"developer"</span>: <span class="c-yellow">"Aryan Rokade"</span>,<br>
+&nbsp;&nbsp;<span class="c-yellow">"education"</span>: <span class="c-yellow">"B.E. Computer Engineering, VCET University of Mumbai (2027)"</span>,<br>
+&nbsp;&nbsp;<span class="c-yellow">"achievements"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-yellow">"2nd Position, Techblitz Hackathon (March 2025)"</span><br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;<span class="c-yellow">"internship"</span>: <span class="c-yellow">"Web Development Intern @ Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025)"</span>,<br>
+&nbsp;&nbsp;<span class="c-yellow">"contact"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-yellow">"email"</span>: <span class="c-yellow">"aryanrokade416@gmail.com"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-yellow">"phone"</span>: <span class="c-yellow">"+91 85912 24192"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-yellow">"github"</span>: <span class="c-yellow">"https://github.com/aryanrokade7</a> | <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank">LinkedIn"</span><br>
+&nbsp;&nbsp;}<br>
+}`
+      }
+    };
+
+    function loadTab(key, btn) {
+      document.querySelectorAll('.st-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tree-file').forEach(f => f.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const file = files[key];
+      document.getElementById('stCodeContent').innerHTML = file.content;
+      document.getElementById('stLang').innerText = file.lang;
+    }
+
+    function selectFromTree(key) {
+      const idxMap = { vyapar: 0, sentinel: 1, saturn: 2, tumor: 3, profile: 4 };
+      const btn = document.querySelectorAll('.st-tab')[idxMap[key]];
+      loadTab(key, btn);
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

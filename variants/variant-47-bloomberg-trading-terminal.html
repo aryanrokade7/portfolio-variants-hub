@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — TradingView Financial Terminal (Variant 47)</title>
+  <meta name="description" content="Financial analytics & Bloomberg terminal portfolio of Aryan Rokade, Computer Engineering student & Software Developer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --tv-bg: #131722;
+      --tv-panel: #1e222d;
+      --tv-border: #2a2e39;
+      --tv-green: #089981;
+      --tv-red: #f23645;
+      --tv-blue: #2962ff;
+      --tv-amber: #f5a623;
+      --tv-text: #d1d4dc;
+      --tv-dim: #787b86;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--tv-bg);
+      color: var(--tv-text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px;
+      line-height: 1.5;
+    }
+
+    /* Top Ticker Tape */
+    .ticker-tape {
+      background: #0d1017;
+      border-bottom: 1px solid var(--tv-border);
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .t-up { color: var(--tv-green); }
+    .t-down { color: var(--tv-red); }
+    .t-amber { color: var(--tv-amber); }
+
+    /* Top Terminal App Bar */
+    .terminal-nav {
+      background: var(--tv-panel);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--tv-border);
+    }
+
+    .term-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    .symbol-pill {
+      background: #2a2e39;
+      color: var(--tv-amber);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .term-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-tv-blue {
+      background: var(--tv-blue);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Layout */
+    .terminal-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 280px 1fr 300px;
+      height: calc(100vh - 90px);
+    }
+
+    @media (max-width: 1000px) {
+      .terminal-grid { grid-template-columns: 1fr; height: auto; }
+    }
+
+    /* Left Watchlist */
+    .watchlist-pane {
+      background: var(--tv-panel);
+      border-right: 1px solid var(--tv-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pane-header {
+      padding: 12px 16px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--tv-border);
+      color: var(--tv-dim);
+    }
+
+    .asset-row {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.12s;
+    }
+
+    .asset-row:hover { background: rgba(255, 255, 255, 0.04); }
+    .asset-row.active {
+      background: #2a2e39;
+      border-left: 3px solid var(--tv-blue);
+    }
+
+    .asset-symbol {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.88rem;
+    }
+    .asset-name {
+      font-size: 0.72rem;
+      color: var(--tv-dim);
+    }
+
+    .asset-val {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      text-align: right;
+    }
+
+    /* Center Telemetry Display */
+    .chart-pane {
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .instrument-banner {
+      background: var(--tv-panel);
+      border: 1px solid var(--tv-border);
+      border-radius: 6px;
+      padding: 20px;
+    }
+
+    .banner-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .banner-top h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .banner-quote {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--tv-green);
+    }
+
+    .banner-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #b2b5be;
+      margin-bottom: 16px;
+    }
+
+    .spec-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .spec-badges span {
+      background: #131722;
+      border: 1px solid var(--tv-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .banner-actions {
+      display: flex;
+      gap: 14px;
+      font-size: 0.85rem;
+    }
+    .banner-actions a {
+      color: var(--tv-blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .banner-actions a:hover { text-decoration: underline; }
+
+    /* Right Order Book / Profile */
+    .orderbook-pane {
+      background: var(--tv-panel);
+      border-left: 1px solid var(--tv-border);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 0.8rem;
+    }
+
+    .stat-card {
+      background: #131722;
+      border: 1px solid var(--tv-border);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .stat-card h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .stat-card p {
+      color: var(--tv-dim);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Ticker Tape -->
+  <div class="ticker-tape">
+    <div class="ticker-item"><span>VYAPARFLOW:</span> <strong class="t-up">+18.4% SHIPPED</strong></div>
+    <div class="ticker-item"><span>CYBERSENTINEL:</span> <strong class="t-up">0 THREATS (ACTIVE)</strong></div>
+    <div class="ticker-item"><span>SATURN:</span> <strong class="t-up">+24.8% BALANCED</strong></div>
+    <div class="ticker-item"><span>MRI_AI:</span> <strong class="t-up">VAL ACC 98.4%</strong></div>
+    <div class="ticker-item"><span>EDUCATION:</span> <strong class="t-amber">VCET MUMBAI 2027</strong></div>
+    <div class="ticker-item"><span>HACKATHON:</span> <strong class="t-amber">TECHBLITZ 2ND PLACE</strong></div>
+    <div class="ticker-item"><span>INTERNSHIP:</span> <strong class="t-up">OCTANET SERVICES COMPLETED</strong></div>
+  </div>
+
+  <!-- Terminal Top Nav -->
+  <header class="terminal-nav">
+    <div class="term-brand">
+      <span class="symbol-pill">ARYAN.ROKADE</span>
+      <span>Terminal Telemetry Pro v2.7</span>
+    </div>
+    <div class="term-actions">
+      <a href="../Aryan_Rokade_Resume.pdf" download class="btn-tv-blue">📄 Export Portfolio PDF ↓</a>
+      <a href="mailto:aryanrokade416@gmail.com" class="btn-tv-blue" style="background:#2a2e39;">Contact Trader ↗</a>
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <div class="terminal-grid">
+    
+    <!-- Left Watchlist -->
+    <aside class="watchlist-pane">
+      <div class="pane-header">Featured Instruments (4)</div>
+      
+      <div class="asset-row active" onclick="loadAsset(0, this)">
+        <div>
+          <div class="asset-symbol">VYAPAR</div>
+          <div class="asset-name">Export Logistics SaaS</div>
+        </div>
+        <div class="asset-val t-up">▲ 100%<br><span style="color:var(--tv-dim);">Next.js</span></div>
+      </div>
+
+      <div class="asset-row" onclick="loadAsset(1, this)">
+        <div>
+          <div class="asset-symbol">SENTINEL</div>
+          <div class="asset-name">SOC Threat Console</div>
+        </div>
+        <div class="asset-val t-up">▲ LIVE<br><span style="color:var(--tv-dim);">Python</span></div>
+      </div>
+
+      <div class="asset-row" onclick="loadAsset(2, this)">
+        <div>
+          <div class="asset-symbol">SATURN</div>
+          <div class="asset-name">Personal Wealth MERN</div>
+        </div>
+        <div class="asset-val t-up">▲ 24.8%<br><span style="color:var(--tv-dim);">React</span></div>
+      </div>
+
+      <div class="asset-row" onclick="loadAsset(3, this)">
+        <div>
+          <div class="asset-symbol">MRI_TUMOR</div>
+          <div class="asset-name">CNN VGG16 Diagnostic</div>
+        </div>
+        <div class="asset-val t-up">▲ 98.4%<br><span style="color:var(--tv-dim);">TensorFlow</span></div>
+      </div>
+    </aside>
+
+    <!-- Center Display -->
+    <main class="chart-pane">
+      <div class="instrument-banner">
+        <div class="banner-top">
+          <div>
+            <div style="font-size:0.75rem; color:var(--tv-amber); font-weight:700;" id="assetCode">NASDAQ: VYAPARFLOW // PROD</div>
+            <h1 id="assetTitle">VyaparFlow</h1>
+          </div>
+          <div class="banner-quote" id="assetQuote">100.00 / READY</div>
+        </div>
+
+        <p class="banner-desc" id="assetDesc">
+          Developed a full-stack export-readiness platform using Next.js, React, TypeScript, and Tailwind CSS for Indian MSME workflows. Implemented compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.
+        </p>
+
+        <div class="spec-badges" id="assetBadges">
+          <span>Stack: Next.js 14</span>
+          <span>Prisma ORM</span>
+          <span>PostgreSQL</span>
+          <span>Tailwind CSS</span>
+        </div>
+
+        <div class="banner-actions">
+          <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" id="assetLive">Launch Live Instance ↗</a>
+          <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" id="assetRepo">GitHub Repository ↗</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Profile / Order Book -->
+    <aside class="orderbook-pane">
+      <div class="pane-header">Developer Profile &amp; Stats</div>
+      
+      <div class="stat-card">
+        <h3>🎓 University Education</h3>
+        <p>B.E. Computer Engineering, Vidyavardhini’s College of Engineering &amp; Technology (VCET), Mumbai · Expected 2027.</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>🏆 Hackathon Recognition</h3>
+        <p>2nd Position, Techblitz Hackathon (VCET AI&amp;DS Department &amp; NSDC, March 2025).</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>💼 Industry Internship</h3>
+        <p>Web Development Intern @ Octanet Services Pvt. Ltd. (Dec 2024 – Jan 2025).</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>📬 Direct Telemetry</h3>
+        <p>
+          • Email: <a href="mailto:aryanrokade416@gmail.com" style="color:var(--tv-blue);">aryanrokade416@gmail.com</a><br>
+          • Phone: <a href="tel:8591224192" style="color:var(--tv-green); text-decoration:none;">+91 85912 24192</a><br>
+          • GitHub: <a href="https://github.com/aryanrokade7" target="_blank" style="color:var(--tv-blue);">github.com/aryanrokade7</a> | <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:var(--bb-amber);">LinkedIn</a>
+        </p>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    const assets = [
+      {
+        code: "NASDAQ: VYAPARFLOW // PROD",
+        title: "VyaparFlow",
+        quote: "100.00 / READY",
+        desc: "Developed a full-stack export-readiness platform using Next.js, React, TypeScript, and Tailwind CSS for Indian MSME workflows. Implemented compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.",
+        badges: "<span>Next.js 14</span><span>React</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>",
+        live: "https://vyaparflow-smoky.vercel.app/",
+        repo: "https://github.com/Sidd-commits/VyaparFlow"
+      },
+      {
+        code: "SOC: CYBERSENTINEL // ACTIVE",
+        title: "CyberSentinel Suite",
+        quote: "0 THREATS / SECURE",
+        desc: "Completed an interactive cybersecurity suite covering DoS/DDoS, SQL injection, ransomware detection, and phishing URL analysis. Built monitoring dashboards with HTML, CSS, JavaScript, React/Socket.IO and Flask, plus phishing URL scoring and a Chrome extension.",
+        badges: "<span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span><span>Chrome Ext</span><span>Snort</span>",
+        live: "https://github.com/aryanrokade7/CyberSentinel-Suite",
+        repo: "https://github.com/aryanrokade7/CyberSentinel-Suite"
+      },
+      {
+        code: "FINTECH: SATURN // BALANCED",
+        title: "Saturn",
+        quote: "+24.8% / SURPLUS",
+        desc: "Built a full-stack expense and budget management application with dashboards, interactive charts, categorized expenses, and financial statistics. Frontend built with React, Redux Toolkit, and Tailwind CSS; backend powered by Node.js, Express, MongoDB, and JWT authentication.",
+        badges: "<span>React</span><span>Redux Toolkit</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span>",
+        live: "https://github.com/aryanrokade7/Saturnn",
+        repo: "https://github.com/aryanrokade7/Saturnn"
+      },
+      {
+        code: "HEALTH_AI: VGG16 // DIAGNOSTIC",
+        title: "MRI Brain Tumor Detection System",
+        quote: "98.4% / ACCURACY",
+        desc: "Built a Flask web application that classifies MRI scans into Glioma, Meningioma, Pituitary and No Tumor using VGG16 transfer learning. Implemented an HTML/CSS/Bootstrap/JavaScript interface with confidence scores, trained and evaluated with TensorFlow/Keras.",
+        badges: "<span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span><span>Deep Learning</span>",
+        live: "https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System",
+        repo: "https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System"
+      }
+    ];
+
+    function loadAsset(idx, el) {
+      document.querySelectorAll('.asset-row').forEach(r => r.classList.remove('active'));
+      el.classList.add('active');
+      const a = assets[idx];
+      document.getElementById('assetCode').innerText = a.code;
+      document.getElementById('assetTitle').innerText = a.title;
+      document.getElementById('assetQuote').innerText = a.quote;
+      document.getElementById('assetDesc').innerText = a.desc;
+      document.getElementById('assetBadges').innerHTML = a.badges;
+      document.getElementById('assetLive').href = a.live;
+      document.getElementById('assetRepo').href = a.repo;
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

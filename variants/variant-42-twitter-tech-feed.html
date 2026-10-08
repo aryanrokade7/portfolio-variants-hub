@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — X / Twitter Tech Timeline Feed (Variant 42)</title>
+  <meta name="description" content="Twitter / X tech developer timeline portfolio of Aryan Rokade, Computer Engineering student & Software Developer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --x-bg: #000000;
+      --x-card: #000000;
+      --x-border: #2f3336;
+      --x-blue: #1d9bf0;
+      --x-text: #e7e9ea;
+      --x-dim: #71767b;
+      --x-hover: rgba(231, 233, 234, 0.08);
+      --font: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--x-bg);
+      color: var(--x-text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      line-height: 1.5;
+      padding-bottom: 70px;
+    }
+
+    .x-container {
+      width: 100%;
+      max-width: 680px;
+      border-left: 1px solid var(--x-border);
+      border-right: 1px solid var(--x-border);
+      min-height: 100vh;
+    }
+
+    /* Top Sticky Header */
+    .x-header {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--x-border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+    }
+
+    .x-header-title h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .x-header-title p {
+      font-size: 0.78rem;
+      color: var(--x-dim);
+    }
+
+    /* Profile Banner */
+    .x-banner {
+      height: 150px;
+      background: linear-gradient(135deg, #1d9bf0, #0a3871, #121212);
+    }
+
+    .x-profile-details {
+      padding: 16px 20px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--x-border);
+    }
+
+    .avatar-wrapper {
+      position: absolute;
+      top: -50px;
+      left: 20px;
+    }
+
+    .x-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 4px solid #000;
+      object-fit: cover;
+    }
+
+    .x-profile-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn-x-outline {
+      border: 1px solid #536471;
+      color: #fff;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-x-outline:hover { background: var(--x-hover); }
+
+    .btn-x-follow {
+      background: #fff;
+      color: #000;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-x-follow:hover { opacity: 0.9; }
+
+    .x-name-row {
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+    .x-name-row h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .verified-badge {
+      color: var(--x-blue);
+      font-size: 1.1rem;
+    }
+    .x-handle {
+      color: var(--x-dim);
+      font-size: 0.9rem;
+    }
+
+    .x-bio {
+      font-size: 0.92rem;
+      color: var(--x-text);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .x-meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--x-dim);
+      margin-bottom: 14px;
+    }
+
+    .x-stats-row {
+      display: flex;
+      gap: 20px;
+      font-size: 0.85rem;
+    }
+    .x-stats-row strong { color: #fff; }
+    .x-stats-row span { color: var(--x-dim); }
+
+    /* Feed Tweets */
+    .x-tweet {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--x-border);
+      display: flex;
+      gap: 14px;
+      transition: background 0.12s;
+    }
+
+    .x-tweet:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tweet-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .tweet-content {
+      flex: 1;
+    }
+
+    .tweet-author {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+    .tweet-author strong { color: #fff; font-weight: 700; }
+    .tweet-author span { color: var(--x-dim); }
+
+    .tweet-text {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--x-text);
+      margin-bottom: 12px;
+    }
+
+    .tweet-card-box {
+      background: #111418;
+      border: 1px solid var(--x-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .tweet-card-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .tweet-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .tweet-tags span {
+      color: var(--x-blue);
+      font-size: 0.75rem;
+    }
+
+    .tweet-actions {
+      display: flex;
+      justify-content: space-between;
+      max-width: 420px;
+      font-size: 0.82rem;
+      color: var(--x-dim);
+      user-select: none;
+    }
+
+    .action-btn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .action-btn:hover { color: var(--x-blue); }
+  </style>
+</head>
+<body>
+
+  <div class="x-container">
+    <!-- Top Header -->
+    <header class="x-header">
+      <div class="x-header-title">
+        <h2>Aryan Rokade <span class="verified-badge">✓</span></h2>
+        <p>4 Pinned Releases · 2nd Position Techblitz '25</p>
+      </div>
+    </header>
+
+    <!-- Banner & Bio -->
+    <div class="x-banner"></div>
+
+    <section class="x-profile-details">
+      <div class="avatar-wrapper">
+        <img src="../aryan-rokade.jpg" alt="Aryan Rokade" class="x-avatar">
+      </div>
+
+      <div class="x-profile-actions">
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-x-outline">📄 Resume PDF ↓</a>
+        <a href="mailto:aryanrokade416@gmail.com" class="btn-x-follow">Get in touch</a>
+      </div>
+
+      <div class="x-name-row">
+        <h1>Aryan Rokade <span class="verified-badge">✓</span></h1>
+        <div class="x-handle">@aryanrokade7</div>
+      </div>
+
+      <p class="x-bio">
+        Software developer &amp; Computer Engineering scholar at VCET Mumbai ('27). Exploring intelligent systems, full-stack architectures, and thoughtful UX. Winner: 2nd Place Techblitz Hackathon.
+      </p>
+
+      <div class="x-meta-strip">
+        <span>📍 Mumbai, India</span>
+        <span>🎓 VCET Mumbai University '27</span>
+        <span>💼 Ex-Intern @ Octanet Services</span>
+        <span>📞 <a href="tel:8591224192" style="color:var(--x-blue); text-decoration:none;">+91 85912 24192</a></span>
+      </div>
+
+      <div class="x-stats-row">
+        <div><strong>4</strong> <span>Shipped Projects</span></div>
+        <div><strong>2027</strong> <span>Graduation</span></div>
+        <div><strong>100%</strong> <span>Commitment</span></div>
+      </div>
+    </section>
+
+    <!-- Tweets Feed -->
+    <main class="x-feed">
+      
+      <!-- Tweet 1: VyaparFlow -->
+      <article class="x-tweet">
+        <img src="../aryan-rokade.jpg" alt="Aryan" class="tweet-avatar">
+        <div class="tweet-content">
+          <div class="tweet-author">
+            <strong>Aryan Rokade</strong>
+            <span class="verified-badge">✓</span>
+            <span>@aryanrokade7 · Pinned</span>
+          </div>
+          <p class="tweet-text">
+            🚀 Excited to launch <b>VyaparFlow</b>: An end-to-end export readiness &amp; trade compliance platform built specifically for Indian MSMEs.<br><br>
+            Automates compliance scoring, document management, and shipment tracking with Next.js, React, TypeScript, and Prisma/PostgreSQL!
+          </p>
+          <div class="tweet-card-box">
+            <div class="tweet-card-title">VyaparFlow — MSME Export Platform</div>
+            <p style="font-size:0.82rem; color:var(--x-dim);">
+              Next.js 14 · React · TypeScript · Tailwind CSS · Prisma · PostgreSQL
+            </p>
+            <div style="margin-top:10px; display:flex; gap:14px; font-size:0.8rem;">
+              <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" style="color:var(--x-blue); text-decoration:none; font-weight:700;">Live Demo ↗</a>
+              <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" style="color:var(--x-blue); text-decoration:none;">GitHub Repo ↗</a>
+            </div>
+          </div>
+          <div class="tweet-actions">
+            <span class="action-btn">💬 28</span>
+            <span class="action-btn">🔁 45</span>
+            <span class="action-btn">♥ 192</span>
+            <span class="action-btn">📊 4.2K</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tweet 2: CyberSentinel -->
+      <article class="x-tweet">
+        <img src="../aryan-rokade.jpg" alt="Aryan" class="tweet-avatar">
+        <div class="tweet-content">
+          <div class="tweet-author">
+            <strong>Aryan Rokade</strong>
+            <span class="verified-badge">✓</span>
+            <span>@aryanrokade7 · Thread 2/4</span>
+          </div>
+          <p class="tweet-text">
+            🛡️ Shipped <b>CyberSentinel Suite</b>: Real-time network threat monitoring and simulation platform.<br><br>
+            Detects DoS/DDoS anomalies, SQL injection, and ransomware attacks via Snort heuristics with live Socket.IO feeds, Python Flask dashboards, and a Chrome extension.
+          </p>
+          <div class="tweet-card-box">
+            <div class="tweet-card-title">CyberSentinel Suite — SOC Threat Monitor</div>
+            <p style="font-size:0.82rem; color:var(--x-dim);">
+              React · Socket.IO · Flask · Python · Chrome Extension · Snort
+            </p>
+            <div style="margin-top:10px;">
+              <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" style="color:var(--x-blue); text-decoration:none; font-weight:700;">GitHub Repository ↗</a>
+            </div>
+          </div>
+          <div class="tweet-actions">
+            <span class="action-btn">💬 14</span>
+            <span class="action-btn">🔁 31</span>
+            <span class="action-btn">♥ 140</span>
+            <span class="action-btn">📊 2.9K</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tweet 3: Saturn -->
+      <article class="x-tweet">
+        <img src="../aryan-rokade.jpg" alt="Aryan" class="tweet-avatar">
+        <div class="tweet-content">
+          <div class="tweet-author">
+            <strong>Aryan Rokade</strong>
+            <span class="verified-badge">✓</span>
+            <span>@aryanrokade7 · Thread 3/4</span>
+          </div>
+          <p class="tweet-text">
+            💳 Personal finance made approachable: <b>Saturn</b> is a full-stack wealth and budget management application with interactive charts and categorized expenses.<br><br>
+            Powered by React, Redux Toolkit, Node.js, Express, and MongoDB with JWT authentication.
+          </p>
+          <div class="tweet-card-box">
+            <div class="tweet-card-title">Saturn — Full-Stack Expense &amp; Budget Engine</div>
+            <p style="font-size:0.82rem; color:var(--x-dim);">
+              React · Redux Toolkit · Node.js · Express · MongoDB · Tailwind CSS
+            </p>
+            <div style="margin-top:10px;">
+              <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" style="color:var(--x-blue); text-decoration:none; font-weight:700;">GitHub Repository ↗</a>
+            </div>
+          </div>
+          <div class="tweet-actions">
+            <span class="action-btn">💬 9</span>
+            <span class="action-btn">🔁 19</span>
+            <span class="action-btn">♥ 98</span>
+            <span class="action-btn">📊 1.8K</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tweet 4: MRI Brain Tumor AI -->
+      <article class="x-tweet">
+        <img src="../aryan-rokade.jpg" alt="Aryan" class="tweet-avatar">
+        <div class="tweet-content">
+          <div class="tweet-author">
+            <strong>Aryan Rokade</strong>
+            <span class="verified-badge">✓</span>
+            <span>@aryanrokade7 · Thread 4/4</span>
+          </div>
+          <p class="tweet-text">
+            🧠 Deep Learning in Healthcare: <b>MRI Brain Tumor Detection System</b>.<br><br>
+            Trained with VGG16 transfer learning on TensorFlow/Keras to classify Glioma, Meningioma, Pituitary, and healthy scans with 98.4% validation accuracy.
+          </p>
+          <div class="tweet-card-box">
+            <div class="tweet-card-title">MRI Brain Tumor Diagnostic System</div>
+            <p style="font-size:0.82rem; color:var(--x-dim);">
+              TensorFlow · Keras · VGG16 · Flask · Python · Deep Learning
+            </p>
+            <div style="margin-top:10px;">
+              <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" style="color:var(--x-blue); text-decoration:none; font-weight:700;">GitHub Repository ↗</a>
+            </div>
+          </div>
+          <div class="tweet-actions">
+            <span class="action-btn">💬 33</span>
+            <span class="action-btn">🔁 62</span>
+            <span class="action-btn">♥ 230</span>
+            <span class="action-btn">📊 5.6K</span>
+          </div>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

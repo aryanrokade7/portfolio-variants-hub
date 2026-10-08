@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aryan Rokade - Executive Monochrome Dark Software Engineering Portfolio" />
+  <title>Aryan Rokade — Obsidian Executive Monochrome (Variant 52)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #111114;
+      --card-hover: #18181c;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-subtle: #71717a;
+      --accent: #ffffff;
+      --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px;
+    }
+
+    .wrap {
+      width: min(1040px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* EXECUTIVE HEADER */
+    header.exec-header {
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .exec-header-inner {
+      height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .exec-brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: #a1a1aa;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
+
+    nav.exec-nav {
+      display: flex;
+      gap: 22px;
+    }
+    nav.exec-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    nav.exec-nav a:hover { color: #fff; }
+
+    .btn-exec-cta {
+      background: #fff;
+      color: #000;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-exec-cta:hover { background: #e4e4e7; }
+
+    /* HERO */
+    .hero {
+      padding: 90px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-kicker {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: var(--font-mono);
+      margin-bottom: 20px;
+    }
+    .hero-headline {
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      max-width: 840px;
+      margin-bottom: 24px;
+    }
+    .hero-lead {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin-bottom: 36px;
+      font-weight: 400;
+    }
+
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      .metrics-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+    .metric-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+    }
+
+    /* SECTION BASICS */
+    .section-wrap {
+      padding: 70px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+    }
+    .section-heading {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      font-size: 0.84rem;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+    }
+
+    /* PROJECTS LIST */
+    .exec-projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .exec-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.2s, background 0.2s;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .exec-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+    }
+    .exec-card:hover {
+      border-color: var(--border-hover);
+      background: var(--card-hover);
+    }
+
+    .exec-card-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .exec-card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .exec-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .badge {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #d4d4d8;
+    }
+
+    .exec-card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    @media (max-width: 768px) {
+      .exec-card-actions { align-items: flex-start; flex-direction: row; }
+    }
+    .exec-btn {
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      text-align: center;
+      width: 100%;
+    }
+    .exec-btn.primary {
+      background: #fff;
+      color: #000;
+    }
+    .exec-btn.primary:hover { background: #e4e4e7; }
+    .exec-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #fff;
+    }
+    .exec-btn.secondary:hover { border-color: #fff; }
+
+    /* TIMELINE & CREDENTIALS */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 768px) {
+      .timeline-grid { grid-template-columns: 1fr; }
+    }
+    .timeline-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .panel-header {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #fff;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .timeline-item {
+      margin-bottom: 24px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .item-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-subtle);
+      margin-bottom: 4px;
+    }
+    .item-role {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: #fff;
+    }
+    .item-org {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .item-summary {
+      font-size: 0.88rem;
+      color: var(--text-subtle);
+      line-height: 1.5;
+    }
+
+    /* SKILL MATRIX */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .matrix-grid { grid-template-columns: 1fr; }
+    }
+    .matrix-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .matrix-box h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+    .matrix-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    .exec-footer {
+      padding-top: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .exec-contact-info {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+    .exec-contact-info a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-right: 16px;
+    }
+    .exec-contact-info a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- EXECUTIVE HEADER -->
+  <header class="exec-header">
+    <div class="wrap exec-header-inner">
+      <a href="#top" class="exec-brand">
+        Aryan Rokade
+        <span class="status-badge"><span class="status-dot"></span> Available for Hire</span>
+      </a>
+      <nav class="exec-nav">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Track Record</a>
+        <a href="#skills">Competencies</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div>
+        <a href="../Aryan_Rokade_Resume.pdf" download="Aryan_Rokade_Resume.pdf" class="btn-exec-cta">Resume (PDF) ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-kicker">Software Engineering &bull; Full-Stack &bull; AI Diagnostics</div>
+      <h1 class="hero-headline">Building clear digital experiences with purpose.</h1>
+      <p class="hero-lead">
+        I’m Aryan Rokade, a Computer Engineering student at Vidyavardhini's College of Engineering and Technology (VCET), Mumbai. 
+        Focused on building production-grade web systems, practical artificial intelligence, and clean, resilient architectures.
+      </p>
+
+      <div class="metrics-bar">
+        <div>
+          <div class="metric-num">04</div>
+          <div class="metric-label">SIGNATURE PRODUCTIONS</div>
+        </div>
+        <div>
+          <div class="metric-num">#02</div>
+          <div class="metric-label">TECHBLITZ HACKATHON WINNER</div>
+        </div>
+        <div>
+          <div class="metric-num">98.4%</div>
+          <div class="metric-label">NEURAL DIAGNOSTIC ACCURACY</div>
+        </div>
+        <div>
+          <div class="metric-num">2027</div>
+          <div class="metric-label">B.E. DEGREE EXPECTED</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGNATURE PROJECTS -->
+    <section id="projects" class="section-wrap">
+      <div class="section-meta">
+        <h2 class="section-heading">Featured Software Projects</h2>
+        <span class="section-sub">01 &mdash; 04 &bull; Full Source &amp; Deployments</span>
+      </div>
+
+      <div class="exec-projects-list">
+        
+        <!-- 1. VyaparFlow -->
+        <div class="exec-card">
+          <div>
+            <h3 class="exec-card-title">VyaparFlow &mdash; Export Logistics MSME Platform</h3>
+            <p class="exec-card-desc">
+              Full-stack trade-readiness application designed for Indian MSMEs. Features compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and atomic PostgreSQL database transactions with Prisma ORM.
+            </p>
+            <div class="exec-card-tags">
+              <span class="badge">Next.js</span>
+              <span class="badge">React</span>
+              <span class="badge">TypeScript</span>
+              <span class="badge">Tailwind CSS</span>
+              <span class="badge">Prisma</span>
+              <span class="badge">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="exec-card-actions">
+            <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noreferrer" class="exec-btn primary">Live Demo ↗</a>
+            <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noreferrer" class="exec-btn secondary">GitHub ↗</a>
+          </div>
+        </div>
+
+        <!-- 2. CyberSentinel Suite -->
+        <div class="exec-card">
+          <div>
+            <h3 class="exec-card-title">CyberSentinel Suite &mdash; Threat Detection &amp; Simulation</h3>
+            <p class="exec-card-desc">
+              Real-time cybersecurity suite simulating and monitoring DoS/DDoS, SQL injection, and ransomware attacks. Built with live Socket.IO packet telemetry, phishing URL confidence scoring, and an integrated Chrome extension.
+            </p>
+            <div class="exec-card-tags">
+              <span class="badge">React</span>
+              <span class="badge">Socket.IO</span>
+              <span class="badge">Flask</span>
+              <span class="badge">Python</span>
+              <span class="badge">Chrome Extension</span>
+              <span class="badge">Cybersecurity</span>
+            </div>
+          </div>
+          <div class="exec-card-actions">
+            <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noreferrer" class="exec-btn secondary">GitHub Repository ↗</a>
+          </div>
+        </div>
+
+        <!-- 3. Saturn Finance -->
+        <div class="exec-card">
+          <div>
+            <h3 class="exec-card-title">Saturn &mdash; Expense &amp; Budget Management System</h3>
+            <p class="exec-card-desc">
+              Personal wealth telemetry ledger featuring categorized expense logging, custom savings targets, recurring payment projections, interactive data charts, and JWT encrypted authentication.
+            </p>
+            <div class="exec-card-tags">
+              <span class="badge">React</span>
+              <span class="badge">Redux Toolkit</span>
+              <span class="badge">Node.js</span>
+              <span class="badge">Express</span>
+              <span class="badge">MongoDB</span>
+              <span class="badge">Tailwind CSS</span>
+              <span class="badge">JWT</span>
+            </div>
+          </div>
+          <div class="exec-card-actions">
+            <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noreferrer" class="exec-btn secondary">GitHub Repository ↗</a>
+          </div>
+        </div>
+
+        <!-- 4. MRI Tumor Classifier -->
+        <div class="exec-card">
+          <div>
+            <h3 class="exec-card-title">MRI Brain Tumor Classifier &mdash; Healthcare AI</h3>
+            <p class="exec-card-desc">
+              Convolutional Neural Network web diagnostic application classifying MRI scans into Glioma, Meningioma, Pituitary, and No Tumor using transfer-learned VGG16 architecture. Evaluated at 98.4% validation accuracy.
+            </p>
+            <div class="exec-card-tags">
+              <span class="badge">TensorFlow</span>
+              <span class="badge">Keras VGG16</span>
+              <span class="badge">Flask</span>
+              <span class="badge">Python</span>
+              <span class="badge">OpenCV</span>
+            </div>
+          </div>
+          <div class="exec-card-actions">
+            <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noreferrer" class="exec-btn secondary">GitHub Repository ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TRACK RECORD & EDUCATION -->
+    <section id="experience" class="section-wrap">
+      <div class="section-meta">
+        <h2 class="section-heading">Track Record &amp; Education</h2>
+        <span class="section-sub">Verified Experience</span>
+      </div>
+
+      <div class="timeline-grid">
+        <!-- Professional & Honors -->
+        <div class="timeline-panel">
+          <div class="panel-header">Industry &amp; Honors</div>
+
+          <div class="timeline-item">
+            <div class="item-year">DEC 2024 &ndash; JAN 2025</div>
+            <div class="item-role">Web Development Intern</div>
+            <div class="item-org">Octanet Services Pvt. Ltd.</div>
+            <p class="item-summary">
+              Engineered responsive client web modules, integrated RESTful APIs, and reduced front-end bundle load times.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="item-year">MARCH 2025</div>
+            <div class="item-role">2nd Position &bull; Techblitz Hackathon</div>
+            <div class="item-org">VCET AI&amp;DS Department in association with NSDC</div>
+            <p class="item-summary">
+              Engineered an emergency healthcare dispatcher proof-of-concept under strict 24-hour hackathon conditions.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="item-year">CREDENTIALS</div>
+            <div class="item-role">Sigma 5.0 (MERN &amp; DSA)</div>
+            <div class="item-org">Infosys Springboard</div>
+            <p class="item-summary">
+              Extensive deep-dive into full-stack application development, data structures, and algorithms.
+            </p>
+          </div>
+        </div>
+
+        <!-- Academic Foundation -->
+        <div class="timeline-panel">
+          <div class="panel-header">Academic Foundation</div>
+
+          <div class="timeline-item">
+            <div class="item-year">2023 &ndash; 2027 (EXPECTED)</div>
+            <div class="item-role">B.E. Computer Engineering</div>
+            <div class="item-org">Vidyavardhini's College of Engineering and Technology (VCET), Vasai</div>
+            <p class="item-summary">
+              Affiliated with University of Mumbai. Rigorous study in Algorithms, Operating Systems, Database Management Systems, and Artificial Intelligence.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="item-year">CORE PROFESSIONAL STRENGTHS</div>
+            <div class="item-role">Engineering Competencies</div>
+            <div class="item-org">Professional Delivery</div>
+            <p class="item-summary">
+              Analytical Problem-Solving &bull; Clear Technical Communication &bull; Cross-Functional Teamwork &bull; Adaptability &bull; Time Management &bull; Critical Thinking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL COMPETENCIES -->
+    <section id="skills" class="section-wrap">
+      <div class="section-meta">
+        <h2 class="section-heading">Technical Competencies</h2>
+        <span class="section-sub">Verified Toolkit</span>
+      </div>
+
+      <div class="matrix-grid">
+        <div class="matrix-box">
+          <h4>// LANGUAGES</h4>
+          <p>Java &bull; C &bull; C++ &bull; Python &bull; JavaScript &bull; TypeScript &bull; SQL</p>
+        </div>
+        <div class="matrix-box">
+          <h4>// WEB &amp; DATABASES</h4>
+          <p>Next.js &bull; React &bull; Tailwind CSS &bull; Node.js &bull; Express &bull; MERN Stack &bull; PostgreSQL &bull; Prisma &bull; MongoDB</p>
+        </div>
+        <div class="matrix-box">
+          <h4>// AI &amp; INFRASTRUCTURE</h4>
+          <p>TensorFlow &bull; Keras &bull; VGG16 &bull; Flask &bull; Docker &bull; Git &bull; GitHub &bull; REST APIs &bull; Socket.IO &bull; Figma</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contact" class="exec-footer">
+      <div class="exec-contact-info">
+        <a href="mailto:aryanrokade416@gmail.com">aryanrokade416@gmail.com ↗</a>
+        <a href="tel:8591224192">+91 85912 24192 ↗</a>
+        <a href="https://github.com/aryanrokade7" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--text-subtle); font-family: var(--font-mono);">
+        &copy; 2026 Aryan Rokade &bull; Mumbai, India
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

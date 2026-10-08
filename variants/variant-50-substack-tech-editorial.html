@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Engineering Dispatch by Aryan Rokade — Full-Stack & Systems Engineering Editorial, Project Deep-Dives, and Research." />
+  <title>Aryan Rokade — Substack Tech Engineering Journal (Variant 50)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="switcher.css" />
+  <style>
+    :root {
+      --bg-page: #faf8f5;
+      --bg-card: #ffffff;
+      --bg-accent: #f2eee8;
+      --text-main: #1f1d1a;
+      --text-muted: #5e5954;
+      --text-light: #878078;
+      --border-subtle: #e6e0d6;
+      --border-strong: #1f1d1a;
+      --brand-orange: #ff5a00;
+      --brand-orange-hover: #e04f00;
+      --brand-orange-soft: #fff3ec;
+      --accent-green: #0f766e;
+      --accent-green-soft: #f0fdfa;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.68;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px;
+    }
+
+    /* READING PROGRESS BAR */
+    #progress-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--brand-orange);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease-out;
+    }
+
+    /* TOP PUBLICATION MASTHEAD NAV */
+    header.pub-header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    .pub-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+
+    .pub-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .pub-icon-badge {
+      width: 34px;
+      height: 34px;
+      background: var(--brand-orange);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      border-radius: 6px;
+    }
+
+    .pub-title-wrap h1 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .pub-title-wrap span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      margin-right: 8px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-orange);
+    }
+
+    .btn-subscribe-pill {
+      background: var(--brand-orange);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-subscribe-pill:hover {
+      background: var(--brand-orange-hover);
+      transform: translateY(-1px);
+    }
+
+    /* EDITORIAL HERO BANNER */
+    .editorial-hero {
+      padding: 56px 0 36px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .meta-tag {
+      background: var(--brand-orange-soft);
+      color: var(--brand-orange);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.3rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 18px;
+    }
+
+    .hero-standfirst {
+      font-family: var(--font-serif);
+      font-size: 1.28rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      max-width: 820px;
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+
+    .hero-byline {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1f1d1a, #4a453e);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .author-info h3 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .author-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .byline-stat {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+
+    /* MAIN EDITORIAL LAYOUT */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 56px;
+      padding: 48px 0;
+    }
+
+    .article-body {
+      font-size: 1.06rem;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      font-family: var(--font-serif);
+      font-size: 1.95rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      margin: 44px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .article-body p {
+      margin-bottom: 22px;
+      line-height: 1.76;
+    }
+
+    .dropcap::first-letter {
+      float: left;
+      font-family: var(--font-serif);
+      font-size: 4.8rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+
+    /* PROJECT DEEP DIVE CARDS */
+    .deepdive-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 28px;
+      margin: 32px 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .deepdive-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .card-kicker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .card-vol {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+
+    .status-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--accent-green-soft);
+      color: var(--accent-green);
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .tech-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0 16px;
+    }
+
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      padding: 3px 9px;
+      background: var(--bg-accent);
+      color: var(--text-muted);
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .card-links-row {
+      display: flex;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .btn-editorial-link {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: var(--bg-accent);
+      transition: all 0.15s;
+    }
+
+    .btn-editorial-link:hover {
+      background: var(--text-main);
+      color: #fff;
+    }
+
+    .btn-editorial-link.primary {
+      background: var(--brand-orange);
+      color: #fff;
+    }
+
+    .btn-editorial-link.primary:hover {
+      background: var(--brand-orange-hover);
+    }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      margin: 36px 0;
+      padding: 24px 32px;
+      background: var(--bg-accent);
+      border-left: 4px solid var(--brand-orange);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .pull-quote p {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-bottom: 8px !important;
+    }
+
+    .pull-quote cite {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* TIMELINE & EDUCATION SECTION */
+    .timeline-editorial {
+      position: relative;
+      padding-left: 24px;
+      border-left: 2px solid var(--border-subtle);
+      margin: 28px 0 36px 12px;
+    }
+
+    .timeline-entry {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-bullet {
+      position: absolute;
+      left: -31px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--brand-orange);
+      border: 2px solid #fff;
+    }
+
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--brand-orange);
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .timeline-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .timeline-inst {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* RIGHT SIDEBAR */
+    .editorial-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .sidebar-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .widget-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .author-card-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #1f1d1a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .author-card-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .author-card-handle {
+      font-size: 0.8rem;
+      color: var(--brand-orange);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .author-card-bio {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.84rem;
+    }
+
+    .contact-list a {
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: var(--bg-accent);
+      border-radius: 6px;
+      transition: background 0.15s;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .contact-list a:hover {
+      background: var(--brand-orange);
+      color: #fff;
+    }
+
+    /* NEWSLETTER SUBSCRIBE INLINE */
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .newsletter-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      background: var(--bg-page);
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--brand-orange);
+    }
+
+    .btn-sub-full {
+      width: 100%;
+      background: var(--brand-orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.86rem;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-sub-full:hover {
+      background: var(--brand-orange-hover);
+    }
+
+    .sub-feedback {
+      display: none;
+      font-size: 0.82rem;
+      color: var(--accent-green);
+      font-weight: 600;
+      padding: 8px 10px;
+      background: var(--accent-green-soft);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    /* CLAP / APPRECIATION COUNTER */
+    .appreciation-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      margin: 44px 0 20px;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .clap-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: all 0.15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .clap-btn:hover {
+      background: var(--brand-orange-soft);
+      border-color: var(--brand-orange);
+      color: var(--brand-orange);
+      transform: scale(1.03);
+    }
+
+    .clap-count {
+      background: var(--brand-orange);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+    }
+
+    .share-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .share-btn {
+      background: var(--bg-accent);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .share-btn:hover {
+      background: var(--text-main);
+      color: #fff;
+    }
+
+    /* FOOTER */
+    footer.editorial-footer {
+      border-top: 2px solid var(--border-strong);
+      padding: 48px 0;
+      margin-top: 56px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+
+    .footer-col p {
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: var(--brand-orange);
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 860px) {
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-byline {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .byline-stat {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- READING PROGRESS BAR -->
+  <div id="progress-indicator"></div>
+
+  <!-- PUBLICATION HEADER -->
+  <header class="pub-header">
+    <div class="pub-container header-bar">
+      <a href="#intro" class="pub-brand">
+        <div class="pub-icon-badge">AR</div>
+        <div class="pub-title-wrap">
+          <h1>The Engineering Dispatch</h1>
+          <span>By Aryan Rokade &bull; No. 50</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <ul class="nav-links">
+          <li><a href="#projects">Deep Dives</a></li>
+          <li><a href="#experience">Career Log</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <a href="../Aryan_Rokade_Resume.pdf" download class="btn-subscribe-pill">
+          <span>Download CV</span> &darr;
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- EDITORIAL HERO ARTICLE HEADER -->
+  <section class="editorial-hero" id="intro">
+    <div class="pub-container">
+      <div class="hero-meta">
+        <span class="meta-tag">Systems &bull; Web &bull; AI</span>
+        <span>Issue #50</span>
+        <span>&bull;</span>
+        <span>10 Min Comprehensive Read</span>
+        <span>&bull;</span>
+        <span>Published Autumn 2025</span>
+      </div>
+
+      <h1 class="hero-headline">Building Resilient Systems: From Real-Time Cyber Sentinel Engines to Medical Diagnostic Deep Learning</h1>
+
+      <p class="hero-standfirst">
+        A developer portfolio presented as an engineering journal &mdash; chronicling the architecture, trade-offs, and technical solutions behind VyaparFlow, CyberSentinel Suite, Saturn, and MRI Tumor Segmentation by Aryan Rokade.
+      </p>
+
+      <div class="hero-byline">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="author-avatar">AR</div>
+          <div class="author-info">
+            <h3>Aryan Rokade</h3>
+            <p>Computer Engineering @ VCET University of Mumbai &bull; Techblitz Hackathon Runner-up</p>
+          </div>
+        </div>
+
+        <div class="byline-stat">
+          <span>&#128065; 3,420 Dev Views</span>
+          <span>&#9829; 412 Applauds</span>
+          <span>&#128172; Peer Reviewed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE BODY & SIDEBAR CONTENT -->
+  <main class="pub-container article-layout">
+    
+    <!-- LEFT MAIN EDITORIAL CONTENT -->
+    <article class="article-body">
+      
+      <p class="dropcap">
+        Modern software development is frequently reduced to surface-level aesthetics, but true software craftsmanship lies in the systemic choices: data schemas that withstand scaling, network boundaries that defend against intrusion, and resilient inference pipelines that yield actionable confidence. Welcome to my technical portfolio. I am Aryan Rokade, a Computer Engineering student and full-stack software developer focused on architecting end-to-end applications that bridge intuitive user experiences with high-throughput backend infrastructure.
+      </p>
+
+      <p>
+        Over the past two years, my work has spanned distributed enterprise SaaS architectures, low-level packet inspection engines with Snort, full-featured personal finance &amp; budget management engines, and convolutional medical imaging pipelines. Below is an architectural breakdown of four signature systems I have designed and deployed.
+      </p>
+
+      <!-- SECTION: PROJECTS -->
+      <h2 id="projects">Selected Engineering Works & Architecture Teardowns</h2>
+
+      <!-- PROJECT 1: VYAPARFLOW -->
+      <section class="deepdive-card" id="vyaparflow">
+        <div class="card-kicker">
+          <span class="card-vol">Case Study 01 &bull; Enterprise SaaS</span>
+          <span class="status-badge">Live Production</span>
+        </div>
+        <h3 class="card-title">VyaparFlow &mdash; Intelligent B2B Billing & Inventory Management Engine</h3>
+        
+        <div class="tech-pill-list">
+          <span class="tech-pill">Next.js 14</span>
+          <span class="tech-pill">React</span>
+          <span class="tech-pill">TypeScript</span>
+          <span class="tech-pill">Tailwind CSS</span>
+          <span class="tech-pill">Prisma ORM</span>
+          <span class="tech-pill">PostgreSQL</span>
+          <span class="tech-pill">Vercel</span>
+        </div>
+
+        <p class="card-description">
+          VyaparFlow is an enterprise-grade multi-tenant B2B inventory and billing SaaS platform engineered to eliminate bookkeeping bottlenecks for small and medium businesses. Built on Next.js and Prisma with a normalized PostgreSQL schema, it facilitates automated GST-compliant tax calculations, invoice generation, real-time stock alert thresholds, and high-performance financial reporting.
+        </p>
+
+        <div class="card-links-row">
+          <a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-editorial-link primary">
+            <span>Launch Live App</span> &rarr;
+          </a>
+          <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank" rel="noopener noreferrer" class="btn-editorial-link">
+            <span>Inspect GitHub Repository</span> &nearr;
+          </a>
+        </div>
+      </section>
+
+      <!-- PROJECT 2: CYBERSENTINEL SUITE -->
+      <section class="deepdive-card" id="cybersentinel">
+        <div class="card-kicker">
+          <span class="card-vol">Case Study 02 &bull; Cybersecurity & Distributed Telemetry</span>
+          <span class="status-badge">Research Grade</span>
+        </div>
+        <h3 class="card-title">CyberSentinel Suite &mdash; Real-Time Threat Intelligence & Packet Interception</h3>
+        
+        <div class="tech-pill-list">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Flask</span>
+          <span class="tech-pill">React</span>
+          <span class="tech-pill">Socket.IO</span>
+          <span class="tech-pill">Chrome Extensions API</span>
+          <span class="tech-pill">Snort IDS</span>
+        </div>
+
+        <p class="card-description">
+          A proactive dual-vector security suite designed to bridge client-side browser telemetry with low-level network intrusion detection. CyberSentinel pairs a Chrome Extension monitoring phishing heuristics and malicious script execution with a background Snort network packet analyzer, broadcasting live attack indicators to an interactive administrative dashboard via WebSockets.
+        </p>
+
+        <div class="card-links-row">
+          <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer" class="btn-editorial-link primary">
+            <span>Inspect GitHub Repository</span> &nearr;
+          </a>
+          <a href="#contact" class="btn-editorial-link">
+            <span>Request Demo Access</span> &rarr;
+          </a>
+        </div>
+      </section>
+
+      <!-- PROJECT 3: SATURN -->
+      <section class="deepdive-card" id="saturn">
+        <div class="card-kicker">
+          <span class="card-vol">Case Study 03 &bull; Personal Finance &amp; Wealth Analytics</span>
+          <span class="status-badge">Full Stack MERN</span>
+        </div>
+        <h3 class="card-title">Saturn &mdash; Modern Expense Tracker &amp; Budget Management Application</h3>
+        
+        <div class="tech-pill-list">
+          <span class="tech-pill">React 18</span>
+          <span class="tech-pill">Redux Toolkit</span>
+          <span class="tech-pill">Node.js</span>
+          <span class="tech-pill">Express.js</span>
+          <span class="tech-pill">MongoDB</span>
+          <span class="tech-pill">Tailwind CSS</span>
+          <span class="tech-pill">Chart.js</span>
+          <span class="tech-pill">JWT Auth</span>
+        </div>
+
+        <p class="card-description">
+          A full-stack expense and budget management application with interactive dashboards, analytical charts, categorized expense tracking, and real-time financial statistics. The frontend is built with React, Redux Toolkit, Tailwind CSS, Chart.js, and Axios; the backend is powered by Node.js, Express, MongoDB, and JWT authentication.
+        </p>
+
+        <div class="card-links-row">
+          <a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer" class="btn-editorial-link primary">
+            <span>Inspect GitHub Repository</span> &nearr;
+          </a>
+        </div>
+      </section>
+
+      <!-- PROJECT 4: MRI BRAIN TUMOR DETECTION -->
+      <section class="deepdive-card" id="mri-tumor">
+        <div class="card-kicker">
+          <span class="card-vol">Case Study 04 &bull; Computer Vision & Bio-Informatics</span>
+          <span class="status-badge">Deep Learning</span>
+        </div>
+        <h3 class="card-title">MRI Brain Tumor Detection System &mdash; Deep Transfer Learning Classifier</h3>
+        
+        <div class="tech-pill-list">
+          <span class="tech-pill">TensorFlow 2.x</span>
+          <span class="tech-pill">Keras</span>
+          <span class="tech-pill">VGG16 Pre-trained</span>
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Flask REST API</span>
+          <span class="tech-pill">OpenCV</span>
+        </div>
+
+        <p class="card-description">
+          A convolutional neural network pipeline utilizing fine-tuned VGG16 architecture to classify axial MRI scans into tumorous and non-tumorous slices. Built with custom contrast enhancement and bilateral noise-filtering preprocessing steps, the model serves inferences through a Flask web application with confidence scoring designed to provide clinical decision assistance.
+        </p>
+
+        <div class="card-links-row">
+          <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer" class="btn-editorial-link primary">
+            <span>Inspect GitHub Repository</span> &nearr;
+          </a>
+        </div>
+      </section>
+
+      <!-- PULL QUOTE -->
+      <div class="pull-quote">
+        <p>
+          &ldquo;Software architecture is not about anticipating every hypothetical tomorrow &mdash; it is about writing modular, testable code today that enables effortless evolution.&rdquo;
+        </p>
+        <cite>&mdash; Aryan Rokade, Technical Philosophy</cite>
+      </div>
+
+      <!-- SECTION: CAREER & EDUCATION -->
+      <h2 id="experience">Chronicles of Practice: Career & Education</h2>
+
+      <div class="timeline-editorial">
+        <!-- ENTRY 1: HACKATHON -->
+        <div class="timeline-entry">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-date">March 2025 &bull; Recognition</div>
+          <h3 class="timeline-title">2nd Position &mdash; Techblitz Hackathon</h3>
+          <div class="timeline-inst">VCET Department of Artificial Intelligence & Data Science &bull; Supported by NSDC</div>
+          <p class="timeline-desc">
+            Awarded 2nd place in a highly competitive university-wide 36-hour sprint. Collaborated on developing a machine learning and automation product tackling complex data flows under strict execution criteria, reviewed by industry panelists.
+          </p>
+        </div>
+
+        <!-- ENTRY 2: INTERNSHIP -->
+        <div class="timeline-entry">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-date">Dec 2024 &ndash; Jan 2025 &bull; Professional Experience</div>
+          <h3 class="timeline-title">Web Development Intern &mdash; Octanet Services Pvt. Ltd.</h3>
+          <div class="timeline-inst">Octanet Services &bull; Remote / Hybrid</div>
+          <p class="timeline-desc">
+            Engineered responsive user interfaces and modular frontend components across production codebases. Optimized client-side load performance, integrated third-party RESTful APIs, and maintained clean version control workflows.
+          </p>
+        </div>
+
+        <!-- ENTRY 3: UNIVERSITY -->
+        <div class="timeline-entry">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-date">2023 &ndash; 2027 (Expected) &bull; Academic Foundation</div>
+          <h3 class="timeline-title">Bachelor of Engineering in Computer Engineering</h3>
+          <div class="timeline-inst">Vidyavardhini&rsquo;s College of Engineering & Technology (VCET) &bull; University of Mumbai</div>
+          <p class="timeline-desc">
+            Coursework in Data Structures & Algorithms, Database Management Systems, Computer Networks, Operating Systems, Theory of Computation, and Machine Learning.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION: SKILLS & TOOLKIT -->
+      <h2 id="about">Technical Arsenal & Methodologies</h2>
+      <p>
+        My technical toolkit is oriented toward building maintainable, end-to-end software systems:
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0;">
+        <div style="background: var(--bg-card); padding: 18px; border: 1px solid var(--border-subtle); border-radius: 8px;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 8px;">Frontend Architecture</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">React 18, Next.js 14, TypeScript, Tailwind CSS, Redux Toolkit, Responsive Systems, Semantic HTML5, CSS Grid.</p>
+        </div>
+        <div style="background: var(--bg-card); padding: 18px; border: 1px solid var(--border-subtle); border-radius: 8px;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 8px;">Backend & Databases</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Node.js, Express, Python (Flask), PostgreSQL, Prisma ORM, MongoDB, Socket.IO, RESTful APIs, JWT Auth.</p>
+        </div>
+        <div style="background: var(--bg-card); padding: 18px; border: 1px solid var(--border-subtle); border-radius: 8px;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 8px;">Machine Learning & Vision</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">TensorFlow 2.x, Keras, VGG16, Scikit-learn, OpenCV, Pandas, NumPy, Deep Learning Preprocessing.</p>
+        </div>
+        <div style="background: var(--bg-card); padding: 18px; border: 1px solid var(--border-subtle); border-radius: 8px;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 8px;">Systems, Tools & Security</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Git & GitHub, Linux / Bash, Docker basics, Snort IDS, Chrome Extensions, Postman, Vercel CI/CD.</p>
+        </div>
+      </div>
+
+      <!-- APPRECIATION & SHARE ROW -->
+      <div class="appreciation-bar">
+        <button class="clap-btn" onclick="addClap()" id="clapButton" title="Applaud this issue">
+          <span>&#128079; Applaud Issue</span>
+          <span class="clap-count" id="clapCount">412</span>
+        </button>
+
+        <div class="share-group">
+          <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" class="share-btn">GitHub Profile</a>
+          <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" class="share-btn">LinkedIn</a>
+          <a href="mailto:aryanrokade416@gmail.com" class="share-btn">Inquire via Email</a>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- RIGHT SIDEBAR (AUTHOR BIO, CONTACT & NEWSLETTER) -->
+    <aside class="editorial-sidebar">
+      
+      <!-- AUTHOR PROFILE WIDGET -->
+      <div class="sidebar-widget">
+        <div class="author-card-avatar">AR</div>
+        <div class="author-card-name">Aryan Rokade</div>
+        <div class="author-card-handle">@aryanrokade7</div>
+        <p class="author-card-bio">
+          Computer Engineering student at VCET (University of Mumbai) and full-stack software developer. Building software systems across Next.js, Python, and Deep Learning.
+        </p>
+
+        <div style="margin-top: 14px;">
+          <a href="../Aryan_Rokade_Resume.pdf" download class="btn-editorial-link primary" style="width: 100%; justify-content: center; text-align: center;">
+            <span>Download Full Resume PDF</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- DIRECT CONTACT CHANNELS -->
+      <div class="sidebar-widget" id="contact">
+        <div class="widget-title">
+          <span>Editorial Desk</span>
+          <span style="font-size: 0.72rem; color: var(--accent-green);">&#9679; Available</span>
+        </div>
+        <ul class="contact-list">
+          <li>
+            <a href="mailto:aryanrokade416@gmail.com" title="Send Email">
+              <span>&#9993;</span>
+              <span>aryanrokade416@gmail.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="tel:+918591224192" title="Direct Phone Call">
+              <span>&#9742;</span>
+              <span>+91 85912 24192</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer" title="GitHub Repository">
+              <span>&#9670;</span>
+              <span>github.com/aryanrokade7</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer" title="LinkedIn Profile">
+              <span>&#9671;</span>
+              <span>linkedin.com/in/aryan-rokade</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- DISPATCH NEWSLETTER WIDGET -->
+      <div class="sidebar-widget">
+        <div class="widget-title">
+          <span>The Dispatch Newsletter</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Free</span>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5;">
+          Receive quarterly engineering notes, system architecture teardowns, and project post-mortems straight to your inbox.
+        </p>
+
+        <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+          <input type="email" required placeholder="Enter your developer email..." class="newsletter-input" id="subscriberEmail" />
+          <button type="submit" class="btn-sub-full">Subscribe to Dispatch</button>
+          <div class="sub-feedback" id="subFeedback">
+            &#10003; Subscribed! Thank you for following the journal.
+          </div>
+        </form>
+      </div>
+
+      <!-- QUICK INDEX WIDGET -->
+      <div class="sidebar-widget">
+        <div class="widget-title"><span>Table of Contents</span></div>
+        <ul style="list-style: none; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+          <li><a href="#intro" style="color: var(--text-muted); text-decoration: none;">&bull; Opening Thesis</a></li>
+          <li><a href="#vyaparflow" style="color: var(--text-muted); text-decoration: none;">&bull; VyaparFlow Enterprise SaaS</a></li>
+          <li><a href="#cybersentinel" style="color: var(--text-muted); text-decoration: none;">&bull; CyberSentinel Threat Suite</a></li>
+          <li><a href="#saturn" style="color: var(--text-muted); text-decoration: none;">&bull; Saturn Expense Tracker</a></li>
+          <li><a href="#mri-tumor" style="color: var(--text-muted); text-decoration: none;">&bull; MRI Tumor VGG16 Pipeline</a></li>
+          <li><a href="#experience" style="color: var(--text-muted); text-decoration: none;">&bull; Education & Hackathon</a></li>
+        </ul>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- PUBLICATION FOOTER -->
+  <footer class="editorial-footer">
+    <div class="pub-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>The Engineering Dispatch &bull; Aryan Rokade</h4>
+          <p>
+            An interactive editorial portfolio showcasing full-stack engineering architectures, distributed systems experiments, and deep learning research.
+          </p>
+          <p style="font-size: 0.8rem; color: var(--text-light);">
+            Vidyavardhini&rsquo;s College of Engineering &amp; Technology (VCET), University of Mumbai &bull; Class of 2027
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Featured Works</h4>
+          <ul>
+            <li><a href="https://vyaparflow-smoky.vercel.app/" target="_blank" rel="noopener noreferrer">VyaparFlow SaaS</a></li>
+            <li><a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank" rel="noopener noreferrer">CyberSentinel Suite</a></li>
+            <li><a href="https://github.com/aryanrokade7/Saturnn" target="_blank" rel="noopener noreferrer">Saturn Expense Tracker</a></li>
+            <li><a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank" rel="noopener noreferrer">MRI Brain Tumor System</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://github.com/aryanrokade7" target="_blank" rel="noopener noreferrer">GitHub (@aryanrokade7)</a></li>
+            <li><a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="mailto:aryanrokade416@gmail.com">aryanrokade416@gmail.com</a></li>
+            <li><a href="tel:+918591224192">+91 85912 24192</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2025 Aryan Rokade. All architectural dispatches, open source repositories, and publications preserved.</div>
+        <div>Variant #50: Substack &amp; Medium Tech Editorial Edition</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // READING PROGRESS BAR
+    window.addEventListener('scroll', function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const prog = document.getElementById('progress-indicator');
+      if (prog) prog.style.width = scrolled + '%';
+    });
+
+    // INLINE CLAP COUNTER
+    let claps = 412;
+    function addClap() {
+      claps++;
+      const el = document.getElementById('clapCount');
+      if (el) el.innerText = claps;
+    }
+
+    // INLINE NEWSLETTER SUBMISSION
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const input = document.getElementById('subscriberEmail');
+      const feedback = document.getElementById('subFeedback');
+      if (input && feedback) {
+        input.value = '';
+        feedback.style.display = 'block';
+        setTimeout(() => {
+          feedback.style.display = 'none';
+        }, 5000);
+      }
+    }
+  </script>
+
+  <!-- SWITCHER SYSTEM -->
+  <script src="switcher.js"></script>
+</body>
+</html>

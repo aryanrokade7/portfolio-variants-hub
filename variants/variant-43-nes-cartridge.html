@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aryan Rokade — 8-Bit NES Cartridge Adventure</title>
+  <title>Aryan Rokade — 8-Bit Nintendo NES Adventure (Variant 43)</title>
   <meta name="description" content="Retro 8-Bit Nintendo NES Cartridge and CRT gaming portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
   <link rel="stylesheet" href="switcher.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -280,9 +280,10 @@
       <div class="crt-screen-content">
         <!-- HUD Header -->
         <div class="hud-header">
-          <div class="hud-score">SCORE: 087200</div>
+          <div class="hud-score" id="nesScore">SCORE: 087200</div>
           <div class="hud-world">STAGE: VCET-2027</div>
           <div class="hud-lives">HP: 100% [AI/FS]</div>
+          <div class="hud-audio" id="nesAudioBtn" onclick="toggleNesSound();" style="cursor: pointer; color: var(--nes-yellow); user-select: none;" title="Toggle NES Chiptune Audio">🔊 AUDIO: ON</div>
         </div>
 
         <!-- Banner -->
@@ -308,7 +309,7 @@
               <div><strong>COLLEGE:</strong> VCET Mumbai (2023-2027)</div>
               <div><strong>CGPA:</strong> 8.7+ / 10.0</div>
               <div><strong>PRIMARY:</strong> React, Next.js, Node, Python</div>
-              <div><strong>SECONDARY:</strong> PyTorch, Scapy, Docker, SQL</div>
+              <div><strong>SECONDARY:</strong> TypeScript, Tailwind, Prisma, MongoDB, Docker, Git</div>
             </div>
           </div>
         </div>
@@ -316,37 +317,37 @@
         <!-- Panel 2: Quests (Projects) -->
         <div id="panel-quests" class="tab-panel">
           <div class="project-grid">
-            <div class="quest-card">
-              <div class="quest-header">⚔️ QUEST 1: VYAPARFLOW</div>
-              <div class="quest-desc">Full-scale inventory and GST invoicing platform for small businesses with Razorpay billing.</div>
-              <div class="quest-tech">&gt; NEXT.JS, NODE, POSTGRESQL</div>
+            <div class="quest-card" onclick="collectCoin();" style="cursor: pointer;" title="Inspect Quest &amp; Collect Coin (+200 PTS)">
+              <div class="quest-header">⚔️ QUEST 1: VYAPARFLOW 🪙</div>
+              <div class="quest-desc">Export logistics readiness platform for Indian MSME workflows with compliance scoring & document tracking.</div>
+              <div class="quest-tech">&gt; NEXT.JS, REACT, TS, TAILWIND, PRISMA, POSTGRESQL</div>
             </div>
-            <div class="quest-card">
-              <div class="quest-header">🛡️ QUEST 2: CYBERSENTINEL</div>
-              <div class="quest-desc">Real-time packet sniffer and DDoS attack monitor with live telemetry WebSocket feed.</div>
-              <div class="quest-tech">&gt; PYTHON, SCAPY, FASTAPI</div>
+            <div class="quest-card" onclick="collectCoin();" style="cursor: pointer;" title="Inspect Quest &amp; Collect Coin (+200 PTS)">
+              <div class="quest-header">🛡️ QUEST 2: CYBERSENTINEL 🪙</div>
+              <div class="quest-desc">Cybersecurity threat detection & simulation covering DoS/DDoS, SQLi, ransomware, and phishing URL scoring.</div>
+              <div class="quest-tech">&gt; REACT, SOCKET.IO, FLASK, PYTHON, CHROME EXTENSION</div>
             </div>
-            <div class="quest-card">
-              <div class="quest-header">💎 QUEST 3: SATURN FINANCE</div>
-              <div class="quest-desc">Crypto asset dashboard tracking wallet balances, live token prices, and gas fees.</div>
-              <div class="quest-tech">&gt; REACT, ETHERS.JS, COINGECKO</div>
+            <div class="quest-card" onclick="collectCoin();" style="cursor: pointer;" title="Inspect Quest &amp; Collect Coin (+200 PTS)">
+              <div class="quest-header">💎 QUEST 3: SATURN 🪙</div>
+              <div class="quest-desc">Full-stack expense and budget management app with dashboards, interactive charts, and financial statistics.</div>
+              <div class="quest-tech">&gt; REACT, REDUX TOOLKIT, NODE.JS, EXPRESS, MONGODB, JWT</div>
             </div>
-            <div class="quest-card">
-              <div class="quest-header">🧠 QUEST 4: MRI TUMOR AI</div>
-              <div class="quest-desc">Deep learning medical diagnostic network segmenting brain MRI scans with high precision.</div>
-              <div class="quest-tech">&gt; PYTORCH, U-NET, FASTAPI</div>
+            <div class="quest-card" onclick="collectCoin();" style="cursor: pointer;" title="Inspect Quest &amp; Collect Coin (+200 PTS)">
+              <div class="quest-header">🧠 QUEST 4: MRI TUMOR AI 🪙</div>
+              <div class="quest-desc">Flask application classifying brain MRI scans into Glioma, Meningioma, Pituitary and No Tumor via VGG16 transfer learning.</div>
+              <div class="quest-tech">&gt; TENSORFLOW, KERAS, VGG16, FLASK, PYTHON</div>
             </div>
           </div>
         </div>
 
         <!-- Panel 3: Trophies -->
         <div id="panel-badges" class="tab-panel">
-          <div class="quest-card" style="margin-bottom: 14px;">
-            <div class="quest-header" style="color: var(--nes-yellow);">🏆 TECHBLITZ NATIONAL HACKATHON 2ND PLACE</div>
+          <div class="quest-card" onclick="playNes1Up();" style="margin-bottom: 14px; cursor: pointer;" title="1-UP Victory Fanfare!">
+            <div class="quest-header" style="color: var(--nes-yellow);">🏆 TECHBLITZ NATIONAL HACKATHON 2ND PLACE (1-UP)</div>
             <div class="quest-desc">Engineered an emergency healthcare response dispatcher system under a strict 24-hour sprint.</div>
           </div>
-          <div class="quest-card">
-            <div class="quest-header" style="color: var(--nes-green);">💼 OCTANET SERVICES PVT LTD INTERNSHIP</div>
+          <div class="quest-card" onclick="playNes1Up();" style="cursor: pointer;" title="1-UP Victory Fanfare!">
+            <div class="quest-header" style="color: var(--nes-green);">💼 OCTANET SERVICES PVT LTD INTERNSHIP (1-UP)</div>
             <div class="quest-desc">Web Development Intern: Built responsive client web components and connected REST services.</div>
           </div>
         </div>
@@ -356,10 +357,11 @@
           <div class="stats-screen" style="text-align: center; display: block;">
             <div style="font-size: 0.75rem; margin-bottom: 16px; color: var(--nes-yellow);">CONNECT WITH ARYAN</div>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-              <a href="../Aryan_Rokade_Resume.pdf" download style="color: #fff; background: var(--nes-red); padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[DOWNLOAD RESUME]</a>
-              <a href="https://github.com/aryanrokade7" target="_blank" style="color: #fff; background: #222; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[GITHUB]</a>
-              <a href="https://linkedin.com/in/aryan-rokade" target="_blank" style="color: #fff; background: #0078f8; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[LINKEDIN]</a>
-              <a href="mailto:aryanrokade07@gmail.com" style="color: #fff; background: #00a800; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[EMAIL]</a>
+              <a href="../Aryan_Rokade_Resume.pdf" download onclick="playNesStageClear();" style="color: #fff; background: var(--nes-red); padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[DOWNLOAD RESUME]</a>
+              <a href="https://github.com/aryanrokade7" target="_blank" onclick="playChiptune(440, 0.08);" style="color: #fff; background: #222; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[GITHUB]</a>
+              <a href="https://linkedin.com/in/aryan-rokade" target="_blank" onclick="playChiptune(554, 0.08);" style="color: #fff; background: #0078f8; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[LINKEDIN]</a>
+              <a href="mailto:aryanrokade416@gmail.com" onclick="playChiptune(659, 0.08);" style="color: #fff; background: #00a800; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[EMAIL]</a>
+              <a href="tel:8591224192" onclick="playChiptune(880, 0.08);" style="color: #fff; background: #b45309; padding: 8px 12px; text-decoration: none; font-size: 0.6rem;">[+91 85912 24192]</a>
             </div>
           </div>
         </div>
@@ -371,12 +373,12 @@
     <div class="nes-controller">
       <div class="d-pad-box">◀ NES CONTROLLER ▶</div>
       <div class="middle-buttons">
-        <button class="pill-btn" onclick="playChiptune(440); cycleTabs(-1);">SELECT</button>
-        <button class="pill-btn" onclick="playChiptune(880); cycleTabs(1);">START</button>
+        <button class="pill-btn" onclick="cycleTabs(-1); playNesSelect();">SELECT</button>
+        <button class="pill-btn" onclick="playNesStart();">START</button>
       </div>
       <div class="ab-buttons">
-        <button class="round-btn" onclick="playChiptune(587);">B</button>
-        <button class="round-btn" onclick="playChiptune(880);">A</button>
+        <button class="round-btn" onclick="playNesFireball(); cycleTabs(-1);">B</button>
+        <button class="round-btn" onclick="playNesJump(); cycleTabs(1);">A</button>
       </div>
     </div>
   </div>
@@ -384,25 +386,161 @@
   <script>
     const tabs = ['profile', 'quests', 'badges', 'contact'];
     let curIndex = 0;
+    let nesAudioEnabled = true;
+    let nesAudioCtx = null;
+    let score = 87200;
 
-    function playChiptune(freq) {
+    function initNesAudio() {
+      if (!nesAudioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          nesAudioCtx = new AudioContextClass();
+        }
+      }
+      if (nesAudioCtx && nesAudioCtx.state === 'suspended') {
+        nesAudioCtx.resume();
+      }
+    }
+
+    ['click', 'keydown', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, () => initNesAudio(), { once: true });
+    });
+
+    // 8-bit Pulse wave generator
+    function playChiptune(freq = 520, dur = 0.08, type = 'square', vol = 0.12, delay = 0) {
+      if (!nesAudioEnabled) return;
+      initNesAudio();
+      if (!nesAudioCtx) return;
+
       try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        const start = nesAudioCtx.currentTime + delay;
+        const osc = nesAudioCtx.createOscillator();
+        const gain = nesAudioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, start);
+
+        gain.gain.setValueAtTime(vol, start);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+
         osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.16);
+        gain.connect(nesAudioCtx.destination);
+
+        osc.start(start);
+        osc.stop(start + dur);
       } catch (e) {}
     }
 
+    // Iconic Super Mario Bros Coin Sound (B5 -> E6)
+    function collectCoin() {
+      initNesAudio();
+      score += 200;
+      const el = document.getElementById('nesScore');
+      if (el) el.innerText = `SCORE: ${String(score).padStart(6, '0')}`;
+
+      if (!nesAudioEnabled || !nesAudioCtx) return;
+      try {
+        const now = nesAudioCtx.currentTime;
+        const osc = nesAudioCtx.createOscillator();
+        const gain = nesAudioCtx.createGain();
+
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(987.77, now); // B5
+        osc.frequency.setValueAtTime(1318.51, now + 0.055); // E6
+
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.setValueAtTime(0.18, now + 0.055);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+
+        osc.connect(gain);
+        gain.connect(nesAudioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } catch (e) {}
+    }
+
+    // Authentic NES Jump sound (upward frequency sweep)
+    function playNesJump() {
+      initNesAudio();
+      if (!nesAudioEnabled || !nesAudioCtx) return;
+      try {
+        const now = nesAudioCtx.currentTime;
+        const osc = nesAudioCtx.createOscillator();
+        const gain = nesAudioCtx.createGain();
+
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(650, now + 0.14);
+
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+
+        osc.connect(gain);
+        gain.connect(nesAudioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.15);
+      } catch (e) {}
+    }
+
+    // NES Fireball / Dash noise sweep
+    function playNesFireball() {
+      initNesAudio();
+      if (!nesAudioEnabled || !nesAudioCtx) return;
+      try {
+        const now = nesAudioCtx.currentTime;
+        const osc = nesAudioCtx.createOscillator();
+        const gain = nesAudioCtx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(700, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+
+        gain.gain.setValueAtTime(0.16, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+        osc.connect(gain);
+        gain.connect(nesAudioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.12);
+      } catch (e) {}
+    }
+
+    // Iconic NES 1-Up Fanfare (6 rapid ascending notes)
+    function playNes1Up() {
+      initNesAudio();
+      if (!nesAudioEnabled || !nesAudioCtx) return;
+      const notes = [659.25, 783.99, 1318.51, 1046.50, 1174.66, 1567.98]; // E5 G5 E6 C6 D6 G6
+      notes.forEach((freq, idx) => {
+        playChiptune(freq, 0.08, 'square', 0.14, idx * 0.07);
+      });
+    }
+
+    // Mario Pause Chime (E4 -> C4)
+    function playNesStart() {
+      initNesAudio();
+      if (!nesAudioEnabled || !nesAudioCtx) return;
+      playChiptune(329.63, 0.07, 'square', 0.14, 0);
+      playChiptune(261.63, 0.16, 'square', 0.14, 0.07);
+    }
+
+    function playNesSelect() {
+      playChiptune(440, 0.04, 'square', 0.1);
+    }
+
+    function playNesStageClear() {
+      initNesAudio();
+      if (!nesAudioEnabled || !nesAudioCtx) return;
+      const fanfare = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50];
+      fanfare.forEach((f, i) => {
+        playChiptune(f, 0.1, 'square', 0.14, i * 0.09);
+      });
+    }
+
     function switchNesTab(id, btn) {
-      playChiptune(520);
+      playChiptune(520, 0.06);
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nes-tab-btn').forEach(b => b.classList.remove('active'));
       const target = document.getElementById('panel-' + id);
@@ -417,6 +555,43 @@
       const btn = document.querySelectorAll('.nes-tab-btn')[curIndex];
       switchNesTab(targetId, btn);
     }
+
+    function toggleNesSound() {
+      nesAudioEnabled = !nesAudioEnabled;
+      const btn = document.getElementById('nesAudioBtn');
+      if (btn) {
+        btn.innerText = nesAudioEnabled ? '🔊 AUDIO: ON' : '🔇 MUTED';
+        btn.style.color = nesAudioEnabled ? 'var(--nes-yellow)' : '#888';
+      }
+      if (nesAudioEnabled) {
+        collectCoin();
+      }
+    }
+
+    // Keyboard support for NES Controller
+    window.addEventListener('keydown', (e) => {
+      const k = e.key.toLowerCase();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        playNesSelect();
+        cycleTabs(-1);
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        playNesSelect();
+        cycleTabs(1);
+      } else if (k === 'a' || k === 'z') {
+        playNesJump();
+        cycleTabs(1);
+      } else if (k === 'b' || k === 'x') {
+        playNesFireball();
+        collectCoin();
+      } else if (e.key === 'Enter') {
+        playNesStart();
+      } else if (e.key === ' ') {
+        playNesSelect();
+        cycleTabs(1);
+      } else if (k === 'm') {
+        toggleNesSound();
+      }
+    });
   </script>
   <script src="switcher.js"></script>
 </body>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Diplomatic Travel Passport Dossier (Variant 78)</title>
+  <meta name="description" content="Diplomatic Travel Passport and Visa Dossier portfolio of Aryan Rokade, Full Stack Developer & AI Engineer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --leather-navy: #132238;
+      --leather-gold: #c9a44c;
+      --paper-cream: #faf5eb;
+      --stamp-red: #ba2d2d;
+      --stamp-blue: #235284;
+      --stamp-green: #2e7343;
+      --ink: #1a1a1a;
+      --font-heading: 'Cinzel', serif;
+      --font-mono: 'Courier Prime', monospace;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0b111a;
+      background-image: radial-gradient(circle at 50% 10%, #1e2c40 0%, #06090e 100%);
+      color: var(--ink);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 30px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .passport-booklet {
+      width: 100%;
+      max-width: 980px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 35px 80px rgba(0,0,0,0.85);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      border: 8px solid #0f1c2d;
+      position: relative;
+    }
+    @media (max-width: 860px) {
+      .passport-booklet { grid-template-columns: 1fr; }
+    }
+
+    /* Left Page: Cover & Identity */
+    .id-page {
+      background: #f4ece1;
+      padding: 32px 28px;
+      border-right: 3px dashed #d1c4b2;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background-image: radial-gradient(#d8ccba 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    .coat-of-arms {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .coat-emblem {
+      font-size: 2.5rem;
+      color: #947128;
+    }
+    .republic-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: #634b17;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .passport-label {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: #382909;
+      letter-spacing: 5px;
+      font-weight: 900;
+    }
+
+    .photo-strip {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin: 16px 0;
+      background: #eadecc;
+      padding: 12px;
+      border: 1px solid #c7b69d;
+      border-radius: 6px;
+    }
+    .passport-photo {
+      width: 90px;
+      height: 110px;
+      object-fit: cover;
+      border: 2px solid #555;
+      background: #bbb;
+      filter: grayscale(40%) contrast(110%);
+    }
+    .photo-info {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #333;
+    }
+
+    .passport-field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin-top: 10px;
+    }
+    .field-box {
+      border-bottom: 1px solid #bba990;
+      padding-bottom: 4px;
+    }
+    .field-lbl {
+      color: #7d6b53;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+    .field-val {
+      font-weight: 700;
+      color: #111;
+      font-size: 0.8rem;
+    }
+
+    /* MRZ Code Line */
+    .mrz-zone {
+      margin-top: auto;
+      padding-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: #222;
+      background: #ebdcc8;
+      padding: 10px;
+      border: 1px solid #cfbfa8;
+      border-radius: 4px;
+      line-height: 1.5;
+      overflow-x: hidden;
+      white-space: nowrap;
+    }
+
+    /* Right Page: Visas & Project Stamps */
+    .visa-pages {
+      background: #faf4e8;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #d4c4ad;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #443217;
+    }
+    .page-no {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #8c7b64;
+    }
+
+    /* Stamps & Visas Grid */
+    .stamps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .visa-stamp {
+      background: rgba(255,255,255,0.7);
+      border: 2px dashed #999;
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .visa-stamp:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .visa-stamp.red {
+      border-color: var(--stamp-red);
+      color: var(--stamp-red);
+    }
+    .visa-stamp.blue {
+      border-color: var(--stamp-blue);
+      color: var(--stamp-blue);
+    }
+    .visa-stamp.green {
+      border-color: var(--stamp-green);
+      color: var(--stamp-green);
+    }
+
+    .stamp-badge {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 2px 6px;
+      border: 1px solid currentColor;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .stamp-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 4px;
+    }
+    .stamp-desc {
+      font-size: 0.8rem;
+      color: #444;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .stamp-tech {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #666;
+    }
+
+    /* Official Seals */
+    .official-seals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+      border-top: 2px dashed #d5c8b5;
+      padding-top: 16px;
+    }
+    .seal-block {
+      background: #f0e6d5;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #d4c5ae;
+    }
+    .seal-heading {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #553e1a;
+      margin-bottom: 4px;
+    }
+    .seal-text {
+      font-size: 0.8rem;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    /* Passport Footer Actions */
+    .passport-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .action-btn.gold {
+      background: #967228;
+      color: #fff;
+    }
+    .action-btn.gold:hover {
+      background: #735416;
+    }
+    .action-btn.dark {
+      background: #2b394e;
+      color: #fff;
+    }
+    .action-btn.dark:hover {
+      background: #172435;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="passport-booklet">
+    <!-- Left Identity Page -->
+    <div class="id-page">
+      <div class="coat-of-arms">
+        <div class="coat-emblem">🏛️</div>
+        <div class="republic-title">Republic of Code & Intelligence</div>
+        <div class="passport-label">PASSPORT</div>
+      </div>
+
+      <div class="photo-strip">
+        <img src="../aryan-rokade.jpg" alt="Aryan Rokade" class="passport-photo" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'">
+        <div class="photo-info">
+          <strong>BEARER:</strong> ARYAN ROKADE<br>
+          <strong>CLASS:</strong> FULL-STACK & AI DEV<br>
+          <strong>REG NO:</strong> VCET-2027-ENG<br>
+          <strong>SECURITY:</strong> L-4 CLASSIFIED
+        </div>
+      </div>
+
+      <div class="passport-field-grid">
+        <div class="field-box">
+          <div class="field-lbl">Surname / Nom</div>
+          <div class="field-val">ROKADE</div>
+        </div>
+        <div class="field-box">
+          <div class="field-lbl">Given Name / Prénom</div>
+          <div class="field-val">ARYAN</div>
+        </div>
+        <div class="field-box">
+          <div class="field-lbl">Nationality / Nationalité</div>
+          <div class="field-val">INDIAN</div>
+        </div>
+        <div class="field-box">
+          <div class="field-lbl">Education / Diplôme</div>
+          <div class="field-val">B.E. IT (VCET '27)</div>
+        </div>
+        <div class="field-box">
+          <div class="field-lbl">Base City / Lieu</div>
+          <div class="field-val">MUMBAI, IN</div>
+        </div>
+        <div class="field-box">
+          <div class="field-lbl">Academic Merit</div>
+          <div class="field-val">CGPA: 8.7+ / 10</div>
+        </div>
+      </div>
+
+      <div class="mrz-zone">
+        P&lt;INDROKADE&lt;&lt;ARYAN&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>
+        VCET20277IND0308078M2710080FULLSTACKAI&lt;&lt;04
+      </div>
+    </div>
+
+    <!-- Right Visas & Diplomatic Endorsements -->
+    <div class="visa-pages">
+      <div class="page-header">
+        <div class="page-title">VISAS &amp; PROJECT ENDORSEMENTS</div>
+        <div class="page-no">PAGE 03 OF 32</div>
+      </div>
+
+      <div class="stamps-grid">
+        <!-- Project 1 -->
+        <div class="visa-stamp red" onclick="alert('VyaparFlow: Full-stack inventory & GST invoicing suite built with Next.js & PostgreSQL.')">
+          <div class="stamp-badge">ENTRY PERMIT ★ 2024</div>
+          <div class="stamp-title">VyaparFlow</div>
+          <div class="stamp-desc">Enterprise inventory &amp; billing system for MSMEs with automated invoices &amp; Razorpay payment gateways.</div>
+          <div class="stamp-tech">Next.js • Node.js • PostgreSQL • Tailwind</div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="visa-stamp blue" onclick="alert('CyberSentinel: Real-time network security monitor and packet sniffer with live attack anomaly detector.')">
+          <div class="stamp-badge">SECURE TRANSIT ★ 2024</div>
+          <div class="stamp-title">CyberSentinel</div>
+          <div class="stamp-desc">Live intrusion detection system sniffing packets, catching DDoS signatures, and triggering alerts over WebSockets.</div>
+          <div class="stamp-tech">Python • Scapy • FastAPI • WebSockets</div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="visa-stamp green" onclick="alert('Saturn Finance: Crypto analytics & gas fee tracker built with Ethers.js and CoinGecko API.')">
+          <div class="stamp-badge">FINANCIAL VISA ★ 2024</div>
+          <div class="stamp-title">Saturn Finance</div>
+          <div class="stamp-desc">Decentralized asset tracking dashboard displaying live price charts, wallet balance analytics, and gas trends.</div>
+          <div class="stamp-tech">React.js • Ethers.js • Tailwind • REST API</div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="visa-stamp red" onclick="alert('MRI Brain Tumor AI: Medical deep learning segmentation model with 95% validation accuracy.')">
+          <div class="stamp-badge">BIOMEDICAL CLEARANCE</div>
+          <div class="stamp-title">MRI Brain Tumor AI</div>
+          <div class="stamp-desc">Deep learning model trained on brain MRI scans to segment and detect tumor lesions with instant heatmaps.</div>
+          <div class="stamp-tech">PyTorch • U-Net • FastAPI • Docker</div>
+        </div>
+      </div>
+
+      <!-- Experience & Endorsements -->
+      <div class="official-seals">
+        <div class="seal-block">
+          <div class="seal-heading">★ OCTANET SERVICES PVT LTD</div>
+          <div class="seal-text">
+            <strong>Web Developer Intern:</strong> Built production-ready frontend modules and streamlined REST API consumption for web clients.
+          </div>
+        </div>
+        <div class="seal-block">
+          <div class="seal-heading">🏆 TECHBLITZ NATIONAL HACKATHON</div>
+          <div class="seal-text">
+            <strong>2nd Place Winner:</strong> Engineered real-time emergency healthcare routing platform under high-pressure 24-hr contest.
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Actions -->
+      <div class="passport-actions">
+        <a href="../Aryan_Rokade_Resume.pdf" class="action-btn gold" download>
+          📄 Download Travel Dossier (Resume)
+        </a>
+        <a href="https://github.com/aryanrokade7" target="_blank" class="action-btn dark">
+          🐙 GitHub Intelligence
+        </a>
+        <a href="https://linkedin.com/in/aryan-rokade" target="_blank" class="action-btn dark">
+          💼 Diplomatic LinkedIn
+        </a>
+        <a href="mailto:aryanrokade07@gmail.com" class="action-btn dark">
+          ✉️ Send Dispatch
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="switcher.js"></script>
+</body>
+</html>

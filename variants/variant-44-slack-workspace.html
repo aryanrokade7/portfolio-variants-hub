@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Rokade — Slack Enterprise Workspace (Variant 44)</title>
+  <meta name="description" content="Slack Workspace portfolio of Aryan Rokade, Computer Engineering student & Software Developer.">
+  <link rel="stylesheet" href="switcher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slack-aubergine: #3f0e40;
+      --slack-aubergine-dark: #350d36;
+      --slack-sidebar-text: #bcabbc;
+      --slack-active-item: #1164a3;
+      --slack-bg: #1a1d21;
+      --slack-border: #2c3136;
+      --slack-text: #d1d2d3;
+      --slack-title: #ffffff;
+      --slack-green: #2bac76;
+      --font: 'Lato', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--slack-bg);
+      color: var(--slack-text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px;
+      line-height: 1.5;
+    }
+
+    /* Workspace Shell */
+    .slack-app {
+      flex: 1;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Leftmost Rail */
+    .slack-rail {
+      width: 65px;
+      background: var(--slack-aubergine-dark);
+      padding: 14px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+
+    .ws-icon {
+      width: 40px;
+      height: 40px;
+      background: #ecb22e;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Channels Sidebar */
+    .slack-sidebar {
+      width: 250px;
+      background: var(--slack-aubergine);
+      color: var(--slack-sidebar-text);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .ws-header {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ws-header h1 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .ws-header p {
+      font-size: 0.75rem;
+      color: var(--slack-sidebar-text);
+    }
+
+    .channels-scroll {
+      flex: 1;
+      padding: 14px 8px;
+      overflow-y: auto;
+    }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 10px;
+      color: #ab9bab;
+    }
+
+    .channel-item {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--slack-sidebar-text);
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .channel-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .channel-item.active {
+      background: var(--slack-active-item);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Message Stream View */
+    .slack-main {
+      flex: 1;
+      background: var(--slack-bg);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .chat-header {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--slack-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1a1d21;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-info h2 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-info p {
+      font-size: 0.78rem;
+      color: #8b949e;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+    }
+
+    .msg-group {
+      display: flex;
+      gap: 14px;
+    }
+
+    .msg-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .msg-content {
+      flex: 1;
+    }
+
+    .msg-author {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .msg-author strong {
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .msg-author span {
+      font-size: 0.75rem;
+      color: #8b949e;
+    }
+
+    .msg-text {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--slack-text);
+      margin-bottom: 10px;
+    }
+
+    .msg-card {
+      background: #222529;
+      border-left: 4px solid var(--slack-active-item);
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin-top: 8px;
+    }
+
+    .msg-card h3 {
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .msg-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .msg-tags span {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .msg-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.84rem;
+    }
+    .msg-actions a {
+      color: #1d9bf0;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .msg-actions a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .slack-rail { display: none; }
+      .slack-sidebar { width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slack-app">
+    <!-- Left Icon Rail -->
+    <div class="slack-rail">
+      <div class="ws-icon" title="Aryan Rokade Dev Workspace">AR</div>
+    </div>
+
+    <!-- Sidebar Channels -->
+    <aside class="slack-sidebar">
+      <div class="ws-header">
+        <div>
+          <h1>Aryan Rokade</h1>
+          <p>VCET Mumbai · Class of '27</p>
+        </div>
+      </div>
+
+      <div class="channels-scroll">
+        <div class="section-title">Channels</div>
+        <div class="channel-item active" onclick="loadChannel('vyapar', this)">
+          <span>#</span> vyaparflow
+        </div>
+        <div class="channel-item" onclick="loadChannel('sentinel', this)">
+          <span>#</span> cybersentinel
+        </div>
+        <div class="channel-item" onclick="loadChannel('saturn', this)">
+          <span>#</span> saturn-finance
+        </div>
+        <div class="channel-item" onclick="loadChannel('mri', this)">
+          <span>#</span> mri-brain-ai
+        </div>
+        <div class="channel-item" onclick="loadChannel('accolades', this)">
+          <span>#</span> techblitz-awards
+        </div>
+        <div class="channel-item" onclick="loadChannel('contact', this)">
+          <span>#</span> direct-inbox
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Message Stream -->
+    <main class="slack-main">
+      <div class="chat-header">
+        <div class="header-info">
+          <h2 id="channelTitle"># vyaparflow</h2>
+          <p id="channelTopic">Full-stack export-readiness platform for Indian MSME workflows</p>
+        </div>
+        <div>
+          <a href="../Aryan_Rokade_Resume.pdf" download style="color:#1d9bf0; text-decoration:none; font-weight:700; font-size:0.85rem;">
+            📄 Download Resume PDF ↓
+          </a>
+        </div>
+      </div>
+
+      <div class="chat-body" id="chatStream">
+        <!-- Default Content -->
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>Lead Full Stack Developer</span>
+              <span>10:42 AM</span>
+            </div>
+            <p class="msg-text">
+              Shipped the production release of <b>VyaparFlow</b>! Built using Next.js 14, React, TypeScript, and Tailwind CSS.
+            </p>
+            <div class="msg-card">
+              <h3>VyaparFlow — MSME Export Platform</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb; line-height:1.5;">
+                Implemented compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.
+              </p>
+              <div class="msg-tags">
+                <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind CSS</span><span>Prisma</span><span>PostgreSQL</span>
+              </div>
+              <div class="msg-actions">
+                <a href="https://vyaparflow-smoky.vercel.app/" target="_blank">🚀 Launch Live Demo ↗</a>
+                <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank">🐙 GitHub Repository ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const channels = {
+      vyapar: {
+        title: "# vyaparflow",
+        topic: "Full-stack export-readiness platform for Indian MSME workflows",
+        body: `
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>Lead Developer</span>
+              <span>10:42 AM</span>
+            </div>
+            <p class="msg-text">
+              Shipped the production release of <b>VyaparFlow</b>! Built using Next.js 14, React, TypeScript, and Tailwind CSS.
+            </p>
+            <div class="msg-card">
+              <h3>VyaparFlow — MSME Export Platform</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb; line-height:1.5;">
+                Implemented compliance readiness scoring, document management, shipment tracking, multi-role dashboards, and Prisma/PostgreSQL.
+              </p>
+              <div class="msg-tags">
+                <span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind CSS</span><span>Prisma</span><span>PostgreSQL</span>
+              </div>
+              <div class="msg-actions">
+                <a href="https://vyaparflow-smoky.vercel.app/" target="_blank">🚀 Launch Live Demo ↗</a>
+                <a href="https://github.com/Sidd-commits/VyaparFlow" target="_blank">🐙 GitHub Repository ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>`
+      },
+      sentinel: {
+        title: "# cybersentinel",
+        topic: "Cybersecurity threat detection & simulation suite",
+        body: `
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>Security Engineer</span>
+              <span>11:15 AM</span>
+            </div>
+            <p class="msg-text">
+              Interactive cybersecurity suite deployed covering DoS/DDoS, SQL injection, ransomware detection, and phishing URL analysis.
+            </p>
+            <div class="msg-card" style="border-left-color: #f43f5e;">
+              <h3>CyberSentinel Suite — SOC Monitoring Console</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb; line-height:1.5;">
+                Built real-time monitoring dashboards with HTML, CSS, JavaScript, React/Socket.IO, Python Flask, plus phishing URL scoring and a Chrome extension.
+              </p>
+              <div class="msg-tags">
+                <span>React</span><span>Socket.IO</span><span>Flask</span><span>Python</span><span>Chrome Ext</span><span>Snort</span>
+              </div>
+              <div class="msg-actions">
+                <a href="https://github.com/aryanrokade7/CyberSentinel-Suite" target="_blank">🐙 GitHub Repository ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>`
+      },
+      saturn: {
+        title: "# saturn-finance",
+        topic: "Full-Stack personal finance and budget management application",
+        body: `
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>MERN Developer</span>
+              <span>12:00 PM</span>
+            </div>
+            <p class="msg-text">
+              Built <b>Saturn</b>: Personal finance &amp; budgeting telemetry dashboard with categorized expenses and financial statistics.
+            </p>
+            <div class="msg-card" style="border-left-color: #f59e0b;">
+              <h3>Saturn — MERN Wealth Engine</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb; line-height:1.5;">
+                Frontend built with React, Redux Toolkit, and Tailwind CSS; backend powered by Node.js, Express, MongoDB, and JWT authentication.
+              </p>
+              <div class="msg-tags">
+                <span>React</span><span>Redux Toolkit</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Tailwind</span>
+              </div>
+              <div class="msg-actions">
+                <a href="https://github.com/aryanrokade7/Saturnn" target="_blank">🐙 GitHub Repository ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>`
+      },
+      mri: {
+        title: "# mri-brain-ai",
+        topic: "Deep Learning Healthcare AI diagnostic platform",
+        body: `
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>AI Specialist</span>
+              <span>01:30 PM</span>
+            </div>
+            <p class="msg-text">
+              Built a Flask web application classifying cranial MRI scans into Glioma, Meningioma, Pituitary and No Tumor with 98.4% validation accuracy.
+            </p>
+            <div class="msg-card" style="border-left-color: #10b981;">
+              <h3>MRI Brain Tumor Detection System</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb; line-height:1.5;">
+                Trained and evaluated with TensorFlow/Keras using VGG16 transfer learning and confidence scores visualization.
+              </p>
+              <div class="msg-tags">
+                <span>TensorFlow</span><span>Keras</span><span>VGG16</span><span>Flask</span><span>Python</span><span>Deep Learning</span>
+              </div>
+              <div class="msg-actions">
+                <a href="https://github.com/Sidd-commits/MRI-Brain-Tumor-Detection-System" target="_blank">🐙 GitHub Repository ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>`
+      },
+      accolades: {
+        title: "# techblitz-awards",
+        topic: "Recognition, Hackathon Victories & Industry Experience",
+        body: `
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>Engineer</span>
+              <span>02:15 PM</span>
+            </div>
+            <div class="msg-card" style="border-left-color: #ecb22e; margin-bottom:12px;">
+              <h3>🏆 2nd Position — Techblitz Hackathon (March 2025)</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb;">Organized by NSDC Committee in association with VCET AI&DS Department.</p>
+            </div>
+            <div class="msg-card" style="border-left-color: #58a6ff;">
+              <h3>💼 Web Development Intern — Octanet Services (Dec 2024 – Jan 2025)</h3>
+              <p style="font-size:0.86rem; color:#b5b8bb;">Engineered client-side modules and connected RESTful API services.</p>
+            </div>
+          </div>
+        </div>`
+      },
+      contact: {
+        title: "# direct-inbox",
+        topic: "Get in touch with Aryan Rokade directly",
+        body: `
+        <div class="msg-group">
+          <img src="../aryan-rokade.jpg" alt="Aryan" class="msg-avatar">
+          <div class="msg-content">
+            <div class="msg-author">
+              <strong>Aryan Rokade</strong>
+              <span>Available for Hire</span>
+              <span>Now</span>
+            </div>
+            <p class="msg-text">
+              Open to Software Engineering roles, internships, and high-impact full-stack collaborations!
+            </p>
+            <div class="msg-card">
+              <h3>Direct Channels</h3>
+              <p style="font-size:0.88rem; line-height:1.8;">
+                • Email: <a href="mailto:aryanrokade416@gmail.com" style="color:#1d9bf0;">aryanrokade416@gmail.com</a><br>
+                • Phone: <a href="tel:8591224192" style="color:#2bac76; text-decoration:none;">+91 85912 24192</a><br>
+                • GitHub: <a href="https://github.com/aryanrokade7" target="_blank" style="color:#1d9bf0;">github.com/aryanrokade7</a><br>
+                • LinkedIn: <a href="https://www.linkedin.com/in/aryan-rokade-git-aryanrokade7/" target="_blank" style="color:#1d9bf0;">linkedin.com/in/aryan-rokade</a>
+              </p>
+            </div>
+          </div>
+        </div>`
+      }
+    };
+
+    function loadChannel(key, el) {
+      document.querySelectorAll('.channel-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      const ch = channels[key];
+      document.getElementById('channelTitle').innerText = ch.title;
+      document.getElementById('channelTopic').innerText = ch.topic;
+      document.getElementById('chatStream').innerHTML = ch.body;
+    }
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>
