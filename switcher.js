@@ -103,6 +103,9 @@
     inIframe = true;
   }
 
+  const isPreview = window.location.search.includes('preview') || 
+                    window.location.hash.includes('preview');
+
   // 2. UNIVERSAL SMOOTH SCROLLING ENGINE
   function initSmoothScrolling() {
     document.addEventListener('click', function (e) {
@@ -120,18 +123,148 @@
     }, { passive: false });
   }
 
-  // Initialize enhancements on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSmoothScrolling);
-  } else {
-    initSmoothScrolling();
+  // 3. INTERACTIVE AMBIENT BACKGROUND CANVAS
+  function initInteractiveBackground() {
+    if (inIframe || isPreview) return;
+    if (document.getElementById('ap-interactive-canvas')) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.id = 'ap-interactive-canvas';
+    document.body.prepend(canvas);
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0, height = 0;
+    let mouse = { x: -1000, y: -1000, active: false };
+
+    function isDarkTheme() {
+      const docTheme = document.documentElement.getAttribute('data-theme') || document.body.getAttribute('data-theme');
+      if (docTheme === 'light') return false;
+      const bg = window.getComputedStyle(document.body).backgroundColor;
+      if (!bg || bg === 'transparent' || bg.includes('rgba(0, 0, 0, 0)')) return true;
+      const rgb = bg.match(/\d+/g);
+      if (!rgb || rgb.length < 3) return true;
+      const luma = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2];
+      return luma < 140;
+    }
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    window.addEventListener('pointermove', function (e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', function () {
+      mouse.active = false;
+    });
+
+    const count = 30;
+    const particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * (window.innerWidth || 1000),
+        y: Math.random() * (window.innerHeight || 800),
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        radius: Math.random() * 1.5 + 0.8,
+        baseAlpha: Math.random() * 0.35 + 0.15
+      });
+    }
+
+    function render() {
+      if (document.hidden) {
+        requestAnimationFrame(render);
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      const dark = isDarkTheme();
+      const particleColor = dark ? 'rgba(56, 189, 248, ' : 'rgba(30, 41, 59, ';
+      const glowColor = dark ? 'rgba(56, 189, 248, 0.08)' : 'rgba(0, 113, 227, 0.04)';
+
+      // Mouse ambient illumination glow
+      if (mouse.active) {
+        const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 180);
+        grad.addColorStop(0, glowColor);
+        grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 180, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Update & render particles
+      for (let i = 0; i < count; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        else if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        else if (p.y > height) p.y = 0;
+
+        // Mouse gentle repulsion
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 110 && dist > 0) {
+            const force = (110 - dist) / 110 * 0.8;
+            p.x += (dx / dist) * force;
+            p.y += (dy / dist) * force;
+          }
+        }
+
+        ctx.fillStyle = particleColor + p.baseAlpha + ')';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Connect nearby particles
+        for (let j = i + 1; j < count; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 85) {
+            const lineAlpha = (1 - dist / 85) * (dark ? 0.12 : 0.06);
+            ctx.strokeStyle = particleColor + lineAlpha + ')';
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
   }
 
-  // 3. FLOATING BAR CONTROLLER
-  // Suppress floating bar inside iframe OR on the main Variants Hub page OR if preview parameter is passed
-  const isPreview = window.location.search.includes('preview') || 
-                    window.location.hash.includes('preview');
+  // Initialize enhancements on DOM ready
+  function initEnhancements() {
+    initSmoothScrolling();
+    initInteractiveBackground();
+  }
 
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEnhancements);
+  } else {
+    initEnhancements();
+  }
+
+  // 4. FLOATING BAR CONTROLLER
+  // Suppress floating bar inside iframe OR on the main Variants Hub page OR if preview parameter is passed
   const isHubPage = window.location.pathname.includes('variants-hub') || 
                     document.getElementById('simContainer') !== null ||
                     document.getElementById('tilesGrid') !== null;

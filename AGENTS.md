@@ -150,10 +150,10 @@ if (inIframe || isHubPage || isPreview) {
 
 ---
 
-### 3.6. Clean Switcher Experience (No Global Intrusive Overlays)
-Global custom cursor rings, forced global audio clicks, and noisy particle canvas overlays were intentionally removed from `switcher.js`.  
-- **Do NOT add global audio or global custom cursor followers to `switcher.js`.**
-- Audio and bespoke cursors belong strictly to specific, thematic variants that require them (e.g. Game Boy, Winamp, Eurorack Synth, Arcade Fighter).
+### 3.6. Clean Navigation & Ambient Interactive Canvas Policy
+- **Ambient Interactive Background Canvas (`#ap-interactive-canvas`):** Preserved on top-level pages (the Showcase Hub and standalone variants) to render a subtle, responsive constellation particle mesh with gentle mouse repulsion and radial illumination glow. It is cleanly suppressed inside simulator iframes (`inIframe`) and preview snapshots (`isPreview`).
+- **NO Global Audio Clicks:** Forced audio sound synthesis (`APAudio`) is completely excluded from universal navigation to ensure silent, comfortable browsing across all pages.
+- **NO Custom Cursor Overlays:** Natural browser cursor is preserved globally without intrusive pointer circles, rings, or trailing dots. Audio and bespoke cursors belong strictly to specific hardware-themed variants (e.g. Game Boy, Winamp, Eurorack Synth).
 
 ---
 
@@ -301,11 +301,11 @@ Hardware-inspired variants (such as Game Boy #15, NES #43, Walkman #23, Pager #4
 
 ### 5.4. High-Resolution Card Snapshot Previews & Enhanced Horizontal Reel
 Every card in `index.html` showcases a genuine, high-resolution starting snapshot of the respective portfolio variant:
-- **Expanded Card Sizing:** Cards are sized at `350px` width with a `215px` preview frame, `15px 16px` internal padding, and `1.04rem` headings for visual prominence.
-- **Preview Optimization:** Rendered as crisp 640x400 JPEGs (`previews/variant-XX.jpg`) inside `.card-preview-canvas` with hover zoom transitions and chrome title bars.
+- **Taller Card Silhouette:** Cards are proportioned vertically at `290px` width with a `270px` preview frame viewport, `16px 16px 18px 16px` internal padding, and a `1.41:1` height-to-width ratio to avoid squat/wide visual clustering.
+- **Preview Optimization:** Rendered as crisp 640x400 JPEGs (`previews/variant-XX.jpg`) inside `.card-preview-canvas` with top-aligned framing (`object-position: top center`), hover zoom transitions, and window chrome bars.
 - **Mouse Wheel Horizontal Translation:** `#mainCardsGrid` features an intelligent wheel listener that normalizes `e.deltaMode` (38x multiplier for line mode, clientWidth for page mode, 1.25x for pixel mode). It seamlessly translates vertical mouse wheel scrolling into horizontal track panning while releasing the wheel event when the start or end of the track is reached.
 - **Interactive Drag-to-Scroll:** Implements smooth mouse drag-and-drop panning (`cursor: grab`, switching to `grabbing` during active drag) with automatic click-suppression after drag maneuvers.
-- **Trackpad & Arrow Controls:** Supports multi-touch swipe, keyboard bracket keys `[` / `]`, and dual navigation arrows advancing by `740px` (~2 cards) per step.
+- **Trackpad & Arrow Controls:** Supports multi-touch swipe, keyboard bracket keys `[` / `]`, and dual navigation arrows advancing by `620px` (~2 cards) per step.
 
 ### 5.5. Style Replicator & Personalization Studio
 The Hub features a 4-tab **Style Replicator & Customizer Studio** modal (`#templateModal`) allowing any engineer or designer to adopt any of the 84 aesthetic archetypes for their personal portfolio:

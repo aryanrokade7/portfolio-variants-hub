@@ -673,11 +673,24 @@
       background: var(--blue);
     }
 
-    /* INDIVIDUAL VARIANT CARD - EXPANDED & BOLD */
+    /* INTERACTIVE AMBIENT BACKGROUND CANVAS */
+    #ap-interactive-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+      transition: opacity 0.5s ease;
+    }
+
+    /* INDIVIDUAL VARIANT CARD - TALL & SLEEK */
     .variant-card {
-      flex: 0 0 350px;
-      width: 350px;
-      min-width: 350px;
+      flex: 0 0 290px;
+      width: 290px;
+      min-width: 290px;
       scroll-snap-align: start;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -701,10 +714,10 @@
       box-shadow: 0 0 0 2px var(--blue);
     }
 
-    /* CARD PREVIEW WINDOW FRAME */
+    /* CARD PREVIEW WINDOW FRAME - TALL PORTRAIT VIEWPORT */
     .card-preview {
       position: relative;
-      height: 215px;
+      height: 270px;
       border-bottom: 1px solid var(--card-border);
       overflow: hidden;
       display: flex;
@@ -736,7 +749,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      max-width: 250px;
+      max-width: 190px;
     }
 
     .chrome-swatches {
@@ -804,12 +817,13 @@
 
     /* CARD BODY CONTENT - SIMPLIFIED */
     .card-body {
-      padding: 15px 16px;
+      padding: 16px 16px 18px 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
       justify-content: space-between;
-      gap: 11px;
+      gap: 12px;
+      min-height: 125px;
     }
 
     .card-meta-row {
@@ -838,7 +852,7 @@
     }
 
     .card-title {
-      font-size: 1.04rem;
+      font-size: 1.02rem;
       font-weight: 700;
       line-height: 1.25;
       color: var(--text);
@@ -850,8 +864,8 @@
     .card-actions-row {
       display: flex;
       align-items: center;
-      gap: 7px;
-      margin-top: 4px;
+      gap: 6px;
+      margin-top: 6px;
     }
 
     .btn-card-sim {
@@ -859,16 +873,17 @@
       background: var(--blue-subtle);
       border: 1px solid rgba(0, 113, 227, 0.2);
       color: var(--blue);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      padding: 8px 11px;
+      padding: 8px 9px;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
       transition: all 0.15s;
+      white-space: nowrap;
     }
 
     .btn-card-sim:hover {
@@ -880,16 +895,17 @@
       background: var(--green-subtle);
       border: 1px solid rgba(16, 185, 129, 0.3);
       color: var(--green);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 8px 11px;
+      padding: 8px 9px;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
       transition: all 0.15s;
+      white-space: nowrap;
     }
 
     .btn-card-template:hover {
@@ -901,15 +917,16 @@
       background: transparent;
       border: 1px solid var(--card-border);
       color: var(--text-sub);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      padding: 8px 11px;
+      padding: 8px 9px;
       border-radius: 8px;
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 4px;
       transition: all 0.15s;
+      white-space: nowrap;
     }
 
     .btn-card-tab:hover {
@@ -6594,7 +6611,7 @@ Implementation Requirements:
     function scrollCardsHorizontally(direction) {
       const grid = document.getElementById('mainCardsGrid');
       if (!grid) return;
-      const scrollAmount = 740 * direction;
+      const scrollAmount = 620 * direction;
       grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
 

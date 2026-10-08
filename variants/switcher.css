@@ -1,12 +1,26 @@
 /* =======================================================================
-   Universal Switcher & Smooth Navigation for Aryan Rokade Portfolios
-   Features: Universal Smooth Scrolling & Floating Navigation Bar.
-   (Interactive background canvas, custom cursor & audio removed per preference)
+   Universal Switcher & Interactive UI for Aryan Rokade Portfolios
+   Features: Ambient Interactive Background Canvas, Universal Smooth Scrolling
+             & Floating Navigation Bar.
+   (Forced audio sounds & custom cursor removed to preserve natural pointer)
    ======================================================================= */
 
 /* 1. Universal Smooth Scrolling */
 html {
   scroll-behavior: smooth !important;
+}
+
+/* 2. Interactive Ambient Background Canvas (Mouse Illumination & Particle Network) */
+#ap-interactive-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+  transition: opacity 0.5s ease;
 }
 
 /* 2. Switcher Floating Bar */
